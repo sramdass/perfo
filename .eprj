@@ -4,6 +4,8 @@
     <dict>
         <key>fileTriggers</key>
         <dict>
+            <key>TENANT.R</key>
+            <string>..\multitenants\app\models\tenant.rb</string>
             <key>_form</key>
             <string>..\tester\app\views\students\_form.html.erb</string>
             <key>_sem</key>
@@ -28,6 +30,8 @@
             <string>..\multitenants\config\application.rb</string>
             <key>application_C</key>
             <string>..\subdomain\app\controllers\application_controller.rb</string>
+            <key>application_Con</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>application_he</key>
             <string>app\helpers\application_helper.rb</string>
             <key>arti</key>
@@ -72,14 +76,16 @@
             <string>app\views\tenants\new.html.erb</string>
             <key>new.t</key>
             <string>app\views\tenants\new.html.erb</string>
-            <key>pgt</key>
+            <key>pg</key>
             <string>..\multitenants\lib\pgtools.rb</string>
+            <key>pgt</key>
+            <string>lib\pgtools.rb</string>
             <key>route</key>
             <string>config\routes.rb</string>
             <key>routes</key>
             <string>..\multitenants\config\routes.rb</string>
             <key>routes.rb</key>
-            <string>..\multitenants\config\routes.rb</string>
+            <string>config\routes.rb</string>
             <key>schema.rb</key>
             <string>..\multitenants\db\schema.rb</string>
             <key>school.rb</key>
@@ -111,6 +117,8 @@
             <key>tenant.rb</key>
             <string>app\models\tenant.rb</string>
             <key>tenants</key>
+            <string>app\controllers\tenants_controller.rb</string>
+            <key>tenants_co</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenantsco</key>
             <string>..\multitenants\app\controllers\tenants_controller.rb</string>

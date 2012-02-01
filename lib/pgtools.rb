@@ -14,9 +14,25 @@ module PgTools
   end
   
   def create_schema(name)
-     sql = %{CREATE SCHEMA #{name}}
-    get_connection.execute sql
+  	if schemas.include?(name)
+  	  #Raise an exception here
+  	else
+      sql = %{CREATE SCHEMA #{name}}
+      get_connection.execute sql
+    end
   end
+
+  def delete_schema(name)
+  	#The schema's wont be present until the tenant signs up (provide a subdomain)
+  	#This condition is necessary when the admin creates a tenant and has to delete
+  	#the tenant before the tenant signs up.
+  	if schemas.include?(name)
+      sql = %{DROP SCHEMA #{name} CASCADE}
+      get_connection.execute sql
+    else
+      #Log here
+    end
+  end  
   
   def create_tenant(user_name, password)
     sql = %{CREATE USER #{user_name} WITH PASSWORD '#{password}'}
