@@ -54,7 +54,7 @@
   <% @tenants.each do |tenant| %>
     <tr>
       <td> <%= link_to tenant.name, tenant %> </td>
-	  <td> <%= tenant.subdomain ? @tenant.subdomain : "-" %></td> 
+	  <td> <%= tenant.subdomain ? tenant.subdomain : "-" %></td> 
 	  <td> <%= tenant.email %> </td>
 	  <td> <%= tenant.phone %> </td>
 	  <td> <%= tenant.subscription_from %> </td>

@@ -64,6 +64,8 @@
             <string>..\subdomain\Gemfile</string>
             <key>index</key>
             <string>app\views\tenants\index.html.erb</string>
+            <key>index.htm</key>
+            <string>app\views\tenants\index.html.erb</string>
             <key>lab</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>labe</key>

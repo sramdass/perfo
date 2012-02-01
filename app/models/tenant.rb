@@ -50,12 +50,14 @@ class Tenant < ActiveRecord::Base
  private
 
   def prepare_tenant
+  	if activated == true && !activation_token
+  	  activate_tenant
+  	end
   	if subdomain && !subdomain_was
   	  @schema = subdomain
       create_schema
-      #create_tenant
       load_tables
-      #grant_permissions
+      self.activation_token = random_string
     end
   end
 
@@ -86,6 +88,14 @@ class Tenant < ActiveRecord::Base
   	@schema = subdomain
     PgTools.delete_schema @schema
   end
-    
+  
+  def activate_tenant
+    self.activation_token = random_string
+    #send email to the tenant here.
+  end
+  
+  def random_string
+    Base64.encode64(Digest::SHA1.digest("#{rand(1<<64)}/#{Time.now.to_f}/#{Process.pid}/#{Time.now.to_f}"))[0..7]
+  end  
   
 end
