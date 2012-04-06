@@ -8,6 +8,8 @@
             <string>..\tester\app\views\students\_form.html.erb</string>
             <key>appli</key>
             <string>..\tester\app\assets\stylesheets\application.css</string>
+            <key>applicat</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicatiocon</key>
             <string>..\multitenants\app\controllers\application_controller.rb</string>
             <key>application.rb</key>
