@@ -1,0 +1,37 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: perfo_development
+  pool: 5
+  username: postgres
+  password: !23Amores
+  port: 5433
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: perfo_development
+  pool: 5
+  username: postgres
+  password: !23Amores
+  port: 5433
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: perfo_development
+  pool: 5
+  username: postgres
+  password: !23Amores
+  port: 5433
+
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: perfo_development
+  pool: 5
+  username: postgres
+  password: !23Amores
+  port: 5433
+
+
