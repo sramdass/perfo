@@ -1,2 +1,65 @@
-<h1>Tenants#index</h1>
-<p>Find me in app/views/tenants/index.html.erb</p>
+<h1>Tenants Index </h1>
+<%= search_form_for @q do |srch| %>
+  <p>
+	<%= srch.label :name_cont %>
+  	<%= srch.text_field :name_cont %> 
+  </p>
+    <p>
+	<%= srch.label :subdomain_cont %>
+  	<%= srch.text_field :subdomain_cont %> 
+  </p>
+    <p>
+	<%= srch.label :email_cont %>
+  	<%= srch.text_field :email_cont %> 
+  </p>
+    <p>
+	<%= srch.label :phone_cont %>
+  	<%= srch.text_field :phone_cont %> 
+  </p>
+  <p>
+	<%= srch.label :activated_eq, "Activated" %>
+  	<%= srch.select :activated_eq, options_for_select([ ['All', ''], ['Activated', true], ['Not Activated', false]])%> 
+  </p>
+  <p>
+	<%= srch.label :locked_eq, "Locked" %>
+  	<%= srch.select :locked_eq, options_for_select([ ['All', ''], ['Locked', true], ['Not Locked', false]])%> 
+  </p>  
+    <!-- <%= srch.hidden_field :subscription_to_gt, :id => "tenant_subscription_to_gt" %> -->
+    Expired <%= check_box_tag 'q[subscription_to_gt]', Date.today %>  <i> This is not working. Refer the query </i>
+    <p>
+    <%= srch.submit %>
+  </p>
+<% end %>
+
+<table class = 'index_table_z'>
+  <tr>
+  	<td> Name </td>
+  	<td> Subdomain </td>
+  	<td> Email </td>
+  	<td> Phone </td>
+  	<td> Subscription From </td>
+  	<td> Subscription To </td>
+  	<td> Activated </td>
+  	<td> Locked </td>
+  	<td> Expired </td>
+  	<td> Actions </td>
+  </tr>
+  <% @tenants.each do |tenant| %>
+    <tr>
+      <td> <%= link_to tenant.name, tenant %> </td>
+	  <td> <%= tenant.subdomain ? @tenant.subdomain : "-" %></td> 
+	  <td> <%= tenant.email %> </td>
+	  <td> <%= tenant.phone %> </td>
+	  <td> <%= tenant.subscription_from %> </td>
+	  <td> <%= tenant.subscription_to %> </td>
+	  <td> <%= tenant.activated ? 'Y' : 'N' %> </td>
+	  <td> <%= tenant.locked ? 'Y' : 'N' %> </td>
+	  <td> <%= tenant.subscription_to < Date.today ? 'Y' : 'N' %></td>    
+	  <td> <%= link_to "Show", tenant %> | <%= link_to "Edit", edit_tenant_path(tenant) %> | <%= link_to 'Destroy', tenant, :confirm => 'Are you sure?', :method => :delete %> </td>
+	</tr>
+  <% end %>
+</table>
+
+<%= link_to "Add Tenant", new_tenant_path %>
+
+

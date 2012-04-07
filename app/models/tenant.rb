@@ -25,8 +25,8 @@ class Tenant < ActiveRecord::Base
   validates_length_of					:name, 								:maximum => 30
 
   validates_length_of					:subdomain,						:maximum => 30,
-  																									:allow_nil => true
-  validates_uniqueness_of			:subdomain                     																			
+  																									:allow_nil => true #skips the validation if the value is nil
+  validates_uniqueness_of			:subdomain                   																			
   
   validates_inclusion_of				:locked, :activated,			 :in => [true, false]
   

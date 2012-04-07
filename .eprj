@@ -7,7 +7,7 @@
             <key>_form</key>
             <string>..\tester\app\views\students\_form.html.erb</string>
             <key>appli</key>
-            <string>..\tester\app\assets\stylesheets\application.css</string>
+            <string>app\assets\stylesheets\application.css</string>
             <key>applic</key>
             <string>app\helpers\application_helper.rb</string>
             <key>applic.cs</key>
@@ -16,6 +16,8 @@
             <string>app\controllers\application_controller.rb</string>
             <key>applicatiocon</key>
             <string>..\multitenants\app\controllers\application_controller.rb</string>
+            <key>application.j</key>
+            <string>app\assets\javascripts\application.js</string>
             <key>application.r</key>
             <string>config\application.rb</string>
             <key>application.rb</key>
@@ -47,7 +49,7 @@
             <key>gemfil</key>
             <string>..\multitenants\Gemfile</string>
             <key>gemfile</key>
-            <string>..\multitenants\Gemfile</string>
+            <string>Gemfile</string>
             <key>gemfl</key>
             <string>..\subdomain\Gemfile</string>
             <key>index</key>
@@ -74,6 +76,8 @@
             <string>..\tester\app\models\school.rb</string>
             <key>show</key>
             <string>..\multitenants\app\views\tenants\show.html.erb</string>
+            <key>show.rb</key>
+            <string>app\views\tenants\show.html.erb</string>
             <key>stu_sub</key>
             <string>..\tester\app\models\stu_sub_map.rb</string>
             <key>student</key>

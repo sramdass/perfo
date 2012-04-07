@@ -5,6 +5,7 @@
  *= require_self
  *= require_tree . 
 */
+ //= require fb_table_styles.css.scss
 
 body {
   font-family: Verdana, Helvetica, Arial;

@@ -4,6 +4,8 @@ gem 'rails', '3.1.1'
 gem 'jquery-rails'
 gem 'pg'
 gem 'hirb'
+gem "squeel" 
+gem "ransack"
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
