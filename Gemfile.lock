@@ -29,7 +29,7 @@ GEM
       activesupport (= 3.1.1)
     activesupport (3.1.1)
       multi_json (~> 1.0)
-    annotate (2.4.0)
+    annotate (2.4.1.beta1)
     archive-tar-minitar (0.5.2)
     arel (2.2.3)
     builder (3.0.0)
@@ -128,7 +128,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  annotate
+  annotate (~> 2.4.1.beta)
   coffee-rails (~> 3.1.1)
   hirb
   jquery-rails

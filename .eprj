@@ -8,10 +8,16 @@
             <string>..\tester\app\views\students\_form.html.erb</string>
             <key>appli</key>
             <string>..\tester\app\assets\stylesheets\application.css</string>
+            <key>applic</key>
+            <string>app\helpers\application_helper.rb</string>
+            <key>applic.cs</key>
+            <string>app\assets\stylesheets\application.css</string>
             <key>applicat</key>
             <string>app\controllers\application_controller.rb</string>
             <key>applicatiocon</key>
             <string>..\multitenants\app\controllers\application_controller.rb</string>
+            <key>application.r</key>
+            <string>config\application.rb</string>
             <key>application.rb</key>
             <string>..\multitenants\config\application.rb</string>
             <key>application_C</key>
@@ -30,9 +36,13 @@
             <string>config\database.yml</string>
             <key>database</key>
             <string>..\multitenants\config\database.yml</string>
+            <key>en.</key>
+            <string>config\locales\en.yml</string>
             <key>gem</key>
             <string>..\multitenants\Gemfile</string>
             <key>gemf</key>
+            <string>Gemfile</string>
+            <key>gemfi</key>
             <string>Gemfile</string>
             <key>gemfil</key>
             <string>..\multitenants\Gemfile</string>
@@ -42,12 +52,18 @@
             <string>..\subdomain\Gemfile</string>
             <key>index</key>
             <string>..\multitenants\app\views\subjects\index.html.erb</string>
+            <key>labe</key>
+            <string>app\from_builders\labeled_form_builder.rb</string>
+            <key>label</key>
+            <string>app\from_builders\labeled_form_builder.rb</string>
             <key>new</key>
             <string>..\multitenants\app\views\subjects\new.html.erb</string>
+            <key>new.t</key>
+            <string>app\views\tenants\new.html.erb</string>
             <key>pgt</key>
             <string>..\multitenants\lib\pgtools.rb</string>
             <key>route</key>
-            <string>..\subdomain\config\routes.rb</string>
+            <string>config\routes.rb</string>
             <key>routes</key>
             <string>..\multitenants\config\routes.rb</string>
             <key>routes.rb</key>
@@ -77,11 +93,11 @@
             <key>subjects_c</key>
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
             <key>tenant</key>
-            <string>..\multitenants\app\models\tenant.rb</string>
+            <string>app\models\tenant.rb</string>
             <key>tenant.rb</key>
             <string>..\multitenants\app\models\tenant.rb</string>
             <key>tenants</key>
-            <string>..\multitenants\app\controllers\tenants_controller.rb</string>
+            <string>app\controllers\tenants_controller.rb</string>
             <key>tenantsco</key>
             <string>..\multitenants\app\controllers\tenants_controller.rb</string>
             <key>tenat</key>

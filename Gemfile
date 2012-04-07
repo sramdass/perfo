@@ -13,7 +13,7 @@ end
 
 group :development do
   gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'annotate'
+  gem 'annotate', '~> 2.4.1.beta'
 end
 
 group :production, :staging do
