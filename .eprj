@@ -6,11 +6,15 @@
         <dict>
             <key>_form</key>
             <string>..\tester\app\views\students\_form.html.erb</string>
+            <key>_sem</key>
+            <string>app\views\shared\_semi_index.html.erb</string>
             <key>appli</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applic</key>
-            <string>app\helpers\application_helper.rb</string>
+            <string>app\views\layouts\application.html.erb</string>
             <key>applic.cs</key>
+            <string>app\assets\stylesheets\application.css</string>
+            <key>applica</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applicat</key>
             <string>app\controllers\application_controller.rb</string>
@@ -24,6 +28,8 @@
             <string>..\multitenants\config\application.rb</string>
             <key>application_C</key>
             <string>..\subdomain\app\controllers\application_controller.rb</string>
+            <key>application_he</key>
+            <string>app\helpers\application_helper.rb</string>
             <key>arti</key>
             <string>..\subdomain\app\models\article.rb</string>
             <key>articles</key>
@@ -53,13 +59,17 @@
             <key>gemfl</key>
             <string>..\subdomain\Gemfile</string>
             <key>index</key>
-            <string>..\multitenants\app\views\subjects\index.html.erb</string>
+            <string>app\views\tenants\index.html.erb</string>
+            <key>lab</key>
+            <string>app\from_builders\labeled_form_builder.rb</string>
             <key>labe</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>label</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>new</key>
             <string>..\multitenants\app\views\subjects\new.html.erb</string>
+            <key>new.ht</key>
+            <string>app\views\tenants\new.html.erb</string>
             <key>new.t</key>
             <string>app\views\tenants\new.html.erb</string>
             <key>pgt</key>
@@ -99,7 +109,7 @@
             <key>tenant</key>
             <string>app\models\tenant.rb</string>
             <key>tenant.rb</key>
-            <string>..\multitenants\app\models\tenant.rb</string>
+            <string>app\models\tenant.rb</string>
             <key>tenants</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenantsco</key>

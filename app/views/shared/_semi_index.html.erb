@@ -1,0 +1,29 @@
+<h2> <%= model_name %>&nbsp; list </h2>
+<% source = model_name.constantize %>
+
+<table class = 'datatable_full'>
+  <thead>
+    <tr>
+  	  <% columns.each do |col| %>
+  	    <th> <%= col.humanize %> </th>
+  	  <% end %>
+  	  <th> Actions </th>
+    </tr>
+  </thead>
+  <tbody>
+  	<% source.all.each do |obj| %>
+  	  <tr>
+        <% columns.each do |col| %>
+	      <td> <%= obj.send(col) %> </td>
+        <% end %>
+        <td> 
+    	    <%= link_to 'View', obj %> &nbsp; | 
+    		&nbsp; <%= link_to 'Edit', edit_link(obj) %>&nbsp; | 
+    	 	&nbsp; <%=link_to 'Destroy', obj, :confirm => 'Are you sure?', :method => :delete %> 
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

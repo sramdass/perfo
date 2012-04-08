@@ -2,6 +2,10 @@ class TenantsController < ApplicationController
   def new
     @tenant = Tenant.new
   end
+  
+  def edit
+  	@tenant = Tenant.find(params[:id])
+  end
 
   def index
   	#@tenants = Tenant.all
@@ -19,11 +23,25 @@ class TenantsController < ApplicationController
       @tenant = Tenant.new(params[:tenant])
       if @tenant.save
         flash[:notice] = "Tenant created"
-        redirect_to tenants_path
+        if params[:create_and_add]
+          redirect_to new_tenant_path
+        else
+          redirect_to tenants_path
+        end
       else
         render :new
       end
   end
+  
+  def update
+    @tenant = Tenant.find(params[:id])
+      if @tenant.update_attributes(params[:tenant])
+      	flash[:notice] = 'Tenant successfully updated'
+        redirect_to tenants_path
+      else
+        render :edit
+      end
+  end  
   
   def destroy
     Tenant.find(params[:id]).destroy

@@ -44,5 +44,6 @@ class Tenant < ActiveRecord::Base
   #HUMANIZED_ATTRIBUTES = {  }
   #def self.human_attribute_name(attr)
     #HUMANIZED_ATTRIBUTES[attr.to_sym] || super
-  #end                       																			
+  #end                   
+  
 end

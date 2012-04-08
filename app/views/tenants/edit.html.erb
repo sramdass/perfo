@@ -2,13 +2,10 @@
 </div>
 
 <div id="container">	
-  <h1> New Tenant </h1>
+  <h1> Edit Tenant </h1>
   <%= labeled_form_for @tenant do |f| %>
     <%= render 'tenant_fields', :f => f %>
     <%= f.submit %>
-    <div class="actions">
-      <%= submit_tag 'Create and Add another Tenant ', :name => 'create_and_add' %>  	
-    </div>
   <% end %>
 </div>
 <div id="side-bar">
