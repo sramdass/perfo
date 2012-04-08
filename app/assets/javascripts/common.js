@@ -8,4 +8,7 @@ $("#tenant_expired").click(function() {
         $("#tenant_subscription_to_gt").removeAttr('value');
     }
 	});
+	
+  $('.datatable_full').dataTable();
+  
 });
