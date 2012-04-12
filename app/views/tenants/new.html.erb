@@ -1,17 +1,30 @@
-<div id="left-nav">
+<div class="span2">
+<ul class="nav nav-list">
+  <li class="nav-header">List header</li>
+  <li class="active"><a href="#"><i class="icon-white icon-home"></i> Home</a></li>
+  <li><a href="#"><i class="icon-book"></i> Library</a></li>
+  <li><a href="#"><i class="icon-pencil"></i> Applications</a></li>
+  <li class="nav-header">Another list header</li>
+  <li><a href="#"><i class="icon-user"></i> Profile</a></li>
+  <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+  <li class="divider"></li>
+  <li><a href="#"><i class="icon-flag"></i> Help</a></li>
+</ul>
 </div>
-
-<div id="container">	
-  <h1> New Tenant </h1>
-  <%= labeled_form_for @tenant do |f| %>
+<div class="span6">
+  <%= simple_form_for @tenant, :html => { :class => 'form-horizontal' } do |f| %>
+  <legend> New Tenant </legend>
     <%= render 'tenant_fields', :f => f %>
-    <%= f.submit %>
-    <div class="actions">
-      <%= submit_tag 'Create and Add another Tenant ', :name => 'create_and_add' %>  	
-    </div>
+    
+  <div class="form-actions">
+  	<%= render 'shared/buttons', :buttons => {'submit' => "Create", "create_and_add" => "Create and Repeat", "cancel" => "Cancel" }%>
+  </div>  
   <% end %>
 </div>
-<div id="side-bar">
+<div class="span3">
   <%= render 'shared/semi_index', :model_name => "Tenant",
- 															  :columns => ['name', 'activated', 'locked'] %>
-</div> 															  
+																:columns => ['name', 'activated'] %>
+</div>
+
+
+

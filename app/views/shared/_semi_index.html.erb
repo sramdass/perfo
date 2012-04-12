@@ -17,9 +17,15 @@
 	      <td> <%= obj.send(col) %> </td>
         <% end %>
         <td> 
-    	    <%= link_to 'View', obj %> &nbsp; | 
-    		&nbsp; <%= link_to 'Edit', edit_link(obj) %>&nbsp; | 
-    	 	&nbsp; <%=link_to 'Destroy', obj, :confirm => 'Are you sure?', :method => :delete %> 
+	      <%= link_to obj, :class => 'btn btn-mini btn-info' do %>
+            <i class="icon-file icon-white"> </i>
+          <% end %>
+	   	  <%= link_to edit_link(obj), :class => 'btn btn-mini btn-warning' do %>
+            <i class="icon-pencil icon-white"> </i>
+          <% end %>        
+	   	  <%= link_to obj, :class => 'btn btn-mini btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
+            <i class="icon-trash icon-white"> </i>
+          <% end %>                      
         </td>
       </tr>
     <% end %>

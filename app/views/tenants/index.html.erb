@@ -1,38 +1,55 @@
-<div id="left-nav">
-	
+<div class="span2">
+  <h1> Nav links </h1>	
 </div>
-<div id="double-container">
+<div class='span9'>
 <h1>Tenants Index </h1>
-<%= search_form_for @q do |srch| %>
-  <p>
-	<%= srch.label :name_cont %>
-  	<%= srch.text_field :name_cont %> 
-  </p>
-    <p>
-	<%= srch.label :subdomain_cont %>
-  	<%= srch.text_field :subdomain_cont %> 
-  </p>
-    <p>
-	<%= srch.label :email_cont %>
-  	<%= srch.text_field :email_cont %> 
-  </p>
-    <p>
-	<%= srch.label :phone_cont %>
-  	<%= srch.text_field :phone_cont %> 
-  </p>
-  <p>
-	<%= srch.label :activated_eq, "Activated" %>
-  	<%= srch.select :activated_eq, options_for_select([ ['All', ''], ['Activated', true], ['Not Activated', false]])%> 
-  </p>
-  <p>
-	<%= srch.label :locked_eq, "Locked" %>
-  	<%= srch.select :locked_eq, options_for_select([ ['All', ''], ['Locked', true], ['Not Locked', false]])%> 
-  </p>  
-    <!-- <%= srch.hidden_field :subscription_to_gt, :id => "tenant_subscription_to_gt" %> -->
-    Expired <%= check_box_tag 'q[subscription_to_gt]', Date.today %>  <i> This is not working. Refer the query </i>
-    <p>
-    <%= srch.submit %>
-  </p>
+<%= search_form_for @q, :html => {:class => 'form-horizontal' } do |srch| %>
+  <fieldset>
+    <div class="control-group">
+	  <%= srch.label :name_cont, :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :name_cont, :class=> "input-medium" %> 
+   	  </div>
+  	</div>
+
+    <div class="control-group">
+	  <%= srch.label :subdomain_cont , :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :subdomain_cont , :class=> "input-medium" %> 
+   	  </div>
+  	</div>
+  	
+    <div class="control-group">
+	  <%= srch.label :email_cont, :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :email_cont, :class=> "input-medium" %> 
+   	  </div>
+  	</div>
+  	
+    <div class="control-group">
+	  <%= srch.label :phone_cont, :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :phone_cont, :class=> "input-medium" %> 
+   	  </div>
+  	</div>  	  	
+
+    <div class="control-group">
+      <%= srch.label :activated_eq, "Activated", :class=> "control-label" %>
+      <div class="controls">
+  	    <%= srch.select :activated_eq, options_for_select([ ['All', ''], ['Activated', true], ['Not Activated', false]]), {}, {:class => 'span2' } %> 
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= srch.label :locked_eq, "Locked", :class=> "control-label" %>
+      <div class="controls">
+  	    <%= srch.select :locked_eq, options_for_select([ ['All', ''], ['Locked', true], ['Not Locked', false]]), {}, {:class => 'span2' }%> 
+      </div>
+    </div>    
+    <div class="form-actions">
+      <%= srch.submit nil, :class => "btn btn-primary"%>
+    </div>
+  </fieldset>
 <% end %>
 
 <table class = 'datatable_full'>
@@ -62,13 +79,24 @@
 	  <td> <%= tenant.activated ? 'Y' : 'N' %> </td>
 	  <td> <%= tenant.locked ? 'Y' : 'N' %> </td>
 	  <td> <%= tenant.subscription_to < Date.today ? 'Y' : 'N' %></td>    
-	  <td> <%= link_to "Show", tenant %> | <%= link_to "Edit", edit_tenant_path(tenant) %> | <%= link_to 'Destroy', tenant, :confirm => 'Are you sure?', :method => :delete %> </td>
+	  <td>
+  	    <%= link_to tenant, :class => 'btn btn-mini btn-info' do %>
+          <i class="icon-file icon-white"> </i> View
+        <% end %>
+   	    <%= link_to edit_tenant_path(tenant), :class => 'btn btn-mini btn-warning' do %>
+          <i class="icon-pencil icon-white"> </i> Edit
+        <% end %>        
+   	    <%= link_to tenant, :class => 'btn btn-mini btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
+          <i class="icon-trash icon-white"> </i> Delete
+        <% end %>   
+      </td>    
 	</tr>
   <% end %>
 </tbody>
 </table>
-
-<%= link_to "Add Tenant", new_tenant_path %>
+<p>
+  <%= link_to "Add Tenant", new_tenant_path %>
+<p>
 </div>
 
 

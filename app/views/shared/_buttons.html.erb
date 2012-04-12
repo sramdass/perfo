@@ -1,0 +1,19 @@
+<% buttons.each do |type, name| %>
+  <% if type == "submit" %>
+    <%= button_tag(:type => 'submit', :name => 'create', :class => "btn btn-success btn-large" ) do %>
+      <i class="icon-ok icon-white"> </i> <%= name %>
+    <% end %>
+  <% end %>
+  
+  <% if type == "create_and_add"%>
+    <%= button_tag(:type => 'submit', :name => 'create_and_add', :class => "btn btn-success btn-large" ) do %>
+      <i class="icon-repeat icon-white"> </i> <%= name %>
+    <% end %>
+  <% end %>
+  
+  <% if type == "cancel" %>
+    <%= link_to tenants_path, :class => 'btn btn-danger btn-large' do  %>
+       <i class="icon-off icon-white"> </i> <%= name %>
+    <% end %>
+  <% end %>
+<% end %>

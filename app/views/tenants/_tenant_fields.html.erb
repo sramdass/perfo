@@ -1,7 +1,11 @@
-<%= f.text_field :name %>
-<%= f.text_field :email, label: "Tenant Email" %>
-<%= f.text_field :phone %>
-<%= f.date_select :subscription_from %>
-<%= f.date_select :subscription_to %>
-<%= f.check_box :activated %>
-<%= f.check_box :locked %>
+<%= f.input :name  %>
+<%= f.input :email  %>
+<%= f.input :phone %>
+<%= f.input :subscription_from, :as => :date, :start_year => Date.today.year - 5,
+                              :end_year => Date.today.year + 15,:order => [:day, :month, :year], :input_html => { :class => 'span1' }%>
+<%= f.input :subscription_to, :as => :date, :start_year => Date.today.year - 5,
+                              :end_year => Date.today.year + 15,:order => [:day, :month, :year], :input_html => { :class => 'span1' }%>                              
+<%= f.input :locked %> 
+<%= f.input :activated %>
+
+

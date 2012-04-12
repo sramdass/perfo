@@ -1,0 +1,25 @@
+// Set the correct sprite paths
+//$iconSpritePath: image-path('glyphicons-halflings.png');
+//$iconWhiteSpritePath: image-path('glyphicons-halflings-white.png');
+$iconSpritePath: asset-url('glyphicons-halflings.png', image);
+$iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
+//Total width should be 1280. 1280/12 = 106. 
+//The sum of column and gutter width should be ~106
+$gridColumnWidth: 90px;
+$gridGutterWidth: 16px;
+$navbarText: #eee;
+$navbarLinkColor: #eee;
+
+
+@import "bootstrap";
+
+body { padding-top: 60px; }
+
+.navbar .brand {
+  color: #FAFFB8;
+}
+
+div.container{
+  border: 1px solid green;
+}
+

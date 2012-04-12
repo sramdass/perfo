@@ -10,19 +10,31 @@
             <string>..\tester\app\views\students\_form.html.erb</string>
             <key>_sem</key>
             <string>app\views\shared\_semi_index.html.erb</string>
+            <key>app</key>
+            <string>app\views\layouts\application.html.erb</string>
             <key>appli</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applic</key>
-            <string>app\views\layouts\application.html.erb</string>
+            <string>app\assets\stylesheets\application.css</string>
             <key>applic.cs</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applica</key>
             <string>app\assets\stylesheets\application.css</string>
+            <key>applicab</key>
+            <string>config\application.rb</string>
+            <key>applicaio.htm</key>
+            <string>app\views\layouts\application.html.erb</string>
             <key>applicat</key>
             <string>app\controllers\application_controller.rb</string>
+            <key>applicatio</key>
+            <string>app\assets\stylesheets\application.css</string>
             <key>applicatiocon</key>
             <string>..\multitenants\app\controllers\application_controller.rb</string>
+            <key>application</key>
+            <string>app\assets\stylesheets\application.css</string>
             <key>application.j</key>
+            <string>app\assets\javascripts\application.js</string>
+            <key>application.js</key>
             <string>app\assets\javascripts\application.js</string>
             <key>application.r</key>
             <string>config\application.rb</string>
@@ -42,14 +54,22 @@
             <string>..\subdomain\app\models\blog.rb</string>
             <key>blogs_c</key>
             <string>..\subdomain\app\controllers\blogs_controller.rb</string>
+            <key>bootstra</key>
+            <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
             <key>data</key>
-            <string>..\multitenants\config\database.yml</string>
+            <string>app\assets\stylesheets\jquery.dataTables.css.scss</string>
             <key>datab</key>
             <string>config\database.yml</string>
             <key>database</key>
             <string>..\multitenants\config\database.yml</string>
+            <key>devel</key>
+            <string>config\environments\development.rb</string>
+            <key>edit</key>
+            <string>app\views\tenants\edit.html.erb</string>
             <key>en.</key>
             <string>config\locales\en.yml</string>
+            <key>field</key>
+            <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>gem</key>
             <string>..\multitenants\Gemfile</string>
             <key>gemf</key>
@@ -64,6 +84,8 @@
             <string>..\subdomain\Gemfile</string>
             <key>index</key>
             <string>app\views\tenants\index.html.erb</string>
+            <key>index.ht</key>
+            <string>app\views\tenants\index.html.erb</string>
             <key>index.htm</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>lab</key>
@@ -73,7 +95,7 @@
             <key>label</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>new</key>
-            <string>..\multitenants\app\views\subjects\new.html.erb</string>
+            <string>app\views\tenants\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\tenants\new.html.erb</string>
             <key>new.t</key>
@@ -92,6 +114,8 @@
             <string>..\multitenants\db\schema.rb</string>
             <key>school.rb</key>
             <string>..\tester\app\models\school.rb</string>
+            <key>semi</key>
+            <string>app\views\shared\_semi_index.html.erb</string>
             <key>show</key>
             <string>..\multitenants\app\views\tenants\show.html.erb</string>
             <key>show.rb</key>

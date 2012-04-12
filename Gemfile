@@ -6,15 +6,18 @@ gem 'pg'
 gem 'hirb'
 gem "squeel" 
 gem "ransack"
+gem "simple_form"
+gem 'debugger', group: [:development, :test]
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'bootstrap-sass'
 end
 
 group :development do
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  #gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'annotate', '~> 2.4.1.beta'
 end
 

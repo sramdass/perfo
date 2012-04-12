@@ -1,14 +1,17 @@
-<div id="left-nav">
+<div class="span2">
+  <h1> Nav links </h1>
 </div>
-
-<div id="container">	
+<div class="span6">
   <h1> Edit Tenant </h1>
-  <%= labeled_form_for @tenant do |f| %>
+  <%= simple_form_for @tenant, :html => { :class => 'form-horizontal' } do |f| %>
+  <legend> Edit Tenant </legend>
     <%= render 'tenant_fields', :f => f %>
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= render 'shared/buttons', :buttons => {'submit' => "Update Tenant", "cancel" => "Cancel" }%>
+  </div>  
   <% end %>
 </div>
-<div id="side-bar">
+<div class="span3">
   <%= render 'shared/semi_index', :model_name => "Tenant",
- 															  :columns => ['name', 'activated', 'locked'] %>
-</div> 															  
+																:columns => ['name', 'activated'] %>
+</div>
