@@ -17,7 +17,7 @@
     <%= render 'tenant_fields', :f => f %>
     
   <div class="form-actions">
-  	<%= render 'shared/buttons', :buttons => {'submit' => "Create", "create_and_add" => "Create and Repeat", "cancel" => "Cancel" }%>
+  	<%= render 'shared/buttons', :obj => @tenant, :buttons => {'submit' => "Create", "create_and_add" => "Create and Repeat", "cancel" => "Cancel" }%>
   </div>  
   <% end %>
 </div>

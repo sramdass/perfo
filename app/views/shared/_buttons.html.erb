@@ -12,7 +12,7 @@
   <% end %>
   
   <% if type == "cancel" %>
-    <%= link_to tenants_path, :class => 'btn btn-danger btn-large' do  %>
+    <%= link_to index_link(obj), :class => 'btn btn-danger btn-large' do  %>
        <i class="icon-off icon-white"> </i> <%= name %>
     <% end %>
   <% end %>

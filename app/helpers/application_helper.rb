@@ -13,5 +13,14 @@ module ApplicationHelper
   	    nil
     end
   end
+  
+  def index_link(obj)
+  	case obj.class.to_s
+  	  when  "Tenant"
+  	    tenants_path
+  	 when nil
+  	    nil
+    end
+  end  
 
 end

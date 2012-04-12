@@ -26,6 +26,8 @@
             <string>app\views\layouts\application.html.erb</string>
             <key>applicat</key>
             <string>app\controllers\application_controller.rb</string>
+            <key>applicatin.rb</key>
+            <string>config\application.rb</string>
             <key>applicatio</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applicatiocon</key>
@@ -44,6 +46,8 @@
             <string>..\subdomain\app\controllers\application_controller.rb</string>
             <key>application_Con</key>
             <string>app\controllers\application_controller.rb</string>
+            <key>application_c</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>application_he</key>
             <string>app\helpers\application_helper.rb</string>
             <key>arti</key>
@@ -56,6 +60,8 @@
             <string>..\subdomain\app\controllers\blogs_controller.rb</string>
             <key>bootstra</key>
             <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
+            <key>butt</key>
+            <string>app\views\shared\_buttons.html.erb</string>
             <key>data</key>
             <string>app\assets\stylesheets\jquery.dataTables.css.scss</string>
             <key>datab</key>
@@ -88,6 +94,12 @@
             <string>app\views\tenants\index.html.erb</string>
             <key>index.htm</key>
             <string>app\views\tenants\index.html.erb</string>
+            <key>instit</key>
+            <string>app\models\institution.rb</string>
+            <key>institcon</key>
+            <string>app\controllers\institutions_controller.rb</string>
+            <key>institu.rb</key>
+            <string>app\models\institution.rb</string>
             <key>lab</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>labe</key>
@@ -98,6 +110,8 @@
             <string>app\views\tenants\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\tenants\new.html.erb</string>
+            <key>new.html</key>
+            <string>app\views\institutions\new.html.erb</string>
             <key>new.t</key>
             <string>app\views\tenants\new.html.erb</string>
             <key>pg</key>
@@ -107,7 +121,9 @@
             <key>route</key>
             <string>config\routes.rb</string>
             <key>routes</key>
-            <string>..\multitenants\config\routes.rb</string>
+            <string>config\routes.rb</string>
+            <key>routes.</key>
+            <string>config\routes.rb</string>
             <key>routes.rb</key>
             <string>config\routes.rb</string>
             <key>schema.rb</key>
@@ -139,7 +155,7 @@
             <key>subjects_c</key>
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
             <key>tenant</key>
-            <string>app\models\tenant.rb</string>
+            <string>app\models\tenant_manager.rb</string>
             <key>tenant.rb</key>
             <string>app\models\tenant.rb</string>
             <key>tenants</key>
@@ -152,6 +168,10 @@
             <string>..\multitenants\app\models\tenant.rb</string>
             <key>tenatsco</key>
             <string>..\multitenants\app\controllers\tenants_controller.rb</string>
+            <key>toins</key>
+            <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
+            <key>toinst</key>
+            <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
         </dict>
     </dict>
 </plist>

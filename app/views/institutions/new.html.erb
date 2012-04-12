@@ -1,0 +1,31 @@
+<div class="span2">
+<ul class="nav nav-list">
+  <li class="nav-header">MASTER LIST </li>
+  <li class="active"><a href="#"><i class="icon-white icon-home"></i> College</a></li>
+  <li><a href="#"><i class="icon-book"></i> Semesters</a></li>
+  <li><a href="#"><i class="icon-pencil"></i> Departments</a></li>
+  <li><a href="#"><i class="icon-pencil"></i> Teachers</a></li>
+  <li><a href="#"><i class="icon-pencil"></i> Batches</a></li>
+  <li><a href="#"><i class="icon-pencil"></i> Subjects</a></li>
+    <li><a href="#"><i class="icon-pencil"></i> Exams</a></li>
+  <li class="nav-header">DATA ENTRY </li>
+  <li><a href="#"><i class="icon-user"></i> Associate Batches </a></li>
+  <li><a href="#"><i class="icon-cog"></i> Associate Subjects</a></li>
+  <li class="divider"></li>
+  <li><a href="#"><i class="icon-flag"></i> User Profiles </a></li>
+  <li><a href="#"><i class="icon-flag"></i> Permissions and Roles </a></li>
+  <li><a href="#"><i class="icon-flag"></i> Settings</a></li>
+</ul>
+</div>
+<div class="span9">
+  <%= simple_form_for @institution, :html => { :class => 'form-horizontal' } do |f| %>
+  <legend> New Institution </legend>
+    <%= render 'institution_fields', :f => f %>
+    <div class="form-actions">
+  	  <%= render 'shared/buttons', :obj => @institution, :buttons => {'submit' => "Create", "cancel" => "Cancel" }%>
+    </div>  
+  <% end %>
+</div>
+
+
+

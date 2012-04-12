@@ -7,7 +7,7 @@
   <legend> Edit Tenant </legend>
     <%= render 'tenant_fields', :f => f %>
   <div class="form-actions">
-    <%= render 'shared/buttons', :buttons => {'submit' => "Update Tenant", "cancel" => "Cancel" }%>
+    <%= render 'shared/buttons', :obj => @tenant,:buttons => {'submit' => "Update Tenant", "cancel" => "Cancel" }%>
   </div>  
   <% end %>
 </div>
