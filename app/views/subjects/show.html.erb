@@ -1,0 +1,24 @@
+<%= render 'shared/nav_links', :for_role => 'data_entry' %>
+<div class="span9">
+	<legend><%= @subject.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @subject.name %></td>
+      </tr>
+      <tr>
+        <td>Short Name</td>
+        <td><%= @subject.short_name %></td>
+      </tr>
+      <tr>
+        <td>Code</td>
+        <td><%= @subject.code %></td>
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td><%= @subject.lab ? "Practicals" : "Theory" %></td>
+      </tr>      
+    </tbody>  
+  </table>
+</div>

@@ -17,6 +17,9 @@
 class Institution < TenantManager
   																									
   has_many :semesters  	
+  has_many :departments
+  has_many :subjects
+  has_many :exams
 	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	

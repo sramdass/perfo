@@ -1,0 +1,20 @@
+<%= render 'shared/nav_links', :for_role => 'data_entry' %>
+<div class="span9">
+	<legend><%= @exam.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @exam.name %></td>
+      </tr>
+      <tr>
+        <td>Short Name</td>
+        <td><%= @exam.short_name %></td>
+      </tr>
+      <tr>
+        <td>Code</td>
+        <td><%= @exam.code %></td>
+      </tr>
+    </tbody>  
+  </table>
+</div>

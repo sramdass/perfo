@@ -12,8 +12,12 @@
             <string>db\migrate\20120414033418_rename_type_to_tipe_in_institutions.rb</string>
             <key>_sem</key>
             <string>app\views\shared\_semi_index.html.erb</string>
+            <key>_sufi</key>
+            <string>app\views\subjects\_subject_fields.html.erb</string>
             <key>app</key>
             <string>app\views\layouts\application.html.erb</string>
+            <key>apphelper</key>
+            <string>app\helpers\application_helper.rb</string>
             <key>appli</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applic</key>
@@ -76,6 +80,8 @@
             <string>app\models\department.rb</string>
             <key>depar</key>
             <string>app\models\department.rb</string>
+            <key>departmcon</key>
+            <string>app\controllers\departments_controller.rb</string>
             <key>departmentscon</key>
             <string>app\controllers\departments_controller.rb</string>
             <key>devel</key>
@@ -84,6 +90,10 @@
             <string>app\views\institutions\edit.html.erb</string>
             <key>en.</key>
             <string>config\locales\en.yml</string>
+            <key>exam</key>
+            <string>app\models\exam.rb</string>
+            <key>exam_con</key>
+            <string>app\controllers\exams_controller.rb</string>
             <key>field</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>gem</key>
@@ -99,7 +109,7 @@
             <key>gemfl</key>
             <string>..\subdomain\Gemfile</string>
             <key>index</key>
-            <string>app\views\semesters\index.html.erb</string>
+            <string>app\views\tenants\index.html.erb</string>
             <key>index.h</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>index.ht</key>
@@ -120,6 +130,8 @@
             <string>app\models\institution.rb</string>
             <key>institcon</key>
             <string>app\controllers\institutions_controller.rb</string>
+            <key>institu</key>
+            <string>app\models\institution.rb</string>
             <key>institu.rb</key>
             <string>app\models\institution.rb</string>
             <key>institution.r</key>
@@ -156,6 +168,8 @@
             <string>lib\pgtools.rb</string>
             <key>pgtoo</key>
             <string>app\pgtools\pgtools.rb</string>
+            <key>rout</key>
+            <string>config\routes.rb</string>
             <key>route</key>
             <string>config\routes.rb</string>
             <key>routes</key>
@@ -198,10 +212,14 @@
             <string>..\tester\app\controllers\students_controller.rb</string>
             <key>subjec</key>
             <string>..\multitenants\app\models\subject.rb</string>
+            <key>subjecr</key>
+            <string>app\models\subject.rb</string>
             <key>subject</key>
-            <string>..\multitenants\app\models\subject.rb</string>
+            <string>app\models\subject.rb</string>
             <key>subject.rb</key>
-            <string>..\multitenants\app\models\subject.rb</string>
+            <string>app\models\subject.rb</string>
+            <key>subjectco</key>
+            <string>app\controllers\subjects_controller.rb</string>
             <key>subjects_C</key>
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
             <key>subjects_c</key>
