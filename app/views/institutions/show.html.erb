@@ -1,2 +1,32 @@
-<h1>Institutions#show</h1>
-<p>Find me in app/views/institutions/show.html.erb</p>
+<%= render 'shared/nav_links', :for_role => 'data_entry' %>
+<div class="span9">
+	<legend><%= @institution.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @institution.name %></td>
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td><%= @institution.tipe %></td>
+      </tr>
+      <tr>
+        <td>CEO</td>
+        <td><%= @institution.ceo %></td>
+      </tr>
+      <tr>
+        <td>Address</td>
+        <td><%= @institution.address %></td>
+      </tr>            
+      <tr>
+        <td>Registered Address</td>
+        <td><%= @institution.registered_address %></td>
+      </tr>         
+      <tr>
+        <td>URL</td>
+        <td><%= link_to "http://#{@institution.subdomain}.perfo.in", institution_root_path %></td>
+      </tr>                
+    </tbody>  
+  </table>
+</div>

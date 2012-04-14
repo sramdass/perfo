@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120412154906) do
+ActiveRecord::Schema.define(:version => 20120414033418) do
 
   create_table "institutions", :force => true do |t|
     t.string   "name"
-    t.string   "type"
+    t.string   "tipe"
     t.text     "address"
     t.text     "registered_address"
     t.string   "ceo"

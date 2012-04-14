@@ -1,4 +1,6 @@
 class TenantsController < ApplicationController
+  skip_before_filter :load_tenant
+	
   def new
     @tenant = Tenant.new
   end
@@ -46,6 +48,9 @@ class TenantsController < ApplicationController
   def destroy
     Tenant.find(params[:id]).destroy
     redirect_to tenants_path
+  end
+  
+  def invalid
   end
     
 end

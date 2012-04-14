@@ -1,0 +1,33 @@
+<%= render 'shared/nav_links', :for_role => 'data_entry' %>
+<div class="span9">
+	<legend><%= @semester.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @semester.name %></td>
+      </tr>
+      <tr>
+        <td>Current Semester</td>
+        <td><%= @semester.current_semester ? "Yes" : "No" %></td>
+      </tr>
+      <tr>      
+      <tr>
+        <td>Short Name</td>
+        <td><%= @semester.short_name %></td>
+      </tr>
+      <tr>
+        <td>Code</td>
+        <td><%= @semester.code %></td>
+      </tr>
+      <tr>
+        <td>Starts from</td>
+        <td><%= @semester.start_date %></td>
+      </tr>            
+      <tr>
+        <td>Ends at</td>
+        <td><%= @semester.end_date %></td>
+      </tr>         
+    </tbody>  
+  </table>
+</div>

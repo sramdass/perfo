@@ -1,2 +1,13 @@
-<h1>Institutions#edit</h1>
-<p>Find me in app/views/institutions/edit.html.erb</p>
+<%= render 'shared/nav_links', :for_role => 'data_entry' %>
+<div class="span9">
+  <%= simple_form_for @institution, :html => { :class => 'form-horizontal' } do |f| %>
+  <legend> Edit Institution </legend>
+    <%= render 'institution_fields', :f => f %>
+    <div class="form-actions">
+  	  <%= render 'shared/buttons', :obj => @institution, :buttons => {'submit' => "Update", "cancel" => "Cancel" }%>
+    </div>  
+  <% end %>
+</div>
+
+
+

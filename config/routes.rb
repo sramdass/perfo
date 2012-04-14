@@ -1,7 +1,11 @@
 Perfo::Application.routes.draw do
-  match '', to: 'institutions#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }
+  match '', to: 'institutions#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }, :as => 'institution_root'
+  match '/edit', to: 'institutions#edit', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }, :as => 'institution_edit'
+  get 'invalid_tenant'			=> 'tenants#invalid',					 :as => 'invalid_tenant'
   resources :tenants
   resources :institutions
+  resources :semesters
+  resources :departments  
   root :to => 'tenants#new'
   # The priority is based upon order of creation:
   # first created -> highest priority.

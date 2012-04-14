@@ -8,6 +8,8 @@
             <string>..\multitenants\app\models\tenant.rb</string>
             <key>_form</key>
             <string>..\tester\app\views\students\_form.html.erb</string>
+            <key>_ininst</key>
+            <string>db\migrate\20120414033418_rename_type_to_tipe_in_institutions.rb</string>
             <key>_sem</key>
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>app</key>
@@ -19,7 +21,7 @@
             <key>applic.cs</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applica</key>
-            <string>app\assets\stylesheets\application.css</string>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicab</key>
             <string>config\application.rb</string>
             <key>applicaio.htm</key>
@@ -50,6 +52,8 @@
             <string>app\controllers\application_controller.rb</string>
             <key>application_he</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>appliche</key>
+            <string>app\helpers\application_helper.rb</string>
             <key>arti</key>
             <string>..\subdomain\app\models\article.rb</string>
             <key>articles</key>
@@ -68,10 +72,16 @@
             <string>config\database.yml</string>
             <key>database</key>
             <string>..\multitenants\config\database.yml</string>
+            <key>depa</key>
+            <string>app\models\department.rb</string>
+            <key>depar</key>
+            <string>app\models\department.rb</string>
+            <key>departmentscon</key>
+            <string>app\controllers\departments_controller.rb</string>
             <key>devel</key>
             <string>config\environments\development.rb</string>
             <key>edit</key>
-            <string>app\views\tenants\edit.html.erb</string>
+            <string>app\views\institutions\edit.html.erb</string>
             <key>en.</key>
             <string>config\locales\en.yml</string>
             <key>field</key>
@@ -89,27 +99,53 @@
             <key>gemfl</key>
             <string>..\subdomain\Gemfile</string>
             <key>index</key>
+            <string>app\views\semesters\index.html.erb</string>
+            <key>index.h</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>index.ht</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>index.htm</key>
             <string>app\views\tenants\index.html.erb</string>
+            <key>insco</key>
+            <string>app\controllers\institutions_controller.rb</string>
+            <key>inscont</key>
+            <string>app\controllers\institutions_controller.rb</string>
+            <key>instfil</key>
+            <string>app\views\institutions\_institution_fields.html.erb</string>
+            <key>insti</key>
+            <string>app\models\institution.rb</string>
+            <key>instico</key>
+            <string>app\controllers\institutions_controller.rb</string>
             <key>instit</key>
             <string>app\models\institution.rb</string>
             <key>institcon</key>
             <string>app\controllers\institutions_controller.rb</string>
             <key>institu.rb</key>
             <string>app\models\institution.rb</string>
+            <key>institution.r</key>
+            <string>app\models\institution.rb</string>
+            <key>institution.rb</key>
+            <string>app\models\institution.rb</string>
+            <key>institution_F</key>
+            <string>app\views\institutions\_institution_fields.html.erb</string>
             <key>lab</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>labe</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>label</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
+            <key>nav_li</key>
+            <string>app\views\shared\_nav_links.html.erb</string>
+            <key>nav_lin</key>
+            <string>app\views\shared\_nav_links.html.erb</string>
+            <key>nav_link</key>
+            <string>app\views\shared\_nav_links.html.erb</string>
             <key>new</key>
-            <string>app\views\tenants\new.html.erb</string>
+            <string>app\views\institutions\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\tenants\new.html.erb</string>
+            <key>new.htm</key>
+            <string>app\views\institutions\new.html.erb</string>
             <key>new.html</key>
             <string>app\views\institutions\new.html.erb</string>
             <key>new.t</key>
@@ -118,6 +154,8 @@
             <string>..\multitenants\lib\pgtools.rb</string>
             <key>pgt</key>
             <string>lib\pgtools.rb</string>
+            <key>pgtoo</key>
+            <string>app\pgtools\pgtools.rb</string>
             <key>route</key>
             <string>config\routes.rb</string>
             <key>routes</key>
@@ -126,14 +164,28 @@
             <string>config\routes.rb</string>
             <key>routes.rb</key>
             <string>config\routes.rb</string>
+            <key>schem</key>
+            <string>db\schema.rb</string>
             <key>schema.rb</key>
             <string>..\multitenants\db\schema.rb</string>
             <key>school.rb</key>
             <string>..\tester\app\models\school.rb</string>
+            <key>seme</key>
+            <string>app\models\semester.rb</string>
+            <key>semest</key>
+            <string>app\views\semesters\_semester_fields.html.erb</string>
+            <key>semeste.rb</key>
+            <string>app\models\semester.rb</string>
+            <key>semester.rb</key>
+            <string>app\models\semester.rb</string>
+            <key>semester_c</key>
+            <string>app\controllers\semesters_controller.rb</string>
             <key>semi</key>
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>show</key>
             <string>..\multitenants\app\views\tenants\show.html.erb</string>
+            <key>show.htm</key>
+            <string>app\views\institutions\show.html.erb</string>
             <key>show.rb</key>
             <string>app\views\tenants\show.html.erb</string>
             <key>stu_sub</key>
@@ -154,11 +206,17 @@
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
             <key>subjects_c</key>
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
+            <key>tenancont</key>
+            <string>app\controllers\tenants_controller.rb</string>
             <key>tenant</key>
-            <string>app\models\tenant_manager.rb</string>
+            <string>app\controllers\tenants_controller.rb</string>
             <key>tenant.rb</key>
             <string>app\models\tenant.rb</string>
+            <key>tenantman</key>
+            <string>app\models\tenant_manager.rb</string>
             <key>tenants</key>
+            <string>app\controllers\tenants_controller.rb</string>
+            <key>tenants_c</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenants_co</key>
             <string>app\controllers\tenants_controller.rb</string>

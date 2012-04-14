@@ -1,6 +1,4 @@
-<div class="span2">
-  <h1> Nav links </h1>	
-</div>
+<%= render 'shared/nav_links', :for_role => 'admin' %>
 <div class='span9'>
 <h1>Tenants Index </h1>
 <%= search_form_for @q, :html => {:class => 'form-horizontal' } do |srch| %>
