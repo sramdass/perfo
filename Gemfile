@@ -10,7 +10,8 @@ gem "simple_form"
 gem 'debugger', group: [:development, :test]
 
 group :assets do
-  gem 'sass-rails',   '~> 3.1.4'
+  #gem 'sass-rails',   '~> 3.1.4'
+  gem 'sass-rails',   :git => 'https://github.com/rails/sass-rails.git', :ref => 'fc56843'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass'
