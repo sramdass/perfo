@@ -49,7 +49,7 @@
             <key>application.r</key>
             <string>config\application.rb</string>
             <key>application.rb</key>
-            <string>..\multitenants\config\application.rb</string>
+            <string>config\application.rb</string>
             <key>application_C</key>
             <string>..\subdomain\app\controllers\application_controller.rb</string>
             <key>application_Con</key>
@@ -76,6 +76,8 @@
             <string>..\subdomain\app\controllers\blogs_controller.rb</string>
             <key>blood</key>
             <string>app\models\blood_group.rb</string>
+            <key>bootst</key>
+            <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
             <key>bootstra</key>
             <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
             <key>butt</key>
@@ -141,7 +143,7 @@
             <key>field</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>gem</key>
-            <string>..\multitenants\Gemfile</string>
+            <string>Gemfile</string>
             <key>gemf</key>
             <string>Gemfile</string>
             <key>gemfi</key>
