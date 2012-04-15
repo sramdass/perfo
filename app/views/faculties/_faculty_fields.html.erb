@@ -1,0 +1,24 @@
+<%= f.input :name  %>
+<%= f.input :id_no, :label => "ID Number"  %>
+<%= f.input :female, :label => "* Gender" do %>
+  <% if f.object.new_record?%>
+    <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ] ) , {:include_blank => ''}  %>
+  <% else %>
+    <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ], f.object.female? ) , {:include_blank => ''}  %>
+  <% end %>	
+<% end %>
+<%= f.association :designation %>            
+<%= f.input :qualification %>
+<%= f.input :start_date, :label => "Date Joined",:as => :date, :start_year => Date.today.year - 5,
+                              :end_year => Date.today.year + 5,:order => [:day, :month, :year], :prompt => ['day', 'month', 'year'], :input_html => { :class => 'span1'}%>
+<%= f.input :end_date, :label => "Date Departed", :as => :date, :start_year => Date.today.year - 5,
+                              :end_year => Date.today.year + 5,:order => [:day, :month, :year], :prompt => ['day', 'month', 'year'], :input_html => { :class => 'span1' }%>                              
+<%= f.association :blood_group %>          
+<%= f.fields_for :contact do |builder| %>	
+  <%= render "shared/contact_fields", :f => builder, :obj => "Faculty" %>	 	  
+<% end %>  
+
+
+
+
+

@@ -72,10 +72,22 @@
             <string>..\subdomain\app\models\blog.rb</string>
             <key>blogs_c</key>
             <string>..\subdomain\app\controllers\blogs_controller.rb</string>
+            <key>blood</key>
+            <string>app\models\blood_group.rb</string>
             <key>bootstra</key>
             <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
             <key>butt</key>
             <string>app\views\shared\_buttons.html.erb</string>
+            <key>contact</key>
+            <string>app\models\contact.rb</string>
+            <key>contact.</key>
+            <string>app\models\contact.rb</string>
+            <key>contact.rb</key>
+            <string>app\models\contact.rb</string>
+            <key>create_c</key>
+            <string>db\migrate\20120415021209_create_contacts.rb</string>
+            <key>crete_Fa</key>
+            <string>db\migrate\20120415022222_create_faculties.rb</string>
             <key>data</key>
             <string>app\assets\stylesheets\jquery.dataTables.css.scss</string>
             <key>datab</key>
@@ -86,6 +98,8 @@
             <string>app\models\department.rb</string>
             <key>depar</key>
             <string>app\models\department.rb</string>
+            <key>deparmecon</key>
+            <string>app\controllers\departments_controller.rb</string>
             <key>departcon</key>
             <string>app\controllers\departments_controller.rb</string>
             <key>departmcon</key>
@@ -94,6 +108,8 @@
             <string>app\models\department.rb</string>
             <key>departmentscon</key>
             <string>app\controllers\departments_controller.rb</string>
+            <key>designat</key>
+            <string>app\models\designation.rb</string>
             <key>devel</key>
             <string>config\environments\development.rb</string>
             <key>edit</key>
@@ -104,6 +120,16 @@
             <string>app\models\exam.rb</string>
             <key>exam_con</key>
             <string>app\controllers\exams_controller.rb</string>
+            <key>faccont</key>
+            <string>app\controllers\faculties_controller.rb</string>
+            <key>facul</key>
+            <string>app\models\faculty.rb</string>
+            <key>facultiecont</key>
+            <string>app\controllers\faculties_controller.rb</string>
+            <key>faculty</key>
+            <string>app\models\faculty.rb</string>
+            <key>faculty.r</key>
+            <string>app\models\faculty.rb</string>
             <key>field</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>gem</key>
@@ -118,6 +144,10 @@
             <string>Gemfile</string>
             <key>gemfl</key>
             <string>..\subdomain\Gemfile</string>
+            <key>in_Fac</key>
+            <string>db\migrate\20120415045226_alter_start_date_end_date_in_faculties.rb</string>
+            <key>inde</key>
+            <string>app\views\tenants\invalid.html.erb</string>
             <key>index</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>index.h</key>
@@ -126,6 +156,8 @@
             <string>app\views\tenants\index.html.erb</string>
             <key>index.htm</key>
             <string>app\views\tenants\index.html.erb</string>
+            <key>ins</key>
+            <string>app\views\institutions\_institution_fields.html.erb</string>
             <key>insco</key>
             <string>app\controllers\institutions_controller.rb</string>
             <key>inscont</key>
@@ -156,6 +188,8 @@
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>label</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
+            <key>mobile_t</key>
+            <string>db\migrate\20120415025550_add_parent_mobile_to_contacts.rb</string>
             <key>nav_li</key>
             <string>app\views\shared\_nav_links.html.erb</string>
             <key>nav_lin</key>
@@ -163,11 +197,11 @@
             <key>nav_link</key>
             <string>app\views\shared\_nav_links.html.erb</string>
             <key>new</key>
-            <string>app\views\institutions\new.html.erb</string>
+            <string>app\views\semesters\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\tenants\new.html.erb</string>
             <key>new.htm</key>
-            <string>app\views\institutions\new.html.erb</string>
+            <string>app\views\faculties\new.html.erb</string>
             <key>new.html</key>
             <string>app\views\institutions\new.html.erb</string>
             <key>new.t</key>
@@ -201,6 +235,8 @@
             <key>semest</key>
             <string>app\views\semesters\_semester_fields.html.erb</string>
             <key>semeste.rb</key>
+            <string>app\models\semester.rb</string>
+            <key>semester</key>
             <string>app\models\semester.rb</string>
             <key>semester.rb</key>
             <string>app\models\semester.rb</string>
@@ -242,8 +278,12 @@
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenant.rb</key>
             <string>app\models\tenant.rb</string>
+            <key>tenantfi</key>
+            <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>tenantman</key>
             <string>app\models\tenant_manager.rb</string>
+            <key>tenantr</key>
+            <string>app\models\tenant.rb</string>
             <key>tenants</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenants_c</key>

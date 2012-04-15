@@ -1,0 +1,91 @@
+<%= render 'shared/nav_links', :for_role => 'data_entry', :active => "faculties" %>
+<div class='span9'>
+<h1>Semesters Index </h1>
+<%= search_form_for @q, :html => {:class => 'form-horizontal' } do |srch| %>
+  <fieldset>
+    <div class="control-group">
+	  <%= srch.label :name_cont, :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :name_cont, :class=> "input-medium" %> 
+   	  </div>
+  	</div>
+
+    <div class="control-group">
+	  <%= srch.label :id_no_cont , "ID Number contains", :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :id_no_cont , :class=> "input-medium" %> 
+   	  </div>
+  	</div>
+  	
+    <div class="control-group">
+      <%= srch.label :female_eq, "Gender", :class=> "control-label" %>
+      <div class="controls">
+  	    <%= srch.select :female_eq, options_for_select([ ['All', ''], ['Female', true], ['Male', false]]), {}, {:class => 'span2' } %> 
+      </div>
+    </div>  	
+  	
+    <div class="control-group">
+	  <%= srch.label :start_date_gt, "Joined After" , :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.date_select :start_date_gt, :order => [:day, :month, :year], :prompt => ["Day", "Month", "Year"] %> 
+   	  </div>
+  	</div>  	  	
+  	
+    <div class="control-group">
+	  <%= srch.label :end_date_lt, "Departed Before", :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.date_select :end_date_lt, :order => [:day, :month, :year], :prompt => ["Day", "Month", "Year"]  %> 
+   	  </div>
+  	</div>  	  	
+ 	
+    <div class="form-actions">
+      <%= srch.submit nil, :class => "btn btn-primary"%>
+    </div>
+  </fieldset>
+<% end %>  	
+
+<table class = 'datatable_full'>
+<thead>
+  <tr>
+  	<th> Name </th>
+  	<th> ID Number </th>
+  	<th> Gender </th>
+  	<th> Qualification </th>
+  	<th> Designation </th>
+  	<th> Date Joined</th>
+  	<th> Date Departed</th>  	
+  	<th> Actions </th>
+  </tr>
+</thead>
+<tbody>
+  <% @faculties.each do |faculty| %>
+    <tr>
+      <td> <%= link_to faculty.name, faculty %> </td>
+	  <td> <%= faculty.id_no %> </td>
+	  <td> <%= faculty.female ? "Female" :  "Male" %> </td>
+	  <td> <%= faculty.qualification %> </td>
+	  <td> <%= faculty.designation.try(:name) %> </td>
+	  <td> <%= faculty.start_date %> </td>
+	  <td> <%= faculty.end_date %> </td>	  
+	  <td>
+  	    <%= link_to faculty, :class => 'btn btn-mini btn-info' do %>
+          <i class="icon-file icon-white"> </i> View
+        <% end %>
+   	    <%= link_to edit_faculty_path(faculty), :class => 'btn btn-mini btn-warning' do %>
+          <i class="icon-pencil icon-white"> </i> Edit
+        <% end %>          
+   	    <%= link_to faculty, :class => 'btn btn-mini btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
+          <i class="icon-trash icon-white"> </i> Delete
+        <% end %>   
+      </td>    
+	</tr>
+  <% end %>
+</tbody>
+</table>
+<br>
+<p>
+  <%= link_to "Add Semester", new_faculty_path %>
+<p>
+</div>
+
+

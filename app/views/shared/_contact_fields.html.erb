@@ -1,0 +1,10 @@
+<%= f.input :address, :input_html => { :cols => 50, :rows => 6 } %>
+<%= f.input :pin %>
+<%= f.input :email %>
+<%= f.input :mobile %>
+<%= f.input :home_phone %>
+<%= f.input :emergency_phone %>
+<% if obj == "Student"%>
+  <%= f.input :parent_mobile %>
+  <%= f.input :parent_email %>
+<% end %>

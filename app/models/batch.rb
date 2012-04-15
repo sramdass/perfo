@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: batches
+#
+#  id             :integer         not null, primary key
+#  institution_id :string(255)
+#  name           :string(255)
+#  short_name     :string(255)
+#  code           :string(255)
+#  start_date     :date
+#  end_date       :date
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
 class Batch < TenantManager
   belongs_to :institution  	
   validates_presence_of :institution

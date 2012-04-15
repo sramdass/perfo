@@ -14,7 +14,7 @@
 #  updated_at       :datetime
 #
 
-class Semester < TenantManger
+class Semester < TenantManager
   belongs_to :institution  	
   validates_presence_of :institution
 	

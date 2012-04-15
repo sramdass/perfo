@@ -1,0 +1,69 @@
+<%= render 'shared/nav_links', :for_role => 'data_entry' %>
+<div class="span9">
+	<legend><%= @faculty.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @faculty.name %></td>
+      </tr>
+      <tr>
+        <td>ID Number</td>
+        <td><%= @faculty.id_no%></td>
+      </tr>
+      <tr>      
+      <tr>
+        <td>Gender</td>
+        <td><%= @faculty.female ? "Female" : "Male" %></td>
+      </tr>
+      <tr>
+        <td>Qualification</td>
+        <td><%= @faculty.qualification %></td>
+      </tr>
+      <tr>
+        <td>Designation</td>
+        <td><%= @faculty.designation.try(:name) %></td>
+      </tr>            
+      <tr>
+        <td>Blood Group</td>
+        <td><%= @faculty.blood_group.try(:name) %></td>
+      </tr>         
+      <tr>
+        <td>Date Joined</td>
+        <td><%= @faculty.start_date %></td>
+      </tr>         
+      <tr>
+        <td>Date Departed</td>
+        <td><%= @faculty.end_date %></td>
+      </tr>           
+      <tr>
+        <td>Date Departed</td>
+        <td><%= @faculty.end_date %></td>
+      </tr>           
+      <tr>
+        <td>Address</td>
+        <td><%= @faculty.contact.address %></td>
+      </tr>           
+      <tr>
+        <td>PIN</td>
+        <td><%= @faculty.contact.pin %></td>
+      </tr>           
+      <tr>
+        <td>Email</td>
+        <td><%= @faculty.contact.email %></td>
+      </tr>          
+      <tr>
+        <td>Mobile</td>
+        <td><%= @faculty.contact.mobile %></td>
+      </tr>                                           
+      <tr>
+        <td>Home Phone</td>
+        <td><%= @faculty.contact.home_phone %></td>
+      </tr>                                           
+      <tr>
+        <td>Emergency Phone</td>
+        <td><%= @faculty.contact.emergency_phone %></td>
+      </tr>                                                       
+    </tbody>  
+  </table>
+</div>
