@@ -1,0 +1,10 @@
+<% # Do not allow the batch or department to be changed for the existing record (during edit). Design choice!%>
+<%= f.association :department, :disabled => f.object.new_record? ? false : true  %>
+<%= f.association :batch, :disabled => f.object.new_record? ? false : true %>
+<%= f.input :name  %>
+<%= f.input :short_name, :hint => "Maximum 8 characters"  %>
+<%= f.input :code, :hint => "Maximum 5 characters" %>
+
+
+
+

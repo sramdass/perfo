@@ -1,0 +1,29 @@
+<%= render 'shared/nav_links', :for_role => 'data_entry' %>
+<div class="span9">
+  <legend><%= @section.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @section.name %></td>
+      </tr>
+      <tr>
+        <td>Short Name</td>
+        <td><%= @section.short_name %></td>
+      </tr>
+      <tr>
+      <tr>      	
+        <td>Code</td>
+        <td><%= @section.code %></td>
+      </tr>      	
+      <tr>
+        <td>Department</td>
+        <td><%= @section.department.name %></td>
+      </tr>
+      <tr>
+        <td>Batch</td>
+        <td><%= @section.batch.name %></td>
+      </tr>
+    </tbody>  
+  </table>
+</div>

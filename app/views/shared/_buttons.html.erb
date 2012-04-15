@@ -11,6 +11,18 @@
     <% end %>
   <% end %>
   
+  <% if type == "create_and_add_students"%>
+    <%= button_tag(:type => 'submit', :name => 'create_and_add_students', :class => "btn btn-success btn-large" ) do %>
+      <i class="icon-arrow-right icon-white"> </i> <%= name %>
+    <% end %>
+  <% end %>  
+  
+  <% if type == "update_and_edit_students"%>
+    <%= button_tag(:type => 'submit', :name => 'update_and_edit_students', :class => "btn btn-success btn-large" ) do %>
+      <i class="icon-arrow-right icon-white"> </i> <%= name %>
+    <% end %>
+  <% end %>    
+  
   <% if type == "cancel" %>
     <%= link_to index_link(obj), :class => 'btn btn-danger btn-large' do  %>
        <i class="icon-off icon-white"> </i> <%= name %>

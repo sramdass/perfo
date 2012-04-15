@@ -12,8 +12,10 @@
 #
 
 class Department < TenantManager
-  belongs_to :institution  	
+  belongs_to :institution
   validates_presence_of :institution
+  
+  has_many :sections
 	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	

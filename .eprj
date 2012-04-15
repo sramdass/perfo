@@ -66,6 +66,8 @@
             <string>..\subdomain\app\controllers\articles_controller.rb</string>
             <key>batch.r</key>
             <string>app\models\batch.rb</string>
+            <key>batch.rb</key>
+            <string>app\models\batch.rb</string>
             <key>batches_c</key>
             <string>app\controllers\batches_controller.rb</string>
             <key>blog</key>
@@ -77,6 +79,8 @@
             <key>bootstra</key>
             <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
             <key>butt</key>
+            <string>app\views\shared\_buttons.html.erb</string>
+            <key>butto</key>
             <string>app\views\shared\_buttons.html.erb</string>
             <key>contact</key>
             <string>app\models\contact.rb</string>
@@ -100,12 +104,16 @@
             <string>app\models\department.rb</string>
             <key>deparmecon</key>
             <string>app\controllers\departments_controller.rb</string>
+            <key>depart</key>
+            <string>app\models\department.rb</string>
             <key>departcon</key>
             <string>app\controllers\departments_controller.rb</string>
             <key>departmcon</key>
             <string>app\controllers\departments_controller.rb</string>
             <key>department.r</key>
             <string>app\models\department.rb</string>
+            <key>departments</key>
+            <string>app\controllers\departments_controller.rb</string>
             <key>departmentscon</key>
             <string>app\controllers\departments_controller.rb</string>
             <key>designat</key>
@@ -228,6 +236,12 @@
             <string>..\multitenants\db\schema.rb</string>
             <key>school.rb</key>
             <string>..\tester\app\models\school.rb</string>
+            <key>section.r</key>
+            <string>app\models\section.rb</string>
+            <key>section.rb</key>
+            <string>app\models\section.rb</string>
+            <key>sectionscont</key>
+            <string>app\controllers\sections_controller.rb</string>
             <key>seme</key>
             <string>app\models\semester.rb</string>
             <key>semes.rb</key>
@@ -243,6 +257,8 @@
             <key>semester_c</key>
             <string>app\controllers\semesters_controller.rb</string>
             <key>semi</key>
+            <string>app\views\shared\_semi_index.html.erb</string>
+            <key>semi_</key>
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>show</key>
             <string>..\multitenants\app\views\tenants\show.html.erb</string>

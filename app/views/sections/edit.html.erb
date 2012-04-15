@@ -1,0 +1,11 @@
+<%= render 'shared/nav_links', :for_role => 'data_entry', :active => "sections" %>
+<div class="span6">
+  <%= simple_form_for @section, :html => { :class => 'form-horizontal' } do |f| %>
+  <legend> New Section </legend>
+    <%= render 'section_fields', :f => f %>
+    <div class="form-actions">
+  	  <%= render 'shared/buttons', :obj => @section, :buttons => {'submit' => "Update",  "update_and_edit_students" => "Update and Edit Students", "cancel" => "Cancel" }  %>
+    </div>  
+  <% end %>
+</div>
+<%= render 'shared/semi_index', :model_name => "Section" %>
