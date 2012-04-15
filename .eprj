@@ -98,6 +98,8 @@
             <string>app\assets\stylesheets\jquery.dataTables.css.scss</string>
             <key>datab</key>
             <string>config\database.yml</string>
+            <key>databas</key>
+            <string>config\database.yml</string>
             <key>database</key>
             <string>..\multitenants\config\database.yml</string>
             <key>depa</key>
@@ -222,6 +224,8 @@
             <string>lib\pgtools.rb</string>
             <key>pgtoo</key>
             <string>app\pgtools\pgtools.rb</string>
+            <key>produc</key>
+            <string>config\environments\production.rb</string>
             <key>rout</key>
             <string>config\routes.rb</string>
             <key>route</key>
