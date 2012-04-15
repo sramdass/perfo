@@ -1,0 +1,29 @@
+<%= render 'shared/nav_links', :for_role => 'data_entry' %>
+<div class="span9">
+	<legend><%= @batch.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @batch.name %></td>
+      </tr>
+      <tr>      
+      <tr>
+        <td>Short Name</td>
+        <td><%= @batch.short_name %></td>
+      </tr>
+      <tr>
+        <td>Code</td>
+        <td><%= @batch.code %></td>
+      </tr>
+      <tr>
+        <td>Starts from</td>
+        <td><%= @batch.start_date %></td>
+      </tr>            
+      <tr>
+        <td>Ends at</td>
+        <td><%= @batch.end_date %></td>
+      </tr>         
+    </tbody>  
+  </table>
+</div>

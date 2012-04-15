@@ -8,6 +8,7 @@ Perfo::Application.routes.draw do
   resources :departments  
   resources :subjects
   resources :exams
+  resources :batches
   root :to => 'tenants#new'
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -18,7 +18,9 @@ module ApplicationHelper
   	  when  "Faculty"
   	    edit_faculty_path(obj)
   	  when  "Exam"
-  	    edit_exam_path(obj)  	      	      	    
+  	    edit_exam_path(obj)
+  	  when  "Batch"
+  	    edit_batch_path(obj)  	      	  	    
   	 when nil
   	    nil
     end
@@ -37,7 +39,9 @@ module ApplicationHelper
   	  when  "Faculty"
   	    faculties_path
   	  when  "Exam"
-  	    exams_path    	      	    
+  	    exams_path
+  	  when  "Batch"
+  	    batches_path    	  	    
   	 when nil
   	    nil
     end

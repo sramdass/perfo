@@ -1,0 +1,87 @@
+<%= render 'shared/nav_links', :for_role => 'data_entry', :active => "batches" %>
+<div class='span9'>
+<h1>Batches Index </h1>
+<%= search_form_for @q, :html => {:class => 'form-horizontal' } do |srch| %>
+  <fieldset>
+    <div class="control-group">
+	  <%= srch.label :name_cont, :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :name_cont, :class=> "input-medium" %> 
+   	  </div>
+  	</div>
+
+    <div class="control-group">
+	  <%= srch.label :short_name_cont , :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :short_name_cont , :class=> "input-medium" %> 
+   	  </div>
+  	</div>
+  	
+    <div class="control-group">
+	  <%= srch.label :code_cont, :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :code_cont, :class=> "input-medium" %> 
+   	  </div>
+  	</div>
+  	
+    <div class="control-group">
+	  <%= srch.label :start_date_gt, "Start Date Greater than" , :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.date_select :start_date_gt, :order => [:day, :month, :year], :prompt => ["Day", "Month", "Year"] %> 
+   	  </div>
+  	</div>  	  	
+  	
+    <div class="control-group">
+	  <%= srch.label :end_date_lt, "End Date Less than", :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.date_select :end_date_lt, :order => [:day, :month, :year], :prompt => ["Day", "Month", "Year"]  %> 
+   	  </div>
+  	</div>  	  	  	
+  	
+    <div class="form-actions">
+      <%= srch.submit nil, :class => "btn btn-primary"%>
+    </div>
+  </fieldset>
+<% end %>  	
+
+<table class = 'datatable_full'>
+<thead>
+  <tr>
+  	<th> Name </th>
+  	<th> Short Name </th>
+  	<th> Code </th>
+  	<th> Starts from </th>
+  	<th> Ends at </th>
+  	<th> Actions </th>
+  </tr>
+</thead>
+<tbody>
+  <% @batches.each do |batch| %>
+    <tr>
+      <td> <%= link_to batch.name, batch %> </td>
+	  <td> <%= batch.short_name %> </td>
+	  <td> <%= batch.code %> </td>
+	  <td> <%= batch.start_date %> </td>
+	  <td> <%= batch.end_date %> </td>
+	  <td>
+  	    <%= link_to batch, :class => 'btn btn-mini btn-info' do %>
+          <i class="icon-file icon-white"> </i> View
+        <% end %>
+   	    <%= link_to edit_batch_path(batch), :class => 'btn btn-mini btn-warning' do %>
+          <i class="icon-pencil icon-white"> </i> Edit
+        <% end %>          
+   	    <%= link_to batch, :class => 'btn btn-mini btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
+          <i class="icon-trash icon-white"> </i> Delete
+        <% end %>   
+      </td>    
+	</tr>
+  <% end %>
+</tbody>
+</table>
+<br>
+<p>
+  <%= link_to "Add Batch", new_batch_path %>
+<p>
+</div>
+
+

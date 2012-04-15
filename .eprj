@@ -16,6 +16,8 @@
             <string>app\views\subjects\_subject_fields.html.erb</string>
             <key>app</key>
             <string>app\views\layouts\application.html.erb</string>
+            <key>apphelp</key>
+            <string>app\helpers\application_helper.rb</string>
             <key>apphelper</key>
             <string>app\helpers\application_helper.rb</string>
             <key>appli</key>
@@ -62,6 +64,10 @@
             <string>..\subdomain\app\models\article.rb</string>
             <key>articles</key>
             <string>..\subdomain\app\controllers\articles_controller.rb</string>
+            <key>batch.r</key>
+            <string>app\models\batch.rb</string>
+            <key>batches_c</key>
+            <string>app\controllers\batches_controller.rb</string>
             <key>blog</key>
             <string>..\subdomain\app\models\blog.rb</string>
             <key>blogs_c</key>
@@ -80,8 +86,12 @@
             <string>app\models\department.rb</string>
             <key>depar</key>
             <string>app\models\department.rb</string>
+            <key>departcon</key>
+            <string>app\controllers\departments_controller.rb</string>
             <key>departmcon</key>
             <string>app\controllers\departments_controller.rb</string>
+            <key>department.r</key>
+            <string>app\models\department.rb</string>
             <key>departmentscon</key>
             <string>app\controllers\departments_controller.rb</string>
             <key>devel</key>
@@ -185,6 +195,8 @@
             <key>school.rb</key>
             <string>..\tester\app\models\school.rb</string>
             <key>seme</key>
+            <string>app\models\semester.rb</string>
+            <key>semes.rb</key>
             <string>app\models\semester.rb</string>
             <key>semest</key>
             <string>app\views\semesters\_semester_fields.html.erb</string>

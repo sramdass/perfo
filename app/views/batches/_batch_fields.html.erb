@@ -1,0 +1,10 @@
+<%= f.input :name  %>
+<%= f.input :short_name, :hint => "Maximum 8 characters"  %>
+<%= f.input :code, :hint => "Maximum 5 characters" %>
+<%= f.input :start_date, :label => "Starts from",:as => :date, :start_year => Date.today.year - 5,
+                              :end_year => Date.today.year + 5,:order => [:day, :month, :year], :input_html => { :class => 'span1'}%>
+<%= f.input :end_date, :label => "Ends at", :as => :date, :start_year => Date.today.year - 5,
+                              :end_year => Date.today.year + 5,:order => [:day, :month, :year], :input_html => { :class => 'span1' }%>                              
+
+
+
