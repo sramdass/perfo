@@ -1,6 +1,6 @@
-<%= render 'shared/nav_links', :for_role => 'data_entry', :active => "exams" %>
+<%= render 'shared/de_nav_links',:active => "exams" %>
 <div class='span9'>
-<h1>Exams Index </h1>
+<legend> Exams Index </legend>
 <%= search_form_for @q, :html => {:class => 'form-horizontal' } do |srch| %>
   <fieldset>
     <div class="control-group">
@@ -25,7 +25,7 @@
   	</div>
 
     <div class="form-actions">
-      <%= srch.submit nil, :class => "btn btn-primary"%>
+      <%= srch.submit nil, :class => "btn btn-inverse"%>
     </div>
   </fieldset>
 <% end %>  	
@@ -49,7 +49,7 @@
   	    <%= link_to exam, :class => 'btn btn-mini btn-info' do %>
           <i class="icon-file icon-white"> </i> View
         <% end %>
-   	    <%= link_to edit_exam_path(exam), :class => 'btn btn-mini btn-warning' do %>
+   	    <%= link_to edit_exam_path(exam), :class => 'btn btn-mini btn-inverse' do %>
           <i class="icon-pencil icon-white"> </i> Edit
         <% end %>          
    	    <%= link_to exam, :class => 'btn btn-mini btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
@@ -60,10 +60,7 @@
   <% end %>
 </tbody>
 </table>
-<br>
-<p>
-  <%= link_to "Add Exam", new_exam_path %>
-<p>
+<%= render 'shared/controller_action_buttons', :obj => Exam.new, :action => "index" %>
 </div>
 
 

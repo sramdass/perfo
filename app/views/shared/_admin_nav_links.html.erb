@@ -1,0 +1,65 @@
+  <div class="span2">
+    <ul class="nav nav-list">
+      <li class="nav-header"> Mange Tenants </li>
+        
+      <% if active == "tenants"%>
+        <li class= "active">
+          <%= link_to tenants_path do %>
+            <i class="icon-file icon-white"> </i> Tenants
+          <% end %>   
+        </li>
+      <% else %>
+        <li>
+          <%= link_to tenants_path do %>
+            <i class="icon-file icon-white"> </i> Tenants
+          <% end %>   
+        </li>
+      <% end %>        
+      
+      <li class="divider"></li>            
+      
+   	  <li class="nav-header">PROFILES AND SETTINGS </li>
+   	  
+      <% if active == "user_profiles"%>
+        <li class= "active">
+          <%= link_to '#' do %>
+            <i class="icon-file icon-white"> </i> User Profiles
+          <% end %>   
+        </li>
+      <% else %>
+        <li>
+          <%= link_to '#' do %>
+            <i class="icon-file icon-white"> </i> User Profiles
+          <% end %>   
+        </li>
+      <% end %>     
+    
+      <% if active == "permissions_roles"%>
+        <li class= "active">
+          <%= link_to '#' do %>
+            <i class="icon-file icon-white"> </i> Permissions and Roles
+          <% end %>   
+        </li>
+      <% else %>
+        <li>
+          <%= link_to '#' do %>
+            <i class="icon-file icon-white"> </i> Permissions and Roles
+          <% end %>   
+        </li>
+      <% end %>     
+    
+      <% if active == "settings"%>
+        <li class= "active">
+          <%= link_to '#' do %>
+            <i class="icon-file icon-white"> </i> Settings
+          <% end %>   
+        </li>
+      <% else %>
+        <li>
+          <%= link_to '#' do %>
+            <i class="icon-file icon-white"> </i> Settings
+          <% end %>   
+        </li>
+      <% end %>     
+    </ul>
+  </div>

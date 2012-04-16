@@ -1,0 +1,42 @@
+<% if action == "index" %>
+  <div class="row">
+    <div class="span9 form-actions">
+   	  <%= link_to new_link(obj), :class => 'btn btn-large btn-success' do %>
+        <i class="icon-plus icon-white"> </i> <strong> Add <%= obj.class.to_s.camelize %> </strong>
+      <% end %>          
+    </div>
+  </div>
+<% elsif action == "show" %>
+  <div class="row">
+    <div class="span9 form-actions">
+   	  <%= link_to edit_link(obj), :class => 'btn btn-large btn-success' do %>
+        <i class="icon-pencil icon-white"> </i> <strong> Edit this <%= obj.class.to_s.camelize %> </strong>
+      <% end %>         
+   	  <%= link_to obj, :class => 'btn btn-large btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
+        <i class="icon-remove icon-white"> </i> <strong> Delete this <%= obj.class.to_s.camelize %> </strong>
+      <% end %>          
+   	  <%= link_to index_link(obj), :class => 'btn btn-large btn-primary pull-right' do %>
+        <i class="icon-th-list icon-white"> </i> <strong>  <%= obj.class.to_s.camelize %> Index </strong>
+      <% end %>                
+    </div>
+  </div>
+<% elsif action == "edit" %>
+  <div class="row">
+    <div class="span6 form-actions">
+   	  <%= link_to obj, :class => 'btn btn-large btn-success' do %>
+        <i class="icon-file icon-white"> </i> <strong> View this <%= obj.class.to_s.camelize %> </strong>
+      <% end %>          
+   	  <%= link_to index_link(obj), :class => 'btn btn-large btn-primary pull-right' do %>
+        <i class="icon-th-list icon-white"> </i> <strong>  <%= obj.class.to_s.camelize %> Index </strong>
+      <% end %>                
+    </div>
+  </div>  
+<% elsif action == "new" %>
+  <div class="row">
+    <div class="span6 form-actions">
+   	  <%= link_to index_link(obj), :class => 'btn btn-large btn-primary pull-right' do %>
+        <i class="icon-th-list icon-white"> </i> <strong>  <%= obj.class.to_s.camelize %> Index </strong>
+      <% end %>                
+    </div>
+  </div>    
+<% end %>

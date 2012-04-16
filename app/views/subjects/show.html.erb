@@ -1,4 +1,4 @@
-<%= render 'shared/nav_links', :for_role => 'data_entry' %>
+<%= render 'shared/de_nav_links', :active => "subjects" %>
 <div class="span9">
 	<legend><%= @subject.name %> </legend>
   <table class="table table-striped">
@@ -21,4 +21,5 @@
       </tr>      
     </tbody>  
   </table>
+  <%= render 'shared/controller_action_buttons', :obj => @subject, :action => "show" %>      
 </div>

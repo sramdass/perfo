@@ -1,6 +1,4 @@
-<div class="span2">
-  <h1> Nav links </h1>
-</div>
+<%= render 'shared/admin_nav_links', :active => "tenants" %>
 <div class="span6">
   <h1> Edit Tenant </h1>
   <%= simple_form_for @tenant, :html => { :class => 'form-horizontal' } do |f| %>
@@ -10,6 +8,7 @@
     <%= render 'shared/buttons', :obj => @tenant,:buttons => {'submit' => "Update Tenant", "cancel" => "Cancel" }%>
   </div>  
   <% end %>
+  <%= render 'shared/controller_action_buttons', :obj => @tenant, :action => "edit" %>      
 </div>
 <div class="span3">
   <%= render 'shared/semi_index', :model_name => "Tenant",

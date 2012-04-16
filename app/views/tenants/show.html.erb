@@ -1,19 +1,20 @@
-<h1><%= @tenant.name %> </h1>
-<h2>Subdomain: &nbsp;<%= @tenant.subdomain ? @tenant.subdomain : "Not assigned" %> </h2>
-	
-<table>
-  <tr>  <td> Name </td> <%= @tenant.name %>	</tr>
-  <tr>  	<td> Subdomain </td> <td> <%= @tenant.subdomain ? @tenant.subdomain : "Not assigned" %> </td> </tr>
-  <tr>  	<td> Email </td>  <td> <%= @tenant.email %> </td></tr>
-  <tr>  	<td> Phone </td>  <td> <%= @tenant.phone %> </td></tr>
-  <tr>  	<td> Subscription From </td>  <td> <%= @tenant.subscription_from %> </td></tr>
-  <tr>  	<td> Subscription To </td>  <td> <%= @tenant.subscription_to %> </td></tr>
-  <tr>  	<td> Activated </td>  <td> <%= @tenant.activated ? 'Y' : 'N' %> </td></tr>
-  <tr>  	<td> Locked </td>  <td> <%= @tenant.locked ? 'Y' : 'N' %> </td></tr>
-  <tr>  	<td> Expired </td>  <td> <%= @tenant.subscription_to < Date.today ? 'Y' : 'N' %> </td></tr>
-  <tr>  	<td> Actions</td>  <td> <%= link_to "Edit", edit_tenant_path(@tenant) %> | <%= link_to 'Destroy', @tenant, :confirm => 'Are you sure?', :method => :delete %></td></tr>
-</table>
-<p>
-  <%= link_to "Add Tenant", new_tenant_path %> <br />
-  <%= link_to "Tenant Index", tenants_path %>
-</p>
+<%= render 'shared/admin_nav_links', :active => "tenants" %>
+<div class="span9">
+	<legend><%= @tenant.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>  <td> Name </td> <%= @tenant.name %>	</tr>
+  	  <tr>  	<td> Subdomain </td> <td> <%= @tenant.subdomain ? @tenant.subdomain : "Not assigned" %> </td> </tr>
+  	  <tr>  	<td> Email </td>  <td> <%= @tenant.email %> </td></tr>
+  	  <tr>  	<td> Phone </td>  <td> <%= @tenant.phone %> </td></tr>
+  	  <tr>  	<td> Subscription From </td>  <td> <%= @tenant.subscription_from %> </td></tr>
+  	  <tr>  	<td> Subscription To </td>  <td> <%= @tenant.subscription_to %> </td></tr>
+  	  <tr>  	<td> Activated </td>  <td> <%= @tenant.activated ? 'Y' : 'N' %> </td></tr>
+  	  <tr>  	<td> Locked </td>  <td> <%= @tenant.locked ? 'Y' : 'N' %> </td></tr>
+  	  <tr>  	<td> Expired </td>  <td> <%= @tenant.subscription_to < Date.today ? 'Y' : 'N' %> </td></tr>
+  	  <tr>  	<td> Actions</td>  <td> <%= link_to "Edit", edit_tenant_path(@tenant) %> | <%= link_to 'Destroy', @tenant, :confirm => 'Are you sure?', :method => :delete %></td></tr>
+    </tbody>  
+  </table>
+  <%= render 'shared/controller_action_buttons', :obj => @tenant, :action => "show" %>      
+</div>
+

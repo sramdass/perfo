@@ -1,6 +1,7 @@
 Perfo::Application.routes.draw do
   match '', to: 'institutions#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }, :as => 'institution_root'
   match '/edit', to: 'institutions#edit', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }, :as => 'institution_edit'
+  match '/new', to: 'institutions#new', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }, :as => 'institution_new'  
   get 'invalid_tenant'			=> 'tenants#invalid',					 :as => 'invalid_tenant'
   resources :tenants
   resources :institutions

@@ -1,4 +1,4 @@
-<%= render 'shared/nav_links', :for_role => 'data_entry', :active => "departments" %>
+<%= render 'shared/de_nav_links', :active => "departments" %>
 <div class="span6">
   <%= simple_form_for @department, :html => { :class => 'form-horizontal' } do |f| %>
   <legend> Edit Department </legend>
@@ -7,6 +7,7 @@
   	  <%= render 'shared/buttons', :obj => @department, :buttons => {'submit' => "Update", "cancel" => "Cancel" }%>
     </div>  
   <% end %>
+<%= render 'shared/controller_action_buttons', :obj => @department, :action => "edit" %>    
 </div>
 <div class="span3">
   <%= render 'shared/semi_index', :model_name => "Department",

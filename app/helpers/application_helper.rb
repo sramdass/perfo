@@ -46,5 +46,26 @@ module ApplicationHelper
   	    nil
     end
   end  
+  
+  def new_link(obj)
+  	case obj.class.to_s
+  	  when  "Tenant"
+  	    new_tenant_path
+  	  when  "Semester"
+  	    new_semester_path  
+  	  when  "Department"
+  	    new_department_path
+  	  when  "Subject"
+  	    new_subject_path  
+  	  when  "Faculty"
+  	    new_faculty_path
+  	  when  "Exam"
+  	    new_exam_path
+  	  when  "Batch"
+  	    new_batch_path    	  	    
+  	 when nil
+  	    nil
+    end
+  end    
 
 end

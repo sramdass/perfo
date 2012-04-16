@@ -1,6 +1,6 @@
-<%= render 'shared/nav_links', :for_role => 'admin' %>
+<%= render 'shared/admin_nav_links', :active => "tenants" %>
 <div class='span9'>
-<h1>Tenants Index </h1>
+<legend> Tenants Index </legend>
 <%= search_form_for @q, :html => {:class => 'form-horizontal' } do |srch| %>
   <fieldset>
     <div class="control-group">
@@ -45,7 +45,7 @@
       </div>
     </div>    
     <div class="form-actions">
-      <%= srch.submit nil, :class => "btn btn-primary"%>
+      <%= srch.submit nil, :class => "btn btn-inverse"%>
     </div>
   </fieldset>
 <% end %>
@@ -81,7 +81,7 @@
   	    <%= link_to tenant, :class => 'btn btn-mini btn-info' do %>
           <i class="icon-file icon-white"> </i> View
         <% end %>
-   	    <%= link_to edit_tenant_path(tenant), :class => 'btn btn-mini btn-warning' do %>
+   	    <%= link_to edit_tenant_path(tenant), :class => 'btn btn-mini btn-inverse' do %>
           <i class="icon-pencil icon-white"> </i> Edit
         <% end %>        
    	    <%= link_to tenant, :class => 'btn btn-mini btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
@@ -92,9 +92,7 @@
   <% end %>
 </tbody>
 </table>
-<p>
-  <%= link_to "Add Tenant", new_tenant_path %>
-<p>
+  <%= render 'shared/controller_action_buttons', :obj => Tenant.new, :action => "index" %>      
 </div>
 
 

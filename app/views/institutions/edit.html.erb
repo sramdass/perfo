@@ -1,4 +1,4 @@
-<%= render 'shared/nav_links', :for_role => 'data_entry' %>
+<%= render 'shared/de_nav_links',:active => "college" %>
 <div class="span9">
   <%= simple_form_for @institution, :html => { :class => 'form-horizontal' } do |f| %>
   <legend> Edit Institution </legend>
@@ -7,6 +7,13 @@
   	  <%= render 'shared/buttons', :obj => @institution, :buttons => {'submit' => "Update", "cancel" => "Cancel" }%>
     </div>  
   <% end %>
+  <div class="row">
+    <div class="span9 form-actions">
+   	  <%= link_to @institution, :class => 'btn btn-large btn-success' do %>
+        <i class="icon-file icon-white"> </i> <strong> View this College </strong>
+      <% end %>          
+    </div>
+  </div>    
 </div>
 
 

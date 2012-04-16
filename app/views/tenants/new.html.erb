@@ -1,4 +1,4 @@
-<%= render 'shared/nav_links', :for_role => 'admin' %>
+<%= render 'shared/admin_nav_links', :active => "tenants" %>
 <div class="span6">
   <%= simple_form_for @tenant, :html => { :class => 'form-horizontal' } do |f| %>
   <legend> New Tenant </legend>
@@ -8,6 +8,7 @@
   	<%= render 'shared/buttons', :obj => @tenant, :buttons => {'submit' => "Create", "create_and_add" => "Create and Repeat", "cancel" => "Cancel" }%>
   </div>  
   <% end %>
+    <%= render 'shared/controller_action_buttons', :obj => @tenant, :action => "new" %>      
 </div>
 <div class="span3">
   <%= render 'shared/semi_index', :model_name => "Tenant",

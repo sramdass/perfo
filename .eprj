@@ -38,10 +38,12 @@
             <string>config\application.rb</string>
             <key>applicatio</key>
             <string>app\assets\stylesheets\application.css</string>
+            <key>applicatio_hel</key>
+            <string>app\helpers\application_helper.rb</string>
             <key>applicatiocon</key>
             <string>..\multitenants\app\controllers\application_controller.rb</string>
             <key>application</key>
-            <string>app\assets\stylesheets\application.css</string>
+            <string>app\helpers\application_helper.rb</string>
             <key>application.j</key>
             <string>app\assets\javascripts\application.js</string>
             <key>application.js</key>
@@ -84,6 +86,8 @@
             <string>app\views\shared\_buttons.html.erb</string>
             <key>butto</key>
             <string>app\views\shared\_buttons.html.erb</string>
+            <key>buttons</key>
+            <string>app\views\shared\_controller_action_buttons.html.erb</string>
             <key>contact</key>
             <string>app\models\contact.rb</string>
             <key>contact.</key>
@@ -98,10 +102,14 @@
             <string>app\assets\stylesheets\jquery.dataTables.css.scss</string>
             <key>datab</key>
             <string>config\database.yml</string>
+            <key>databae</key>
+            <string>config\database.yml</string>
             <key>databas</key>
             <string>config\database.yml</string>
             <key>database</key>
             <string>..\multitenants\config\database.yml</string>
+            <key>de_nav</key>
+            <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>depa</key>
             <string>app\models\department.rb</string>
             <key>depar</key>
@@ -159,9 +167,9 @@
             <key>in_Fac</key>
             <string>db\migrate\20120415045226_alter_start_date_end_date_in_faculties.rb</string>
             <key>inde</key>
-            <string>app\views\tenants\invalid.html.erb</string>
+            <string>app\views\semesters\index.html.erb</string>
             <key>index</key>
-            <string>app\views\tenants\index.html.erb</string>
+            <string>app\views\subjects\index.html.erb</string>
             <key>index.h</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>index.ht</key>
@@ -202,6 +210,8 @@
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>mobile_t</key>
             <string>db\migrate\20120415025550_add_parent_mobile_to_contacts.rb</string>
+            <key>nav</key>
+            <string>app\views\shared\_nav_links.html.erb</string>
             <key>nav_li</key>
             <string>app\views\shared\_nav_links.html.erb</string>
             <key>nav_lin</key>
@@ -218,6 +228,8 @@
             <string>app\views\institutions\new.html.erb</string>
             <key>new.t</key>
             <string>app\views\tenants\new.html.erb</string>
+            <key>page_bu</key>
+            <string>app\views\shared\_page_buttons.html.erb</string>
             <key>pg</key>
             <string>..\multitenants\lib\pgtools.rb</string>
             <key>pgt</key>
@@ -267,7 +279,7 @@
             <key>semi_</key>
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>show</key>
-            <string>..\multitenants\app\views\tenants\show.html.erb</string>
+            <string>app\views\exams\show.html.erb</string>
             <key>show.htm</key>
             <string>app\views\institutions\show.html.erb</string>
             <key>show.rb</key>
