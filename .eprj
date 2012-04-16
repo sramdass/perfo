@@ -254,6 +254,8 @@
             <string>db\schema.rb</string>
             <key>schema</key>
             <string>db\schema.rb</string>
+            <key>schema.r</key>
+            <string>db\schema.rb</string>
             <key>schema.rb</key>
             <string>..\multitenants\db\schema.rb</string>
             <key>school.rb</key>
