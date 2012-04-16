@@ -15,7 +15,7 @@
             <key>_sufi</key>
             <string>app\views\subjects\_subject_fields.html.erb</string>
             <key>app</key>
-            <string>app\views\layouts\application.html.erb</string>
+            <string>app\controllers\application_controller.rb</string>
             <key>apphelp</key>
             <string>app\helpers\application_helper.rb</string>
             <key>apphelper</key>
@@ -208,6 +208,8 @@
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>label</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
+            <key>migrate</key>
+            <string>lib\tasks\migrate_with_schemas.rake</string>
             <key>mobile_t</key>
             <string>db\migrate\20120415025550_add_parent_mobile_to_contacts.rb</string>
             <key>nav</key>
@@ -250,6 +252,8 @@
             <string>config\routes.rb</string>
             <key>schem</key>
             <string>db\schema.rb</string>
+            <key>schema</key>
+            <string>db\schema.rb</string>
             <key>schema.rb</key>
             <string>..\multitenants\db\schema.rb</string>
             <key>school.rb</key>
@@ -279,7 +283,7 @@
             <key>semi_</key>
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>show</key>
-            <string>app\views\exams\show.html.erb</string>
+            <string>app\views\batches\show.html.erb</string>
             <key>show.htm</key>
             <string>app\views\institutions\show.html.erb</string>
             <key>show.rb</key>

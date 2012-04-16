@@ -11,7 +11,78 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120414033418) do
+ActiveRecord::Schema.define(:version => 20120415131324) do
+
+  create_table "batches", :force => true do |t|
+    t.string   "institution_id"
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "code"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "blood_groups", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", :force => true do |t|
+    t.string   "user_type"
+    t.integer  "user_id"
+    t.text     "address"
+    t.string   "pin"
+    t.string   "email"
+    t.string   "mobile"
+    t.string   "home_phone"
+    t.string   "emergency_phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "parent_mobile"
+    t.string   "parent_email"
+  end
+
+  create_table "departments", :force => true do |t|
+    t.string   "institution_id"
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "designations", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "exams", :force => true do |t|
+    t.string   "institution_id"
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "faculties", :force => true do |t|
+    t.string   "name"
+    t.string   "id_no"
+    t.boolean  "female"
+    t.string   "qualification"
+    t.integer  "designation_id"
+    t.integer  "blood_group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "start_date"
+    t.date     "end_date"
+  end
 
   create_table "institutions", :force => true do |t|
     t.string   "name"
@@ -23,6 +94,38 @@ ActiveRecord::Schema.define(:version => 20120414033418) do
     t.datetime "updated_at"
     t.string   "subdomain"
     t.integer  "tenant_id"
+  end
+
+  create_table "sections", :force => true do |t|
+    t.integer  "department_id"
+    t.integer  "batch_id"
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "semesters", :force => true do |t|
+    t.integer  "institution_id"
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "code"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.boolean  "current_semester"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "subjects", :force => true do |t|
+    t.string   "institution_id"
+    t.string   "name"
+    t.string   "short_name"
+    t.string   "code"
+    t.boolean  "lab"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tenants", :force => true do |t|
