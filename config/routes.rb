@@ -12,6 +12,8 @@ Perfo::Application.routes.draw do
   resources :batches
   resources :faculties
   resources :sections
+  resources :school_types
+  resources :students
   root :to => 'tenants#new'
   # The priority is based upon order of creation:
   # first created -> highest priority.

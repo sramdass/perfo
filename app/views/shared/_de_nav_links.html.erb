@@ -5,13 +5,13 @@
       <% if active == "college"%>
         <li class= "active">
           <%= link_to institution_new_url do %>
-            <i class="icon-file icon-white"> </i> College
+            <i class="icon-file"> </i> College
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to institution_root_url do %>
-            <i class="icon-file icon-white"> </i> College
+            <i class="icon-file"> </i> College
           <% end %>   
         </li>
       <% end %>        
@@ -19,13 +19,13 @@
       <% if active == "semesters"%>
         <li class= "active">
           <%= link_to semesters_path do %>
-            <i class="icon-file icon-white"> </i> Semesters
+            <i class="icon-file"> </i> Semesters
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to semesters_path do %>
-            <i class="icon-file icon-white"> </i> Semesters
+            <i class="icon-file"> </i> Semesters
           <% end %>   
         </li>
       <% end %>        
@@ -33,13 +33,13 @@
       <% if active == "departments"%>
         <li class= "active">
           <%= link_to departments_path do %>
-            <i class="icon-file icon-white"> </i> Departments
+            <i class="icon-file"> </i> Departments
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to departments_path do %>
-            <i class="icon-file icon-white"> </i> Departments
+            <i class="icon-file"> </i> Departments
           <% end %>   
         </li>
       <% end %>        
@@ -47,27 +47,41 @@
       <% if active == "batches"%>
         <li class= "active">
           <%= link_to batches_path do %>
-            <i class="icon-file icon-white"> </i> Batches
+            <i class="icon-file"> </i> Batches
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to batches_path do %>
-            <i class="icon-file icon-white"> </i> Batches
+            <i class="icon-file"> </i> Batches
           <% end %>   
         </li>
       <% end %>             
       
+      <% if active == "students"%>
+        <li class= "active">
+          <%= link_to students_path do %>
+            <i class="icon-file"> </i> Students
+          <% end %>   
+        </li>
+      <% else %>
+        <li>
+          <%= link_to students_path do %>
+            <i class="icon-file"> </i> Students
+          <% end %>   
+        </li>
+      <% end %>      
+      
       <% if active == "faculties"%>
         <li class= "active">
           <%= link_to faculties_path do %>
-            <i class="icon-file icon-white"> </i> Faculties
+            <i class="icon-file"> </i> Faculties
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to faculties_path do %>
-            <i class="icon-file icon-white"> </i> Faculties
+            <i class="icon-file"> </i> Faculties
           <% end %>   
         </li>
       <% end %>        
@@ -75,13 +89,13 @@
       <% if active == "subjects"%>
         <li class= "active">
             <%= link_to subjects_path do %>
-              <i class="icon-file icon-white"> </i> Subjects
+              <i class="icon-file"> </i> Subjects
             <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to subjects_path do %>
-            <i class="icon-file icon-white"> </i> Subjects
+            <i class="icon-file"> </i> Subjects
           <% end %>   
         </li>
         <% end %>        
@@ -89,13 +103,13 @@
       <% if active == "exams"%>
         <li class= "active">
           <%= link_to exams_path do %>
-            <i class="icon-file icon-white"> </i> Exams
+            <i class="icon-file"> </i> Exams
           <% end %>   
         </li>
       <% else %>
           <li>
             <%= link_to exams_path do %>
-              <i class="icon-file icon-white"> </i> Exams
+              <i class="icon-file"> </i> Exams
             <% end %>   
           </li>
       <% end %>        
@@ -107,13 +121,13 @@
       <% if active == "associate_batches"%>
         <li class= "active">
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> Associate Batches
+            <i class="icon-file"> </i> Associate Batches
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> Associate Batches
+            <i class="icon-file"> </i> Associate Batches
           <% end %>   
         </li>
       <% end %>        
@@ -121,31 +135,45 @@
       <% if active == "associate_semesters"%>
         <li class= "active">
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> Associate Semesters
+            <i class="icon-file"> </i> Associate Semesters
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> Associate Semesters
+            <i class="icon-file"> </i> Associate Semesters
           <% end %>   
         </li>
       <% end %>          
       
       <li class="divider"></li>            
       
-   	  <li class="nav-header">PROFILES AND SETTINGS </li>
+   	  <li class="nav-header">RESOURCES AND SETTINGS </li>
+   	  
+      <% if active == "school_types"%>
+        <li class= "active">
+          <%= link_to school_types_path do %>
+            <i class="icon-file"> </i> School Types
+          <% end %>   
+        </li>
+      <% else %>
+        <li>
+          <%= link_to school_types_path do %>
+            <i class="icon-file"> </i> School Types
+          <% end %>   
+        </li>
+      <% end %>        	  
    	  
       <% if active == "user_profiles"%>
         <li class= "active">
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> User Profiles
+            <i class="icon-file"> </i> User Profiles
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> User Profiles
+            <i class="icon-file"> </i> User Profiles
           <% end %>   
         </li>
       <% end %>     
@@ -153,13 +181,13 @@
       <% if active == "permissions_roles"%>
         <li class= "active">
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> Permissions and Roles
+            <i class="icon-file"> </i> Permissions and Roles
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> Permissions and Roles
+            <i class="icon-file"> </i> Permissions and Roles
           <% end %>   
         </li>
       <% end %>     
@@ -167,13 +195,13 @@
       <% if active == "settings"%>
         <li class= "active">
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> Settings
+            <i class="icon-file"> </i> Settings
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> Settings
+            <i class="icon-file"> </i> Settings
           <% end %>   
         </li>
       <% end %>     

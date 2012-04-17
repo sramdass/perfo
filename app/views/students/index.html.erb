@@ -1,0 +1,87 @@
+<%= render 'shared/de_nav_links', :active => "students" %>
+<div class='span9'>
+<legend> Students Index </legend>
+<%= search_form_for @q, :html => {:class => 'form-horizontal' } do |srch| %>
+  <fieldset>
+    <div class="control-group">
+	  <%= srch.label :name_cont, :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :name_cont, :class=> "input-medium" %> 
+   	  </div>
+  	</div>
+
+    <div class="control-group">
+	  <%= srch.label :id_no_cont , "ID Number contains", :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.text_field :id_no_cont , :class=> "input-medium" %> 
+   	  </div>
+  	</div>
+  	
+    <div class="control-group">
+      <%= srch.label :female_eq, "Gender", :class=> "control-label" %>
+      <div class="controls">
+  	    <%= srch.select :female_eq, options_for_select([ ['All', ''], ['Female', true], ['Male', false]]), {}, {:class => 'span2' } %> 
+      </div>
+    </div>  	
+  	
+    <div class="control-group">
+	  <%= srch.label :start_date_gt, "Joined After" , :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.date_select :start_date_gt, :order => [:day, :month, :year], :prompt => ["Day", "Month", "Year"] %> 
+   	  </div>
+  	</div>  	  	
+  	
+    <div class="control-group">
+	  <%= srch.label :end_date_lt, "Departed Before", :class=> "control-label" %>
+	  <div class="controls">
+   	    <%= srch.date_select :end_date_lt, :order => [:day, :month, :year], :prompt => ["Day", "Month", "Year"]  %> 
+   	  </div>
+  	</div>  	  	
+ 	
+    <div class="form-actions">
+      <%= srch.submit nil, :class => "btn btn-inverse"%>
+    </div>
+  </fieldset>
+<% end %>  	
+
+<table class = 'datatable_full'>
+<thead>
+  <tr>
+  	<th> Name </th>
+  	<th> ID Number </th>
+  	<th> Gender </th>
+  	<th> Qualification </th>
+  	<th> Designation </th>
+  	<th> Date Joined</th>
+  	<th> Date Departed</th>  	
+  	<th> Actions </th>
+  </tr>
+</thead>
+<tbody>
+  <% @students.each do |student| %>
+    <tr>
+      <td> <%= link_to student.name, student %> </td>
+	  <td> <%= student.id_no %> </td>
+	  <td> <%= student.female ? "Female" :  "Male" %> </td>
+	  <td> <%= student.start_date %> </td>
+	  <td> <%= student.end_date %> </td>	  
+	  <td>
+  	    <%= link_to student, :class => 'btn btn-mini btn-info' do %>
+          <i class="icon-file icon-white"> </i> View
+        <% end %>
+   	    <%= link_to edit_student_path(student), :class => 'btn btn-mini btn-inverse' do %>
+          <i class="icon-pencil icon-white"> </i> Edit
+        <% end %>          
+   	    <%= link_to student, :class => 'btn btn-mini btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
+          <i class="icon-trash icon-white"> </i> Delete
+        <% end %>   
+      </td>    
+	</tr>
+  <% end %>
+</tbody>
+</table>
+<%= render 'shared/controller_action_buttons', :obj => Student.new, :action => "index" %>
+</div>
+
+
+

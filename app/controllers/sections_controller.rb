@@ -14,7 +14,7 @@ class SectionsController < ApplicationController
     if @section.save
       flash[:notice] = 'Section successfully created'
       if params[:create_and_add_students]
-      	redirect_to new_section_path
+      	redirect_to new_student_path(:section_id => @section.id)
       else
         redirect_to section_path @section
       end

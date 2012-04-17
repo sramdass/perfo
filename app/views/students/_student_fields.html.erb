@@ -1,0 +1,41 @@
+<%= f.association :section, :disabled => true  %>
+<%= f.input :name  %>
+<%= f.input :id_no, :label => "ID Number"  %>
+<%= f.input :female, :label => "* Gender" do %>
+  <% if f.object.new_record?%>
+    <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ] ) , {:include_blank => ''}  %>
+  <% else %>
+    <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ], f.object.female? ) , {:include_blank => ''}  %>
+  <% end %>	
+<% end %>
+<%= f.input :father_name, :label => "Father's Name" %>
+<%= f.input :start_date, :label => "Date Joined",:as => :date, :start_year => Date.today.year - 5,
+                              :end_year => Date.today.year + 5,:order => [:day, :month, :year], :prompt => ['day', 'month', 'year'], :input_html => { :class => 'span1'}%>
+<%= f.input :end_date, :label => "Date Departed", :as => :date, :start_year => Date.today.year - 5,
+                              :end_year => Date.today.year + 5,:order => [:day, :month, :year], :prompt => ['day', 'month', 'year'], :input_html => { :class => 'span1' }%>                              
+<%= f.association :blood_group %>          
+<%= f.input :degree_finished %>
+	<table class="input_form_table" style = "border: 1px solid black;">
+		<thead>
+	    	<tr>
+	        	<th>Type</th>
+	        	<th>Type</th>
+	        	<th>Type</th>
+	        	<th>Type</th>
+	        </tr>
+	    </thead>
+	    <tbody>		
+		<%= f.fields_for :pre_college_marks do |builder| %>	
+		  <%= render "pre_college_marks_fields", :f => builder %>	 	  
+		<% end %>
+	    </tbody>		
+	</table>		
+ <p> <%= link_to_add_fields "Add", f, :pre_college_marks %> </p>
+<%= f.fields_for :contact do |builder| %>	
+  <%= render "shared/contact_fields", :f => builder, :obj => "Student" %>	 	  
+<% end %>  
+
+
+
+
+

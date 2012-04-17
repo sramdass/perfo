@@ -1,0 +1,70 @@
+<%= render 'shared/de_nav_links', :active => "students" %>
+<div class="span9">
+	<legend><%= @student.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @student.name %></td>
+      </tr>
+      <tr>
+        <td>ID Number</td>
+        <td><%= @student.id_no%></td>
+      </tr>
+      <tr>      
+      <tr>
+        <td>Gender</td>
+        <td><%= @student.female ? "Female" : "Male" %></td>
+      </tr>
+      <tr>
+        <td>Qualification</td>
+        <td><%= @student.qualification %></td>
+      </tr>
+      <tr>
+        <td>Designation</td>
+        <td><%= @student.designation.try(:name) %></td>
+      </tr>            
+      <tr>
+        <td>Blood Group</td>
+        <td><%= @student.blood_group.try(:name) %></td>
+      </tr>         
+      <tr>
+        <td>Date Joined</td>
+        <td><%= @student.start_date %></td>
+      </tr>         
+      <tr>
+        <td>Date Departed</td>
+        <td><%= @student.end_date %></td>
+      </tr>           
+      <tr>
+        <td>Date Departed</td>
+        <td><%= @student.end_date %></td>
+      </tr>           
+      <tr>
+        <td>Address</td>
+        <td><%= @student.contact.address %></td>
+      </tr>           
+      <tr>
+        <td>PIN</td>
+        <td><%= @student.contact.pin %></td>
+      </tr>           
+      <tr>
+        <td>Email</td>
+        <td><%= @student.contact.email %></td>
+      </tr>          
+      <tr>
+        <td>Mobile</td>
+        <td><%= @student.contact.mobile %></td>
+      </tr>                                           
+      <tr>
+        <td>Home Phone</td>
+        <td><%= @student.contact.home_phone %></td>
+      </tr>                                           
+      <tr>
+        <td>Emergency Phone</td>
+        <td><%= @student.contact.emergency_phone %></td>
+      </tr>                                                       
+    </tbody>  
+  </table>
+<%= render 'shared/controller_action_buttons', :obj => @student, :action => "show" %>  
+</div>

@@ -6,6 +6,8 @@
         <dict>
             <key>TENANT.R</key>
             <string>..\multitenants\app\models\tenant.rb</string>
+            <key>_denav</key>
+            <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>_form</key>
             <string>..\tester\app\views\students\_form.html.erb</string>
             <key>_ininst</key>
@@ -16,6 +18,8 @@
             <string>app\views\subjects\_subject_fields.html.erb</string>
             <key>app</key>
             <string>app\controllers\application_controller.rb</string>
+            <key>apphel</key>
+            <string>app\helpers\application_helper.rb</string>
             <key>apphelp</key>
             <string>app\helpers\application_helper.rb</string>
             <key>apphelper</key>
@@ -27,9 +31,11 @@
             <key>applic.cs</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applica</key>
-            <string>app\controllers\application_controller.rb</string>
+            <string>app\assets\javascripts\application.js</string>
             <key>applicab</key>
             <string>config\application.rb</string>
+            <key>applicahel</key>
+            <string>app\helpers\application_helper.rb</string>
             <key>applicaio.htm</key>
             <string>app\views\layouts\application.html.erb</string>
             <key>applicat</key>
@@ -60,12 +66,16 @@
             <string>app\controllers\application_controller.rb</string>
             <key>application_he</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>applicationher</key>
+            <string>app\helpers\application_helper.rb</string>
             <key>appliche</key>
             <string>app\helpers\application_helper.rb</string>
             <key>arti</key>
             <string>..\subdomain\app\models\article.rb</string>
             <key>articles</key>
             <string>..\subdomain\app\controllers\articles_controller.rb</string>
+            <key>batch</key>
+            <string>app\controllers\batches_controller.rb</string>
             <key>batch.r</key>
             <string>app\models\batch.rb</string>
             <key>batch.rb</key>
@@ -94,8 +104,14 @@
             <string>app\models\contact.rb</string>
             <key>contact.rb</key>
             <string>app\models\contact.rb</string>
+            <key>contaction</key>
+            <string>app\views\shared\_controller_action_buttons.html.erb</string>
+            <key>cre_st</key>
+            <string>db\migrate\20120417132606_create_students.rb</string>
             <key>create_c</key>
             <string>db\migrate\20120415021209_create_contacts.rb</string>
+            <key>create_prec</key>
+            <string>db\migrate\20120417134458_create_pre_college_marks.rb</string>
             <key>crete_Fa</key>
             <string>db\migrate\20120415022222_create_faculties.rb</string>
             <key>data</key>
@@ -142,13 +158,19 @@
             <string>app\controllers\exams_controller.rb</string>
             <key>faccont</key>
             <string>app\controllers\faculties_controller.rb</string>
+            <key>facucon</key>
+            <string>app\controllers\faculties_controller.rb</string>
             <key>facul</key>
             <string>app\models\faculty.rb</string>
             <key>facultiecont</key>
             <string>app\controllers\faculties_controller.rb</string>
+            <key>faculties_co</key>
+            <string>app\controllers\faculties_controller.rb</string>
             <key>faculty</key>
             <string>app\models\faculty.rb</string>
             <key>faculty.r</key>
+            <string>app\models\faculty.rb</string>
+            <key>faculty.rb</key>
             <string>app\models\faculty.rb</string>
             <key>field</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
@@ -169,7 +191,7 @@
             <key>inde</key>
             <string>app\views\semesters\index.html.erb</string>
             <key>index</key>
-            <string>app\views\subjects\index.html.erb</string>
+            <string>app\views\sections\index.html.erb</string>
             <key>index.h</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>index.ht</key>
@@ -221,7 +243,7 @@
             <key>nav_link</key>
             <string>app\views\shared\_nav_links.html.erb</string>
             <key>new</key>
-            <string>app\views\semesters\new.html.erb</string>
+            <string>app\views\sections\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\tenants\new.html.erb</string>
             <key>new.htm</key>
@@ -238,6 +260,12 @@
             <string>lib\pgtools.rb</string>
             <key>pgtoo</key>
             <string>app\pgtools\pgtools.rb</string>
+            <key>precolle</key>
+            <string>app\models\pre_college_mark.rb</string>
+            <key>precollege</key>
+            <string>app\models\pre_college_mark.rb</string>
+            <key>prod.r</key>
+            <string>config\environments\production.rb</string>
             <key>produc</key>
             <string>config\environments\production.rb</string>
             <key>rout</key>
@@ -247,6 +275,8 @@
             <key>routes</key>
             <string>config\routes.rb</string>
             <key>routes.</key>
+            <string>config\routes.rb</string>
+            <key>routes.r</key>
             <string>config\routes.rb</string>
             <key>routes.rb</key>
             <string>config\routes.rb</string>
@@ -260,10 +290,24 @@
             <string>..\multitenants\db\schema.rb</string>
             <key>school.rb</key>
             <string>..\tester\app\models\school.rb</string>
+            <key>school_ty</key>
+            <string>app\controllers\school_types_controller.rb</string>
+            <key>school_type.rb</key>
+            <string>app\models\school_type.rb</string>
+            <key>schooltype.r</key>
+            <string>app\models\school_type.rb</string>
+            <key>schooltypesco</key>
+            <string>app\controllers\school_types_controller.rb</string>
+            <key>sectcon</key>
+            <string>app\controllers\sections_controller.rb</string>
             <key>section.r</key>
             <string>app\models\section.rb</string>
             <key>section.rb</key>
             <string>app\models\section.rb</string>
+            <key>section_co</key>
+            <string>app\controllers\sections_controller.rb</string>
+            <key>section_id_to_students.rb</key>
+            <string>db\migrate\20120417143225_add_section_id_to_students.rb</string>
             <key>sectionscont</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>seme</key>
@@ -288,16 +332,28 @@
             <string>app\views\batches\show.html.erb</string>
             <key>show.htm</key>
             <string>app\views\institutions\show.html.erb</string>
+            <key>show.html.erb</key>
+            <string>app\views\school_types\show.html.erb</string>
             <key>show.rb</key>
             <string>app\views\tenants\show.html.erb</string>
             <key>stu_sub</key>
             <string>..\tester\app\models\stu_sub_map.rb</string>
+            <key>studen.</key>
+            <string>app\models\student.rb</string>
+            <key>studen.r</key>
+            <string>app\models\student.rb</string>
             <key>student</key>
             <string>..\tester\app\models\student.rb</string>
             <key>student.rb</key>
-            <string>..\tester\app\models\student.rb</string>
+            <string>app\models\student.rb</string>
+            <key>student_f</key>
+            <string>app\views\students\_student_fields.html.erb</string>
             <key>students</key>
             <string>..\tester\app\controllers\students_controller.rb</string>
+            <key>students_co</key>
+            <string>app\controllers\students_controller.rb</string>
+            <key>students_con</key>
+            <string>app\controllers\students_controller.rb</string>
             <key>subjec</key>
             <string>..\multitenants\app\models\subject.rb</string>
             <key>subjecr</key>
@@ -312,6 +368,8 @@
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
             <key>subjects_c</key>
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
+            <key>tenaman</key>
+            <string>app\models\tenant_manager.rb</string>
             <key>tenancont</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenant</key>

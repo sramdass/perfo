@@ -1,0 +1,17 @@
+<%= render 'shared/de_nav_links', :active => "school_types" %>
+<div class="span9">
+	<legend><%= @school_type.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @school_type.name %></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td><%= @school_type.description %></td>
+      </tr>
+    </tbody>  
+  </table>
+  <%= render 'shared/controller_action_buttons', :obj => @school_type, :action => "show" %>  
+</div>
