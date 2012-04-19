@@ -19,7 +19,6 @@
 
 class Contact < TenantManager
   belongs_to :user,		 				:polymorphic => true
-#  validates :user_id, 					{:presence => true, :uniqueness => true}
   
   validates_length_of					:address, 							:maximum => 200
   

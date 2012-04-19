@@ -13,11 +13,7 @@ class SectionsController < ApplicationController
     @section = Section.new(params[:section])
     if @section.save
       flash[:notice] = 'Section successfully created'
-      if params[:create_and_add_students]
-      	redirect_to new_student_path(:section_id => @section.id)
-      else
-        redirect_to section_path @section
-      end
+      redirect_to section_path @section
     else
       render :new
     end
@@ -44,11 +40,7 @@ class SectionsController < ApplicationController
     end    
     if @section.update_attributes(params[:section])
       flash[:notice] = 'Section successfully updated'
-      if params[:update_and_edit_students]
-      	redirect_to new_section_path
-      else
-        redirect_to section_path @section
-      end      
+      redirect_to section_path @section
     else
       render :edit
     end

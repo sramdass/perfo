@@ -22,7 +22,6 @@ class Section < TenantManager
   validates_associated :department
   
   has_many :students
-  validates_associated :students
   
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	

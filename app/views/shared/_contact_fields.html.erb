@@ -1,10 +1,14 @@
-<%= f.input :address, :input_html => { :cols => 50, :rows => 6 } %>
-<%= f.input :pin %>
 <%= f.input :email %>
 <%= f.input :mobile %>
+<% if obj == "Student"%>
+  <%#Using the :required => true. It is not finding the validates_presence for these fields becuase we are using a dynamic 
+           condition to check if the current record belongs to the student %>	
+  <%= f.input :parent_mobile, :required => true %>
+  <%= f.input :parent_email, :required => true %>
+<% end %>
 <%= f.input :home_phone %>
 <%= f.input :emergency_phone %>
-<% if obj == "Student"%>
-  <%= f.input :parent_mobile %>
-  <%= f.input :parent_email %>
-<% end %>
+<%= f.input :address, :input_html => { :cols => 50, :rows => 6 } %>
+<%= f.input :pin %>
+
+

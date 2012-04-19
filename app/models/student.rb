@@ -16,14 +16,17 @@
 #
 
 class Student < TenantManager
+  NOT_KNOWN = -1
+  DEGREE_COMPLETED = 0
+  DEGREE_NOT_COMPLETED = 1
+  DROP_OUT = 2
+  
   has_one :contact, :as => :user, :dependent => :destroy	
   accepts_nested_attributes_for :contact
   validates_presence_of 		:contact
-  validates_associated 			:contact
   
   has_many :pre_college_marks, :dependent => :destroy
   accepts_nested_attributes_for :pre_college_marks, :reject_if => :has_only_destroy?, :allow_destroy => true
-  validates_associated 			:pre_college_marks
   
   belongs_to :blood_group
   validates_associated :blood_group
@@ -31,8 +34,11 @@ class Student < TenantManager
   belongs_to :section
   validates_associated :section
   validates_presence_of :section
-    
-  
+
+  #Since we are not using f.association in the student_fields, we need to validate th presence
+  #exclusively for the * mark (required field) in the form
+  validates_presence_of			:section_id
+ 
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 50
   
@@ -42,6 +48,9 @@ class Student < TenantManager
   validates_length_of					:father_name,					:maximum => 50  
   
   validates_inclusion_of				:female,								:in => [true, false]
+  
+  validates_inclusion_of				:degree_finished,			:in => [NOT_KNOWN, DEGREE_COMPLETED, 
+  																												DEGREE_NOT_COMPLETED, DROP_OUT]    
   
   validate 										:start_date_and_end_date	  
   

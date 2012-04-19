@@ -1,5 +1,6 @@
-<%= render 'shared/de_nav_links', :active => "students" %>
-<div class='span9'>
+<%= render 'shared/de_nav_links', :active => "associate_batches" %>
+<div class="span9">
+  <%= render 'shared/de_batches_nav_pills', :active => "students" %>
 <legend> Students Index </legend>
 <%= search_form_for @q, :html => {:class => 'form-horizontal' } do |srch| %>
   <fieldset>
@@ -50,8 +51,6 @@
   	<th> Name </th>
   	<th> ID Number </th>
   	<th> Gender </th>
-  	<th> Qualification </th>
-  	<th> Designation </th>
   	<th> Date Joined</th>
   	<th> Date Departed</th>  	
   	<th> Actions </th>

@@ -1,10 +1,11 @@
-<%= render 'shared/de_nav_links', :active => "sections" %>
+<%= render 'shared/de_nav_links', :active => "associate_batches" %>
 <div class="span6">
+  <%= render 'shared/de_batches_nav_pills', :active => "sections"%>
   <%= simple_form_for @section, :html => { :class => 'form-horizontal' } do |f| %>
   <legend> New Section </legend>
     <%= render 'section_fields', :f => f %>
     <div class="form-actions">
-  	  <%= render 'shared/buttons', :obj => @section, :buttons => {'submit' => "Create",  "create_and_add_students" => "Create and Add Students", "cancel" => "Cancel" }%>
+  	  <%= render 'shared/buttons', :obj => @section, :buttons => {'submit' => "Create", "cancel" => "Cancel" } %>
     </div>  
   <% end %>
   <%= render 'shared/controller_action_buttons', :obj => @section, :action => "new" %>    

@@ -1,42 +1,37 @@
-<%= render 'shared/de_nav_links', :active => "sections" %>
-<div class='span9'>
+<%= render 'shared/de_nav_links', :active => "associate_batches" %>
+<div class="span9">
+  <%= render 'shared/de_batches_nav_pills', :active => "sections"%>
 <legend> Sections Index </legend>
 <%= search_form_for @q, :html => {:class => 'form-horizontal' } do |srch| %>
   <fieldset>
     <div class="control-group">
 	  <%= srch.label :name_cont, :class=> "control-label" %>
 	  <div class="controls">
-   	    <%= srch.text_field :name_cont, :class=> "input-medium" %> 
-   	  </div>
-  	</div>
-
-    <div class="control-group">
-	  <%= srch.label :short_name_cont , :class=> "control-label" %>
-	  <div class="controls">
-   	    <%= srch.text_field :short_name_cont , :class=> "input-medium" %> 
+   	    <%= srch.text_field :name_cont %> 
    	  </div>
   	</div>
   	
     <div class="control-group">
-	  <%= srch.label :code_cont, :class=> "control-label" %>
-	  <div class="controls">
-   	    <%= srch.text_field :code_cont, :class=> "input-medium" %> 
-   	  </div>
-  	</div>
+      <%= srch.label :department_id_eq, "Department", :class=> "control-label" %>
+      <div class="controls">
+      	<% if params[:q] %>
+  	      <%= srch.select :department_id_eq,  options_for_select(Department.all.collect {|d| [ d.name, d.id ] }, params[:q][:department_id_eq]) , {:include_blank => true }  %>
+  	    <% else %>
+  	      <%= srch.select :department_id_eq,  options_for_select(Department.all.collect {|d| [ d.name, d.id ] }) , {:include_blank => true }  %>
+  	    <% end %>
+      </div>
+    </div>
   	
     <div class="control-group">
-	  <%= srch.label :department_name_cont, :class=> "control-label" %>
-	  <div class="controls">
-   	    <%= srch.text_field :department_name_cont, :class=> "input-medium" %> 
-   	  </div>
-  	</div>
-  	
-    <div class="control-group">
-	  <%= srch.label :batch_name_cont, :class=> "control-label" %>
-	  <div class="controls">
-   	    <%= srch.text_field :batch_name_cont, :class=> "input-medium" %> 
-   	  </div>
-  	</div>  	  	
+      <%= srch.label :batch_id_eq, "Batch", :class=> "control-label" %>
+      <div class="controls">
+      	<% if params[:q] %>
+  	      <%= srch.select :batch_id_eq,  options_for_select(Batch.all.collect {|b| [ b.name, b.id ] }, params[:q][:batch_id_eq]) , {:include_blank => true }  %>
+  	    <% else %>
+  	      <%= srch.select :batch_id_eq,  options_for_select(Batch.all.collect {|b| [ b.name, b.id ] }) , {:include_blank => true }  %>
+  	    <% end %>
+      </div>
+    </div>
 
     <div class="form-actions">
       <%= srch.submit nil, :class => "btn btn-inverse"%>

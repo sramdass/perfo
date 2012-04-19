@@ -13,9 +13,22 @@
 #
 
 class PreCollegeMark < TenantManager
+  NOT_KNOWN = -1
+  PASSED = 0
+  FAILED = 1
+  DROP_OUT = 2
+  
+ #Dont check fo the presence of the parent object in case of the nested attributes
   belongs_to :student
-  validates_associated :student  
   
   belongs_to :school_type
   validates_associated :school_type
+  validates_presence_of :school_type
+
+  validates_length_of					:school_name,					:maximum => 30	
+  
+  validates_inclusion_of				:status,								:in => [NOT_KNOWN, PASSED, FAILED, DROP_OUT]  
+  
+  validates_numericality_of 		:percent_marks,				:greater_than_or_equal_to => 0,
+   																									:less_than_or_equal_to => 100
 end

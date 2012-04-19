@@ -1,5 +1,14 @@
-<%= render 'shared/de_nav_links', :active => "sections" %>
+<%= render 'shared/de_nav_links', :active => "associate_batches" %>
 <div class="span9">
+  <%= render 'shared/de_batches_nav_pills', :active => "sections"%>
+    <div class="span9 form-actions">
+  <%= link_to students_path(:section_id => @section.id) , :class => 'btn btn-large btn-info' do %>
+    <i class="icon-th icon-white"> </i> <strong> View Students </strong>
+  <% end %>
+  <%= link_to new_student_path(:section_id => @section.id) , :class => 'btn btn-large btn-info' do %>
+    <i class="icon-plus icon-white"> </i> <strong> Add Students </strong>
+  <% end %>
+    </div>             
   <legend><%= @section.name %> </legend>
   <table class="table table-striped">
     <tbody>

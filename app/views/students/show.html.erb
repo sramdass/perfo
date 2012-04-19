@@ -1,5 +1,6 @@
-<%= render 'shared/de_nav_links', :active => "students" %>
+<%= render 'shared/de_nav_links', :active => "associate_batches" %>
 <div class="span9">
+  <%= render 'shared/de_batches_nav_pills', :active => "students" %>
 	<legend><%= @student.name %> </legend>
   <table class="table table-striped">
     <tbody>
@@ -17,13 +18,22 @@
         <td><%= @student.female ? "Female" : "Male" %></td>
       </tr>
       <tr>
-        <td>Qualification</td>
-        <td><%= @student.qualification %></td>
-      </tr>
       <tr>
-        <td>Designation</td>
-        <td><%= @student.designation.try(:name) %></td>
-      </tr>            
+        <td>Father's Name</td>
+        <td><%= @student.father_name %></td>
+      </tr>
+      <tr>      	
+        <td>Pre College Marks</td>
+        <td>
+          <% @student.pre_college_marks.each do |pre_college| %>
+            <%= pre_college.school_type.name %> <br>
+            <%= pre_college.school_name %> <br>
+            <%= pre_college.status %> <br>
+            <%= pre_college.percent_marks %>
+          <% end %>
+        	
+        </td>
+      </tr>
       <tr>
         <td>Blood Group</td>
         <td><%= @student.blood_group.try(:name) %></td>
