@@ -1,19 +1,20 @@
-<% disable_section = params[:action] == "edit" ? true : false %>
+<% disable_edit = params[:action] == "edit" || params[:action] == "update" ? true : false %>
+<% # if disabled_edit is true, that means that the user is in update or edit action and we should disable the section selection. If we disable, section_id paramter is not passed to the backend. So, using a hidden field here %>
+<% if disable_edit == true %>
+  <%= f.hidden_field :section_id, :value => f.object.section_id %>
+<% end %>
+
 <%= f.input :section_id do %>
-  <% if f.object.section_id? %>
-    <%= f.select :section_id,  options_for_select(Section.all.collect {|sec| ["#{sec.name} (#{sec.department.name})", sec.id ]}, f.object.section_id), {:include_blank => true }, {:class => 'span3', :disabled => disable_section}  %>
-  <% else %>
-    <%= f.select :section_id,  options_for_select(Section.all.collect {|sec| ["#{sec.name} (#{sec.department.name})", sec.id ]}), {:include_blank => true }, {:class => 'span3', :disabled => disable_section }   %>
-  <% end %>
+  <%= f.select :section_id,  options_for_select(Section.all.collect {|sec| ["#{sec.name}  - #{sec.batch.name} - #{sec.department.name}", sec.id ]}, f.object.section_id), {:include_blank => true }, {:class => 'span3', :disabled => disable_edit}  %>
 <% end %>
 <%= f.input :name   %>
 <%= f.input :id_no, :label => "ID Number"  %>
 <%= f.input :female, :label => "Gender", :required => true do %>
-  <% if f.object.female %>
-    <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ], f.object.female? ) , {:include_blank => true}  %>
+  <% if f.object.new_record? %>
+    <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ]) , {:include_blank => true}  %>
   <% else %>
-    <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ] ) , {:include_blank => true}  %>
-  <% end %>	
+    <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ], f.object.female?  ) , {:include_blank => true}  %>
+  <% end %>	d
 <% end %>
 <%= f.input :father_name, :label => "Father's Name" %>
 <%= f.input :start_date, :label => "Date Joined",:as => :date, :start_year => Date.today.year - 5,
@@ -21,7 +22,7 @@
 <%= f.input :end_date, :label => "Date Departed", :as => :date, :start_year => Date.today.year - 5,
                               :end_year => Date.today.year + 5,:order => [:day, :month, :year], :prompt => ['day', 'month', 'year'], :input_html => { :class => 'span1' }%>                              
 <%= f.association :blood_group %>          
-<%= f.input :degree_finished do %>
+<%= f.input :degree_finished, :required => true do %>
   <%= f.select :degree_finished, options_for_select([ ['Not Known', -1], ['Completed', 0], ['Not Completed', 1],['Drop Out', 2]], f.object.degree_finished), {:include_blank => true} %> 
 <% end %>
 <%= f.simple_fields_for :contact do |builder| %>	

@@ -1,7 +1,6 @@
 <%= render 'shared/de_nav_links', :active => "associate_batches" %>
 <div class="span6">
   <%= render 'shared/de_batches_nav_pills', :active => "students"%>
-  <%= debug @student.errors %>
   <%= simple_form_for @student, :html => { :class => 'form-horizontal' } do |f| %>
   <legend> New Student </legend>
     <%= render 'student_fields', :f => f %>

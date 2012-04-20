@@ -1,0 +1,35 @@
+<%= render 'shared/de_nav_links', :active => "blood_groups" %>
+<div class='span9'>
+<legend> Blood Groups </legend>
+<table class = 'datatable_full'>
+<thead>
+  <tr>
+  	<th> Blood Group </th>
+  	<th> Description </th>
+  	<th> Actions </th>
+  </tr>
+</thead>
+<tbody>
+  <% @blood_groups.each do |blood_group| %>
+    <tr>
+      <td> <%= link_to blood_group.name, blood_group %> </td>
+	  <td> <%= blood_group.description %> </td>
+	  <td>
+  	    <%= link_to blood_group, :class => 'btn btn-mini btn-info' do %>
+          <i class="icon-file icon-white"> </i> View
+        <% end %>
+   	    <%= link_to edit_blood_group_path(blood_group), :class => 'btn btn-mini btn-inverse' do %>
+          <i class="icon-pencil icon-white"> </i> Edit
+        <% end %>          
+   	    <%= link_to blood_group, :class => 'btn btn-mini btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
+          <i class="icon-trash icon-white"> </i> Delete
+        <% end %>   
+      </td>    
+	</tr>
+  <% end %>
+</tbody>
+</table>
+<%= render 'shared/controller_action_buttons', :obj => BloodGroup.new, :action => "index" %>
+</div>
+
+

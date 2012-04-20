@@ -64,7 +64,11 @@
             <string>app\controllers\application_controller.rb</string>
             <key>application_c</key>
             <string>app\controllers\application_controller.rb</string>
+            <key>application_con</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>application_he</key>
+            <string>app\helpers\application_helper.rb</string>
+            <key>application_hel</key>
             <string>app\helpers\application_helper.rb</string>
             <key>applicationher</key>
             <string>app\helpers\application_helper.rb</string>
@@ -132,12 +136,16 @@
             <string>..\multitenants\config\database.yml</string>
             <key>de_nav</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
+            <key>denavlink</key>
+            <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>denavpi</key>
             <string>app\views\shared\_de_batches_nav_pills.html.erb</string>
             <key>depa</key>
             <string>app\models\department.rb</string>
             <key>depar</key>
             <string>app\models\department.rb</string>
+            <key>deparmec</key>
+            <string>app\controllers\departments_controller.rb</string>
             <key>deparmecon</key>
             <string>app\controllers\departments_controller.rb</string>
             <key>depart</key>
@@ -258,6 +266,8 @@
             <string>app\views\faculties\new.html.erb</string>
             <key>new.html</key>
             <string>app\views\institutions\new.html.erb</string>
+            <key>new.html.e</key>
+            <string>app\views\students\new.html.erb</string>
             <key>new.t</key>
             <string>app\views\tenants\new.html.erb</string>
             <key>page_bu</key>
@@ -308,6 +318,8 @@
             <string>app\controllers\school_types_controller.rb</string>
             <key>school_type.rb</key>
             <string>app\models\school_type.rb</string>
+            <key>schooltyp.rb</key>
+            <string>app\models\school_type.rb</string>
             <key>schooltype.r</key>
             <string>app\models\school_type.rb</string>
             <key>schooltypesco</key>
@@ -324,6 +336,8 @@
             <string>app\models\section.rb</string>
             <key>section.rb</key>
             <string>app\models\section.rb</string>
+            <key>section_c</key>
+            <string>app\controllers\sections_controller.rb</string>
             <key>section_co</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>section_id_to_students.rb</key>
@@ -355,7 +369,7 @@
             <key>show.</key>
             <string>app\views\students\show.html.erb</string>
             <key>show.htm</key>
-            <string>app\views\institutions\show.html.erb</string>
+            <string>app\views\students\show.html.erb</string>
             <key>show.html.erb</key>
             <string>app\views\school_types\show.html.erb</string>
             <key>show.rb</key>
@@ -369,6 +383,8 @@
             <key>studen.r</key>
             <string>app\models\student.rb</string>
             <key>studen_f</key>
+            <string>app\views\students\_student_fields.html.erb</string>
+            <key>studenfil</key>
             <string>app\views\students\_student_fields.html.erb</string>
             <key>studenfile</key>
             <string>app\views\students\_student_fields.html.erb</string>

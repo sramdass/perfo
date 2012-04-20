@@ -162,7 +162,21 @@
             <i class="icon-file"> </i> School Types
           <% end %>   
         </li>
-      <% end %>        	  
+      <% end %>
+      
+      <% if active == "blood_groups"%>
+        <li class= "active">
+          <%= link_to blood_groups_path do %>
+            <i class="icon-file"> </i> Blood Groups
+          <% end %>   
+        </li>
+      <% else %>
+        <li>
+          <%= link_to blood_groups_path do %>
+            <i class="icon-file"> </i> Blood Groups
+          <% end %>   
+        </li>
+      <% end %>        	        
    	  
       <% if active == "user_profiles"%>
         <li class= "active">

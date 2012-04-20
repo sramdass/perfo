@@ -1,0 +1,17 @@
+<%= render 'shared/de_nav_links', :active => "blood_groups" %>
+<div class="span9">
+	<legend><%= @blood_group.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @blood_group.name %></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td><%= @blood_group.description %></td>
+      </tr>
+    </tbody>  
+  </table>
+  <%= render 'shared/controller_action_buttons', :obj => @blood_group, :action => "show" %>  
+</div>

@@ -11,7 +11,8 @@ private
 
   def load_tenant
     #Modifications need to be done for verifying current_tenant so that the user does not switch identity in the middle
-  	@current_tenant = Tenant.find_by_subdomain(request.subdomain) #Uses ActiveRecord::Base's connection.
+  	#@current_tenant = Tenant.find_by_subdomain(request.subdomain) #Uses ActiveRecord::Base's connection.
+  	@current_tenant = Tenant.find_by_subdomain("abc") 
     if !@current_tenant
       redirect_to invalid_tenant_url
       return

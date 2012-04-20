@@ -26,7 +26,9 @@ module ApplicationHelper
   	  when  "Student"
   	    edit_student_path(obj)  	      	
   	  when  "Section"
-  	    edit_section_path(obj)  	     	      	     	       	     
+  	    edit_section_path(obj)
+  	  when  "BloodGroup"
+  	    edit_blood_group_path(obj)  	      	         	     	       	     
   	 when nil
   	    nil
     end
@@ -53,7 +55,9 @@ module ApplicationHelper
   	  when  "Student"
   	    students_path    
   	  when  "Section"
-  	    sections_path(obj)  	     	    	  	      	      
+  	    sections_path(obj)  	     
+  	  when  "BloodGroup"
+  	    blood_groups_path(obj)  	    	    	  	      	      
   	 when nil
   	    nil
     end
@@ -80,7 +84,9 @@ module ApplicationHelper
   	  when  "Student"
   	    new_student_path    	 
   	  when  "Section"
-  	    new_section_path(obj)  	     	     	    	      	    
+  	    new_section_path	     	     	    	      	    
+  	  when  "BloodGroup"
+  	    new_blood_group_path  	    
   	 when nil
   	    nil
     end
