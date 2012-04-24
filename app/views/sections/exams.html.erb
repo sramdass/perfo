@@ -1,0 +1,36 @@
+<% semester_id = params[:semester_id] %>
+<%= render 'shared/de_nav_links', :active => "associate_batches" %>
+<div class="span6">
+  <%= render 'shared/de_batches_nav_pills', :active => "sections"%>
+  <%= form_for( [@section], :url => { :action => "update_exams" },  :html => { :class => 'form-horizontal' }  ) do |f|  %>	
+    <legend> Select Exam </legend>
+    <fieldset>
+      Section: <%= @section.name %><br>
+      Semester: <%= Semester.find(semester_id).name %><br><br>
+      <%= hidden_field_tag 'semester_id', nil, :value => semester_id %>
+      <% 
+      #We cannot use the simple form the display the association exams for the section instance. It will mean that the exams across the semesters are applicable
+      # for this semester. i.e. the check box will be selected for all the exams across all the semesters. So we need to limit it to the current semester 
+      %>
+      <div class="control-group">
+        <label class="control-label">Exams</label>
+        <div class="controls">
+        	<% @exams.each do |ex| %>
+          <label class="checkbox">
+            <%= check_box_tag "section[exam_ids][]", ex.id, SecExamMap.for_semester(semester_id).for_section(@section.id).for_exam(ex.id).present? %> <%= ex.name  %> 
+          </label>
+          <% end %>
+          <p class="help-block"><strong>Select the exams for the semester - <%= Semester.find(semester_id).name %></strong></p>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= button_tag(:type => 'submit', :name => 'create', :class => "btn btn-success btn-large" ) do %>
+          <i class="icon-ok icon-white"> </i> <strong> Update Exams </strong>
+        <% end %>  
+      </div>  
+  </fieldset>
+  <% end %>
+</div>
+
+<%= render 'shared/semi_index', :model_name => "Section" %>

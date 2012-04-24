@@ -21,7 +21,13 @@ class Section < TenantManager
   validates_presence_of :department
   validates_associated :department
   
-  has_many :students
+  has_many :students, :dependent => :destroy
+  
+  has_many :sec_sub_maps, :dependent => true, :dependent => :destroy
+  has_many :subjects, :through => :sec_sub_maps
+  
+  has_many :sec_exam_maps, :dependent => true, :dependent => :destroy
+  has_many :exams, :through => :sec_exam_maps  
   
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	
@@ -31,4 +37,8 @@ class Section < TenantManager
   
   validates_presence_of			:code
   validates_length_of					:code,	 								:maximum => 5
+  
+  def semester_subjects
+    SecSubMap.for_semester(@semester_id).for_section(@section.id).all
+  end  	
 end

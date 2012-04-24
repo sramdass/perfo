@@ -11,7 +11,16 @@ Perfo::Application.routes.draw do
   resources :exams
   resources :batches
   resources :faculties
-  resources :sections
+  resources :sections do
+    member do
+      get 'subjects'
+      put 'update_subjects'
+      get 'faculties'
+      put 'update_faculties'
+      get 'exams'
+      put 'update_exams'      
+    end
+  end
   resources :school_types
   resources :students
   resources :blood_groups

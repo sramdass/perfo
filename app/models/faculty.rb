@@ -21,6 +21,9 @@ class Faculty < TenantManager
   validates_presence_of 		:contact
   validates_associated 			:contact
   
+  #No dependent destroy
+  has_many :sec_sub_maps  
+  
   belongs_to :blood_group
   validates_associated :blood_group
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120415131324) do
+ActiveRecord::Schema.define(:version => 20120421032752) do
 
   create_table "batches", :force => true do |t|
     t.string   "institution_id"
@@ -96,6 +96,43 @@ ActiveRecord::Schema.define(:version => 20120415131324) do
     t.integer  "tenant_id"
   end
 
+  create_table "pre_college_marks", :force => true do |t|
+    t.integer  "school_type_id"
+    t.string   "school_name"
+    t.float    "percent_marks"
+    t.integer  "status"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "school_types", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sec_exam_maps", :force => true do |t|
+    t.integer  "semester_id"
+    t.integer  "section_id"
+    t.integer  "exam_id"
+    t.integer  "subject_id"
+    t.datetime "scheduled_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sec_sub_maps", :force => true do |t|
+    t.integer  "semester_id"
+    t.integer  "section_id"
+    t.integer  "subject_id"
+    t.integer  "faculty_id"
+    t.string   "mark_column"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sections", :force => true do |t|
     t.integer  "department_id"
     t.integer  "batch_id"
@@ -116,6 +153,20 @@ ActiveRecord::Schema.define(:version => 20120415131324) do
     t.boolean  "current_semester"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "students", :force => true do |t|
+    t.string   "name"
+    t.string   "id_no"
+    t.boolean  "female"
+    t.string   "father_name"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "blood_group_id"
+    t.integer  "degree_finished"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "section_id"
   end
 
   create_table "subjects", :force => true do |t|

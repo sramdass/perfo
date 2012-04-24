@@ -15,6 +15,9 @@
 class Subject < TenantManager
   belongs_to :institution  	
   validates_presence_of :institution
+  
+  has_many :sec_sub_maps, :dependent => true, :dependent => :destroy
+  has_many :sections, :through => :sec_sub_maps    
 	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	

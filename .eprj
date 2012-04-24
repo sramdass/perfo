@@ -36,6 +36,8 @@
             <string>config\application.rb</string>
             <key>applicahel</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>applicaicon</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicaio.htm</key>
             <string>app\views\layouts\application.html.erb</string>
             <key>applicat</key>
@@ -59,7 +61,7 @@
             <key>application.rb</key>
             <string>config\application.rb</string>
             <key>application_C</key>
-            <string>..\subdomain\app\controllers\application_controller.rb</string>
+            <string>app\controllers\application_controller.rb</string>
             <key>application_Con</key>
             <string>app\controllers\application_controller.rb</string>
             <key>application_c</key>
@@ -72,6 +74,8 @@
             <string>app\helpers\application_helper.rb</string>
             <key>applicationher</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>appliccon</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>appliche</key>
             <string>app\helpers\application_helper.rb</string>
             <key>arti</key>
@@ -101,7 +105,7 @@
             <key>butto</key>
             <string>app\views\shared\_buttons.html.erb</string>
             <key>buttons</key>
-            <string>app\views\shared\_controller_action_buttons.html.erb</string>
+            <string>app\views\shared\_buttons.html.erb</string>
             <key>contact</key>
             <string>app\models\contact.rb</string>
             <key>contact.</key>
@@ -156,6 +160,8 @@
             <string>app\controllers\departments_controller.rb</string>
             <key>department.r</key>
             <string>app\models\department.rb</string>
+            <key>departmentco</key>
+            <string>app\controllers\departments_controller.rb</string>
             <key>departments</key>
             <string>app\controllers\departments_controller.rb</string>
             <key>departmentscon</key>
@@ -178,6 +184,8 @@
             <string>app\controllers\faculties_controller.rb</string>
             <key>facul</key>
             <string>app\models\faculty.rb</string>
+            <key>facultie.h</key>
+            <string>app\views\sections\faculties.html.erb</string>
             <key>facultiecont</key>
             <string>app\controllers\faculties_controller.rb</string>
             <key>faculties_co</key>
@@ -324,9 +332,25 @@
             <string>app\models\school_type.rb</string>
             <key>schooltypesco</key>
             <string>app\controllers\school_types_controller.rb</string>
+            <key>sec_exam</key>
+            <string>app\models\sec_exam_map.rb</string>
+            <key>sec_sub</key>
+            <string>app\models\sec_sub_maps.rb</string>
+            <key>sec_subma</key>
+            <string>app\models\sec_sub_map.rb</string>
+            <key>secexamma</key>
+            <string>app\models\sec_exam_map.rb</string>
+            <key>secsub</key>
+            <string>app\models\sec_sub_map.rb</string>
+            <key>secsubma</key>
+            <string>app\models\sec_sub_map.rb</string>
+            <key>secsubma.r</key>
+            <string>app\models\sec_sub_map.rb</string>
             <key>sectcon</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sectin.r</key>
+            <string>app\models\section.rb</string>
+            <key>sectin.rb</key>
             <string>app\models\section.rb</string>
             <key>sectins</key>
             <string>app\controllers\sections_controller.rb</string>
@@ -409,6 +433,8 @@
             <key>subjecr</key>
             <string>app\models\subject.rb</string>
             <key>subject</key>
+            <string>app\models\subject.rb</string>
+            <key>subject.r</key>
             <string>app\models\subject.rb</string>
             <key>subject.rb</key>
             <string>app\models\subject.rb</string>

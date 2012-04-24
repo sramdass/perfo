@@ -13,6 +13,7 @@
 #  degree_finished :integer
 #  created_at      :datetime
 #  updated_at      :datetime
+#  section_id      :integer
 #
 
 class Student < TenantManager

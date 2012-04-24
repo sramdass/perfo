@@ -46,5 +46,9 @@ class DepartmentsController < ApplicationController
   	Department.find(params[:id]).destroy
   	redirect_to departments_path
   end
+  
+  def hods
+    @departments = Department.all
+  end
 
 end
