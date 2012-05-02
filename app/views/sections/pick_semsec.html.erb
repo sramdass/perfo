@@ -1,0 +1,33 @@
+<%= render 'shared/de_nav_links', :active => "associate_batches" %>
+<div class="span6">
+  <%= render 'shared/de_batches_nav_pills', :active => "sections"%>
+  
+  <%= form_tag [selectors_path], :method => 'post', :class => "ajax_form form-horizontal" do %>
+    <fieldset>
+      <div class="control-group">
+	    <%= label_tag "Semester",nil, :class=> "control-label" %>
+	    <div class="controls">
+          <%= select( 'section', 'semester_id', @semesters.collect {|sem| [ sem.name, sem.id ] }, {:include_blank => true}) %> 	  	
+   	    </div>
+  	  </div>     	
+      <div class="control-group">
+	    <%= label_tag "Section",nil, :class=> "control-label" %>
+	    <div class="controls">
+          <%= select( 'section', 'section_id', @sections.collect {|sec| [ "#{sec.name} - #{sec.batch.name}", sec.id ] }, {:include_blank => true}) %> 	  	
+   	    </div>
+  	  </div>  	    
+      <div class="form-actions">
+        <%= submit_tag nil, :class => "btn btn-inverse"%>
+      </div>
+    </fieldset>
+  <% end %>  
+
+  <span id = "ajax_subjects_form">  
+    <% if @section && @semester %>
+      <%= render 'subjects_form'%>
+    <% end %>
+  </span>
+
+</div>
+
+<%= render 'shared/semi_index', :model_name => "Section" %>

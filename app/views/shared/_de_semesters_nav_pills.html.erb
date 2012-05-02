@@ -1,0 +1,54 @@
+<ul class="nav nav-pills">        
+  <% if active == "hods"%>
+    <li class= "active">
+      <%= link_to '#' do %>
+        <i class="icon-file"> </i> <strong> 1. HODs </strong>
+      <% end %>   
+    </li>
+  <% else %>
+    <li>
+      <%= link_to '#' do %>
+        <i class="icon-file"> </i> <strong> HODs </strong>
+      <% end %>   
+    </li>
+  <% end %>  	
+  <% if active == "subjects"%>
+    <li class= "active">
+      <%= link_to subjects_section_path(section, :semester_id => semester_id) do %>
+        <i class="icon-file"> </i> <strong> 2.a. Assign Subjects </strong>
+      <% end %>   
+    </li>
+  <% else %>
+    <li>
+      <%= link_to subjects_section_path(section, :semester_id => semester_id) do %>
+        <i class="icon-file"> </i> <strong> 2.a. Assign Subjects  </strong>
+      <% end %>   
+    </li>
+  <% end %>
+  <% if active == "faculties"%>
+    <li class= "active">
+      <%= link_to faculties_section_path(section, :semester_id => semester_id) do %>
+        <i class="icon-file"> </i> <strong> 2.a. Assign Faculties </strong>
+      <% end %>   
+    </li>
+  <% else %>
+    <li>
+      <%= link_to faculties_section_path(section, :semester_id => semester_id) do %>
+        <i class="icon-file"> </i> <strong> 2.a. Assign Faculties  </strong>
+      <% end %>   
+    </li>
+  <% end %>
+  <% if active == "exams"%>
+    <li class= "active">
+      <%= link_to exams_section_path(section, :semester_id => semester_id) do %>
+        <i class="icon-file"> </i> <strong> 2.a. Assign Exams </strong>
+      <% end %>   
+    </li>
+  <% else %>
+    <li>
+      <%= link_to exams_section_path(section, :semester_id => semester_id) do %>
+        <i class="icon-file"> </i> <strong> 2.a. Assign Exams  </strong>
+      <% end %>   
+    </li>
+  <% end %>    
+</ul>

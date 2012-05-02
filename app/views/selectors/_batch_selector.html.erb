@@ -1,0 +1,5 @@
+<div class="control-group">
+  <%= label_tag "Batch",nil, :class=> "control-label" %>
+<div class="controls">
+  <%= select( 'selector', 'batch_id', @batch_selector.collect {|bat| [ bat.name, bat.id ] }, {:include_blank => true}) %> 	  	
+</div>

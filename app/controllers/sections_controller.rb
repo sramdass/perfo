@@ -1,6 +1,24 @@
 class SectionsController < ApplicationController
 before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties, :update_faculties, :exams, :update_exams]
 
+  def pick_semsec
+  	if params[:section] && params[:section][:section_id]
+      @section = Section.find(params[:section][:section_id])  
+    end
+    if params[:section] && params[:section][:semester_id]
+      @semester_id = params[:section][:semester_id]
+      @semester = Semester.find(@semester_id)
+    end
+    @sections = Section.all
+    @semesters = Semester.all
+    @subjects = Subject.all
+    @to_render = params[:to_render]
+    respond_to do |format|
+      format.html 
+      format.js
+    end
+  end
+
   def index
   	@q = Section.search(params[:q])
     @sections = @q.result(:distinct => true)
@@ -60,8 +78,9 @@ before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties
 #we need the semester id. If the semester_id is not present, we error
 #out. This is done using the before_filter
   def subjects
-    @section = Section.find(params[:id])
+    @section = Section.find(params[:selector][:section_id])
     @subjects = Subject.all
+    @semester_id = params[:selector][:semester_id]
   end
   
   def update_subjects
@@ -132,8 +151,8 @@ before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties
   def check_semester
   	#If the semester id is not present or corresponds to an invalid semester, display an error.
   	#TODO: Redirect to the page where the user came from
-  	if !params[:semester_id] || !Semester.find(params[:semester_id])
-  	  @section = Section.find(params[:id])
+  	if !params[:selector][:semester_id] || !Semester.find(params[:selector][:semester_id])
+  	  @section = Section.find(params[:selector][:section_id])
   	  flash[:error] = "Invalid Semester"
   	  redirect_to @section
   	end

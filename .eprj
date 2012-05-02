@@ -42,6 +42,8 @@
             <string>app\views\layouts\application.html.erb</string>
             <key>applicat</key>
             <string>app\controllers\application_controller.rb</string>
+            <key>applicati_c</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicatin.rb</key>
             <string>config\application.rb</string>
             <key>applicatio</key>
@@ -72,6 +74,8 @@
             <string>app\helpers\application_helper.rb</string>
             <key>application_hel</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>applicationcont</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicationher</key>
             <string>app\helpers\application_helper.rb</string>
             <key>appliccon</key>
@@ -106,6 +110,10 @@
             <string>app\views\shared\_buttons.html.erb</string>
             <key>buttons</key>
             <string>app\views\shared\_buttons.html.erb</string>
+            <key>common.j</key>
+            <string>app\assets\javascripts\common.js</string>
+            <key>common.js</key>
+            <string>app\assets\javascripts\common.js</string>
             <key>contact</key>
             <string>app\models\contact.rb</string>
             <key>contact.</key>
@@ -182,12 +190,20 @@
             <string>app\controllers\faculties_controller.rb</string>
             <key>facucon</key>
             <string>app\controllers\faculties_controller.rb</string>
+            <key>facuhtmler</key>
+            <string>app\views\faculties\_faculty_fields.html.erb</string>
             <key>facul</key>
             <string>app\models\faculty.rb</string>
+            <key>facul.r</key>
+            <string>app\models\faculty.rb</string>
+            <key>facultie</key>
+            <string>app\views\sections\faculties.html.erb</string>
             <key>facultie.h</key>
             <string>app\views\sections\faculties.html.erb</string>
             <key>facultiecont</key>
             <string>app\controllers\faculties_controller.rb</string>
+            <key>faculties.ht</key>
+            <string>app\views\sections\faculties.html.erb</string>
             <key>faculties_co</key>
             <string>app\controllers\faculties_controller.rb</string>
             <key>faculty</key>
@@ -215,12 +231,14 @@
             <key>inde</key>
             <string>app\views\semesters\index.html.erb</string>
             <key>index</key>
-            <string>app\views\sections\index.html.erb</string>
+            <string>app\views\faculties\index.html.erb</string>
             <key>index.h</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>index.ht</key>
             <string>app\views\sections\index.html.erb</string>
             <key>index.htm</key>
+            <string>app\views\tenants\index.html.erb</string>
+            <key>index.html.erb</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>ins</key>
             <string>app\views\institutions\_institution_fields.html.erb</string>
@@ -286,6 +304,8 @@
             <string>lib\pgtools.rb</string>
             <key>pgtoo</key>
             <string>app\pgtools\pgtools.rb</string>
+            <key>pickse</key>
+            <string>app\views\sections\pick_semsec.html.erb</string>
             <key>pre_co</key>
             <string>app\views\students\_pre_college_mark_fields.html.erb</string>
             <key>pre_cole</key>
@@ -368,8 +388,12 @@
             <string>db\migrate\20120417143225_add_section_id_to_students.rb</string>
             <key>sections_c</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>sections_co</key>
+            <string>app\controllers\sections_controller.rb</string>
             <key>sectionscont</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>selectorsc</key>
+            <string>app\controllers\selectors_controller.rb</string>
             <key>seme</key>
             <string>app\models\semester.rb</string>
             <key>semes.rb</key>
@@ -383,6 +407,10 @@
             <key>semester.rb</key>
             <string>app\models\semester.rb</string>
             <key>semester_c</key>
+            <string>app\controllers\semesters_controller.rb</string>
+            <key>semesters_c</key>
+            <string>app\controllers\semesters_controller.rb</string>
+            <key>semesters_co</key>
             <string>app\controllers\semesters_controller.rb</string>
             <key>semi</key>
             <string>app\views\shared\_semi_index.html.erb</string>
@@ -440,6 +468,8 @@
             <string>app\models\subject.rb</string>
             <key>subjectco</key>
             <string>app\controllers\subjects_controller.rb</string>
+            <key>subjects.html</key>
+            <string>app\views\sections\subjects.html.erb</string>
             <key>subjects_C</key>
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
             <key>subjects_c</key>

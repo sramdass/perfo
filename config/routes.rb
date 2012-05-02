@@ -12,7 +12,7 @@ Perfo::Application.routes.draw do
   resources :batches
   resources :faculties
   resources :sections do
-    member do
+    collection do
       get 'subjects'
       put 'update_subjects'
       get 'faculties'
@@ -24,6 +24,7 @@ Perfo::Application.routes.draw do
   resources :school_types
   resources :students
   resources :blood_groups
+  resources :selectors
   root :to => 'tenants#new'
   # The priority is based upon order of creation:
   # first created -> highest priority.

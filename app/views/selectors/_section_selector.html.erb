@@ -1,0 +1,5 @@
+<div class="control-group">
+  <%= label_tag "Section",nil, :class=> "control-label" %>
+<div class="controls">
+  <%= select( 'selector', 'section_id', @section_selector.collect {|sec| [ sec.name, sec.id ] }, {:include_blank => true}) %> 	  	
+</div>

@@ -10,6 +10,14 @@ function add_fields(link, association, content) {
   $(".input_form_table").append(content.replace(regexp, new_id));
 }
 
+function populateDropdown(select, data) {
+  select.html('');
+  select.append($('<option></option>').val('').html(''));
+  $.each(data, function(id, option) {
+    select.append($('<option></option>').val(option.id).html(option.name));
+  });       
+}
+
 $(function() {
 /* This code is for the search form in Tenants index */
 $("#tenant_expired").click(function() {
@@ -22,5 +30,23 @@ $("#tenant_expired").click(function() {
 	});
 	
   $('.datatable_full').dataTable();
+  
+$('.select-form').submit(function() {
+	alert('Submitting form!');
+    $.get($(this).attr("action"), $(this).serialize(), null, "script");
+    return false;
+  });  
+  
+$(".selector-form select").change(function() {     
+  var target = $(this).data('target');
+  //Form the element id of the select object that needs to be populated.
+  target_select = $('#' + target);
+  $.get("/selectors", 
+  			{ base: $(this).data('base'), required: $(this).data('required'), base_id: $(this).val() }, 
+  			function(dyndata) {
+      		  populateDropdown(target_select, dyndata);
+  			}, 
+  			"json");
+  });  
   
 });

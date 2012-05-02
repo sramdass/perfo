@@ -7,6 +7,7 @@ gem 'hirb'
 gem "squeel" 
 gem "ransack"
 gem "simple_form"
+gem "rabl"
 gem 'debugger', group: [:development, :test]
 
 group :assets do

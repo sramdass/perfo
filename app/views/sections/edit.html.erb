@@ -2,7 +2,7 @@
 <div class="span6">
   <%= render 'shared/de_batches_nav_pills', :active => "sections"%>
   <%= simple_form_for @section, :html => { :class => 'form-horizontal' } do |f| %>
-  <legend> New Section </legend>
+  <legend> Edit Section </legend>
     <%= render 'section_fields', :f => f %>
     <div class="form-actions">
   	  <%= render 'shared/buttons', :obj => @section, :buttons => {'submit' => "Update", "cancel" => "Cancel" }  %>
