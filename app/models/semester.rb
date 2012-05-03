@@ -17,6 +17,9 @@
 class Semester < TenantManager
   belongs_to :institution  	
   validates_presence_of :institution
+  
+  #When this semester is destroyed, all the hods for this semester should be removed.
+  has_many :hods,  :dependent => true, :dependent => :destroy
 	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	

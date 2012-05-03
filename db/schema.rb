@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421032752) do
+ActiveRecord::Schema.define(:version => 20120503173646) do
 
   create_table "batches", :force => true do |t|
     t.string   "institution_id"
@@ -82,6 +82,14 @@ ActiveRecord::Schema.define(:version => 20120421032752) do
     t.datetime "updated_at"
     t.date     "start_date"
     t.date     "end_date"
+  end
+
+  create_table "hods", :force => true do |t|
+    t.integer  "department_id"
+    t.integer  "faculty_id"
+    t.integer  "semester_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "institutions", :force => true do |t|

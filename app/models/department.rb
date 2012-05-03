@@ -16,6 +16,9 @@ class Department < TenantManager
   validates_presence_of :institution
   
   has_many :sections
+  
+  has_many :hods, :dependent => true, :dependent => :destroy
+  has_many :faculties, :through => :hods
 	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	

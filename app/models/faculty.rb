@@ -30,6 +30,9 @@ class Faculty < TenantManager
   belongs_to :designation
   validates_associated :designation
   
+  has_many :hods, :dependent => true, :dependent => :destroy
+  has_many :departments, :through => :hods  
+  
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 50
   

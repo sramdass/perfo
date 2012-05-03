@@ -236,6 +236,8 @@
             <string>Gemfile</string>
             <key>gemfl</key>
             <string>..\subdomain\Gemfile</string>
+            <key>hod.rb</key>
+            <string>app\models\hod.rb</string>
             <key>hodshtm</key>
             <string>app\views\departments\hods.html.erb</string>
             <key>in_Fac</key>
@@ -367,7 +369,7 @@
             <key>sec_exam</key>
             <string>app\models\sec_exam_map.rb</string>
             <key>sec_sub</key>
-            <string>app\models\sec_sub_maps.rb</string>
+            <string>app\models\sec_sub_map.rb</string>
             <key>sec_subma</key>
             <string>app\models\sec_sub_map.rb</string>
             <key>secexamma</key>
@@ -377,6 +379,10 @@
             <key>secsubma</key>
             <string>app\models\sec_sub_map.rb</string>
             <key>secsubma.r</key>
+            <string>app\models\sec_sub_map.rb</string>
+            <key>secsubmap</key>
+            <string>app\models\sec_sub_map.rb</string>
+            <key>secsubmap.rb</key>
             <string>app\models\sec_sub_map.rb</string>
             <key>sectcon</key>
             <string>app\controllers\sections_controller.rb</string>
@@ -403,6 +409,8 @@
             <key>sections_c</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sections_co</key>
+            <string>app\controllers\sections_controller.rb</string>
+            <key>sections_con</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sectionscont</key>
             <string>app\controllers\sections_controller.rb</string>

@@ -9,6 +9,8 @@ Perfo::Application.routes.draw do
   resources :departments do
     collection do
       get 'hods'
+      #We are having update_hods in the collection unlike the update_* methods in section controller
+      #Here we are updating the hods of all the departments
   	  post 'update_hods'      
     end
   end

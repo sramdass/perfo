@@ -57,6 +57,26 @@ before_filter :check_semester, :only => [:hods]
     end        
   end
   
+  def update_hods
+  	@semester = Semester.find(params[:semester_id])
+  	@semester.hods.destroy_all
+  	@section.sec_sub_maps.for_semester(params[:semester_id]).each do |map|
+  	  sub_id = map.subject_id
+  	  map.attributes = 	{ :subject_id => sub_id, :faculty_id => params[:faculty]["#{sub_id}"] }
+  	  ssmaps << map
+    end			  	
+    if @section.valid? && ssmaps.all?(&:valid?)
+      @section.save!
+      ssmaps.each(&:save!)
+      redirect_to(faculties_sections_path(:section_id => params[:id], :semester_id => params[:semester_id]),  :notice => 'Faculties successfully updated.')
+    else
+      flash[:error] = 'Error! Cannot Assign Faculties'
+      #We need faculties to re-render
+      @faculties = Faculty.all  	
+      render :faculties
+    end  	  	
+  end
+  
   private
   
   def check_semester
