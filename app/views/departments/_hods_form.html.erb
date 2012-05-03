@@ -1,0 +1,20 @@
+<%= form_tag url_for(:controller => 'departments', :action => 'update_hods'), :method => 'post', :class => "form-horizontal" do %>
+  <legend> Select HODs </legend>
+  <fieldset>
+    Semester: <%= Semester.find(@semester.id).name %><br><br>
+    <%= hidden_field_tag 'semester_id', nil, :value => @semester.id %>
+    <% @departments.each do |dept| %>
+      <div class="control-group">
+        <%= label_tag "#{dept.name}",nil, :class=> "control-label" %>
+        <div class="controls">
+          <%= select( "faculty", "#{dept.id}", @faculties.collect {|f| [ f.name, f.id ] }, {:prompt => 'Select HOD'}) %> 
+  	    </div>
+  	    </div>        
+    <% end %>
+    <div class="form-actions">
+      <%= button_tag(:type => 'submit', :name => 'create', :class => "btn btn-success btn-large" ) do %>
+        <i class="icon-ok icon-white"> </i> <strong> Update HODs </strong>
+      <% end %>  
+    </div>  
+</fieldset>
+<% end %>

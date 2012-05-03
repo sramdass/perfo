@@ -1,5 +1,5 @@
 class DepartmentsController < ApplicationController
-
+before_filter :check_semester, :only => [:hods]
   def index
   	@q = Department.search(params[:q])
     @departments = @q.result(:distinct => true)
@@ -48,7 +48,19 @@ class DepartmentsController < ApplicationController
   end
   
   def hods
+  	@semesters = Semester.all
     @departments = Department.all
+    @faculties = Faculty.all
+    respond_to do |format|
+      format.html 
+      format.js
+    end        
   end
+  
+  private
+  
+  def check_semester
+    @semester = Semester.find(params[:semester_id]) if params[:semester_id]
+  end  
 
 end

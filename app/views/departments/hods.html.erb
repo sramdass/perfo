@@ -1,0 +1,14 @@
+<% @semesters = Semester.all %>
+<%= render 'shared/de_nav_links', :active => "associate_semesters" %>
+<div class="span9">
+  <%= render 'shared/de_semesters_nav_pills', :active => "hods"%>
+  <%= render 'selectors/departments_form', :target_url => '/departments/hods' %>  
+  <span id = "ajax_hods_form">  
+    <% if @semester %>
+      <%= render 'hods_form'%>
+    <% else %>
+      <strong> Select the required semester </strong>
+    <% end %>
+  </span>  
+</div>
+

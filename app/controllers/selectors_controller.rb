@@ -11,5 +11,4 @@ class SelectorsController < ApplicationController
   	  end  	
   	end
   end
-
 end

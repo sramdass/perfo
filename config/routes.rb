@@ -6,7 +6,12 @@ Perfo::Application.routes.draw do
   resources :tenants
   resources :institutions
   resources :semesters
-  resources :departments  
+  resources :departments do
+    collection do
+      get 'hods'
+  	  post 'update_hods'      
+    end
+  end
   resources :subjects
   resources :exams
   resources :batches

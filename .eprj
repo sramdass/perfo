@@ -176,6 +176,8 @@
             <string>app\models\department.rb</string>
             <key>departmentco</key>
             <string>app\controllers\departments_controller.rb</string>
+            <key>departmentcont</key>
+            <string>app\controllers\departments_controller.rb</string>
             <key>departments</key>
             <string>app\controllers\departments_controller.rb</string>
             <key>departmentscon</key>
@@ -220,6 +222,8 @@
             <string>app\models\faculty.rb</string>
             <key>field</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
+            <key>form.</key>
+            <string>app\views\selectors\_form.html.erb</string>
             <key>gem</key>
             <string>Gemfile</string>
             <key>gemf</key>
@@ -232,6 +236,8 @@
             <string>Gemfile</string>
             <key>gemfl</key>
             <string>..\subdomain\Gemfile</string>
+            <key>hodshtm</key>
+            <string>app\views\departments\hods.html.erb</string>
             <key>in_Fac</key>
             <string>db\migrate\20120415045226_alter_start_date_end_date_in_faculties.rb</string>
             <key>inde</key>
@@ -400,6 +406,8 @@
             <string>app\controllers\sections_controller.rb</string>
             <key>sectionscont</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>selec</key>
+            <string>app\controllers\selectors_controller.rb</string>
             <key>selectorco</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>selectorsc</key>
