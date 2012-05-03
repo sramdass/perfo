@@ -1,23 +1,5 @@
 class SectionsController < ApplicationController
-before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties, :update_faculties, :exams, :update_exams]
-
-  def pick_semsec
-  	if params[:section] && params[:section][:section_id]
-      @section = Section.find(params[:section][:section_id])  
-    end
-    if params[:section] && params[:section][:semester_id]
-      @semester_id = params[:section][:semester_id]
-      @semester = Semester.find(@semester_id)
-    end
-    @sections = Section.all
-    @semesters = Semester.all
-    @subjects = Subject.all
-    @to_render = params[:to_render]
-    respond_to do |format|
-      format.html 
-      format.js
-    end
-  end
+before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
 
   def index
   	@q = Section.search(params[:q])
@@ -78,9 +60,11 @@ before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties
 #we need the semester id. If the semester_id is not present, we error
 #out. This is done using the before_filter
   def subjects
-    @section = Section.find(params[:selector][:section_id])
     @subjects = Subject.all
-    @semester_id = params[:selector][:semester_id]
+    respond_to do |format|
+      format.html 
+      format.js
+    end    
   end
   
   def update_subjects
@@ -92,19 +76,25 @@ before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties
     if @section.valid? && @section.sec_sub_maps.all?(&:valid?)
       @section.save!
       @section.sec_sub_maps.each(&:save!)
-      redirect_to(@section,  :notice => 'Section was successfully updated.')
+      redirect_to(subjects_sections_path(:section_id => params[:id], :semester_id => params[:semester_id]),  :notice => 'Section was successfully updated.')
     else
       flash[:error] = 'Error! Cannot Assign Subjects'
+      #We need the @subjects, to re-render.
+      @subjects = Subject.all
       render :subjects
     end  	
   end
   
   def faculties
-    @section = Section.find(params[:id])
     @faculties = Faculty.all  	
+    respond_to do |format|
+      format.html 
+      format.js
+    end       
   end
   
   def update_faculties
+  	@section = Section.find(params[:id])
   	#We have to explicity track the ssmaps that are modified and save them. We are using 
   	# "@section.sec_sub_maps.for_semester(params[:semester_id]).each do |map|" for the loop.
   	#When the naming scope is used - @section.sec_sub_maps.each(&:save!) is not working.
@@ -118,16 +108,21 @@ before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties
     if @section.valid? && ssmaps.all?(&:valid?)
       @section.save!
       ssmaps.each(&:save!)
-      redirect_to(@section,  :notice => 'Section was successfully updated.')
+      redirect_to(faculties_sections_path(:section_id => params[:id], :semester_id => params[:semester_id]),  :notice => 'Faculties successfully updated.')
     else
-      flash[:error] = 'Error! Cannot Assign Subjects'
-      render :subjects
+      flash[:error] = 'Error! Cannot Assign Faculties'
+      #We need faculties to re-render
+      @faculties = Faculty.all  	
+      render :faculties
     end  	
   end
   
   def exams
-    @section = Section.find(params[:id])
     @exams = Exam.all  	  	
+    respond_to do |format|
+      format.html 
+      format.js
+    end         
   end
   
   def update_exams
@@ -139,23 +134,19 @@ before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties
     if @section.valid? && @section.sec_sub_maps.all?(&:valid?)
       @section.save!
       @section.sec_sub_maps.each(&:save!)
-      redirect_to(@section,  :notice => 'Section was successfully updated.')
+      redirect_to(exams_sections_path(:section_id => params[:id], :semester_id => params[:semester_id]),  :notice => 'Exams successfully updated.')
     else
-      flash[:error] = 'Error! Cannot Assign Subjects'
-      render :subjects
+      flash[:error] = 'Error! Cannot Assign Exams'
+      render :exams
     end  	  	
   end
   
   private
   
   def check_semester
-  	#If the semester id is not present or corresponds to an invalid semester, display an error.
-  	#TODO: Redirect to the page where the user came from
-  	if !params[:selector][:semester_id] || !Semester.find(params[:selector][:semester_id])
-  	  @section = Section.find(params[:selector][:section_id])
-  	  flash[:error] = "Invalid Semester"
-  	  redirect_to @section
-  	end
+    @semester = Semester.find(params[:semester_id]) if params[:semester_id]
+    @batch = Batch.find(params[:batch_id]) if params[:batch_id] 
+  	@section = Section.find(params[:section_id]) if params[:section_id] 
   end
 
 end

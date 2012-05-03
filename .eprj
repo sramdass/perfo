@@ -18,6 +18,8 @@
             <string>app\views\subjects\_subject_fields.html.erb</string>
             <key>app</key>
             <string>app\controllers\application_controller.rb</string>
+            <key>appco</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>apphel</key>
             <string>app\helpers\application_helper.rb</string>
             <key>apphelp</key>
@@ -110,6 +112,8 @@
             <string>app\views\shared\_buttons.html.erb</string>
             <key>buttons</key>
             <string>app\views\shared\_buttons.html.erb</string>
+            <key>common</key>
+            <string>app\assets\javascripts\common.js</string>
             <key>common.j</key>
             <string>app\assets\javascripts\common.js</string>
             <key>common.js</key>
@@ -146,6 +150,8 @@
             <string>config\database.yml</string>
             <key>database</key>
             <string>..\multitenants\config\database.yml</string>
+            <key>de_batches_nav_pills</key>
+            <string>app\views\shared\_de_batches_nav_pills.html.erb</string>
             <key>de_nav</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>denavlink</key>
@@ -386,12 +392,16 @@
             <string>app\controllers\sections_controller.rb</string>
             <key>section_id_to_students.rb</key>
             <string>db\migrate\20120417143225_add_section_id_to_students.rb</string>
+            <key>sectioncont</key>
+            <string>app\controllers\sections_controller.rb</string>
             <key>sections_c</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sections_co</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sectionscont</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>selectorco</key>
+            <string>app\controllers\selectors_controller.rb</string>
             <key>selectorsc</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>seme</key>

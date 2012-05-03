@@ -14,40 +14,40 @@
   <% end %>  	
   <% if active == "subjects"%>
     <li class= "active">
-      <%= link_to subjects_section_path(section, :semester_id => semester_id) do %>
-        <i class="icon-file"> </i> <strong> 2.a. Assign Subjects </strong>
+      <%= link_to subjects_sections_path do %>
+        <i class="icon-file"> </i> <strong> Assign Subjects </strong>
       <% end %>   
     </li>
   <% else %>
     <li>
-      <%= link_to subjects_section_path(section, :semester_id => semester_id) do %>
-        <i class="icon-file"> </i> <strong> 2.a. Assign Subjects  </strong>
+      <%= link_to subjects_sections_path do %>
+        <i class="icon-file"> </i> <strong> Assign Subjects  </strong>
       <% end %>   
     </li>
   <% end %>
   <% if active == "faculties"%>
     <li class= "active">
-      <%= link_to faculties_section_path(section, :semester_id => semester_id) do %>
-        <i class="icon-file"> </i> <strong> 2.a. Assign Faculties </strong>
+      <%= link_to faculties_sections_path do %>
+        <i class="icon-file"> </i> <strong> Assign Faculties </strong>
       <% end %>   
     </li>
   <% else %>
     <li>
-      <%= link_to faculties_section_path(section, :semester_id => semester_id) do %>
-        <i class="icon-file"> </i> <strong> 2.a. Assign Faculties  </strong>
+      <%= link_to faculties_sections_path do %>
+        <i class="icon-file"> </i> <strong> Assign Faculties  </strong>
       <% end %>   
     </li>
   <% end %>
   <% if active == "exams"%>
     <li class= "active">
-      <%= link_to exams_section_path(section, :semester_id => semester_id) do %>
-        <i class="icon-file"> </i> <strong> 2.a. Assign Exams </strong>
+      <%= link_to exams_sections_path do %>
+        <i class="icon-file"> </i> <strong> Assign Exams </strong>
       <% end %>   
     </li>
   <% else %>
     <li>
-      <%= link_to exams_section_path(section, :semester_id => semester_id) do %>
-        <i class="icon-file"> </i> <strong> 2.a. Assign Exams  </strong>
+      <%= link_to exams_sections_path do %>
+        <i class="icon-file"> </i> <strong> Assign Exams  </strong>
       <% end %>   
     </li>
   <% end %>    

@@ -1,0 +1,23 @@
+<%= form_tag url_for(:controller => 'sections', :action => 'update_faculties', :id => @section.id), :method => 'post', :class => "form-horizontal" do %>
+  <legend> Assign Faculties </legend>
+    <fieldset>
+      Section: <%= @section.name %><br>
+      Semester: <%= Semester.find(@semester.id).name %><br><br>
+      <%= hidden_field_tag 'semester_id', nil, :value => @semester.id %>    	
+      <% SecSubMap.for_semester(@semester.id).for_section(@section.id).order('subject_id').all.each do |map| %>
+        <% sub = map.subject %>
+        <div class="control-group">
+	      <%= label_tag "#{sub.name}",nil, :class=> "control-label" %>
+	      <div class="controls">
+		    <% f_id = SecSubMap.for_section(@section.id).for_subject(sub.id).first.faculty_id %>
+            <%= select( "faculty", "#{sub.id}", @faculties.collect {|f| [ f.name, f.id ] }, {:include_blank => 'None', :selected => f_id}) %> 
+   	      </div>
+  	    </div>        
+      <% end %>
+      <div class="form-actions">
+        <%= button_tag(:type => 'submit', :name => 'create', :class => "btn btn-success btn-large" ) do %>
+          <i class="icon-ok icon-white"> </i> <strong> Update Faculties </strong>
+        <% end %>  
+      </div>  
+    <fieldset>
+<% end %>

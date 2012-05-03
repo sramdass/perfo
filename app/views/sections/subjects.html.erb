@@ -1,9 +1,16 @@
-<% semester_id = params[:semester_id] %>
-<%= render 'shared/de_nav_links', :active => "associate_batches" %>
-<div class="span6">
-  <%= render 'shared/de_batches_nav_pills', :active => "sections"%>
-  <%= render 'subjects_form', :section => @section, :semester_id => semester_id %>
-  </span>
+<% @semesters = Semester.all %>
+<% @batches = Array.new if !@batches %>
+<% @sections = Array.new if !@sections %>
+<%= render 'shared/de_nav_links', :active => "associate_semesters" %>
+<div class="span9">
+  <%= render 'shared/de_semesters_nav_pills', :active => "subjects"%>
+  <%= render 'selectors/form', :target_url => '/sections/subjects' %>
+  <span id = "ajax_subjects_form">  
+    <% if @section && @semester %>
+      <%= render 'subjects_form'%>
+    <% else %>
+      <strong> Select the required semester and the section </strong>
+    <% end %>
+  </span>  
 </div>
 
-<%= render 'shared/semi_index', :model_name => "Section" %>

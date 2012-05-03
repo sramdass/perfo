@@ -12,13 +12,19 @@ Perfo::Application.routes.draw do
   resources :batches
   resources :faculties
   resources :sections do
+  	member do
+  	  #To update a particular subject (or other items), we need to send a section id along with it. We can also
+  	  #send a hidden field to achieve this, but I figured this method will be neat.
+      post 'update_subjects'
+      post 'update_faculties'
+      post 'update_exams'      
+  	end
     collection do
+      #For these items the section ids are received via the select boxes. So we are considering them as collection.
+      #The url will be sections/subjects
       get 'subjects'
-      put 'update_subjects'
       get 'faculties'
-      put 'update_faculties'
       get 'exams'
-      put 'update_exams'      
     end
   end
   resources :school_types

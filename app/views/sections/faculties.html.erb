@@ -1,29 +1,15 @@
-<% semester_id = params[:semester_id] %>
-<%= render 'shared/de_nav_links', :active => "associate_batches" %>
-<div class="span6">
-  <%= render 'shared/de_batches_nav_pills', :active => "sections"%>
-  <%= form_for( [@section], :url => {:action => "update_faculties" },  :html => { :class => 'form-horizontal' }  ) do |f|  %>	
-    <legend> Select Faculties </legend>
-    <fieldset>
-      Section: <%= @section.name %><br>
-      Semester: <%= Semester.find(semester_id).name %><br><br>
-      <%= hidden_field_tag 'semester_id', nil, :value => semester_id %>    	
-      <% SecSubMap.for_semester(semester_id).for_section(@section.id).all.each do |map| %>
-        <% sub = map.subject %>
-        <div class="control-group">
-	      <%= label_tag "#{sub.name}",nil, :class=> "control-label" %>
-	      <div class="controls">
-		    <% f_id = SecSubMap.for_section(@section.id).for_subject(sub.id).first.faculty_id %>
-            <%= select( "faculty", "#{sub.id}", @faculties.collect {|f| [ f.name, f.id ] }, {:include_blank => 'None', :selected => f_id}) %> 
-   	      </div>
-  	    </div>        
-      <% end %>
-      <div class="form-actions">
-        <%= button_tag(:type => 'submit', :name => 'create', :class => "btn btn-success btn-large" ) do %>
-          <i class="icon-ok icon-white"> </i> <strong> Update Faculties </strong>
-        <% end %>  
-      </div>  
-    <fieldset>
-  <% end %>
+<% @semesters = Semester.all %>
+<% @batches = Array.new if !@batches %>
+<% @sections = Array.new if !@sections %>
+<%= render 'shared/de_nav_links', :active => "associate_semesters" %>
+<div class="span9">
+  <%= render 'shared/de_semesters_nav_pills', :active => "faculties"%>
+  <%= render 'selectors/form', :target_url => '/sections/faculties' %>
+  <span id = "ajax_faculties_form">  
+    <% if @section && @semester %>
+      <%= render 'faculties_form'%>
+    <% else %>
+      <strong> Select the required semester and the section </strong>
+    <% end %>
+  </span>  
 </div>
-<%= render 'shared/semi_index', :model_name => "Section" %>

@@ -1,0 +1,39 @@
+<%
+# In case we need to use the select instead of select_tag. Note that the html_options are separate from the include_blank in the select method
+# select( 'selector', 'batch_id', @batches.collect {|bat| [ bat.name, bat.id ] }, 
+#																	{:include_blank => true }, 
+#																	{:id => 'batch-selector', :data => {:base => 'batch', :required => 'section', :target => 'section-selector'}}) 
+%>
+
+<%= form_tag '#', :method => 'get', :class => "selector-form  form-horizontal", :data => {:target_url => target_url} do %>
+<fieldset>
+  <div class="control-group">
+    <%= label_tag "Semester",nil, :class=> "control-label" %>
+    <div class="controls">
+      <%= select_tag( :semester_id, options_from_collection_for_select(@semesters, "id", "name"),
+      																	:include_blank => true, 
+      																	:id => 'semester-selector',:data => {:base => 'semester', :required => 'batch', :target => 'batch-selector'}) %> 	 
+      
+	</div>
+  </div>
+  <div class="control-group">
+    <%= label_tag "Batch",nil, :class=> "control-label" %>
+    <div class="controls">
+      <%= select_tag( :batch_id, options_from_collection_for_select(@batches, "id", "name"),
+      																	:include_blank => true, 
+      																	:id => 'batch-selector', :data => {:base => 'batch', :required => 'section', :target => 'section-selector'}) %>      																	 	
+	</div>   	    
+  </div> 
+  <div class="control-group">
+    <%= label_tag "Section",nil, :class=> "control-label" %>
+    <div class="controls">
+      <%= select_tag( :section_id, options_from_collection_for_select(@sections, "id", "name"),
+      																	:include_blank => true, 
+      																	:id => 'section-selector') %> 	  	
+	</div>   	    
+  </div>  	      	
+  <div class="form-actions">
+    <%= submit_tag nil, :class => "btn btn-inverse"%>
+  </div>
+</fieldset>
+<% end %>  

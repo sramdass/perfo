@@ -1,9 +1,9 @@
-<%= form_tag url_for(:controller => 'sections', :action => 'update_subjects'), :method => 'post', :class => "form-horizontal" do %>
+<%= form_tag url_for(:controller => 'sections', :action => 'update_subjects', :id => @section.id), :method => 'post', :class => "form-horizontal" do %>
   <legend> Select Subject </legend>
   <fieldset>
     Section: <%= @section.name %><br>
-    Semester: <%= Semester.find(@semester_id).name %><br><br>
-    <%= hidden_field_tag 'semester_id', nil, :value => @semester_id %>
+    Semester: <%= Semester.find(@semester.id).name %><br><br>
+    <%= hidden_field_tag 'semester_id', nil, :value => @semester.id %>
     <% 
     #We cannot use the simple form the display the association subjects for the section instance. It will mean that the subjects across the semesters are applicable
     # for this semester. i.e. the check box will be selected for all the subjects across all the semesters. So we need to limit it to the current semester 
@@ -13,10 +13,10 @@
       <div class="controls">
       	<% @subjects.each do |sub| %>
         <label class="checkbox">
-          <%= check_box_tag "section[subject_ids][]", sub.id, SecSubMap.for_semester(@semester_id).for_section(@section.id).for_subject(sub.id).present? %> <%= sub.name  %> 
+          <%= check_box_tag "section[subject_ids][]", sub.id, SecSubMap.for_semester(@semester.id).for_section(@section.id).for_subject(sub.id).present? %> <%= sub.name  %> 
         </label>
         <% end %>
-        <p class="help-block"><strong>Select the subjects for the semester - <%= Semester.find(@semester_id).name %></strong></p>
+        <p class="help-block"><strong>Select the subjects for the semester - <%= Semester.find(@semester.id).name %></strong></p>
       </div>
     </div>
 

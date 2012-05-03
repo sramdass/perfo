@@ -31,9 +31,9 @@ $("#tenant_expired").click(function() {
 	
   $('.datatable_full').dataTable();
   
-$('.select-form').submit(function() {
+$('.selector-form').submit(function() {
 	alert('Submitting form!');
-    $.get($(this).attr("action"), $(this).serialize(), null, "script");
+    $.get($(this).data("target_url"), $(this).serialize(), null, "script");
     return false;
   });  
   
