@@ -1,6 +1,6 @@
 class Hod < TenantManager
   belongs_to :department
-  validates_presence_of :deparment
+  validates_presence_of :department
   belongs_to :faculty
   validates_presence_of :faculty
  

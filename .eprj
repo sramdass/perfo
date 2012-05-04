@@ -16,6 +16,8 @@
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>_sufi</key>
             <string>app\views\subjects\_subject_fields.html.erb</string>
+            <key>apcont</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>app</key>
             <string>app\controllers\application_controller.rb</string>
             <key>appco</key>

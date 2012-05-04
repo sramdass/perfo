@@ -60,20 +60,21 @@ before_filter :check_semester, :only => [:hods]
   def update_hods
   	@semester = Semester.find(params[:semester_id])
   	@semester.hods.destroy_all
-  	@section.sec_sub_maps.for_semester(params[:semester_id]).each do |map|
-  	  sub_id = map.subject_id
-  	  map.attributes = 	{ :subject_id => sub_id, :faculty_id => params[:faculty]["#{sub_id}"] }
-  	  ssmaps << map
-    end			  	
-    if @section.valid? && ssmaps.all?(&:valid?)
-      @section.save!
-      ssmaps.each(&:save!)
-      redirect_to(faculties_sections_path(:section_id => params[:id], :semester_id => params[:semester_id]),  :notice => 'Faculties successfully updated.')
+  	hods = Array.new
+  	params[:faculty].each do |dept_id, faculty_id|
+  	  #This will have all the departments, but not necessarily a faculty for the depts. So skip when there is not faculty_id
+  	  @semester.hods.build(:faculty_id => faculty_id, :department_id => dept_id) if faculty_id
+  	end
+    if @semester.hods.all?(&:valid?)
+      @semester.hods.each(&:save!)
+      redirect_to(hods_departments_path(:semester_id => params[:semester_id]),  :notice => 'HODs successfully updated.')
     else
       flash[:error] = 'Error! Cannot Assign Faculties'
-      #We need faculties to re-render
-      @faculties = Faculty.all  	
-      render :faculties
+      #We need these resources to re-render
+  	  @semesters = Semester.all
+      @departments = Department.all
+      @faculties = Faculty.all
+      render :hods
     end  	  	
   end
   

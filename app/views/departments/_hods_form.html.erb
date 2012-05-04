@@ -7,7 +7,8 @@
       <div class="control-group">
         <%= label_tag "#{dept.name}",nil, :class=> "control-label" %>
         <div class="controls">
-          <%= select( "faculty", "#{dept.id}", @faculties.collect {|f| [ f.name, f.id ] }, {:prompt => 'Select HOD'}) %> 
+          <% f_id = @semester.hods.find_by_department_id(dept.id).faculty_id %>
+          <%= select( "faculty", "#{dept.id}", @faculties.collect {|f| [ f.name, f.id ] }, {:prompt => 'Select HOD', :selected => f_id}) %> 
   	    </div>
   	    </div>        
     <% end %>
