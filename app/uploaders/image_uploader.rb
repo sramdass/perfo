@@ -6,8 +6,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
   #To convert the default image path to an asset url
-  #include Sprockets::Helpers::RailsHelper
-  #include Sprockets::Helpers::IsolatedHelper
+  include Sprockets::Helpers::RailsHelper
+  include Sprockets::Helpers::IsolatedHelper
 
   # Choose what kind of storage to use for this uploader:
   storage :s3
