@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120503173646) do
+ActiveRecord::Schema.define(:version => 20120504092600) do
 
   create_table "batches", :force => true do |t|
     t.string   "institution_id"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20120503173646) do
     t.datetime "updated_at"
     t.date     "start_date"
     t.date     "end_date"
+    t.string   "image"
   end
 
   create_table "hods", :force => true do |t|

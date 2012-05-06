@@ -16,6 +16,8 @@
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>_sufi</key>
             <string>app\views\subjects\_subject_fields.html.erb</string>
+            <key>addima</key>
+            <string>db\migrate\20120504092600_add_image_to_faculites.rb</string>
             <key>apcont</key>
             <string>app\controllers\application_controller.rb</string>
             <key>app</key>
@@ -369,7 +371,7 @@
             <key>schema.r</key>
             <string>db\schema.rb</string>
             <key>schema.rb</key>
-            <string>..\multitenants\db\schema.rb</string>
+            <string>db\schema.rb</string>
             <key>school.rb</key>
             <string>..\tester\app\models\school.rb</string>
             <key>school_ty</key>
