@@ -298,6 +298,8 @@
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>label</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
+            <key>migr</key>
+            <string>lib\tasks\migrate_with_schemas.rake</string>
             <key>migrate</key>
             <string>lib\tasks\migrate_with_schemas.rake</string>
             <key>mobile_t</key>
@@ -521,7 +523,7 @@
             <key>tenancont</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenant</key>
-            <string>app\controllers\tenants_controller.rb</string>
+            <string>app\models\tenant_manager.rb</string>
             <key>tenant.r</key>
             <string>app\models\tenant.rb</string>
             <key>tenant.rb</key>
