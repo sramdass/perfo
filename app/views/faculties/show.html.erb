@@ -1,6 +1,17 @@
 <%= render 'shared/de_nav_links', :active => "faculties" %>
 <div class="span9">
-	<legend><%= @faculty.name %> </legend>
+  <h2><%= @faculty.name %> </h2>
+  <div class="span4 pull-right">
+    <div class="thumbnail">
+      <%= image_tag @faculty.image_url(:thumb), :alt => "Hello" %>	
+      <div class="caption">
+        <h5><%= @faculty.designation.try(:name) %></h5>
+        <p> <%= @faculty.female ? "Female" : "Male" %> </p>
+        <p><%= @faculty.id_no%> </p>
+      </div>
+    </div>
+  </div>
+    
   <table class="table table-striped">
     <tbody>
       <tr>

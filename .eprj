@@ -31,11 +31,11 @@
             <key>appli</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applic</key>
-            <string>app\assets\stylesheets\application.css</string>
+            <string>app\views\layouts\application.html.erb</string>
             <key>applic.cs</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applica</key>
-            <string>app\assets\javascripts\application.js</string>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicab</key>
             <string>config\application.rb</string>
             <key>applicahel</key>
@@ -114,12 +114,16 @@
             <string>app\views\shared\_buttons.html.erb</string>
             <key>buttons</key>
             <string>app\views\shared\_buttons.html.erb</string>
+            <key>carrier</key>
+            <string>config\initializers\carrierwave.rb</string>
             <key>common</key>
             <string>app\assets\javascripts\common.js</string>
             <key>common.j</key>
             <string>app\assets\javascripts\common.js</string>
             <key>common.js</key>
             <string>app\assets\javascripts\common.js</string>
+            <key>config.r</key>
+            <string>config.ru</string>
             <key>contact</key>
             <string>app\models\contact.rb</string>
             <key>contact.</key>
@@ -186,6 +190,8 @@
             <string>app\controllers\departments_controller.rb</string>
             <key>designat</key>
             <string>app\models\designation.rb</string>
+            <key>desin</key>
+            <string>app\models\designation.rb</string>
             <key>devel</key>
             <string>config\environments\development.rb</string>
             <key>edit</key>
@@ -222,6 +228,8 @@
             <string>app\models\faculty.rb</string>
             <key>faculty.rb</key>
             <string>app\models\faculty.rb</string>
+            <key>faculty_f</key>
+            <string>app\views\faculties\_faculty_fields.html.erb</string>
             <key>field</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>form.</key>
@@ -242,6 +250,8 @@
             <string>app\models\hod.rb</string>
             <key>hodshtm</key>
             <string>app\views\departments\hods.html.erb</string>
+            <key>image</key>
+            <string>app\uploaders\image_uploader.rb</string>
             <key>in_Fac</key>
             <string>db\migrate\20120415045226_alter_start_date_end_date_in_faculties.rb</string>
             <key>inde</key>
@@ -312,6 +322,8 @@
             <string>app\views\students\new.html.erb</string>
             <key>new.t</key>
             <string>app\views\tenants\new.html.erb</string>
+            <key>overrid</key>
+            <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
             <key>page_bu</key>
             <string>app\views\shared\_page_buttons.html.erb</string>
             <key>pg</key>
@@ -444,6 +456,8 @@
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>semi_</key>
             <string>app\views\shared\_semi_index.html.erb</string>
+            <key>semi_index</key>
+            <string>app\views\shared\_semi_index.html.erb</string>
             <key>show</key>
             <string>app\views\students\show.html.erb</string>
             <key>show.</key>
@@ -530,6 +544,8 @@
             <string>..\multitenants\app\models\tenant.rb</string>
             <key>tenatsco</key>
             <string>..\multitenants\app\controllers\tenants_controller.rb</string>
+            <key>tofacu</key>
+            <string>db\migrate\20120504092600_add_image_to_faculites.rb</string>
             <key>toins</key>
             <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
             <key>toinst</key>

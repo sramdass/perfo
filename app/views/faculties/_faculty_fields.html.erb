@@ -1,3 +1,15 @@
+<div class="row">
+  <span class="span1">
+    <div class="thumbnail">
+      <%= image_tag @faculty.image_url  %>	
+     </div>
+  </span>
+</div>
+<%= f.file_field :image, :label => 'Photo' %>
+<%= f.input :remote_image_url, :label => "or Image URL" %>
+<label>  <%= f.check_box :remove_image %> Remove Image </label>
+<%= f.hidden_field :image_cache %>
+
 <%= f.input :name  %>
 <%= f.input :id_no, :label => "ID Number"  %>
 <%= f.input :female, :label => "* Gender" do %>

@@ -1,6 +1,6 @@
 <%= render 'shared/de_nav_links', :active => "faculties" %>
 <div class="span6">
-  <%= simple_form_for @faculty, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= simple_form_for @faculty, :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
   <legend> New Faculty </legend>
     <%= render 'faculty_fields', :f => f %>
     <div class="form-actions">

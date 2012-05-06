@@ -16,6 +16,9 @@
 #
 
 class Faculty < TenantManager
+  #For the image upload
+  mount_uploader :image, ImageUploader	
+  
   has_one :contact, :as => :user, :dependent => :destroy	
   accepts_nested_attributes_for :contact
   validates_presence_of 		:contact

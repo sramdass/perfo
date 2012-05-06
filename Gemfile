@@ -8,6 +8,9 @@ gem "squeel"
 gem "ransack"
 gem "simple_form"
 gem "rabl"
+gem "rmagick"
+gem "carrierwave"
+gem 'fog'
 gem 'debugger', group: [:development, :test]
 
 group :assets do
