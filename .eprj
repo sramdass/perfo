@@ -39,7 +39,7 @@
             <key>applic.cs</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applica</key>
-            <string>app\controllers\application_controller.rb</string>
+            <string>app\views\layouts\application.html.erb</string>
             <key>applicab</key>
             <string>config\application.rb</string>
             <key>applicahel</key>
@@ -56,6 +56,8 @@
             <string>config\application.rb</string>
             <key>applicatio</key>
             <string>app\assets\stylesheets\application.css</string>
+            <key>applicatio_he</key>
+            <string>app\helpers\application_helper.rb</string>
             <key>applicatio_hel</key>
             <string>app\helpers\application_helper.rb</string>
             <key>applicatiocon</key>
@@ -75,6 +77,8 @@
             <key>application_Con</key>
             <string>app\controllers\application_controller.rb</string>
             <key>application_c</key>
+            <string>app\controllers\application_controller.rb</string>
+            <key>application_co</key>
             <string>app\controllers\application_controller.rb</string>
             <key>application_con</key>
             <string>app\controllers\application_controller.rb</string>
@@ -216,6 +220,8 @@
             <string>app\models\faculty.rb</string>
             <key>facul.r</key>
             <string>app\models\faculty.rb</string>
+            <key>facult.rb</key>
+            <string>app\models\faculty.rb</string>
             <key>facultie</key>
             <string>app\views\sections\faculties.html.erb</string>
             <key>facultie.h</key>
@@ -233,6 +239,8 @@
             <key>faculty.rb</key>
             <string>app\models\faculty.rb</string>
             <key>faculty_f</key>
+            <string>app\views\faculties\_faculty_fields.html.erb</string>
+            <key>faculty_fi</key>
             <string>app\views\faculties\_faculty_fields.html.erb</string>
             <key>field</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
@@ -261,7 +269,7 @@
             <key>inde</key>
             <string>app\views\semesters\index.html.erb</string>
             <key>index</key>
-            <string>app\views\faculties\index.html.erb</string>
+            <string>app\views\tenants\index.html.erb</string>
             <key>index.h</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>index.ht</key>
@@ -317,7 +325,7 @@
             <key>nav_link</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>new</key>
-            <string>app\views\students\new.html.erb</string>
+            <string>app\views\user_profiles\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\students\new.html.erb</string>
             <key>new.htm</key>
@@ -367,6 +375,8 @@
             <key>routes.r</key>
             <string>config\routes.rb</string>
             <key>routes.rb</key>
+            <string>config\routes.rb</string>
+            <key>routesr</key>
             <string>config\routes.rb</string>
             <key>schem</key>
             <string>db\schema.rb</string>
@@ -466,6 +476,10 @@
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>semi_index</key>
             <string>app\views\shared\_semi_index.html.erb</string>
+            <key>sessions_c</key>
+            <string>app\controllers\sessions_controller.rb</string>
+            <key>sessionscon</key>
+            <string>app\controllers\sessions_controller.rb</string>
             <key>show</key>
             <string>app\views\students\show.html.erb</string>
             <key>show.</key>
@@ -560,6 +574,10 @@
             <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
             <key>toinst</key>
             <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
+            <key>user_pr</key>
+            <string>app\models\user_profile.rb</string>
+            <key>user_profile.r</key>
+            <string>app\models\user_profile.rb</string>
         </dict>
     </dict>
 </plist>

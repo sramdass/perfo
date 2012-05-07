@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   require 'pgtools'
-  helper_method :current_tenant
+  helper_method :current_tenant, :current_profile
   protect_from_forgery
   #This filter is skipped for Tenants Controller. Check tenants  controller
   #If this is not skipped, there will be an infinite redirect when we redirect
@@ -42,6 +42,14 @@ private
  #    nil
  #  end
  end
-
+ 
+  def current_profile
+  #Destroying  a cookie using code just empties the cookie. So just checking for nil is not sufficient.
+    if cookies[:auth_token] && !(cookies[:auth_token].empty?)
+      @current_profile ||= UserProfile.find_by_auth_token!(cookies[:auth_token])
+    else
+      nil
+    end
+  end   
 
 end

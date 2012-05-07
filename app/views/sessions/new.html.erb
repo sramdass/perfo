@@ -1,0 +1,32 @@
+<div class="span11">
+  <%= form_tag sessions_path, :html => { :class => 'form-horizontal' } do |f| %>
+  <legend> Log In </legend>
+  <fieldset>
+    <div class="control-group">
+	  <label class="control-label">Login</label>
+	  <div class="controls">
+   	     <%= text_field_tag :login, params[:login], :placeholder => 'ID Number' %> 
+   	  </div>
+  	</div>
+    <div class="control-group">
+	  <label class="control-label">Password</label>
+	  <div class="controls">
+   	    <%= password_field_tag :password, nil, :placeholder => 'Password' %>
+   	  </div>
+  	</div>  	
+    <div class="control-group">
+	  <div class="controls">
+	  	<label class ="checkbox inline">
+   	      <%= check_box_tag :remember_me, 1, params[:remember_me] %> &nbsp; Remember me
+   	    </label>
+   	  </div>
+  	</div>  	  	
+    
+  	<div class="form-actions">
+  	  <%= render 'shared/buttons', :obj => @institution, :buttons => {'submit' => "Log In" }%>
+      <%= link_to signup_path, :class => 'btn btn-primary btn-large' do  %>
+        <i class="icon-arrow-right icon-white"> </i> <strong> I need to Sign Up first!  </strong>
+      <% end %>  	  
+    </div>  
+  <% end %>
+</div>

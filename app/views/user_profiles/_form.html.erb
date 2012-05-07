@@ -1,0 +1,9 @@
+<%= form_for user_profile do |f| %>		
+	<%= render 'shared/error_messages', :target => user_profile %>	  
+	<table>
+	    <tbody>		
+			<%= render 'user_profile_fields', :f => f, :user_profile => user_profile %>
+		</tbody>
+	</table>		
+    <p class='button'> <%= f.submit %> </p>
+<% end %>

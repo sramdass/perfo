@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: hods
+#
+#  id            :integer         not null, primary key
+#  department_id :integer
+#  faculty_id    :integer
+#  semester_id   :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#
+
 class Hod < TenantManager
   belongs_to :department
   validates_presence_of :department

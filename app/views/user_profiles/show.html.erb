@@ -1,0 +1,17 @@
+<div id="main-column">
+	<h1><%= @user_profile.login %> </h1><br>
+	<strong> Name: </strong><%= @user_profile.user.name %><br>
+	<strong> Profile Type: </strong> <%= @user_profile.user_type %><br>
+	<strong> Branch </strong> <%= @user_profile.branch.name %> <br>
+	<h3>Roles: </h3>
+	<ol>
+		<% @user_profile.roles.each do |role| %>
+			<li> <%= link_to role.name, role_path(role)%> </li>
+		<% end%>
+	<p>
+		<%= link_to "Add/modify roles", edit_user_profile_path(@user_profile) %>
+	</p>
+</div>
+
+	
+

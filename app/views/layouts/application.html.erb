@@ -25,7 +25,12 @@
             <li class="active"><%= link_to "Browse Tenants", tenants_path %></li>
             <li><%= link_to "Price List" %></li>
             <li><%= link_to "Contact Us" %></li>
-            <li><%= link_to "Cart" %></li>
+            <% if current_profile %>
+              <li> <%= link_to current_profile.user.name, '#' %> </li>
+              <li><%= link_to "Sign Out", logout_path %></li>
+            <% else %>
+              <li><%= link_to "Sign In", login_path %></li>
+            <% end %>
           </ul>
 		  <ul class="nav">
 		    <li class="divider-vertical"></li>

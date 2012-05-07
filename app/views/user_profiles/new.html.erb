@@ -1,0 +1,10 @@
+<div class="span12">
+  <%= simple_form_for @profile, :html => { :class => 'form-horizontal' } do |f| %>
+  <legend> Sign Up </legend>
+    <%= render 'profile_fields', :f => f %>
+    <div class="form-actions">
+  	  <%= render 'shared/buttons', :obj => @institution, :buttons => {'submit' => "Sign Up" }%>
+    </div>  
+  <% end %>
+</div>
+

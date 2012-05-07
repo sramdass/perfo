@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120504092600) do
+ActiveRecord::Schema.define(:version => 20120507141440) do
 
   create_table "batches", :force => true do |t|
     t.string   "institution_id"
@@ -202,6 +202,23 @@ ActiveRecord::Schema.define(:version => 20120504092600) do
     t.string   "schema_password"
     t.integer  "students_count"
     t.integer  "faculties_count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_profiles", :force => true do |t|
+    t.string   "login"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.string   "password_reset_token"
+    t.string   "auth_token"
+    t.datetime "password_reset_sent_at"
+    t.string   "user_type"
+    t.integer  "user_id"
+    t.datetime "last_login_at"
+    t.boolean  "activated"
+    t.boolean  "locked"
+    t.integer  "failed_login_count"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

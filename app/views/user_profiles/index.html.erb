@@ -1,0 +1,28 @@
+<h1>User Profile Index </h1>
+<div id="main-column">
+	<table class='index_table_z' >
+	    <thead>	
+			<tr>
+				<th>Login </th>
+				<th>User</th>
+				<th>User Type</th>
+				<th> Branch </th>
+				<th>Action</th>
+			</tr>
+		</thead>
+	    <tbody>
+		<% @user_profiles.each do |user_profile| %>
+			<tr>
+				<td><%= link_to user_profile.login, user_profile %></td>
+				<td><%= link_to user_profile.user.name, user_profile.user %></td>
+				<td><%= user_profile.user_type %> </td>
+				<td><%= user_profile.branch.name %> </td>
+				<td> <%= link_to 'Show', user_profile_path(user_profile) %> | 
+						<%= link_to 'Edit', edit_user_profile_path(user_profile) %> | 
+					    <%= link_to 'Destroy', user_profile, :confirm => 'Are you sure?', :method => :delete %> 
+				</td>
+			</tr>
+		<% end %>
+	    </tbody>	
+	</table>		
+</div>

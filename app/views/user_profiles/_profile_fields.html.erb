@@ -1,0 +1,6 @@
+<%= f.input :login, :label_html => { :class => 'my_class' } %>
+<%= f.input :password %>
+<%= f.input :password_confirmation, :required => true %>
+<div class="controls">
+  <%= f.collection_radio_buttons :profile_type, [[true, 'Faculty'] ,[false, 'Student']], :first, :last %>
+</div>

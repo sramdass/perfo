@@ -13,6 +13,7 @@
 #  updated_at     :datetime
 #  start_date     :date
 #  end_date       :date
+#  image          :string(255)
 #
 
 class Faculty < TenantManager
@@ -35,6 +36,8 @@ class Faculty < TenantManager
   
   has_many :hods, :dependent => true, :dependent => :destroy
   has_many :departments, :through => :hods  
+  
+  has_one :user_profile, :as => :user, :dependent => :destroy  
   
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 50

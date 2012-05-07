@@ -35,6 +35,8 @@ class Student < TenantManager
   belongs_to :section
   validates_associated :section
   validates_presence_of :section
+  
+  has_one :user_profile, :as => :user, :dependent => :destroy  
 
   #Since we are not using f.association in the student_fields, we need to validate th presence
   #exclusively for the * mark (required field) in the form
