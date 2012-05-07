@@ -16,6 +16,8 @@
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>_sufi</key>
             <string>app\views\subjects\_subject_fields.html.erb</string>
+            <key>add_</key>
+            <string>db\migrate\20120415025550_add_parent_mobile_to_contacts.rb</string>
             <key>addima</key>
             <string>db\migrate\20120504092600_add_image_to_faculites.rb</string>
             <key>apcont</key>
@@ -333,7 +335,9 @@
             <key>pg</key>
             <string>..\multitenants\lib\pgtools.rb</string>
             <key>pgt</key>
-            <string>lib\pgtools.rb</string>
+            <string>app\pgtools\pgtools.rb</string>
+            <key>pgto</key>
+            <string>app\pgtools\pgtools.rb</string>
             <key>pgtoo</key>
             <string>app\pgtools\pgtools.rb</string>
             <key>pickse</key>
@@ -530,6 +534,8 @@
             <string>app\models\tenant.rb</string>
             <key>tenant.rb</key>
             <string>app\models\tenant.rb</string>
+            <key>tenant_fi</key>
+            <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>tenantfi</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>tenantman</key>

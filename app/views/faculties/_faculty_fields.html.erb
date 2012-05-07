@@ -1,7 +1,7 @@
 <div class="row">
   <span class="span1">
     <div class="thumbnail">
-      <%= image_tag @faculty.image_url  %>	
+      <%= image_tag @faculty.image_url if @faculty.image  %>	
      </div>
   </span>
 </div>

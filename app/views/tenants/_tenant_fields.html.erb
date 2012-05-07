@@ -1,6 +1,7 @@
 <%= f.input :name  %>
 <%= f.input :email  %>
 <%= f.input :phone %>
+<%= f.input :subdomain %>
 <%= f.input :subscription_from, :as => :date, :start_year => Date.today.year - 5,
                               :end_year => Date.today.year + 15,:order => [:day, :month, :year], :input_html => { :class => 'span1' }%>
 <%= f.input :subscription_to, :as => :date, :start_year => Date.today.year - 5,
