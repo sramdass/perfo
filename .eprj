@@ -220,6 +220,8 @@
             <string>app\models\faculty.rb</string>
             <key>facul.r</key>
             <string>app\models\faculty.rb</string>
+            <key>facult</key>
+            <string>app\views\faculties\_faculty_fields.html.erb</string>
             <key>facult.rb</key>
             <string>app\models\faculty.rb</string>
             <key>facultie</key>
@@ -264,6 +266,8 @@
             <string>app\views\departments\hods.html.erb</string>
             <key>image</key>
             <string>app\uploaders\image_uploader.rb</string>
+            <key>imageot</key>
+            <string>db\migrate\20120508130346_add_image_to_students.rb</string>
             <key>in_Fac</key>
             <string>db\migrate\20120415045226_alter_start_date_end_date_in_faculties.rb</string>
             <key>inde</key>
@@ -486,6 +490,8 @@
             <string>app\views\students\show.html.erb</string>
             <key>show.htm</key>
             <string>app\views\students\show.html.erb</string>
+            <key>show.html</key>
+            <string>app\views\faculties\show.html.erb</string>
             <key>show.html.erb</key>
             <string>app\views\school_types\show.html.erb</string>
             <key>show.rb</key>
@@ -506,9 +512,13 @@
             <string>app\views\students\_student_fields.html.erb</string>
             <key>student</key>
             <string>app\views\students\_student_fields.html.erb</string>
+            <key>student.r</key>
+            <string>app\models\student.rb</string>
             <key>student.rb</key>
             <string>app\models\student.rb</string>
             <key>student_f</key>
+            <string>app\views\students\_student_fields.html.erb</string>
+            <key>studentfiel</key>
             <string>app\views\students\_student_fields.html.erb</string>
             <key>students</key>
             <string>..\tester\app\controllers\students_controller.rb</string>

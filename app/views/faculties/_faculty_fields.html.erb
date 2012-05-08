@@ -1,13 +1,20 @@
-<div class="row">
-  <span class="span1">
-    <div class="thumbnail">
-      <%= image_tag @faculty.image_url if @faculty.image  %>	
-     </div>
-  </span>
-</div>
-<%= f.file_field :image, :label => 'Photo' %>
-<%= f.input :remote_image_url, :label => "or Image URL" %>
-<label>  <%= f.check_box :remove_image %> Remove Image </label>
+<%= f.input :image, :label => 'Photo' do %>
+  <div class="row">
+    <span class="span1">
+      <div class="thumbnail">
+        <%= image_tag @faculty.image_url if @faculty.image  %>	
+       </div>
+    </span>
+  </div>	
+  <%= f.file_field :image %>
+<% end %>
+
+<%= f.input :remote_image_url, :label => 'or Image URL' %>
+
+<%= f.input :remove_image, :label => false do %>
+  <label> <%= f.check_box :remove_image %> Remove Image </label>
+<% end %>
+
 <%= f.hidden_field :image_cache %>
 
 <%= f.input :name  %>

@@ -7,6 +7,26 @@
 <%= f.input :section_id do %>
   <%= f.select :section_id,  options_for_select(Section.all.collect {|sec| ["#{sec.name}  - #{sec.batch.name} - #{sec.department.name}", sec.id ]}, f.object.section_id), {:include_blank => true }, {:class => 'span3', :disabled => disable_edit}  %>
 <% end %>
+
+<%= f.input :image, :label => 'Photo' do %>
+  <div class="row">
+    <span class="span1">
+      <div class="thumbnail">
+        <%= image_tag @student.image_url if @student.image  %>	
+       </div>
+    </span>
+  </div>	
+  <%= f.file_field :image %>
+<% end %>
+
+<%= f.input :remote_image_url, :label => 'or Image URL' %>
+
+<%= f.input :remove_image, :label => false do %>
+  <label> <%= f.check_box :remove_image %> Remove Image </label>
+<% end %>
+
+<%= f.hidden_field :image_cache %>
+
 <%= f.input :name   %>
 <%= f.input :id_no, :label => "ID Number"  %>
 <%= f.input :female, :label => "Gender", :required => true do %>
@@ -14,7 +34,7 @@
     <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ]) , {:include_blank => true}  %>
   <% else %>
     <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ], f.object.female?  ) , {:include_blank => true}  %>
-  <% end %>	d
+  <% end %>
 <% end %>
 <%= f.input :father_name, :label => "Father's Name" %>
 <%= f.input :start_date, :label => "Date Joined",:as => :date, :start_year => Date.today.year - 5,

@@ -1,7 +1,16 @@
 <%= render 'shared/de_nav_links', :active => "associate_batches" %>
 <div class="span9">
   <%= render 'shared/de_batches_nav_pills', :active => "students" %>
-	<legend><%= @student.name %> </legend>
+  <h2><%= @student.name %> </h2>
+  <div class="span4 pull-right">
+    <div class="thumbnail">
+      <%= image_tag @student.image_url(:thumb), :alt => "Hello" %>	
+      <div class="caption">
+        <p> <%= @student.female ? "Female" : "Male" %> </p>
+        <p><%= @student.id_no%> </p>
+      </div>
+    </div>
+  </div>
   <table class="table table-striped">
     <tbody>
       <tr>
