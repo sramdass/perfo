@@ -19,6 +19,7 @@ class UserProfilesController < ApplicationController
     end
     if user
       @profile = UserProfile.new(params[:user_profile])
+      @profile.tenant_id = Tenant.find_by_subdomain(request.subdomain).id
       @profile.user=user
       if @profile.save
         flash[:notice] = "Signed up! Please login."

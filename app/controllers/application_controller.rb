@@ -35,12 +35,11 @@ private
  end
  
  def current_tenant
-   @current_tenant || Tenant.find_by_subdomain(request.subdomain)
- #   if cookies[:auth_token] && !(cookies[:auth_token].empty?)
- #    @current_profile ||= UserProfile.find_by_auth_token!(cookies[:auth_token])
- #  else
- #    nil
- #  end
+ 	tenant = @current_tenant || Tenant.find_by_subdomain(request.subdomain)
+    if current_profile && tenant && current_profile.tenant_id != tenant.id
+      return nil
+    end
+    return tenant
  end
  
   def current_profile

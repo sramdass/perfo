@@ -32,6 +32,8 @@
             <string>app\helpers\application_helper.rb</string>
             <key>apphelper</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>applcco</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>appli</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applic</key>
@@ -585,8 +587,12 @@
             <key>toinst</key>
             <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
             <key>user_pr</key>
-            <string>app\models\user_profile.rb</string>
+            <string>db\migrate\20120508133903_add_tenant_id_to_user_profiles.rb</string>
             <key>user_profile.r</key>
+            <string>app\models\user_profile.rb</string>
+            <key>user_profilecon</key>
+            <string>app\controllers\user_profiles_controller.rb</string>
+            <key>userprofile.rb</key>
             <string>app\models\user_profile.rb</string>
         </dict>
     </dict>

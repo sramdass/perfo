@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508130346) do
+ActiveRecord::Schema.define(:version => 20120508133903) do
 
   create_table "batches", :force => true do |t|
     t.string   "institution_id"
@@ -222,6 +222,7 @@ ActiveRecord::Schema.define(:version => 20120508130346) do
     t.integer  "failed_login_count"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "tenant_id"
   end
 
 end
