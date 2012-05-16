@@ -1,0 +1,14 @@
+<div class="span12">
+  <%= simple_form_for @profile, :url => password_reset_path(params[:id]), :method => :put, :html => {:class => 'form-horizontal' } do |f| %>
+    <legend> Reset Password </legend>
+    <fieldset>
+      <%= f.input :password, :required => true %>
+      <%= f.input :password_confirmation, :required => true %>
+      <div class="form-actions">
+    	  <%= render 'shared/buttons', :buttons => {'submit' => "Reset to this Password" }%>
+      </div>  
+    </fieldset>
+  <% end %>
+</div>
+
+

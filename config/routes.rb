@@ -43,6 +43,7 @@ Perfo::Application.routes.draw do
   resources :selectors
   resources :user_profiles
   resources :sessions
+  resources :password_resets
   root :to => 'tenants#new'
   # The priority is based upon order of creation:
   # first created -> highest priority.

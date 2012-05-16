@@ -24,13 +24,13 @@ class UserProfile < TenantManager
   validates_presence_of :user
   
   attr_accessor :password, :profile_type
-  attr_accessible :login, :password, :password_confirmation, :user, :branch, :branch_id
+  attr_accessible :login, :password, :password_confirmation, :user
   before_save :encrypt_password
   before_create { generate_token(:auth_token) }
 
   validates_confirmation_of :password
   validates_presence_of :password, :on => :create
-  validates_length_of :password, :minimum => 3, :maximum => 50
+  validates_length_of :password, :minimum => 3, :maximum => 50, :on => :create
   validates_presence_of :login
   validates_uniqueness_of :login
   
@@ -53,7 +53,7 @@ class UserProfile < TenantManager
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
     save!
-    CampusMailer.password_reset(self).deliver
+    PerfoMailer.password_reset(self).deliver
   end
   
   def generate_token(column)

@@ -21,12 +21,16 @@
    	    </label>
    	  </div>
   	</div>  	  	
-    
+      <%= link_to new_password_reset_path, :class => 'btn btn-warning' do  %>
+        <i class="icon-gift icon-white"> </i> <strong> I Forgot My Password  </strong>
+      <% end %>       	          	
   	<div class="form-actions">
   	  <%= render 'shared/buttons', :obj => @institution, :buttons => {'submit' => "Log In" }%>
       <%= link_to signup_path, :class => 'btn btn-primary btn-large' do  %>
         <i class="icon-arrow-right icon-white"> </i> <strong> I need to Sign Up first!  </strong>
       <% end %>  	  
+
     </div>  
+  </fieldset>
   <% end %>
 </div>

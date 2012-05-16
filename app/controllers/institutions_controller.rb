@@ -3,7 +3,6 @@ class InstitutionsController < ApplicationController
   def new
    # Only one institution can be created for a tenant
    if Institution.first
-  	  flash[:error] = "Institution already exists"
   	  redirect_to institution_path(Institution.first, :subdomain => request.subdomain)
    end
   	@institution = Institution.new

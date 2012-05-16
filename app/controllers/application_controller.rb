@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   #If this is not skipped, there will be an infinite redirect when we redirect
   #to invalid_tenant_url
   before_filter :load_tenant
-
+  before_filter :mailer_set_url_options  
 private  
 
   def load_tenant
@@ -22,6 +22,10 @@ private
       TenantManager.connection.schema_search_path = @current_tenant.subdomain
     end
   end
+  
+  def mailer_set_url_options
+    ActionMailer::Base.default_url_options[:host] = "#{request.subdomain}.lvh.me:3000"
+  end    
   
   def first_run?
   	@current_tenant.nil?

@@ -4,8 +4,18 @@
     <dict>
         <key>fileTriggers</key>
         <dict>
+            <key>FACULTCON</key>
+            <string>app\controllers\faculties_controller.rb</string>
+            <key>ROUTE</key>
+            <string>config\routes.rb</string>
             <key>TENANT.R</key>
             <string>..\multitenants\app\models\tenant.rb</string>
+            <key>USERPROFIL</key>
+            <string>app\models\user_profile.rb</string>
+            <key>USERPROFILE</key>
+            <string>app\models\user_profile.rb</string>
+            <key>USER_R</key>
+            <string>app\controllers\user_profiles_controller.rb</string>
             <key>_denav</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>_form</key>
@@ -88,6 +98,8 @@
             <string>app\helpers\application_helper.rb</string>
             <key>application_hel</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>applicationc</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicationcont</key>
             <string>app\controllers\application_controller.rb</string>
             <key>applicationher</key>
@@ -121,6 +133,8 @@
             <key>butt</key>
             <string>app\views\shared\_buttons.html.erb</string>
             <key>butto</key>
+            <string>app\views\shared\_buttons.html.erb</string>
+            <key>button</key>
             <string>app\views\shared\_buttons.html.erb</string>
             <key>buttons</key>
             <string>app\views\shared\_buttons.html.erb</string>
@@ -205,7 +219,7 @@
             <key>devel</key>
             <string>config\environments\development.rb</string>
             <key>edit</key>
-            <string>app\views\institutions\edit.html.erb</string>
+            <string>app\views\password_resets\edit.html.erb</string>
             <key>en.</key>
             <string>config\locales\en.yml</string>
             <key>exam</key>
@@ -297,7 +311,7 @@
             <key>instico</key>
             <string>app\controllers\institutions_controller.rb</string>
             <key>instit</key>
-            <string>app\models\institution.rb</string>
+            <string>app\controllers\institutions_controller.rb</string>
             <key>institcon</key>
             <string>app\controllers\institutions_controller.rb</string>
             <key>institu</key>
@@ -331,7 +345,7 @@
             <key>nav_link</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>new</key>
-            <string>app\views\user_profiles\new.html.erb</string>
+            <string>app\views\password_resets\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\students\new.html.erb</string>
             <key>new.htm</key>
@@ -346,6 +360,18 @@
             <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
             <key>page_bu</key>
             <string>app\views\shared\_page_buttons.html.erb</string>
+            <key>password_res</key>
+            <string>app\controllers\password_resets_controller.rb</string>
+            <key>passwordrese</key>
+            <string>app\views\perfo_mailer\password_reset.text.erb</string>
+            <key>passworreset</key>
+            <string>app\controllers\password_resets_controller.rb</string>
+            <key>perfo</key>
+            <string>app\mailers\perfo_mailer.rb</string>
+            <key>perfo_ma</key>
+            <string>app\mailers\perfo_mailer.rb</string>
+            <key>perfom</key>
+            <string>app\mailers\perfo_mailer.rb</string>
             <key>pg</key>
             <string>..\multitenants\lib\pgtools.rb</string>
             <key>pgt</key>
@@ -482,10 +508,18 @@
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>semi_index</key>
             <string>app\views\shared\_semi_index.html.erb</string>
+            <key>sessions</key>
+            <string>app\controllers\sessions_controller.rb</string>
             <key>sessions_c</key>
+            <string>app\controllers\sessions_controller.rb</string>
+            <key>sessions_co</key>
             <string>app\controllers\sessions_controller.rb</string>
             <key>sessionscon</key>
             <string>app\controllers\sessions_controller.rb</string>
+            <key>setu</key>
+            <string>config\initializers\setup_mail.rb</string>
+            <key>setup</key>
+            <string>config\initializers\setup_mail.rb</string>
             <key>show</key>
             <string>app\views\students\show.html.erb</string>
             <key>show.</key>
@@ -586,12 +620,20 @@
             <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
             <key>toinst</key>
             <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
+            <key>useprofilecont</key>
+            <string>app\controllers\user_profiles_controller.rb</string>
             <key>user_pr</key>
             <string>db\migrate\20120508133903_add_tenant_id_to_user_profiles.rb</string>
+            <key>user_proficont</key>
+            <string>app\controllers\user_profiles_controller.rb</string>
             <key>user_profile.r</key>
             <string>app\models\user_profile.rb</string>
             <key>user_profilecon</key>
             <string>app\controllers\user_profiles_controller.rb</string>
+            <key>userpro</key>
+            <string>app\models\user_profile.rb</string>
+            <key>userprofile</key>
+            <string>app\models\user_profile.rb</string>
             <key>userprofile.rb</key>
             <string>app\models\user_profile.rb</string>
         </dict>

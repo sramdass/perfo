@@ -23,7 +23,7 @@ class UserProfilesController < ApplicationController
       @profile.user=user
       if @profile.save
         flash[:notice] = "Signed up! Please login."
-        redirect_to signup_path
+        redirect_to login_path
       else
         render :new
       end
