@@ -1,25 +1,31 @@
 <%= f.input :name %>
 <%= f.input :description, :input_html => {:rows => 5} %>
 <% Resource.all.each do |res| %>
-	<span class = 'resource_permissions'>
-		<%= res.name if !res.resource_actions.empty? %><br> <!--do not print the resource name if there are no actions associated with the resource-->
-			<% res.resource_actions.each do |ra| %>
-				<% if f.object.new_record? || !f.object.has_privilege?(res.id, ra.code)  %>
-					<% check_off = false %>
-				<% else %>
-					<% check_off = true %>
-				<% end %>
-				<%= check_box_tag ra.name, 2**ra.code, check_off %> <%=ra.name%> <br>
-			<% end %>
-			
-			<% perm = f.object.permissions.find_by_resource_id(res.id) %>
-			<% val = perm ? perm.privilege : 0 %>
-			<!--This field is populated by javascript and is located by relative position to these checkboxes.
-				     Know what you do, before you touch this code.
-			-->
-			<%= text_field_tag  "privilege[#{res.id}]", val, :class => 'total_permission'  %>
-			<br><br><br>
-	</span>
+  <% if !res.resource_actions.empty? %> <!--Do not print anything if the current resource do not have any resource_actions -->
+  <span class = 'resource_permissions'>
+    <div class="control-group">
+      <label class="control-label"><%= res.name if !res.resource_actions.empty? %></label>
+      <div class="controls">
+  		<% res.resource_actions.each do |ra| %>
+  		  <% if f.object.new_record? || !f.object.has_privilege?(res.id, ra.code)  %>
+  			<% check_off = false %>
+  		  <% else %>
+  		    <% check_off = true %>
+  		  <% end %>
+  		  <label class="checkbox">
+  		    <%= check_box_tag ra.name, 2**ra.code, check_off %> &nbsp; <%=ra.name%>
+  		  </label>
+  		<% end %>
+        </div>
+      </div>					
+  	  <% perm = f.object.permissions.find_by_resource_id(res.id) %>
+  	  <% val = perm ? perm.privilege : 0 %>
+  	  <!--This field is populated by javascript and is located by relative position to these checkboxes.
+  		     Know what you do, before you touch this code.
+  	  -->
+  	  <%= text_field_tag  "privilege[#{res.id}]", val, :class => 'total_permission'  %>
+    <% end %>
+  </span>
 <% end %>
 
  

@@ -1,4 +1,4 @@
-<%= render 'shared/de_nav_links',:active => "roles" %>
+<%= render 'shared/admin_nav_links',:active => "roles" %>
 <div class='span9'>
 <legend> Roles Index </legend>
 <table class = 'datatable_full'>
@@ -29,6 +29,7 @@
   <% end %>
 </tbody>
 </table>
+<%= render 'shared/controller_action_buttons', :obj => Role.new, :action => "index" %>
 </div>
 
 

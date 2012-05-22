@@ -11,6 +11,7 @@ gem "rabl"
 gem "rmagick"
 gem "carrierwave"
 gem 'fog'
+gem 'cancan'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'debugger', group: [:development, :test]
 

@@ -3,17 +3,25 @@
   <% vals << [i.to_s, i] %>
 <% end %>
 <tr class = "tfields">
-  <td><%= f.input :name %></td>
   <td>
-  	<%= f.input :code do %>
+    <% if f.object.new_record?%>
+      <%= f.input :name, :label => false %>
+    <% else %>
+      <%= f.input :name, :label => false, :input_html => {:disabled => true} %>
+      <%= f.hidden_field :code, :value => f.object.code %>
+    <% end %>
+  </td>
+  <td>
+  	<%= f.input :code, :label => false  do %>
       <% if f.object.new_record?%>
 	    <%= f.select :code, options_for_select(vals, f.object.code), {:include_blank => 'Select Code'}, {:class => 'span1'}  %>
 	  <% else %>
-	    <%= f.select :code, options_for_select(vals, f.object.code),{} , {:class => 'span1'} %>
+	    <%= f.hidden_field :code, :value => f.object.code %>
+	    <%= f.select :code, options_for_select(vals, f.object.code),{} , {:class => 'span1', :disabled => true} %>
 	  <% end %>		
 	<% end %>
   </td> 	
-  <td><%= f.input :description, :input_html => {:rows => 2, :cols => 50}  %></td>
+  <td><%= f.input :description, :label => false, :input_html => {:rows => 1, :cols => 50}  %></td>
   <td><%= link_to_remove_fields "Delete", f %></td>	
 </tr>
  

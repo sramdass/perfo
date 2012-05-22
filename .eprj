@@ -26,6 +26,10 @@
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>_sufi</key>
             <string>app\views\subjects\_subject_fields.html.erb</string>
+            <key>ability</key>
+            <string>app\models\ability.rb</string>
+            <key>ability.rb</key>
+            <string>app\models\ability.rb</string>
             <key>actionfiel</key>
             <string>app\views\resources\_resource_action_fields.html.erb</string>
             <key>actionhel</key>
@@ -35,6 +39,8 @@
             <key>addima</key>
             <string>db\migrate\20120504092600_add_image_to_faculites.rb</string>
             <key>admin</key>
+            <string>app\views\shared\_admin_nav_links.html.erb</string>
+            <key>adminn</key>
             <string>app\views\shared\_admin_nav_links.html.erb</string>
             <key>apcont</key>
             <string>app\controllers\application_controller.rb</string>
@@ -69,6 +75,8 @@
             <key>applicaio.htm</key>
             <string>app\views\layouts\application.html.erb</string>
             <key>applicat</key>
+            <string>app\controllers\application_controller.rb</string>
+            <key>applicatcont</key>
             <string>app\controllers\application_controller.rb</string>
             <key>applicathel</key>
             <string>app\helpers\application_helper.rb</string>
@@ -208,6 +216,8 @@
             <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>denav</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
+            <key>denavlin</key>
+            <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>denavlink</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>denavpi</key>
@@ -252,6 +262,8 @@
             <string>app\models\exam.rb</string>
             <key>exam_con</key>
             <string>app\controllers\exams_controller.rb</string>
+            <key>exmscon</key>
+            <string>app\controllers\exams_controller.rb</string>
             <key>faccont</key>
             <string>app\controllers\faculties_controller.rb</string>
             <key>facucon</key>
@@ -266,6 +278,8 @@
             <string>app\views\faculties\_faculty_fields.html.erb</string>
             <key>facult.rb</key>
             <string>app\models\faculty.rb</string>
+            <key>faculticon</key>
+            <string>app\controllers\faculties_controller.rb</string>
             <key>facultie</key>
             <string>app\views\sections\faculties.html.erb</string>
             <key>facultie.h</key>
@@ -315,7 +329,7 @@
             <key>inde</key>
             <string>app\views\semesters\index.html.erb</string>
             <key>index</key>
-            <string>app\views\roles\index.html.erb</string>
+            <string>app\views\resources\index.html.erb</string>
             <key>index.</key>
             <string>app\views\exams\index.html.erb</string>
             <key>index.h</key>
@@ -326,6 +340,8 @@
             <string>app\views\tenants\index.html.erb</string>
             <key>index.html.erb</key>
             <string>app\views\tenants\index.html.erb</string>
+            <key>indx</key>
+            <string>app\views\roles\index.html.erb</string>
             <key>ins</key>
             <string>app\views\institutions\_institution_fields.html.erb</string>
             <key>insco</key>
@@ -373,7 +389,7 @@
             <key>nav_link</key>
             <string>app\views\shared\_admin_nav_links.html.erb</string>
             <key>new</key>
-            <string>app\views\roles\new.html.erb</string>
+            <string>app\views\resources\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\students\new.html.erb</string>
             <key>new.htm</key>
@@ -434,14 +450,22 @@
             <string>config\environments\production.rb</string>
             <key>resact</key>
             <string>app\models\resource_action.rb</string>
+            <key>reso_fi</key>
+            <string>app\views\resources\_resource_action_fields.html.erb</string>
             <key>resourc.rb</key>
             <string>app\models\resource.rb</string>
             <key>resource.rb</key>
             <string>app\models\resource.rb</string>
+            <key>resource_</key>
+            <string>app\models\resource_action.rb</string>
+            <key>resource_Ac</key>
+            <string>app\views\resources\_resource_action_fields.html.erb</string>
             <key>resource_ac</key>
             <string>app\models\resource_action.rb</string>
             <key>resourceact</key>
             <string>app\models\resource_action.rb</string>
+            <key>resourcecon</key>
+            <string>app\controllers\resources_controller.rb</string>
             <key>resourcefile</key>
             <string>app\views\resources\_resource_fields.html.erb</string>
             <key>resources_c</key>
@@ -451,6 +475,10 @@
             <key>role.rb</key>
             <string>app\models\role.rb</string>
             <key>role_fie</key>
+            <string>app\views\roles\_role_fields.html.erb</string>
+            <key>role_file</key>
+            <string>app\views\roles\_role_fields.html.erb</string>
+            <key>rolefi</key>
             <string>app\views\roles\_role_fields.html.erb</string>
             <key>rolemem</key>
             <string>app\models\role_membership.rb</string>
@@ -652,6 +680,8 @@
             <string>app\models\subject.rb</string>
             <key>subjectco</key>
             <string>app\controllers\subjects_controller.rb</string>
+            <key>subjects</key>
+            <string>app\views\sections\subjects.html.erb</string>
             <key>subjects.ht</key>
             <string>app\views\sections\subjects.html.erb</string>
             <key>subjects.html</key>

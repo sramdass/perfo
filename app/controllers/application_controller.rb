@@ -8,8 +8,16 @@ class ApplicationController < ActionController::Base
   #to invalid_tenant_url
   before_filter :load_tenant
   before_filter :mailer_set_url_options  
-private  
-
+  
+  rescue_from CanCan::AccessDenied do |exception|
+   if current_profile
+     redirect_to invalid_tenant_path, :alert => "You are not allowed to access that page"
+   #Use this here: - request.env['HTTP_REFERER'] || root_url
+   else
+     redirect_to invalid_tenant_path, :alert => "Please log in/sign up before accessing the application"
+   end
+  end  
+    
   def load_tenant
     #Modifications need to be done for verifying current_tenant so that the user does not switch identity in the middle
   	@current_tenant = Tenant.find_by_subdomain(request.subdomain) #Uses ActiveRecord::Base's connection.
@@ -55,5 +63,10 @@ private
       nil
     end
   end   
+  
+  #This will return the ability of the current_profile
+  def current_ability
+    @current_ability ||= Ability.new(current_profile)
+  end	  
 
 end

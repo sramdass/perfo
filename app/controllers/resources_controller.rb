@@ -2,6 +2,7 @@ class ResourcesController < ApplicationController
   skip_before_filter :load_tenant	
   def new
   	@resource = Resource.new
+  	@resource.resource_actions.build
   end
 
   def index
