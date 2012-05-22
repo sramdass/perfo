@@ -33,17 +33,31 @@
           <% end %>   
         </li>
       <% end %>     
+      
+      <% if active == "resources"%>
+        <li class= "active">
+          <%= link_to resources_path do %>
+            <i class="icon-file icon-white"> </i> Resources
+          <% end %>   
+        </li>
+      <% else %>
+        <li>
+          <%= link_to resources_path do %>
+            <i class="icon-file icon-white"> </i> Resources
+          <% end %>   
+        </li>
+      <% end %>           
     
-      <% if active == "permissions_roles"%>
+      <% if active == "roles"%>
         <li class= "active">
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> Permissions and Roles
+            <i class="icon-file icon-white"> </i> Roles
           <% end %>   
         </li>
       <% else %>
         <li>
           <%= link_to '#' do %>
-            <i class="icon-file icon-white"> </i> Permissions and Roles
+            <i class="icon-file icon-white"> </i> Roles
           <% end %>   
         </li>
       <% end %>     

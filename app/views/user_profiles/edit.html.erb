@@ -1,4 +1,15 @@
-<div id="main-column">
-  <%= render 'form', :user_profile => @user_profile %>
+<%= render 'shared/de_nav_links',:active => "user_profiles" %>
+<div class="span9">
+  <%= simple_form_for @user_profile, :html => { :class => 'form-horizontal' } do |f| %>
+  <legend> Edit User Profile </legend>
+    <%= render 'user_profile_fields', :f => f %>
+    <div class="form-actions">
+  	  <%= render 'shared/buttons', :obj => @user_profile, :buttons => {'submit' => "Update", "cancel" => "Cancel" }%>
+    </div>  
+  <% end %>
+  <%= render 'shared/controller_action_buttons', :obj => @user_profile, :action => "edit" %>  
 </div>
+
+
+
 

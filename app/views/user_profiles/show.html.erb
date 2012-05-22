@@ -1,17 +1,40 @@
-<div id="main-column">
-	<h1><%= @user_profile.login %> </h1><br>
-	<strong> Name: </strong><%= @user_profile.user.name %><br>
-	<strong> Profile Type: </strong> <%= @user_profile.user_type %><br>
-	<strong> Branch </strong> <%= @user_profile.branch.name %> <br>
-	<h3>Roles: </h3>
-	<ol>
-		<% @user_profile.roles.each do |role| %>
-			<li> <%= link_to role.name, role_path(role)%> </li>
-		<% end%>
-	<p>
-		<%= link_to "Add/modify roles", edit_user_profile_path(@user_profile) %>
-	</p>
+<%= render 'shared/de_nav_links',:active => "user_profiles" %>
+<div class="span9">
+	<legend><%= @user_profile.user.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Login</td>
+        <td><%= @user_profile.login %></td>
+      </tr>
+      <tr>
+        <td>Profile Type</td>
+        <td><%= @user_profile.user_type %></td>
+      </tr>
+      <tr>
+        <td>Activated </td>
+        <td><%= @user_profile.activated ? "Yes" : "No" %></td>
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td><%= @user_profile.locked ? "Yes" : "No" %></td>
+      </tr>
+      <tr>      	      	
+        <td>Roles</td>
+        <td>
+          <% @user_profile.roles.each do |role| %>
+		    <%= role.name %> <br>
+	      <% end %>
+        </td>
+      </tr>
+    </tbody>  
+  </table>
+  <%= render 'shared/controller_action_buttons', :obj => @user_profile, :action => "show" %>    
 </div>
+
+	
+
+
 
 	
 

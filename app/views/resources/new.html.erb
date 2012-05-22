@@ -1,0 +1,11 @@
+<%= render 'shared/admin_nav_links', :active => "resources" %>
+<div class="span9">
+  <%= simple_form_for @resource, :html => { :class => 'form-horizontal' } do |f| %>
+  <legend> New Student </legend>
+    <%= render 'resource_fields', :f => f %>
+    <div class="form-actions">
+  	  <%= render 'shared/buttons', :obj => @resource, :buttons => {'submit' => "Create","cancel" => "Cancel" }%>
+    </div>  
+  <% end %>
+<%= render 'shared/controller_action_buttons', :obj => @resource, :action => "new" %>    
+</div>

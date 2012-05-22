@@ -1,0 +1,34 @@
+<%= render 'shared/de_nav_links',:active => "roles" %>
+<div class='span9'>
+<legend> Roles Index </legend>
+<table class = 'datatable_full'>
+<thead>
+  <tr>
+  	<th> Name </th>
+  	<th> Description </th>
+  	<th> Actions </th>
+  </tr>
+</thead>
+<tbody>
+  <% @roles.each do |role| %>
+    <tr>
+      <td> <%= link_to role.name, role %> </td>
+	  <td> <%= role.description %> </td>
+	  <td>
+  	    <%= link_to role, :class => 'btn btn-mini btn-info' do %>
+          <i class="icon-file icon-white"> </i> View
+        <% end %>
+   	    <%= link_to edit_role_path(role), :class => 'btn btn-mini btn-inverse' do %>
+          <i class="icon-pencil icon-white"> </i> Edit
+        <% end %>          
+   	    <%= link_to role, :class => 'btn btn-mini btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
+          <i class="icon-trash icon-white"> </i> Delete
+        <% end %>   
+      </td>    
+	</tr>
+  <% end %>
+</tbody>
+</table>
+</div>
+
+

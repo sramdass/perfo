@@ -1,0 +1,25 @@
+<%= render 'shared/admin_nav_links', :active => "resources" %>
+<div class="span9">
+  <h2><%= @resource.name %> </h2>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @resource.name %></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td><%= @resource.description%></td>
+      </tr>
+      <tr>      	
+        <td>Resource Actions</td>
+        <td>
+          <% @resource.resource_actions.each do |res_action| %>
+            <%= res_action.name %>  -  <%= res_action.description %>  - <%= res_action.code %> <br>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>  
+  </table>
+<%= render 'shared/controller_action_buttons', :obj => @resource, :action => "show" %>  
+</div>

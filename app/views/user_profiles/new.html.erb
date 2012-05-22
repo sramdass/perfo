@@ -1,9 +1,14 @@
 <div class="span12">
-  <%= simple_form_for @profile, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= simple_form_for @user_profile, :html => { :class => 'form-horizontal' } do |f| %>
   <legend> Sign Up </legend>
-    <%= render 'profile_fields', :f => f %>
+    <%= f.input :login, :label_html => { :class => 'my_class' } %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation, :required => true %>
+    <div class="controls">
+      <%= f.collection_radio_buttons :profile_type, [[true, 'Faculty'] ,[false, 'Student']], :first, :last %>
+    </div>
     <div class="form-actions">
-  	  <%= render 'shared/buttons', :obj => @institution, :buttons => {'submit' => "Sign Up" }%>
+  	  <%= render 'shared/buttons', :obj => @user_profile, :buttons => {'submit' => "Sign Up" }%>
     </div>  
   <% end %>
 </div>

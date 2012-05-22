@@ -1,11 +1,11 @@
 class UserProfilesController < ApplicationController
   
   def index
-  	@profiles=UserProfile.all
+  	@user_profiles=UserProfile.all
   end
   
   def new
-    @profile = UserProfile.new
+    @user_profile = UserProfile.new
   end
 
   def create
@@ -18,10 +18,10 @@ class UserProfilesController < ApplicationController
       end
     end
     if user
-      @profile = UserProfile.new(params[:user_profile])
-      @profile.tenant_id = Tenant.find_by_subdomain(request.subdomain).id
-      @profile.user=user
-      if @profile.save
+      @user_profile = UserProfile.new(params[:user_profile])
+      @user_profile.tenant_id = Tenant.find_by_subdomain(request.subdomain).id
+      @user_profile.user=user
+      if @user_profile.save
         flash[:notice] = "Signed up! Please login."
         redirect_to login_path
       else
@@ -34,44 +34,21 @@ class UserProfilesController < ApplicationController
   end
   
   def update
-  	# Here we are going to update only the roles for this user profile.
-  	#None of the other fields of the user profiles are editable, for now.
-  	#All the memberships corresponding to this user profile are deleted,
-  	#and the new memberships are added. Yes, this is redundant! Performance
-  	#needs to be tuned. TODO.
-  	memberships = []
-    @profile = UserProfile.find(params[:id])
-    #NOTE: 
-    #We cannot write -  old_memberships = @profile.role_memberships.
-    #This seems to give a reference, not the absolute entries. If we do this.
-    #after we build new memberships for this profile, the new ones also are
-    #coming as a part of old_memberships. When we delete the old_memberships
-    #the newly built ones will also get deleted, resulting in no roles for this profile.
-	old_memberships = RoleMembership.for_user_profile(@profile.id)
-    role_ids = params[:profile_roles] || []
-    role_ids.each do |role_id|
-      memberships << {:role_id => role_id}
-    end
-    @profile.role_memberships.build(memberships) 
-    if @profile.role_memberships.all?(&:valid?) 
-      if old_memberships
-        old_memberships.each do |om|	
-          om.destroy #--> This is the place I am referring above
-        end
-      end
-      @profile.role_memberships.each(&:save!)
-      flash[:notice] = "Roles successfully updated"
-      redirect_to user_profile_path(@profile)
+
+    @user_profile = UserProfile.find(params[:id])
+    if @user_profile.update_attributes(params[:user_profile])
+      flash[:notice] = "Profile successfully updated"
+      redirect_to user_profile_path(@user_profile)
     else
-      render :edit, :error => "Cannot updates roles to this user profile"
+      render :edit, :error => "Cannot update this user profile"
     end
   end
 
   def edit
-    @profile = UserProfile.find(params[:id])
+    @user_profile = UserProfile.find(params[:id])
   end
     
   def show
-    @profile = UserProfile.find(params[:id])
+    @user_profile = UserProfile.find(params[:id])
   end  
 end

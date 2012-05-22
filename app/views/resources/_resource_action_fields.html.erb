@@ -1,0 +1,22 @@
+<% vals = [] %>
+<% for i in 1..31 do %>
+  <% vals << [i.to_s, i] %>
+<% end %>
+<tr class = "tfields">
+  <td><%= f.input :name %></td>
+  <td>
+  	<%= f.input :code do %>
+      <% if f.object.new_record?%>
+	    <%= f.select :code, options_for_select(vals, f.object.code), {:include_blank => 'Select Code'}, {:class => 'span1'}  %>
+	  <% else %>
+	    <%= f.select :code, options_for_select(vals, f.object.code),{} , {:class => 'span1'} %>
+	  <% end %>		
+	<% end %>
+  </td> 	
+  <td><%= f.input :description, :input_html => {:rows => 2, :cols => 50}  %></td>
+  <td><%= link_to_remove_fields "Delete", f %></td>	
+</tr>
+ 
+
+ 
+	

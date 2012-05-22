@@ -1,28 +1,39 @@
-<h1>User Profile Index </h1>
-<div id="main-column">
-	<table class='index_table_z' >
-	    <thead>	
-			<tr>
-				<th>Login </th>
-				<th>User</th>
-				<th>User Type</th>
-				<th> Branch </th>
-				<th>Action</th>
-			</tr>
-		</thead>
-	    <tbody>
-		<% @user_profiles.each do |user_profile| %>
-			<tr>
-				<td><%= link_to user_profile.login, user_profile %></td>
-				<td><%= link_to user_profile.user.name, user_profile.user %></td>
-				<td><%= user_profile.user_type %> </td>
-				<td><%= user_profile.branch.name %> </td>
-				<td> <%= link_to 'Show', user_profile_path(user_profile) %> | 
-						<%= link_to 'Edit', edit_user_profile_path(user_profile) %> | 
-					    <%= link_to 'Destroy', user_profile, :confirm => 'Are you sure?', :method => :delete %> 
-				</td>
-			</tr>
-		<% end %>
-	    </tbody>	
-	</table>		
+<%= render 'shared/de_nav_links',:active => "user_profiles" %>
+<div class='span9'>
+<legend> User Profiles Index </legend>
+  <table class = 'datatable_full'>
+    <thead>
+      <tr>
+      	<th> Login </th>
+      	<th> Type </th>
+      	<th> Activated? </th>
+      	<th> Locked? </th>
+      	<th> Actions </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user_profiles.each do |user_profile| %>
+        <tr>
+          <td> <%= link_to user_profile.login, user_profile %> </td>
+    	  <td> <%= user_profile.user_type %> </td>
+    	  <td> <%= user_profile.activated ? 'Yes' : 'No' %> </td>
+    	  <td> <%= user_profile.locked ? 'Yes' : 'No' %> </td>
+    	  <td>
+      	    <%= link_to user_profile, :class => 'btn btn-mini btn-info' do %>
+              <i class="icon-file icon-white"> </i> View
+            <% end %>
+       	    <%= link_to edit_user_profile_path(user_profile), :class => 'btn btn-mini btn-inverse' do %>
+              <i class="icon-pencil icon-white"> </i> Edit
+            <% end %>          
+       	    <%= link_to user_profile, :class => 'btn btn-mini btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
+              <i class="icon-trash icon-white"> </i> Delete
+            <% end %>   
+          </td>    
+    	</tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
+
+
+

@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   require 'pgtools'
   helper_method :current_tenant, :current_profile
   protect_from_forgery
-  #This filter is skipped for Tenants Controller. Check tenants  controller
+  #This filter is skipped for the following controllers (corresponds to the admin access)
+  #Skipped controllers :- Tenants, Resources
   #If this is not skipped, there will be an infinite redirect when we redirect
   #to invalid_tenant_url
   before_filter :load_tenant

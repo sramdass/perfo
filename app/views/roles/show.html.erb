@@ -1,0 +1,35 @@
+<%= render 'shared/admin_nav_links',:active => "roles" %>
+<div class="span9">
+	<legend><%= @role.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td><%= @role.name %></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td><%= @role.description %></td>
+      </tr>
+      <tr>
+        <td>Privileges</td>
+        <td>
+          <% Resource.all.each do |res| %>
+		    <strong> <%= res.name if !res.resource_actions.empty? %> </strong>
+		    <ol>
+		      <% res.resource_actions.each do |ra| %>
+			    <% if @role.has_privilege?(res.id, ra.code)%>
+				  <li> Can &nbsp; <%= res.resource_actions.find_by_code(ra.code).name %> </li>
+			    <% end %>
+		      <% end %>
+		    </ol>
+	      <% end %>
+        </td>
+      </tr>
+    </tbody>  
+  </table>
+  <%= render 'shared/controller_action_buttons', :obj => @role, :action => "show" %>    
+</div>
+
+	
+

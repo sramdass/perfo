@@ -23,8 +23,12 @@ class UserProfile < TenantManager
   belongs_to :user, :polymorphic => true
   validates_presence_of :user
   
+  has_many :role_memberships, :dependent => true, :dependent => :destroy
+  has_many :roles, :through => :role_memberships
+  accepts_nested_attributes_for :roles, :reject_if => :has_only_destroy?, :allow_destroy => true  
+  
   attr_accessor :password, :profile_type
-  attr_accessible :login, :password, :password_confirmation, :profile_type, :user
+  attr_accessible :login, :password, :password_confirmation, :profile_type, :user, :role_ids, :locked, :activated
   before_save :encrypt_password
   before_create { generate_token(:auth_token) }
   before_validation :set_default_values, :on => :create
@@ -93,4 +97,14 @@ class UserProfile < TenantManager
     self.locked ||= false
     self.activated ||= true
   end
+  
+  def has_only_destroy?(attrs)
+    attrs.each do |k,v|
+      if k !="_destroy" && !v.blank?
+        return false
+      end
+    end
+    return true	
+  end	  
+    
 end

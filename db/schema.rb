@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508133903) do
+ActiveRecord::Schema.define(:version => 20120517153046) do
 
   create_table "batches", :force => true do |t|
     t.string   "institution_id"
@@ -105,12 +105,51 @@ ActiveRecord::Schema.define(:version => 20120508133903) do
     t.integer  "tenant_id"
   end
 
+  create_table "permissions", :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "resource_id"
+    t.integer  "privilege"
+    t.integer  "constraints"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pre_college_marks", :force => true do |t|
     t.integer  "school_type_id"
     t.string   "school_name"
     t.float    "percent_marks"
     t.integer  "status"
     t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resource_actions", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "code"
+    t.integer  "resource_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "resources", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "role_memberships", :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "user_profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

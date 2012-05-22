@@ -1,9 +1,9 @@
 <tr class = "tfields">
-	<td><%= f.association :school_type, :input_html => {:class => 'span1'} %></td>	
-	<td><%= f.input :school_name %> </td>	
-	<td><%= f.input :percent_marks, :input_html => {:class => 'span1'} %></td>	
+	<td><%= f.association :school_type, :label => false %></td>	
+	<td><%= f.input :school_name, :label => false %> </td>	
+	<td><%= f.input :percent_marks, :label => false, :input_html => {:class => 'span1'} %></td>	
     <td>
-    	<%= f.input :status  do %>
+    	<%= f.input :status, :label => false do %>
           <%= f.select :status, options_for_select([ ['Not Known', -1], ['Passed', 0], ['Failed', 1],['Drop Out', 2]],f.object.status), {:include_blank => true} %> </td>
         <% end %>
 	<td><%= link_to_remove_fields "Delete", f %></td>	

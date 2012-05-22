@@ -1,0 +1,26 @@
+<%= f.input :name   %>
+<%= f.input :description, :input_html => {:rows => 2, :cols => 50}  %>
+<%#Input fields for the ResourceActions%>
+<table class="input_form_table" style = "border: 1px solid black;">
+	<thead>
+    	<tr>
+        	<th>Name</th>
+        	<th>Code</th>
+        	<th>Description</th>
+        	<th>Delete?</th>
+        </tr>
+    </thead>
+    <tbody>		
+	<%= f.simple_fields_for :resource_actions do |builder| %>	
+	  <%= render "resource_action_fields", :f => builder %>	 	  
+	<% end %>
+    </tbody>		
+    <tfoot>
+      <td> <%= link_to_add_fields "Add", f, :resource_actions %> </td>
+    </tfoot>
+</table>		
+
+
+
+
+

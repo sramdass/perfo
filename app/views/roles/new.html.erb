@@ -1,0 +1,14 @@
+<%= render 'shared/admin_nav_links',:active => "roles" %>
+<div class="span9">
+  <%= debug @role.errors %>
+  <%= simple_form_for @role, :html => { :class => 'form-horizontal' } do |f| %>
+  <legend> New Role </legend>
+    <%= render 'role_fields', :f => f %>
+    <div class="form-actions">
+  	  <%= render 'shared/buttons', :obj => @role, :buttons => {'submit' => "Create", "cancel" => "Cancel" }%>
+    </div>  
+  <% end %>
+  <%= render 'shared/controller_action_buttons', :obj => @role, :action => "new" %>  
+</div>
+
+

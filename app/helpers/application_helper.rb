@@ -28,7 +28,13 @@ module ApplicationHelper
   	  when  "Section"
   	    edit_section_path(obj)
   	  when  "BloodGroup"
-  	    edit_blood_group_path(obj)  	      	         	     	       	     
+  	    edit_blood_group_path(obj)
+  	  when  "Resource"
+  	    edit_resource_path(obj)
+  	  when  "Role"
+  	    edit_role_path(obj)  	      	  	
+  	  when  "UserProfile"
+  	    edit_user_profile_path(obj)  	     	             	     	       	     
   	 when nil
   	    nil
     end
@@ -55,9 +61,15 @@ module ApplicationHelper
   	  when  "Student"
   	    students_path    
   	  when  "Section"
-  	    sections_path(obj)  	     
+  	    sections_path
   	  when  "BloodGroup"
-  	    blood_groups_path(obj)  	    	    	  	      	      
+  	    blood_groups_path
+  	  when  "Resource"
+  	    resources_path 	    	  	  
+  	  when  "Role"
+  	    roles_path 	    	        	      
+  	  when  "UserProfile"
+  	    user_profiles_path   	    
   	 when nil
   	    nil
     end
@@ -87,6 +99,12 @@ module ApplicationHelper
   	    new_section_path	     	     	    	      	    
   	  when  "BloodGroup"
   	    new_blood_group_path  	    
+  	  when  "Resource"
+  	    new_resource_path  	      	
+  	  when  "Role"
+  	    new_role_path 
+  	  when  "UserProfile"
+  	    new_user_profile_path  	      	            
   	 when nil
   	    nil
     end
