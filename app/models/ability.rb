@@ -8,8 +8,8 @@ class Ability
 	  return
 	end
 	#---------TEMPORARY--------------#
-	can :manage, :all
-	return
+	#can :manage, :all
+	#return
 	#---------TEMPORARY--------------#
 	@user_type = @profile.user_type
 	#All the aliases come here

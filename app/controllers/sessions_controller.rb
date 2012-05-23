@@ -1,8 +1,9 @@
 class SessionsController < ApplicationController
   def new
   	if current_profile
-  	  redirect_to institution_new_path
+  	  redirect_to dashboard_path
   	end
+  	#else render the login page new.html.erb
   end
 
   def create
@@ -15,7 +16,7 @@ class SessionsController < ApplicationController
       end
       profile.last_login_at = Time.now
       profile.update_failed_login_count(true)
-      redirect_to institution_new_path, :notice => "Logged in!"
+      redirect_to dashboard_path, :notice => "Logged in!"
     else
       profile.update_failed_login_count(false) if profile#Valid profile, but unsuccessful login
       flash.now.alert = "Invalid login or password"
@@ -28,5 +29,8 @@ class SessionsController < ApplicationController
     cookies.delete(:auth_token)
     redirect_to login_path, :notice => "Logged out!"
   end
+  
+  def dashboard
+  end  
 
 end

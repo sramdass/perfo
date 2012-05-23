@@ -3,7 +3,7 @@ class InstitutionsController < ApplicationController
   def new
    # Only one institution can be created for a tenant
    if Institution.first
-  	  redirect_to institution_path(Institution.first, :subdomain => request.subdomain)
+  	  redirect_to institution_root_path
    end
   	@institution = Institution.new
   end
@@ -11,7 +11,7 @@ class InstitutionsController < ApplicationController
   def create
    	if Institution.first
       flash[:error] = "Institution already exists"
-  	  redirect_to institution_path(Institution.first, :subdomain => request.subdomain)
+  	  redirect_to institution_root_path
    	end
 
     @institution = Institution.new(params[:institution])
@@ -20,7 +20,7 @@ class InstitutionsController < ApplicationController
 
     if @institution.save
       flash[:notice] = 'Institution successfully created'
-      redirect_to institution_path(Institution.first, :subdomain => request.subdomain)
+      redirect_to institution_root_path
     else
       if @institution.errors[:tenant_id]
         flash[:error] = 'Invalid Tenant'
@@ -32,9 +32,9 @@ class InstitutionsController < ApplicationController
   end
   
   def show
-  	@institution = Institution.find_by_subdomain(request.subdomain)
+  	@institution = Institution.first
   	if !@institution
-  	  redirect_to new_institution_path
+  	  redirect_to institution_new_path
   	end
   end
 
@@ -42,7 +42,7 @@ class InstitutionsController < ApplicationController
     @institution = Institution.find(params[:id])
       if @institution.update_attributes(params[:institution])
       	flash[:notice] = 'Institution successfully updated'
-        redirect_to institution_path(Institution.first, :subdomain => request.subdomain)
+        redirect_to institution_root_path
       else
         if @institution.errors[:tenant_id]
           flash[:error] = 'Invalid Tenant'
@@ -54,7 +54,7 @@ class InstitutionsController < ApplicationController
   end
 
   def edit
-    @institution = Institution.find_by_subdomain(request.subdomain)
+    @institution = Institution.first
   end
 
 end

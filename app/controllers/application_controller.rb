@@ -11,10 +11,10 @@ class ApplicationController < ActionController::Base
   
   rescue_from CanCan::AccessDenied do |exception|
    if current_profile
-     redirect_to invalid_tenant_path, :alert => "You are not allowed to access that page"
+     redirect_to dashboard_path, :alert => "You are not allowed to access that page"
    #Use this here: - request.env['HTTP_REFERER'] || root_url
    else
-     redirect_to invalid_tenant_path, :alert => "Please log in/sign up before accessing the application"
+     redirect_to login_path, :alert => "Please log in/sign up before accessing the application"
    end
   end  
     

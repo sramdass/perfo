@@ -94,6 +94,8 @@
             <string>..\multitenants\app\controllers\application_controller.rb</string>
             <key>application</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>application.html</key>
+            <string>app\views\layouts\application.html.erb</string>
             <key>application.j</key>
             <string>app\assets\javascripts\application.js</string>
             <key>application.js</key>
@@ -262,6 +264,8 @@
             <string>app\models\exam.rb</string>
             <key>exam_con</key>
             <string>app\controllers\exams_controller.rb</string>
+            <key>examco</key>
+            <string>app\controllers\exams_controller.rb</string>
             <key>exmscon</key>
             <string>app\controllers\exams_controller.rb</string>
             <key>faccont</key>
@@ -368,6 +372,8 @@
             <string>app\models\institution.rb</string>
             <key>institution_F</key>
             <string>app\views\institutions\_institution_fields.html.erb</string>
+            <key>institutions</key>
+            <string>app\controllers\institutions_controller.rb</string>
             <key>lab</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>labe</key>
@@ -617,7 +623,7 @@
             <key>setup</key>
             <string>config\initializers\setup_mail.rb</string>
             <key>show</key>
-            <string>app\views\exams\show.html.erb</string>
+            <string>app\views\institutions\show.html.erb</string>
             <key>show.</key>
             <string>app\views\students\show.html.erb</string>
             <key>show.htm</key>
@@ -749,6 +755,8 @@
             <key>user_profileco</key>
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>user_profilecon</key>
+            <string>app\controllers\user_profiles_controller.rb</string>
+            <key>user_profilecont</key>
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>userpro</key>
             <string>app\models\user_profile.rb</string>

@@ -4,6 +4,7 @@ Perfo::Application.routes.draw do
   match '/new', to: 'institutions#new', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }, :as => 'institution_new'
   match '/signup', to: 'user_profiles#new', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }, :as => 'signup'
   match '/login', to: 'sessions#new', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www' }, :as => 'login'
+  match '/dashboard', to: 'sessions#dashboard' , :as => 'dashboard'    
   get 'invalid_tenant'			=> 'tenants#invalid',					:as => 'invalid_tenant'
   get 'logout'			 			=> 'sessions#destroy', 				:as => 'logout'
   resources :tenants

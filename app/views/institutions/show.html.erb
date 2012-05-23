@@ -31,7 +31,7 @@
   </table>
   <div class="row">
     <div class="span9 form-actions">
-   	  <%= link_to edit_institution_path(@institution), :class => 'btn btn-large btn-success' do %>
+   	  <%= link_to institution_edit_path, :class => 'btn btn-large btn-success' do %>
         <i class="icon-pencil icon-white"> </i> <strong> Edit this College </strong>
       <% end %>         
    	  <%= link_to @institution, :class => 'btn btn-large btn-danger',:confirm => 'Are you sure?', :method => :delete do %>
