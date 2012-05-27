@@ -50,6 +50,9 @@ class Faculty < TenantManager
   validates_length_of					:qualification,					:maximum => 20,
   																									:allow_nil => true
   validate 										:start_date_and_end_date	  
+  #Make sure that a student a faculty do not share the same id_no. id_no is used for the login in user profile.
+  validate										:id_no_should_not_match_student_id_no
+  validate										:id_no_should_not_have_spaces
   
   def start_date_and_end_date
   	if start_date && end_date && start_date > end_date
@@ -57,6 +60,22 @@ class Faculty < TenantManager
   	  errors.add(:end_date, "should not be earlier than Starts from")
   	end
   end    
+  
+  def id_no_should_not_match_student_id_no
+    if id_no
+      if Student.find_by_id_no(id_no)
+      	errors.add(:id_no, "is already taken by a Student")
+      end
+    end
+  end  
+  
+  def id_no_should_not_have_spaces
+  	if id_no
+      unless id_no =~ /^[a-z0-9]+[-a-z0-9]*[a-z0-9]+$/i
+        errors.add(:id_no, "only alphanumerics are allowed")
+      end      
+    end
+  end
 
 #Returns true if there is only "_destroy" attribute available for nested models.
   def has_only_destroy?(attrs)

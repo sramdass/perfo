@@ -1,6 +1,4 @@
 class TenantsController < ApplicationController
-  skip_before_filter :load_tenant
-	
   def new
     @tenant = Tenant.new
   end
@@ -23,13 +21,13 @@ class TenantsController < ApplicationController
   
   def create
       @tenant = Tenant.new(params[:tenant])
+      @tenant.activate_tenant
       if @tenant.save
-        flash[:notice] = "Tenant created"
-        if params[:create_and_add]
-          redirect_to new_tenant_path
-        else
-          redirect_to tenants_path
+        if params[:create_and_email]
+          @tenant.send_activation_email
         end
+        flash[:notice] = "Tenant successfully created"
+        redirect_to tenants_path
       else
         render :new
       end
@@ -52,5 +50,21 @@ class TenantsController < ApplicationController
   
   def invalid
   end
-    
+  
+  def activate_options
+    @tenant = Tenant.find_by_activation_token!(params[:id])  	
+  end
+  
+  def activate
+    @tenant = Tenant.find_by_activation_token!(params[:id])  	
+    @tenant.subdomain = params[:tenant][:subdomain]
+    if @tenant.subdomain && @tenant.save
+      @tenant.create_profile(params[:tenant][:admin_login], params[:tenant][:password])
+      @tenant.save!
+      redirect_to login_url(:subdomain => @tenant.subdomain), :notice => "Account Activated. Please Login."
+    else
+      render :activate_options
+    end
+  end
+  	
 end

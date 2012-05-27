@@ -5,7 +5,7 @@
   <div class="controls">
   	<% Role.all.each do |role| %>
     <label class="checkbox">
-      <%= check_box_tag "user_profile[role_ids][]", role.id, f.object.role_ids.include?(role.id) %> <%= role.name  %> 
+      <%= check_box_tag "role_ids[]", role.id, f.object.roles.include?(role) %> <%= role.name  %> 
     </label>
     <% end %>
     <p class="help-block"><strong>Select the roles for this user </strong></p>

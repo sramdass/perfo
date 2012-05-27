@@ -1,25 +1,25 @@
 class RolesController < ApplicationController
-  skip_before_filter :load_tenant
-
+  load_and_authorize_resource
+  
   def index
-  	@roles = Role.all
+  	#@roles = Role.all
   end
 
   def show
-    @role = Role.find(params[:id])
+    #@role = Role.find(params[:id])
   end
 
   def new
-    @role = Role.new
+    #@role = Role.new
   end
 
   def edit
-    @role = Role.find(params[:id])
+    #@role = Role.find(params[:id])
   end
 
   def create
+  	#@role = Role.new(params[:role])
     perms = []
-  	@role = Role.new(params[:role])
     privilege = params[:privilege]
     Resource.all.each do |res|
       #Permissions corresponding to all the resources should come as parameters. 
@@ -38,7 +38,7 @@ class RolesController < ApplicationController
   end
 
   def update
-    @role = Role.find(params[:id])
+    #@role = Role.find(params[:id])
     privilege = params[:privilege]
     Resource.all.each do |res|
       #Permissions corresponding to all the resources should come as parameters. 
@@ -61,7 +61,7 @@ class RolesController < ApplicationController
   end
 
   def destroy
-    @role = Role.find(params[:id])
+    #@role = Role.find(params[:id])
     @role.destroy
      redirect_to roles_path
   end

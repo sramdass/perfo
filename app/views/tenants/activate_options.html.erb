@@ -1,0 +1,16 @@
+<div class="span12">
+  <%= simple_form_for @tenant, :url => activate_tenant_path(params[:id]), :method => :post, :html => {:class => 'form-horizontal' } do |f| %>
+    <legend> Reset Password </legend>
+    <fieldset>
+      <%= f.input :subdomain%>    	    	
+      <%= f.input :admin_login, :hint => "No spaces allowed" %>
+      <%= f.input :password, :required => true %>
+      <%= f.input :password_confirmation, :required => true %>
+      <div class="form-actions">
+    	  <%= render 'shared/buttons', :buttons => {'submit' => "Activate" }%>
+      </div>  
+    </fieldset>
+  <% end %>
+</div>
+
+

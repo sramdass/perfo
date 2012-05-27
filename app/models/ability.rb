@@ -8,8 +8,10 @@ class Ability
 	  return
 	end
 	#---------TEMPORARY--------------#
-	#can :manage, :all
-	#return
+	if @profile.user.id_no == ENV['SUPERUSER'] && request.subdomain == ""
+	  can :manage, :all
+	  return
+    end
 	#---------TEMPORARY--------------#
 	@user_type = @profile.user_type
 	#All the aliases come here

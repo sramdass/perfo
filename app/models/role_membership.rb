@@ -1,4 +1,4 @@
-class RoleMembership < ActiveRecord::Base
+class RoleMembership < TenantManager
   belongs_to :role
   belongs_to :user_profile	
   

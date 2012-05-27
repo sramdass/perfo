@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   #Skipped controllers :- Tenants, Resources
   #If this is not skipped, there will be an infinite redirect when we redirect
   #to invalid_tenant_url
-  before_filter :load_tenant
+  before_filter :load_tenant_and_validate_profile
   before_filter :mailer_set_url_options  
   
   rescue_from CanCan::AccessDenied do |exception|
@@ -18,17 +18,20 @@ class ApplicationController < ActionController::Base
    end
   end  
     
-  def load_tenant
-    #Modifications need to be done for verifying current_tenant so that the user does not switch identity in the middle
-  	@current_tenant = Tenant.find_by_subdomain(request.subdomain) #Uses ActiveRecord::Base's connection.
-  	#@current_tenant = Tenant.find_by_subdomain("abc") 
-    if !@current_tenant
-      redirect_to invalid_tenant_url
-      return
-    end
-    #For every request, we just check the schema path and update if it is not correct.
-    if TenantManager.connection.schema_search_path != @current_tenant.subdomain
-      TenantManager.connection.schema_search_path = @current_tenant.subdomain
+  def load_tenant_and_validate_profile
+  	if request.subdomain == ""
+  	  TenantManager.connection.schema_search_path = "public"
+  	elsif
+  	  @current_tenant = Tenant.find_by_subdomain(request.subdomain) #Uses ActiveRecord::Base's connection.
+  	  #@current_tenant = Tenant.find_by_subdomain("abc")   	
+      if !@current_tenant
+        redirect_to invalid_tenant_url
+        return
+      end
+      #For every request, we just check the schema path and update if it is not correct.
+      if TenantManager.connection.schema_search_path != @current_tenant.subdomain
+        TenantManager.connection.schema_search_path = @current_tenant.subdomain
+      end
     end
   end
   

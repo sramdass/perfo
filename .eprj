@@ -16,6 +16,10 @@
             <string>app\models\user_profile.rb</string>
             <key>USER_R</key>
             <string>app\controllers\user_profiles_controller.rb</string>
+            <key>UserProfile.rb</key>
+            <string>app\models\user_profile.rb</string>
+            <key>_butt</key>
+            <string>app\views\shared\_buttons.html.erb</string>
             <key>_denav</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>_form</key>
@@ -26,6 +30,8 @@
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>_sufi</key>
             <string>app\views\subjects\_subject_fields.html.erb</string>
+            <key>abilit</key>
+            <string>app\models\ability.rb</string>
             <key>ability</key>
             <string>app\models\ability.rb</string>
             <key>ability.rb</key>
@@ -34,6 +40,8 @@
             <string>app\views\resources\_resource_action_fields.html.erb</string>
             <key>actionhel</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>activate</key>
+            <string>app\views\tenants\activate_options.html.erb</string>
             <key>add_</key>
             <string>db\migrate\20120415025550_add_parent_mobile_to_contacts.rb</string>
             <key>addima</key>
@@ -68,6 +76,8 @@
             <string>app\assets\stylesheets\application.css</string>
             <key>applicab</key>
             <string>config\application.rb</string>
+            <key>applicacon</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicahel</key>
             <string>app\helpers\application_helper.rb</string>
             <key>applicaicon</key>
@@ -104,6 +114,8 @@
             <string>config\application.rb</string>
             <key>application.rb</key>
             <string>config\application.rb</string>
+            <key>application_</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>application_C</key>
             <string>app\controllers\application_controller.rb</string>
             <key>application_Con</key>
@@ -255,9 +267,11 @@
             <key>devel</key>
             <string>config\environments\development.rb</string>
             <key>edit</key>
-            <string>app\views\user_profiles\edit.html.erb</string>
+            <string>app\views\password_resets\edit.html.erb</string>
             <key>edit.ht</key>
             <string>app\views\user_profiles\edit.html.erb</string>
+            <key>email</key>
+            <string>lib\email_format_validator.rb</string>
             <key>en.</key>
             <string>config\locales\en.yml</string>
             <key>exam</key>
@@ -265,6 +279,8 @@
             <key>exam_con</key>
             <string>app\controllers\exams_controller.rb</string>
             <key>examco</key>
+            <string>app\controllers\exams_controller.rb</string>
+            <key>exams</key>
             <string>app\controllers\exams_controller.rb</string>
             <key>exmscon</key>
             <string>app\controllers\exams_controller.rb</string>
@@ -295,6 +311,8 @@
             <key>faculties_co</key>
             <string>app\controllers\faculties_controller.rb</string>
             <key>faculty</key>
+            <string>app\models\faculty.rb</string>
+            <key>faculty.</key>
             <string>app\models\faculty.rb</string>
             <key>faculty.r</key>
             <string>app\models\faculty.rb</string>
@@ -395,7 +413,7 @@
             <key>nav_link</key>
             <string>app\views\shared\_admin_nav_links.html.erb</string>
             <key>new</key>
-            <string>app\views\resources\new.html.erb</string>
+            <string>app\views\tenants\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\students\new.html.erb</string>
             <key>new.htm</key>
@@ -410,18 +428,24 @@
             <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
             <key>page_bu</key>
             <string>app\views\shared\_page_buttons.html.erb</string>
+            <key>password_Reset</key>
+            <string>app\views\perfo_mailer\password_reset.text.erb</string>
             <key>password_res</key>
             <string>app\controllers\password_resets_controller.rb</string>
             <key>passwordrese</key>
             <string>app\views\perfo_mailer\password_reset.text.erb</string>
             <key>passworreset</key>
             <string>app\controllers\password_resets_controller.rb</string>
+            <key>perf</key>
+            <string>app\mailers\perfo_mailer.rb</string>
             <key>perfo</key>
             <string>app\mailers\perfo_mailer.rb</string>
             <key>perfo_ma</key>
             <string>app\mailers\perfo_mailer.rb</string>
             <key>perfom</key>
             <string>app\mailers\perfo_mailer.rb</string>
+            <key>permiss</key>
+            <string>app\models\permission.rb</string>
             <key>permissio</key>
             <string>app\models\permission.rb</string>
             <key>permission</key>
@@ -490,6 +514,8 @@
             <string>app\models\role_membership.rb</string>
             <key>rolemember</key>
             <string>app\models\role_membership.rb</string>
+            <key>roles_c</key>
+            <string>app\controllers\roles_controller.rb</string>
             <key>rout</key>
             <string>config\routes.rb</string>
             <key>route</key>
@@ -554,6 +580,8 @@
             <string>app\models\section.rb</string>
             <key>sectins</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>sectins_c</key>
+            <string>app\controllers\sections_controller.rb</string>
             <key>sectio.</key>
             <string>app\models\section.rb</string>
             <key>section.r</key>
@@ -576,6 +604,10 @@
             <string>app\controllers\sections_controller.rb</string>
             <key>sectionscont</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>seeds.</key>
+            <string>db\seeds.rb</string>
+            <key>seeds.r</key>
+            <string>db\seeds.rb</string>
             <key>seeds.rb</key>
             <string>db\seeds.rb</string>
             <key>selec</key>
@@ -612,6 +644,8 @@
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>sessions</key>
             <string>app\controllers\sessions_controller.rb</string>
+            <key>sessions_Co</key>
+            <string>app\controllers\sessions_controller.rb</string>
             <key>sessions_c</key>
             <string>app\controllers\sessions_controller.rb</string>
             <key>sessions_co</key>
@@ -628,12 +662,14 @@
             <string>app\views\students\show.html.erb</string>
             <key>show.htm</key>
             <string>app\views\students\show.html.erb</string>
+            <key>show.htme</key>
+            <string>app\views\tenants\show.html.erb</string>
             <key>show.html</key>
             <string>app\views\faculties\show.html.erb</string>
             <key>show.html.erb</key>
             <string>app\views\school_types\show.html.erb</string>
             <key>show.rb</key>
-            <string>app\views\tenants\show.html.erb</string>
+            <string>app\views\user_profiles\show.html.erb</string>
             <key>stu_sub</key>
             <string>..\tester\app\models\stu_sub_map.rb</string>
             <key>studen</key>
@@ -701,7 +737,7 @@
             <key>tenancont</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenant</key>
-            <string>app\controllers\tenants_controller.rb</string>
+            <string>app\models\tenant.rb</string>
             <key>tenant.r</key>
             <string>app\models\tenant.rb</string>
             <key>tenant.rb</key>
@@ -718,6 +754,8 @@
             <string>app\models\tenant.rb</string>
             <key>tenants</key>
             <string>app\controllers\tenants_controller.rb</string>
+            <key>tenants_C</key>
+            <string>app\controllers\tenants_controller.rb</string>
             <key>tenants_c</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenants_co</key>
@@ -725,6 +763,8 @@
             <key>tenants_con</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenantsco</key>
+            <string>app\controllers\tenants_controller.rb</string>
+            <key>tenantscon</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenat</key>
             <string>..\multitenants\app\models\tenant.rb</string>
@@ -740,12 +780,20 @@
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>user_pr</key>
             <string>db\migrate\20120508133903_add_tenant_id_to_user_profiles.rb</string>
+            <key>user_prf</key>
+            <string>app\controllers\user_profiles_controller.rb</string>
+            <key>user_prfile</key>
+            <string>app\controllers\user_profiles_controller.rb</string>
             <key>user_prfo</key>
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>user_pro</key>
             <string>app\models\user_profile.rb</string>
+            <key>user_prof</key>
+            <string>app\models\user_profile.rb</string>
             <key>user_proficont</key>
             <string>app\controllers\user_profiles_controller.rb</string>
+            <key>user_profil</key>
+            <string>app\models\user_profile.rb</string>
             <key>user_profile</key>
             <string>app\models\user_profile.rb</string>
             <key>user_profile.r</key>
@@ -757,6 +805,8 @@
             <key>user_profilecon</key>
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>user_profilecont</key>
+            <string>app\controllers\user_profiles_controller.rb</string>
+            <key>user_proflco</key>
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>userpro</key>
             <string>app\models\user_profile.rb</string>

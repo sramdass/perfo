@@ -22,6 +22,9 @@
 
 class Tenant < ActiveRecord::Base
 	
+  attr_accessor :admin_login, :password	
+  attr_accessible :admin_login, :password, :password_confirmation, :name, :subdomain, :locked, :activated, :email, :phone, :subscription_from,  :subscription_to
+	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30
 
@@ -36,7 +39,9 @@ class Tenant < ActiveRecord::Base
   validates_length_of					:email,								:maximum => 100
   validates										:email,  								:email_format => true  
   																								
-  validates_length_of					:phone,								:maximum => 20																						
+  validates_presence_of			:phone
+  validates_uniqueness_of			:phone
+  validates_length_of					:phone,								:maximum => 100
      
   
   #Use the following to change the humanization of attributes. For Example, if you need to change
@@ -48,17 +53,35 @@ class Tenant < ActiveRecord::Base
   before_save :prepare_tenant
   before_destroy :remove_tenant_schema
   
+  
+  def activate_tenant
+  	if self.activated?
+      self.activation_token = random_string
+    end
+  end
+  
+  def send_activation_email
+    PerfoMailer.activate_tenant(self).deliver  	
+  end
+  
+  def create_profile(admin_login, password)
+  	orig_search_path = TenantManager.connection.schema_search_path
+  	TenantManager.connection.schema_search_path = self.subdomain
+    contact = Contact.create!(:email => self.email, :mobile => self.phone)    
+    faculty = Faculty.new(:name => admin_login, :id_no =>admin_login, :female => false, :contact => contact)
+    profile = UserProfile.create!(:login => faculty.id_no, :password => password, :password_confirmation => password, :user => faculty)
+    role = Role.find_by_name!('Administrator')
+    rm = RoleMembership.create!(:user_profile_id => profile.id, :role_id => role.id)
+    TenantManager.connection.schema_search_path = orig_search_path
+  end  
+  
+    
  private
-
   def prepare_tenant
-  	if activated == true && !activation_token
-  	  activate_tenant
-  	end
   	if subdomain && !subdomain_was
   	  @schema = subdomain
       create_schema
       load_tables
-      self.activation_token = random_string
     end
   end
 
@@ -89,14 +112,11 @@ class Tenant < ActiveRecord::Base
   	@schema = subdomain
     PgTools.delete_schema @schema
   end
-  
-  def activate_tenant
-    self.activation_token = random_string
-    #send email to the tenant here.
-  end
+
   
   def random_string
-    Base64.encode64(Digest::SHA1.digest("#{rand(1<<64)}/#{Time.now.to_f}/#{Process.pid}/#{Time.now.to_f}"))[0..7]
+    #Base64.encode64(Digest::SHA1.digest("#{rand(1<<64)}/#{Time.now.to_f}/#{Process.pid}/#{Time.now.to_f}"))[0..7]
+    SecureRandom.base64
   end  
   
 end

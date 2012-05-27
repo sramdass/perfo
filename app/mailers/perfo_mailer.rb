@@ -20,4 +20,9 @@ class PerfoMailer < ActionMailer::Base
     mail :to => "satheesh.ramdass@oracle.com", :subject => "Password Reset"
   end
   
+  def activate_tenant(tenant)
+    @tenant = tenant
+    mail :to => "satheesh.ramdass@oracle.com", :subject => "Activation Email"
+  end
+  
 end

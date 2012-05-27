@@ -5,7 +5,15 @@
     <%= render 'tenant_fields', :f => f %>
     
   <div class="form-actions">
-  	<%= render 'shared/buttons', :obj => @tenant, :buttons => {'submit' => "Create", "create_and_add" => "Create and Repeat", "cancel" => "Cancel" }%>
+    <%= button_tag(:type => 'submit', :name => 'create', :class => "btn btn-success btn-large" ) do %>
+      <i class="icon-ok icon-white"> </i> <strong> Create </strong>
+    <% end %>
+    <%= button_tag(:type => 'submit', :name => 'create_and_email', :class => "btn btn-success btn-large" ) do %>
+      <i class="icon-envelope icon-white"> </i> <strong> Create and Email </strong>
+    <% end %>
+    <%= link_to tenants_path, :class => 'btn btn-danger btn-large' do  %>
+       <i class="icon-off icon-white"> </i> <strong> Cancel </strong>
+    <% end %>
   </div>  
   <% end %>
     <%= render 'shared/controller_action_buttons', :obj => @tenant, :action => "new" %>      

@@ -3,7 +3,7 @@
 	<legend><%= @tenant.name %> </legend>
   <table class="table table-striped">
     <tbody>
-      <tr>  <td> Name </td> <%= @tenant.name %>	</tr>
+      <tr>  <td> Name </td> <td> <%= @tenant.name %>	</td> </tr>
   	  <tr>  	<td> Subdomain </td> <td> <%= @tenant.subdomain ? @tenant.subdomain : "Not assigned" %> </td> </tr>
   	  <tr>  	<td> Email </td>  <td> <%= @tenant.email %> </td></tr>
   	  <tr>  	<td> Phone </td>  <td> <%= @tenant.phone %> </td></tr>

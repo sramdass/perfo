@@ -1,13 +1,14 @@
 class SessionsController < ApplicationController
+
   def new
-  	if current_profile
-  	  redirect_to dashboard_path
-  	end
-  	#else render the login page new.html.erb
   end
 
   def create
-    profile = UserProfile.find_by_login(params[:login])
+  	#We are not going to use the login field anymore. We will use the id_no from
+  	#the faculty or student here. Yes, there is a login column, and it has to be removed
+  	#if there is not anyother use.
+  	t = Faculty.find_by_id_no(params[:login]) || Student.find_by_id_no(params[:login])
+    profile = t.user_profile if t
     if profile && profile.valid_profile? && profile.authenticate(params[:password])
       if params[:remember_me]
         cookies.permanent[:auth_token] = profile.auth_token
@@ -26,6 +27,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+  	#Recreate the auth_token when the user logs out. Otherwise some one can steal the token
+  	#and use that for the next session
+  	current_profile.generate_token(:auth_token)
+  	current_profile.save!
     cookies.delete(:auth_token)
     redirect_to login_path, :notice => "Logged out!"
   end

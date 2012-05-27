@@ -1,3 +1,20 @@
+#Important Note:-
+#Role is a sub class of Active record base class. But the role memberships, useprofiles
+#and permissions are derived from Tenant Manager. The idea is that any role is created
+#only once in the admin schema(public) and will be used by all the Tenant Managers.
+#Each of the tenants will have its own role_memberships and permissions.
+#Role.find(:id).role_memberships will yield -> the role memberships for the current Tenant
+#Manager.
+#Role.find(:id).user_profiles will yield -> the user profiles for the current Tenant
+#Manager.
+#UserProfile.find(:id).roles will yield a empty result. I am assuming that the user_profile is trying
+#to find the roles in its own schema path and gets 0 results.
+#However, UserProfile.find(:id).role_memberships and RoleMembership.find(:id).role are yielding
+#the right results.
+#So, if we need the roles for a user profile use, 
+          # @user_profile.role_memberships.each do |role_mem| 
+		  #    role_mem.role.name
+	      #  end
 class Role < ActiveRecord::Base
   has_many :permissions, :dependent => :destroy
   

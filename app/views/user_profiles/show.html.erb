@@ -22,8 +22,8 @@
       <tr>      	      	
         <td>Roles</td>
         <td>
-          <% @user_profile.roles.each do |role| %>
-		    <%= role.name %> <br>
+          <% @user_profile.role_memberships.each do |role_mem| %>
+		    <%= role_mem.role.name %> <br>
 	      <% end %>
         </td>
       </tr>

@@ -76,7 +76,11 @@
 	  <td> <%= tenant.subscription_to %> </td>
 	  <td> <%= tenant.activated ? 'Y' : 'N' %> </td>
 	  <td> <%= tenant.locked ? 'Y' : 'N' %> </td>
-	  <td> <%= tenant.subscription_to < Date.today ? 'Y' : 'N' %></td>    
+	  <td> 
+	    <% if tenant.subscription_to %>
+	  	  <%= tenant.subscription_to < Date.today ? 'Y' : 'N' %>
+	  	<% end %>
+  	  </td>    
 	  <td>
   	    <%= link_to tenant, :class => 'btn btn-mini btn-info' do %>
           <i class="icon-file icon-white"> </i> View
