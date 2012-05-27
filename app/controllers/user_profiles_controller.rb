@@ -62,4 +62,9 @@ class UserProfilesController < ApplicationController
     @user_profile = UserProfile.find(params[:id])
   end  
   
+  def destroy
+  	UserProfile.find(params[:id]).destroy
+  	redirect_to user_profiles_path
+  end
+  
 end

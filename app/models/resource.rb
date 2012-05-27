@@ -4,8 +4,11 @@ class Resource < ActiveRecord::Base
   
   has_many :permissions, :dependent => :destroy
   
-  validates 	:name, 	:presence => true, 
-               					    :length => {:maximum => 50}  
+  validates_uniqueness_of			:name               					    
+  validates 										:name, 				:presence => true, 
+               					    												:length => {:maximum => 50}
+  validates 										:description, 	:length => {:maximum => 50}               					    					
+
                					    
 #Returns true if there is only "_destroy" attribute available for nested models.
   def has_only_destroy?(attrs)

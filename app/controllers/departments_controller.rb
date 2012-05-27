@@ -1,5 +1,6 @@
 class DepartmentsController < ApplicationController
-before_filter :check_semester, :only => [:hods]
+#For now, the code in check_semester is moved into the hods action
+#before_filter :check_semester, :only => [:hods]
   def index
   	@q = Department.search(params[:q])
     @departments = @q.result(:distinct => true)
@@ -48,6 +49,7 @@ before_filter :check_semester, :only => [:hods]
   end
   
   def hods
+  	@semester = Semester.find(params[:semester_id]) if params[:semester_id]
   	@semesters = Semester.all
     @departments = Department.all
     @faculties = Faculty.all
