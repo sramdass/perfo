@@ -1,16 +1,16 @@
 class ResourcesController < ApplicationController
-  skip_before_filter :load_tenant	
+  load_and_authorize_resource	
   def new
-  	@resource = Resource.new
+  	#@resource = Resource.new
   	@resource.resource_actions.build
   end
 
   def index
-    @resources = Resource.all
+    #@resources = Resource.all
   end
   
   def create
-    @resource = Resource.new(params[:resource])
+    #@resource = Resource.new(params[:resource])
     if @resource.save
       flash[:notice] = 'Resource successfully created'
       redirect_to @resource
@@ -20,17 +20,17 @@ class ResourcesController < ApplicationController
   end
   
   def show
-  	@resource = Resource.find(params[:id])
+  	#@resource = Resource.find(params[:id])
   end
   
   def destroy
-  	@resource = Resource.find(params[:id])
+  	#@resource = Resource.find(params[:id])
   	@resource.destroy
   	redirect_to resources_path
   end
 
   def update
-    @resource = Resource.find(params[:id])
+    #@resource = Resource.find(params[:id])
       if @resource.update_attributes(params[:resource])
       	flash[:notice] = 'Resource successfully updated'
         redirect_to @resource
@@ -40,7 +40,7 @@ class ResourcesController < ApplicationController
   end
 
   def edit
-    @resource = Resource.find(params[:id])
+    #@resource = Resource.find(params[:id])
   end
     
 end

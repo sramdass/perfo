@@ -218,6 +218,8 @@
             <string>db\migrate\20120517150505_create_resources.rb</string>
             <key>crete_Fa</key>
             <string>db\migrate\20120415022222_create_faculties.rb</string>
+            <key>dashboad</key>
+            <string>app\views\sessions\dashboard.html.erb</string>
             <key>data</key>
             <string>app\assets\stylesheets\jquery.dataTables.css.scss</string>
             <key>datab</key>
