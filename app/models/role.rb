@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: roles
+#
+#  id          :integer         not null, primary key
+#  name        :string(255)
+#  description :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 #Important Note:-
 #Role is a sub class of Active record base class. But the role memberships, useprofiles
 #and permissions are derived from Tenant Manager. The idea is that any role is created

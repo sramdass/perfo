@@ -1,11 +1,16 @@
 class InstitutionsController < ApplicationController
+	
+  load_and_authorize_resource	
+  #Note that we are overriding the load resource by cancan in some actions.
+  #This is because of the special case we are using (always loading the first
+  #institution)
 
   def new
    # Only one institution can be created for a tenant
    if Institution.first
   	  redirect_to institution_root_path
    end
-  	@institution = Institution.new
+  	#@institution = Institution.new
   end
 
   def create
@@ -39,7 +44,7 @@ class InstitutionsController < ApplicationController
   end
 
   def update
-    @institution = Institution.find(params[:id])
+    #@institution = Institution.find(params[:id])
       if @institution.update_attributes(params[:institution])
       	flash[:notice] = 'Institution successfully updated'
         redirect_to institution_root_path

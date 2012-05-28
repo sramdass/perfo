@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   require 'pgtools'
-  helper_method :current_tenant, :current_profile
+  helper_method :current_tenant, :current_profile, :current_ability, :admin?
   protect_from_forgery
   #This filter is skipped for the following controllers (corresponds to the admin access)
   #Skipped controllers :- Tenants, Resources
@@ -46,8 +46,8 @@ class ApplicationController < ActionController::Base
   	@current_tenanat.subdomain != request.subdomain
   end
   
-  def non_admin?
-  	!request.subdomain.blank?
+ def admin?
+   request.subdomain.blank?
  end
  
  def current_tenant

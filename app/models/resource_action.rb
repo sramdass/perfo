@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: resource_actions
+#
+#  id          :integer         not null, primary key
+#  name        :string(255)
+#  description :text
+#  code        :integer
+#  resource_id :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class ResourceAction < ActiveRecord::Base
   belongs_to :resource
   

@@ -17,6 +17,7 @@
 #  failed_login_count     :integer
 #  created_at             :datetime
 #  updated_at             :datetime
+#  tenant_id              :integer
 #
 
 class UserProfile < TenantManager

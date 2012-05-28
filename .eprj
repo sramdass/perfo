@@ -56,6 +56,8 @@
             <string>app\controllers\application_controller.rb</string>
             <key>appco</key>
             <string>app\controllers\application_controller.rb</string>
+            <key>appcont</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>apphel</key>
             <string>app\helpers\application_helper.rb</string>
             <key>apphelp</key>
@@ -147,11 +149,13 @@
             <key>articles</key>
             <string>..\subdomain\app\controllers\articles_controller.rb</string>
             <key>batch</key>
-            <string>app\controllers\batches_controller.rb</string>
+            <string>app\models\batch.rb</string>
             <key>batch.r</key>
             <string>app\models\batch.rb</string>
             <key>batch.rb</key>
             <string>app\models\batch.rb</string>
+            <key>batches</key>
+            <string>app\controllers\batches_controller.rb</string>
             <key>batches_c</key>
             <string>app\controllers\batches_controller.rb</string>
             <key>blog</key>
@@ -282,6 +286,8 @@
             <string>app\controllers\exams_controller.rb</string>
             <key>exams</key>
             <string>app\controllers\exams_controller.rb</string>
+            <key>exams_Co</key>
+            <string>app\controllers\exams_controller.rb</string>
             <key>exmscon</key>
             <string>app\controllers\exams_controller.rb</string>
             <key>faccont</key>
@@ -306,6 +312,8 @@
             <string>app\views\sections\faculties.html.erb</string>
             <key>facultiecont</key>
             <string>app\controllers\faculties_controller.rb</string>
+            <key>faculties</key>
+            <string>app\controllers\faculties_controller.rb</string>
             <key>faculties.ht</key>
             <string>app\views\sections\faculties.html.erb</string>
             <key>faculties_co</key>
@@ -324,6 +332,8 @@
             <string>app\views\faculties\_faculty_fields.html.erb</string>
             <key>field</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
+            <key>form</key>
+            <string>app\views\selectors\_form.html.erb</string>
             <key>form.</key>
             <string>app\views\selectors\_form.html.erb</string>
             <key>gem</key>
@@ -360,6 +370,8 @@
             <string>app\views\sections\index.html.erb</string>
             <key>index.htm</key>
             <string>app\views\tenants\index.html.erb</string>
+            <key>index.html</key>
+            <string>app\views\sections\index.html.erb</string>
             <key>index.html.erb</key>
             <string>app\views\tenants\index.html.erb</string>
             <key>indx</key>
@@ -375,6 +387,8 @@
             <key>insti</key>
             <string>app\models\institution.rb</string>
             <key>instico</key>
+            <string>app\controllers\institutions_controller.rb</string>
+            <key>instir</key>
             <string>app\controllers\institutions_controller.rb</string>
             <key>instit</key>
             <string>app\controllers\institutions_controller.rb</string>
@@ -516,6 +530,8 @@
             <string>app\models\role_membership.rb</string>
             <key>roles_c</key>
             <string>app\controllers\roles_controller.rb</string>
+            <key>rolescont</key>
+            <string>app\controllers\roles_controller.rb</string>
             <key>rout</key>
             <string>config\routes.rb</string>
             <key>route</key>
@@ -612,10 +628,14 @@
             <string>db\seeds.rb</string>
             <key>selec</key>
             <string>app\controllers\selectors_controller.rb</string>
+            <key>seleco</key>
+            <string>app\controllers\selectors_controller.rb</string>
             <key>selectorco</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>selectorsc</key>
             <string>app\controllers\selectors_controller.rb</string>
+            <key>semcont</key>
+            <string>app\controllers\semesters_controller.rb</string>
             <key>seme</key>
             <string>app\models\semester.rb</string>
             <key>semes.rb</key>
@@ -708,6 +728,8 @@
             <string>app\controllers\students_controller.rb</string>
             <key>students_con</key>
             <string>app\controllers\students_controller.rb</string>
+            <key>studentscont</key>
+            <string>app\controllers\students_controller.rb</string>
             <key>studncon</key>
             <string>app\controllers\students_controller.rb</string>
             <key>subjec</key>
@@ -724,6 +746,8 @@
             <string>app\controllers\subjects_controller.rb</string>
             <key>subjects</key>
             <string>app\views\sections\subjects.html.erb</string>
+            <key>subjects.hr</key>
+            <string>app\views\sections\subjects.html.erb</string>
             <key>subjects.ht</key>
             <string>app\views\sections\subjects.html.erb</string>
             <key>subjects.html</key>
@@ -732,6 +756,8 @@
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
             <key>subjects_c</key>
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
+            <key>subjects_co</key>
+            <string>app\controllers\subjects_controller.rb</string>
             <key>tenaman</key>
             <string>app\models\tenant_manager.rb</string>
             <key>tenancont</key>
@@ -790,6 +816,8 @@
             <string>app\models\user_profile.rb</string>
             <key>user_prof</key>
             <string>app\models\user_profile.rb</string>
+            <key>user_profi</key>
+            <string>app\models\user_profile.rb</string>
             <key>user_proficont</key>
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>user_profil</key>
@@ -797,6 +825,8 @@
             <key>user_profile</key>
             <string>app\models\user_profile.rb</string>
             <key>user_profile.r</key>
+            <string>app\models\user_profile.rb</string>
+            <key>user_profile.rb</key>
             <string>app\models\user_profile.rb</string>
             <key>user_profilec</key>
             <string>app\controllers\user_profiles_controller.rb</string>
@@ -810,6 +840,8 @@
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>userpro</key>
             <string>app\models\user_profile.rb</string>
+            <key>userprofcon</key>
+            <string>app\controllers\user_profiles_controller.rb</string>
             <key>userproficon</key>
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>userprofile</key>

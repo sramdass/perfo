@@ -1,18 +1,18 @@
 class FacultiesController < ApplicationController
-
+  load_and_authorize_resource
   def index
   	@q = Faculty.search(params[:q])
-    @faculties = @q.result(:distinct => true)
+    @faculties = @q.result(:distinct => true).accessible_by(current_ability)
   end
 
   def new
-  	@faculty = Faculty.new
+  	#@faculty = Faculty.new
   	#@faculty.contact.build
   	@faculty.build_contact
   end
 
   def create
-    @faculty = Faculty.new(params[:faculty])
+    #@faculty = Faculty.new(params[:faculty])
     if @faculty.save
       flash[:notice] = 'Faculty successfully created'
       if params[:create_and_add]
@@ -26,11 +26,11 @@ class FacultiesController < ApplicationController
   end
   
   def show
-  	@faculty = Faculty.find(params[:id])
+  	#@faculty = Faculty.find(params[:id])
   end
 
   def update
-    @faculty = Faculty.find(params[:id])
+    #@faculty = Faculty.find(params[:id])
     if @faculty.update_attributes(params[:faculty])
       flash[:notice] = 'Faculty successfully updated'
       redirect_to faculty_path @faculty
@@ -40,11 +40,12 @@ class FacultiesController < ApplicationController
   end
 
   def edit
-    @faculty = Faculty.find(params[:id])
+    #@faculty = Faculty.find(params[:id])
   end
   
   def destroy
-  	Faculty.find(params[:id]).destroy
+  	#@faculty = Faculty.find(params[:id])
+  	@faculty.destroy
   	redirect_to faculties_path
   end
 

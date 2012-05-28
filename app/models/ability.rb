@@ -8,7 +8,7 @@ class Ability
 	  return
 	end
 	#---------TEMPORARY--------------#
-	if @profile.user.id_no == ENV['SUPERUSER'] && request.subdomain == ""
+	if @profile.user.id_no == ENV['SUPERUSER']
 	  can :manage, :all
 	  return
     end
@@ -94,7 +94,7 @@ class Ability
   	can :destroy, Department
   end
   
-  def update_hods
+  def department_update_hods
     can :hods, Department
     can :update_hods, Department
   end
@@ -117,17 +117,17 @@ class Ability
   	can :destroy, Section
   end
   
-  def update_subjects
+  def section_update_subjects
     can :subjects, Section
     can :update_subjects, Section
   end  
   
-  def update_faculties
+  def section_update_faculties
     can :faculties, Section
     can :update_faculties, Section  	
   end
   
-  def update_exams
+  def section_update_exams
     can :exams, Section
     can :update_exams, Section  	
   end
@@ -185,9 +185,7 @@ class Ability
   
   def student_self_read
   	if @profile.user_type.eql?("Student")
-  	  can :read, Student do |stu|
-  	  	@profile.user.id = stu.id
-  	  end
+  	  can :read, Student, :id => @profile.user_id
   	end  	
   end
   
@@ -210,26 +208,25 @@ class Ability
   
   def faculty_self_read
   	if @profile.user_type.eql?("Faculty")
-  	  can :read, Faculty do |fac|
-  	  	@profile.user.id = fac.id
-  	  end
+  	  can :read, Faculty, :id => @profile.user_id
   	end  	
   end
   
 #UserProfiles
-  def user_profile_read
+#Note: the module name should be userprofile_*, not user_profile_*
+  def userprofile_read
     can :read, UserProfile
   end
   
-  def user_profile_edit
+  def userprofile_edit
   	can :update, UserProfile
   end
  
-  def user_profile_destroy
+  def userprofile_destroy
   	can :destroy, UserProfile
   end
   
-  def user_profile_self_read
+  def userprofile_self_read
   	can :read, UserProfile, :id => @profile.id
   end 
 

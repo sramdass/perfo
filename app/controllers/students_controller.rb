@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-
+  load_and_authorize_resource
   def index
   	if params[:section_id]
   	  if params[:q]
@@ -9,11 +9,11 @@ class StudentsController < ApplicationController
   	  end
   	end
   	@q = Student.search(params[:q])
-    @students = @q.result(:distinct => true)
+    @students = @q.result(:distinct => true).accessible_by(current_ability)
   end
 
   def new
-  	@student = Student.new
+  	#@student = Student.new
   	@student.build_contact
   	 if params[:section_id]
   	  @student.section_id=params[:section_id]
@@ -21,7 +21,7 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @student = Student.new(params[:student])
+    #@student = Student.new(params[:student])
     if @student.save
       flash[:notice] = 'Student successfully created'
       if params[:create_and_add_students]
@@ -35,11 +35,11 @@ class StudentsController < ApplicationController
   end
   
   def show
-  	@student = Student.find(params[:id])
+  	#@student = Student.find(params[:id])
   end
 
   def update
-    @student = Student.find(params[:id])
+    #@student = Student.find(params[:id])
     #If they need to change the section, they have to create 
     #a new student resource.
     if params[:student][:section_id] != @student.section_id.to_s
@@ -56,11 +56,12 @@ class StudentsController < ApplicationController
   end
 
   def edit
-    @student = Student.find(params[:id])
+    #@student = Student.find(params[:id])
   end
   
   def destroy
-  	Student.find(params[:id]).destroy
+  	#@student = Student.find(params[:id])
+  	@student.destroy
   	redirect_to students_path
   end
 

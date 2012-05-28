@@ -3,15 +3,15 @@ class ExamsController < ApplicationController
   
   def index
   	@q = Exam.search(params[:q])
-    @exams = @q.result(:distinct => true)
+    @exams = @q.result(:distinct => true).accessible_by(current_ability)
   end
 
   def new
-  	@exam = Exam.new
+  	#@exam = Exam.new
   end
 
   def create
-    @exam = Exam.new(params[:exam])
+    #@exam = Exam.new(params[:exam])
     @exam.institution = Institution.find_by_subdomain(request.subdomain)
     if @exam.save
       flash[:notice] = 'Exam successfully created'
@@ -26,11 +26,11 @@ class ExamsController < ApplicationController
   end
   
   def show
-  	@exam = Exam.find(params[:id])
+  	#@exam = Exam.find(params[:id])
   end
 
   def update
-    @exam = Exam.find(params[:id])
+    #@exam = Exam.find(params[:id])
     if @exam.update_attributes(params[:exam])
     	flash[:notice] = 'Exam successfully updated'
       redirect_to exam_path @exam
@@ -40,11 +40,12 @@ class ExamsController < ApplicationController
   end
 
   def edit
-    @exam = Exam.find(params[:id])
+    #@exam = Exam.find(params[:id])
   end
   
   def destroy
-  	Exam.find(params[:id]).destroy
+    #@exam = Exam.find(params[:id])
+  	@exam.destroy
   	redirect_to exams_path
   end
 

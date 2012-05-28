@@ -1,16 +1,16 @@
 class BatchesController < ApplicationController
-
+  load_and_authorize_resource
   def index
   	@q = Batch.search(params[:q])
-    @batches = @q.result(:distinct => true)
+    @batches = @q.result(:distinct => true).accessible_by(current_ability)
   end
 
   def new
-  	@batch = Batch.new
+  	#@batch = Batch.new
   end
 
   def create
-    @batch = Batch.new(params[:batch])
+    #@batch = Batch.new(params[:batch])
     @batch.institution = Institution.find_by_subdomain(request.subdomain)
     if @batch.save
       flash[:notice] = 'Batch successfully created'
@@ -25,11 +25,11 @@ class BatchesController < ApplicationController
   end
   
   def show
-  	@batch = Batch.find(params[:id])
+  	#@batch = Batch.find(params[:id])
   end
 
   def update
-    @batch = Batch.find(params[:id])
+    #@batch = Batch.find(params[:id])
     if @batch.update_attributes(params[:batch])
     	flash[:notice] = 'Batch successfully updated'
       redirect_to batch_path @batch
@@ -39,11 +39,12 @@ class BatchesController < ApplicationController
   end
 
   def edit
-    @batch = Batch.find(params[:id])
+    #@batch = Batch.find(params[:id])
   end
   
   def destroy
-  	Batch.find(params[:id]).destroy
+  	#@batch = Batch.find(params[:id])
+  	@batch.destroy
   	redirect_to batches_path
   end
 

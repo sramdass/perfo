@@ -38,7 +38,21 @@ class Section < TenantManager
   validates_presence_of			:code
   validates_length_of					:code,	 								:maximum => 5
   
+  #rabl_name is the virtual attribute. Every model requires the attribute value to be 
+  #formatted differently when it is sent to the client during an ajax request, and this
+  #attribute is used for that formatting.
+  #This will be of most useful when we have to send an object that belongs to two
+  #different model. For example, section belongs to batch and department. When
+  #we have to send the section names for a particular batch, we can format the 
+  #section name as 'Mechanical Engineering - section - A'
+  #For more information refer common.js and views/selectors/entity.json.rabl  
+  attr_accessor :rabl_name
+  
   def semester_subjects
     SecSubMap.for_semester(@semester_id).for_section(@section.id).all
   end  	
+  
+  def rabl_name
+    "#{self.department.name} - #{self.name}"
+  end
 end

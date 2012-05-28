@@ -1,11 +1,15 @@
 class UserProfilesController < ApplicationController
+	
+  load_and_authorize_resource
+  skip_load_and_authorize_resource	 :only => [:new, :create]
   
   def index
-  	@user_profiles=UserProfile.all
+  	@q = UserProfile.search(params[:q])
+    @user_profiles = @q.result(:distinct => true).accessible_by(current_ability)  	
   end
   
   def new
-    @user_profile = UserProfile.new
+    #@user_profile = UserProfile.new
   end
 
   def create
@@ -35,7 +39,7 @@ class UserProfilesController < ApplicationController
   end
   
   def update
-    @user_profile = UserProfile.find(params[:id])
+    #@user_profile = UserProfile.find(params[:id])
     #We cannot update the roles directly, but go through the role_memberships.
     #Note in user_profile.rb
     role_mems = Array.new
@@ -55,15 +59,16 @@ class UserProfilesController < ApplicationController
   end
 
   def edit
-    @user_profile = UserProfile.find(params[:id])
+    #@user_profile = UserProfile.find(params[:id])
   end
     
   def show
-    @user_profile = UserProfile.find(params[:id])
+    #@user_profile = UserProfile.find(params[:id])
   end  
   
   def destroy
-  	UserProfile.find(params[:id]).destroy
+  	#@user_profile = UserProfile.find(params[:id])
+  	@user_profile.destroy
   	redirect_to user_profiles_path
   end
   

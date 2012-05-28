@@ -1,17 +1,18 @@
 class SectionsController < ApplicationController
-before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
-
+  before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
+  load_and_authorize_resource
+  
   def index
   	@q = Section.search(params[:q])
-    @sections = @q.result(:distinct => true)
+    @sections = @q.result(:distinct => true).accessible_by(current_ability)
   end
 
   def new
-  	@section = Section.new
+  	#@section = Section.new
   end
 
   def create
-    @section = Section.new(params[:section])
+    #@section = Section.new(params[:section])
     if @section.save
       flash[:notice] = 'Section successfully created'
       redirect_to section_path @section
@@ -21,11 +22,11 @@ before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
   end
   
   def show
-  	@section = Section.find(params[:id])
+  	#@section = Section.find(params[:id])
   end
 
   def update
-    @section = Section.find(params[:id])
+    #@section = Section.find(params[:id])
     #Do not allow the batch or department for this section to be changed.
     #If they need to change the section or department, they have to create 
     #a new section resource.
@@ -48,19 +49,28 @@ before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
   end
 
   def edit
-    @section = Section.find(params[:id])
+    #@section = Section.find(params[:id])
   end
   
   def destroy
-  	Section.find(params[:id]).destroy
+  	#@section = Section.find(params[:id])
+  	@section.destroy
   	redirect_to sections_path
   end
   
 #For subjects, faculties, exams and update version of these modules,
 #we need the semester id. If the semester_id is not present, we error
 #out. This is done using the before_filter
+
+#Note that here we are not limiting the list of subjects or faculties or
+#exams that are listed to choose from. If we restrict, there may be scenarios
+#where a faculty had been selected for a subject and the current user may
+#not have read access to that faculty. In this case, it will display a 'None' in the
+#faculty field, and clicking the update action will result in undesirable consequences.
+#In case there is a need for restriction, look at the commented lines.
   def subjects
     @subjects = Subject.all
+    #@subjects = Subject.accessible_by(current_ability)
     respond_to do |format|
       format.html 
       format.js
@@ -68,7 +78,7 @@ before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
   end
   
   def update_subjects
-    @section = Section.find(params[:id])
+    #@section = Section.find(params[:id])
     SecSubMap.for_section(@section.id).for_semester(params[:semester_id]).destroy_all
     params[:section][:subject_ids].each do |sub_id|
       @section.sec_sub_maps.build({:subject_id => sub_id, :semester_id => params[:semester_id]})
@@ -87,6 +97,7 @@ before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
   
   def faculties
     @faculties = Faculty.all  	
+    #@faculties = Faculty.accessible_by(current_ability)
     respond_to do |format|
       format.html 
       format.js
@@ -94,7 +105,7 @@ before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
   end
   
   def update_faculties
-  	@section = Section.find(params[:id])
+  	#@section = Section.find(params[:id])
   	#We have to explicity track the ssmaps that are modified and save them. We are using 
   	# "@section.sec_sub_maps.for_semester(params[:semester_id]).each do |map|" for the loop.
   	#When the naming scope is used - @section.sec_sub_maps.each(&:save!) is not working.
@@ -119,6 +130,7 @@ before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
   
   def exams
     @exams = Exam.all  	  	
+    #@exams = Exam.accessible_by(current_ability)
     respond_to do |format|
       format.html 
       format.js
@@ -126,7 +138,7 @@ before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
   end
   
   def update_exams
-    @section = Section.find(params[:id])
+    #@section = Section.find(params[:id])
     SecExamMap.for_section(@section.id).for_semester(params[:semester_id]).destroy_all
     params[:section][:exam_ids].each do |exam_id|
       @section.sec_exam_maps.build({:exam_id => exam_id, :semester_id => params[:semester_id]})

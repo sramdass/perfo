@@ -14,7 +14,7 @@ function populateDropdown(select, data) {
   select.html('');
   select.append($('<option></option>').val('').html(''));
   $.each(data, function(id, option) {
-    select.append($('<option></option>').val(option.id).html(option.name));
+    select.append($('<option></option>').val(option.id).html(option.rabl_name));
   });       
 }
 
