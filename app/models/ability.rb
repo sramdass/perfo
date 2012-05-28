@@ -229,5 +229,39 @@ class Ability
   def userprofile_self_read
   	can :read, UserProfile, :id => @profile.id
   end 
+  
+#SchoolTypes
+  def schooltype_read
+    can :read, SchoolType
+  end
+  
+  def schooltype_edit
+  	can :update, SchoolType
+  end
+    
+  def schooltype_create
+    can :create, SchoolType
+  end
+  
+  def schooltype_destroy
+  	can :destroy, SchoolType
+  end  
+  
+#BloodGroups
+  def bloodgroup_read
+    can :read, BloodGroup
+  end
+  
+  def bloodgroup_edit
+  	can :update, BloodGroup
+  end
+    
+  def bloodgroup_create
+    can :create, BloodGroup
+  end
+  
+  def bloodgroup_destroy
+  	can :destroy, BloodGroup
+  end  
 
 end

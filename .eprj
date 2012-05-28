@@ -164,6 +164,8 @@
             <string>..\subdomain\app\controllers\blogs_controller.rb</string>
             <key>blood</key>
             <string>app\models\blood_group.rb</string>
+            <key>bloodcon</key>
+            <string>app\controllers\blood_groups_controller.rb</string>
             <key>bootst</key>
             <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
             <key>bootstra</key>
@@ -560,12 +562,16 @@
             <string>app\controllers\school_types_controller.rb</string>
             <key>school_typ</key>
             <string>app\controllers\school_types_controller.rb</string>
+            <key>school_type.</key>
+            <string>app\models\school_type.rb</string>
             <key>school_type.rb</key>
             <string>app\models\school_type.rb</string>
             <key>schooltyp.rb</key>
             <string>app\models\school_type.rb</string>
             <key>schooltype.r</key>
             <string>app\models\school_type.rb</string>
+            <key>schooltypecon</key>
+            <string>app\controllers\school_types_controller.rb</string>
             <key>schooltypesco</key>
             <string>app\controllers\school_types_controller.rb</string>
             <key>schooltypf</key>

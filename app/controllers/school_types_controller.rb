@@ -1,15 +1,15 @@
 class SchoolTypesController < ApplicationController
-  
+  load_and_authorize_resource  
   def new
-  	@school_type = SchoolType.new
+  	#@school_type = SchoolType.new
   end
 
   def index
-    @school_types = SchoolType.all
+    #@school_types = SchoolType.all
   end
   
   def create
-    @school_type = SchoolType.new(params[:school_type])
+    #@school_type = SchoolType.new(params[:school_type])
     if @school_type.save
       flash[:notice] = 'SchoolType successfully created'
       if params[:create_and_add]
@@ -23,17 +23,17 @@ class SchoolTypesController < ApplicationController
   end
   
   def show
-  	@school_type = SchoolType.find(params[:id])
+  	#@school_type = SchoolType.find(params[:id])
   end
   
   def destroy
-  	@school_type = SchoolType.find(params[:id])
+  	#@school_type = SchoolType.find(params[:id])
   	@school_type.destroy
   	redirect_to school_types_path
   end
 
   def update
-    @school_type = SchoolType.find(params[:id])
+    #@school_type = SchoolType.find(params[:id])
       if @school_type.update_attributes(params[:school_type])
       	flash[:notice] = 'SchoolType successfully updated'
         redirect_to @school_type
@@ -43,7 +43,7 @@ class SchoolTypesController < ApplicationController
   end
 
   def edit
-    @school_type = SchoolType.find(params[:id])
+    #@school_type = SchoolType.find(params[:id])
     @title = "Edit SchoolType"
   end
 end

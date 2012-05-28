@@ -1,15 +1,15 @@
 class BloodGroupsController < ApplicationController
-  
+  load_and_authorize_resource
   def new
-  	@blood_group = BloodGroup.new
+  	#@blood_group = BloodGroup.new
   end
 
   def index
-    @blood_groups = BloodGroup.all
+    #@blood_groups = BloodGroup.all
   end
   
   def create
-    @blood_group = BloodGroup.new(params[:blood_group])
+    #@blood_group = BloodGroup.new(params[:blood_group])
     if @blood_group.save
       flash[:notice] = 'Blood Group successfully created'
       if params[:create_and_add]
@@ -23,17 +23,17 @@ class BloodGroupsController < ApplicationController
   end
   
   def show
-  	@blood_group = BloodGroup.find(params[:id])
+  	#@blood_group = BloodGroup.find(params[:id])
   end
   
   def destroy
-  	@blood_group = BloodGroup.find(params[:id])
+  	#@blood_group = BloodGroup.find(params[:id])
   	@blood_group.destroy
   	redirect_to blood_groups_path
   end
 
   def update
-    @blood_group = BloodGroup.find(params[:id])
+    #@blood_group = BloodGroup.find(params[:id])
       if @blood_group.update_attributes(params[:blood_group])
       	flash[:notice] = 'Blood Group successfully updated'
         redirect_to @blood_group
@@ -43,6 +43,6 @@ class BloodGroupsController < ApplicationController
   end
 
   def edit
-    @blood_group = BloodGroup.find(params[:id])
+    #@blood_group = BloodGroup.find(params[:id])
   end
 end
