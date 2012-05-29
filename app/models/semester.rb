@@ -20,6 +20,8 @@ class Semester < TenantManager
   
   #When this semester is destroyed, all the hods for this semester should be removed.
   has_many :hods,  :dependent => true, :dependent => :destroy
+  
+  has_many :arrear_students, :dependent => :destroy  
 	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	

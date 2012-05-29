@@ -1,0 +1,15 @@
+<% @semesters = Semester.all %>
+<% @batches = Array.new if !@batches %>
+<% @sections = Array.new if !@sections %>
+<%= render 'shared/de_nav_links', :active => "associate_semesters" %>
+<div class="span9">
+  <%= render 'shared/de_semesters_nav_pills', :active => "arrear_students"%>
+  <%= render 'selectors/form', :target_url => '/sections/arrear_students' %>
+  <span id = "ajax_arrear_students_form">  
+    <% if @section && @semester %>
+      <%= render 'arrear_students_form'%>
+    <% else %>
+      <strong> Select the required semester and the section </strong>
+    <% end %>
+  </span>  
+</div>

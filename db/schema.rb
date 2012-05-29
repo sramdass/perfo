@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120517153046) do
+ActiveRecord::Schema.define(:version => 20120529130610) do
+
+  create_table "arrear_students", :force => true do |t|
+    t.integer  "section_id"
+    t.integer  "semester_id"
+    t.integer  "subject_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "batches", :force => true do |t|
     t.string   "institution_id"

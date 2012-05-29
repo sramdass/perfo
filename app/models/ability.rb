@@ -8,11 +8,14 @@ class Ability
 	  return
 	end
 	#---------TEMPORARY--------------#
+	can :manage, :all
+	return
+
+	#---------TEMPORARY--------------#
 	if @profile.user.id_no == ENV['SUPERUSER']
 	  can :manage, :all
 	  return
-    end
-	#---------TEMPORARY--------------#
+    end	
 	@user_type = @profile.user_type
 	#All the aliases come here
 	#All the create, update and destroy actions should have read permissions. Include them in the aliases itself

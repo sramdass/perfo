@@ -51,4 +51,19 @@
       <% end %>   
     </li>
   <% end %>    
+  
+  <% if active == "arrear_students"%>
+    <li class= "active">
+      <%= link_to arrear_students_sections_path do %>
+        <i class="icon-file"> </i> <strong> Arrear Students </strong>
+      <% end %>   
+    </li>
+  <% else %>
+    <li>
+      <%= link_to arrear_students_sections_path do %>
+        <i class="icon-file"> </i> <strong> Arrear Students  </strong>
+      <% end %>   
+    </li>
+  <% end %>    
+    
 </ul>

@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  before_filter :check_semester, :only => [:subjects, :faculties,  :exams]
+  before_filter :check_semester, :only => [:subjects, :faculties,  :exams, :arrear_students]
   load_and_authorize_resource
   
   def index
@@ -152,6 +152,35 @@ class SectionsController < ApplicationController
       render :exams
     end  	  	
   end
+  
+  def arrear_students
+    @arrear_students = ArrearStudent.all  	
+    #@arrear_students = ArrearStudent.accessible_by(current_ability)
+    respond_to do |format|
+      format.html 
+      format.js
+    end       
+  end
+  
+  def update_arrear_students
+  	ssmaps = Array.new
+  	@section = Section.find(params[:id])
+  	@section.sec_sub_maps.for_semester(params[:semester_id]).each do |map|
+  	  sub_id = map.subject_id
+  	  map.attributes = 	{ :subject_id => sub_id, :faculty_id => params[:faculty]["#{sub_id}"] }
+  	  ssmaps << map
+    end			  	
+    if @section.valid? && ssmaps.all?(&:valid?)
+      @section.save!
+      ssmaps.each(&:save!)
+      redirect_to(arrear_students_sections_path(:section_id => params[:id], :semester_id => params[:semester_id]),  :notice => 'Arrear Students successfully updated.')
+    else
+      flash[:error] = 'Error! Cannot Assign Arrear Students'
+      #We need arrear_students to re-render
+      @arrear_students = ArrearStudent.all  	
+      render :arrear_students
+    end  	
+  end  
   
   private
   

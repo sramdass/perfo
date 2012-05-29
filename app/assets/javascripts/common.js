@@ -18,6 +18,13 @@ function populateDropdown(select, data) {
   });       
 }
 
+  function displayalert(data) {
+  	 data1 = $(data);
+	alert(data);
+	alert($(data).filter("input[type=text]").attr('class'));
+   $(data).filter("input[type=text]").val("abc");
+}
+
 $(function() {
 /* This code is for the search form in Tenants index */
 $("#tenant_expired").click(function() {
@@ -30,10 +37,20 @@ $("#tenant_expired").click(function() {
 	});
 	
   $('.datatable_full').dataTable();
-  
+/*  
 $('.selector-form').submit(function() {
 	alert('Submitting form!');
     $.get($(this).data("target_url"), $(this).serialize(), null, "script");
+    return false;
+  });  
+*/
+
+$('.selector-form').submit(function() {
+	alert('Submitting form!');
+    $.get($(this).data("target_url"), 
+    $(this).serialize(), 
+     null, 
+    "script");
     return false;
   });  
   
@@ -68,5 +85,25 @@ $(".resource_permissions input:checkbox").click(function() {
     //$(this).parent("div").find("input[type=text]").val(amount);
     $(this).parents('.resource_permissions:first').find('.total_permission').val(amount);
 });
+/*
+$(document).on("click", "input[type=text]", null, function(){
+	alert("hi");
+$(this).tokenInput($(this).data("target_url"), {
+    crossDomain: false,
+    prePopulate: $(this).data("pre"),
+    propertyToSearch: 'rabl_name'
+    //theme: "facebook"
+  });
+});
+
+$('.selector-form').ajaxComplete(function() {
+  $("input[type=text]").tokenInput($(this).data("target_url"), {
+    crossDomain: false,
+    prePopulate: $(this).data("pre"),
+    propertyToSearch: 'rabl_name'
+    //theme: "facebook"
+  });
+});
+*/
   
 });

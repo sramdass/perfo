@@ -37,6 +37,7 @@ Perfo::Application.routes.draw do
       post 'update_subjects'
       post 'update_faculties'
       post 'update_exams'      
+      post 'update_arrear_students'
   	end
     collection do
       #For these items the section ids are received via the select boxes. So we are considering them as collection.
@@ -44,6 +45,7 @@ Perfo::Application.routes.draw do
       get 'subjects'
       get 'faculties'
       get 'exams'
+      get 'arrear_students'
     end
   end
   resources :school_types
@@ -51,7 +53,11 @@ Perfo::Application.routes.draw do
   resources :blood_groups
   resources :selectors
   resources :user_profiles
-  resources :sessions
+  resources :sessions do
+    collection do
+      get 'students'
+    end
+  end
   resources :password_resets
   resources :resources
   resources :roles

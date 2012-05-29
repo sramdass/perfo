@@ -16,4 +16,8 @@ class SelectorsController < ApplicationController
   	  end  	
   	end
   end
+  
+  def students
+    @entities = Student.all
+  end
 end

@@ -22,6 +22,7 @@ class Section < TenantManager
   validates_associated :department
   
   has_many :students, :dependent => :destroy
+  has_many :arrear_students, :dependent => :destroy
   
   has_many :sec_sub_maps, :dependent => true, :dependent => :destroy
   has_many :subjects, :through => :sec_sub_maps

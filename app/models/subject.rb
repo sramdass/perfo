@@ -18,6 +18,8 @@ class Subject < TenantManager
   
   has_many :sec_sub_maps, :dependent => true, :dependent => :destroy
   has_many :sections, :through => :sec_sub_maps    
+  
+  has_many :arrear_students, :dependent => :destroy  
 	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	

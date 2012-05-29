@@ -76,6 +76,8 @@
             <string>app\views\layouts\application.html.erb</string>
             <key>applica.cs</key>
             <string>app\assets\stylesheets\application.css</string>
+            <key>applica.js</key>
+            <string>app\assets\javascripts\application.js</string>
             <key>applicab</key>
             <string>config\application.rb</string>
             <key>applicacon</key>
@@ -144,6 +146,12 @@
             <string>app\helpers\application_helper.rb</string>
             <key>applichel</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>arrear</key>
+            <string>app\models\arrear_student.rb</string>
+            <key>arrears</key>
+            <string>app\views\sections\_arrear_students_form.html.erb</string>
+            <key>arrearstu</key>
+            <string>app\models\arrear_student.rb</string>
             <key>arti</key>
             <string>..\subdomain\app\models\article.rb</string>
             <key>articles</key>
@@ -180,6 +188,8 @@
             <string>app\views\shared\_buttons.html.erb</string>
             <key>carrier</key>
             <string>config\initializers\carrierwave.rb</string>
+            <key>comm</key>
+            <string>app\assets\javascripts\common.js</string>
             <key>common</key>
             <string>app\assets\javascripts\common.js</string>
             <key>common.j</key>
@@ -206,6 +216,8 @@
             <string>app\views\shared\_controller_action_buttons.html.erb</string>
             <key>cre_st</key>
             <string>db\migrate\20120417132606_create_students.rb</string>
+            <key>create_Arer</key>
+            <string>db\migrate\20120529130610_create_arrear_students.rb</string>
             <key>create_c</key>
             <string>db\migrate\20120415021209_create_contacts.rb</string>
             <key>create_prec</key>
@@ -230,6 +242,8 @@
             <string>config\database.yml</string>
             <key>database</key>
             <string>..\multitenants\config\database.yml</string>
+            <key>de_Seme</key>
+            <string>app\views\shared\_de_semesters_nav_pills.html.erb</string>
             <key>de_batches_nav_pills</key>
             <string>app\views\shared\_de_batches_nav_pills.html.erb</string>
             <key>de_nav</key>
@@ -540,6 +554,8 @@
             <string>config\routes.rb</string>
             <key>route</key>
             <string>config\routes.rb</string>
+            <key>route.r</key>
+            <string>config\routes.rb</string>
             <key>routes</key>
             <string>config\routes.rb</string>
             <key>routes.</key>
@@ -637,6 +653,8 @@
             <key>selec</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>seleco</key>
+            <string>app\controllers\selectors_controller.rb</string>
+            <key>select</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>selectorco</key>
             <string>app\controllers\selectors_controller.rb</string>

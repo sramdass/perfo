@@ -33,6 +33,8 @@ class Student < TenantManager
   has_many :pre_college_marks, :dependent => :destroy
   accepts_nested_attributes_for :pre_college_marks, :reject_if => :has_only_destroy?, :allow_destroy => true
   
+  has_many :arrear_students, :dependent => :destroy
+  
   belongs_to :blood_group
   validates_associated :blood_group
   
@@ -64,6 +66,12 @@ class Student < TenantManager
   #Make sure that a student a faculty do not share the same id_no. id_no is used for the login in user profile.
   validate										:id_no_should_not_match_faculty_id_no  
   validate										:id_no_should_not_have_spaces  
+  
+  attr_accessor :rabl_name
+  
+  def rabl_name
+    "#{self.name} - #{self.section.name}"
+  end  
   
   def start_date_and_end_date
   	if start_date && end_date && start_date > end_date
