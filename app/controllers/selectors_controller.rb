@@ -18,6 +18,9 @@ class SelectorsController < ApplicationController
   end
   
   def students
-    @entities = Student.all
+  	#Search for students whose id_no or name has the query string within it.
+  	match = params[:q].downcase
+  	#The query parameter will always be in down case. Use the lower() in the query string.
+  	@entities = Student.where("lower(name) like ? or lower(id_no) like ?", "%#{match}%",  "%#{match}%").all
   end
 end

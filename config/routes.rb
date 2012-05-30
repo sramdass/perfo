@@ -51,13 +51,13 @@ Perfo::Application.routes.draw do
   resources :school_types
   resources :students
   resources :blood_groups
-  resources :selectors
-  resources :user_profiles
-  resources :sessions do
+  resources :selectors do
     collection do
       get 'students'
     end
   end
+  resources :user_profiles
+  resources :sessions
   resources :password_resets
   resources :resources
   resources :roles

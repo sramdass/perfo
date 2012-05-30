@@ -70,7 +70,7 @@ class Student < TenantManager
   attr_accessor :rabl_name
   
   def rabl_name
-    "#{self.name} - #{self.section.name}"
+    "#{self.name} (#{self.id_no}), #{self.section.name}, #{self.section.department.name}"
   end  
   
   def start_date_and_end_date

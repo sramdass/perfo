@@ -1,4 +1,4 @@
-class ArrearStudent < ActiveRecord::Base
+class ArrearStudent < TenantManager
   belongs_to :section
   validates_associated :section
   belongs_to :semester

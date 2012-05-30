@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  before_filter :check_semester, :only => [:subjects, :faculties,  :exams, :arrear_students]
+  before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties, :update_faculties,  :exams, :update_exams, :arrear_students, :update_arrear_students]
   load_and_authorize_resource
   
   def index
@@ -79,19 +79,19 @@ class SectionsController < ApplicationController
   
   def update_subjects
     #@section = Section.find(params[:id])
-    SecSubMap.for_section(@section.id).for_semester(params[:semester_id]).destroy_all
+    SecSubMap.for_section(@section.id).for_semester(@semester.id).destroy_all
     params[:section][:subject_ids].each do |sub_id|
-      @section.sec_sub_maps.build({:subject_id => sub_id, :semester_id => params[:semester_id]})
+      @section.sec_sub_maps.build({:subject_id => sub_id, :semester_id => @semester.id})
     end
     if @section.valid? && @section.sec_sub_maps.all?(&:valid?)
       @section.save!
       @section.sec_sub_maps.each(&:save!)
-      redirect_to(subjects_sections_path(:section_id => params[:id], :semester_id => params[:semester_id]),  :notice => 'Section was successfully updated.')
+      redirect_to(subjects_sections_path(:section_id => params[:id], :semester_id => @semester.id),  :notice => 'Section was successfully updated.')
     else
       flash[:error] = 'Error! Cannot Assign Subjects'
-      #We need the @subjects, to re-render.
-      @subjects = Subject.all
-      render :subjects
+      #It is intentional that we are using a redirect here (rather than a render). We are getting some errors with the render.
+      #redirect seems to be a cleaner solution in this ajax scenario.
+      redirect_to(subjects_sections_path(:section_id => params[:id], :semester_id => @semester.id))
     end  	
   end
   
@@ -107,11 +107,11 @@ class SectionsController < ApplicationController
   def update_faculties
   	#@section = Section.find(params[:id])
   	#We have to explicity track the ssmaps that are modified and save them. We are using 
-  	# "@section.sec_sub_maps.for_semester(params[:semester_id]).each do |map|" for the loop.
+  	# "@section.sec_sub_maps.for_semester(@semester.id).each do |map|" for the loop.
   	#When the naming scope is used - @section.sec_sub_maps.each(&:save!) is not working.
   	ssmaps = Array.new
   	@section = Section.find(params[:id])
-  	@section.sec_sub_maps.for_semester(params[:semester_id]).each do |map|
+  	@section.sec_sub_maps.for_semester(@semester.id).each do |map|
   	  sub_id = map.subject_id
   	  map.attributes = 	{ :subject_id => sub_id, :faculty_id => params[:faculty]["#{sub_id}"] }
   	  ssmaps << map
@@ -119,12 +119,12 @@ class SectionsController < ApplicationController
     if @section.valid? && ssmaps.all?(&:valid?)
       @section.save!
       ssmaps.each(&:save!)
-      redirect_to(faculties_sections_path(:section_id => params[:id], :semester_id => params[:semester_id]),  :notice => 'Faculties successfully updated.')
+      redirect_to(faculties_sections_path(:section_id => params[:id], :semester_id => @semester.id),  :notice => 'Faculties successfully updated.')
     else
       flash[:error] = 'Error! Cannot Assign Faculties'
-      #We need faculties to re-render
-      @faculties = Faculty.all  	
-      render :faculties
+      #It is intentional that we are using a redirect here (rather than a render). We are getting some errors with the render.
+      #redirect seems to be a cleaner solution in this ajax scenario.
+      redirect_to(faculties_sections_path(:section_id => params[:id], :semester_id => @semester.id))
     end  	
   end
   
@@ -139,23 +139,23 @@ class SectionsController < ApplicationController
   
   def update_exams
     #@section = Section.find(params[:id])
-    SecExamMap.for_section(@section.id).for_semester(params[:semester_id]).destroy_all
+    SecExamMap.for_section(@section.id).for_semester(@semester.id).destroy_all
     params[:section][:exam_ids].each do |exam_id|
-      @section.sec_exam_maps.build({:exam_id => exam_id, :semester_id => params[:semester_id]})
+      @section.sec_exam_maps.build({:exam_id => exam_id, :semester_id => @semester.id})
     end
     if @section.valid? && @section.sec_sub_maps.all?(&:valid?)
       @section.save!
       @section.sec_sub_maps.each(&:save!)
-      redirect_to(exams_sections_path(:section_id => params[:id], :semester_id => params[:semester_id]),  :notice => 'Exams successfully updated.')
+      redirect_to(exams_sections_path(:section_id => params[:id], :semester_id => @semester.id),  :notice => 'Exams successfully updated.')
     else
       flash[:error] = 'Error! Cannot Assign Exams'
-      render :exams
+      #It is intentional that we are using a redirect here (rather than a render). We are getting some errors with the render.
+      #redirect seems to be a cleaner solution in this ajax scenario.      
+      redirect_to(exams_sections_path(:section_id => params[:id], :semester_id => @semester.id))
     end  	  	
   end
   
   def arrear_students
-    @arrear_students = ArrearStudent.all  	
-    #@arrear_students = ArrearStudent.accessible_by(current_ability)
     respond_to do |format|
       format.html 
       format.js
@@ -163,22 +163,30 @@ class SectionsController < ApplicationController
   end
   
   def update_arrear_students
-  	ssmaps = Array.new
+  	arr_stus = Array.new
   	@section = Section.find(params[:id])
-  	@section.sec_sub_maps.for_semester(params[:semester_id]).each do |map|
+  	ArrearStudent.for_section(@section.id).for_semester(@semester.id).destroy_all
+  	@section.sec_sub_maps.for_semester(@semester.id).each do |map|
   	  sub_id = map.subject_id
-  	  map.attributes = 	{ :subject_id => sub_id, :faculty_id => params[:faculty]["#{sub_id}"] }
-  	  ssmaps << map
+  	  student_ids = []
+  	  #The parameter list will be like - {"1"=>["1,4,5"], "2"=>["2,3"], "3"=>[""], "6"=>[""]}
+  	  #Note that student_ids will be provided as a single string with the ids separated by commas (tokeninput plugin).
+  	  #Also, when we check or split the values (student_ids), we need to use the array_element.first becuase we cannot 
+  	  #split the array, but an element  of the array
+  	  student_ids = params[:arrear_students]["#{sub_id}"].first.split(',') if !params[:arrear_students]["#{sub_id}"].first.blank?
+  	  student_ids.each do |stu_id|
+  	    arr_stus << ArrearStudent.new(:student_id => stu_id, :subject_id => sub_id, :semester_id => @semester.id, :section_id => @section.id)
+  	  end
     end			  	
-    if @section.valid? && ssmaps.all?(&:valid?)
+    if @section.valid? && arr_stus.all?(&:valid?)
       @section.save!
-      ssmaps.each(&:save!)
-      redirect_to(arrear_students_sections_path(:section_id => params[:id], :semester_id => params[:semester_id]),  :notice => 'Arrear Students successfully updated.')
+      arr_stus.each(&:save!)
+      redirect_to(arrear_students_sections_path(:section_id => params[:id], :semester_id => @semester.id), :notice => 'Students successfully assigned')
     else
-      flash[:error] = 'Error! Cannot Assign Arrear Students'
-      #We need arrear_students to re-render
-      @arrear_students = ArrearStudent.all  	
-      render :arrear_students
+      flash[:error] = 'Error! Cannot Assign Students'
+      #It is intentional that we are using a redirect here (rather than a render). We are getting some errors with the render.
+      #redirect seems to be a cleaner solution in this ajax scenario.      
+      redirect_to(arrear_students_sections_path(:section_id => params[:id], :semester_id => @semester.id))
     end  	
   end  
   

@@ -12,7 +12,9 @@
     <div class="controls">
       <%= select_tag( :semester_id, options_from_collection_for_select(@semesters, "id", "name"),
       																	:include_blank => true, 
-      																	:id => 'semester-selector',:data => {:base => 'semester', :required => 'batch', :target => 'batch-selector'}) %> 	 
+      																	:id => 'semester-selector',
+      																	:class => 'span3', 
+      																	:data => {:base => 'semester', :required => 'batch', :target => 'batch-selector'}) %> 	 
       
 	</div>
   </div>
@@ -21,7 +23,9 @@
     <div class="controls">
       <%= select_tag( :batch_id, options_from_collection_for_select(@batches, "id", "name"),
       																	:include_blank => true, 
-      																	:id => 'batch-selector', :data => {:base => 'batch', :required => 'section', :target => 'section-selector'}) %>      																	 	
+      																	:id => 'batch-selector', 
+      																	:class => 'span3',
+      																	:data => {:base => 'batch', :required => 'section', :target => 'section-selector'}) %>      																	 	
 	</div>   	    
   </div> 
   <div class="control-group">
@@ -29,6 +33,7 @@
     <div class="controls">
       <%= select_tag( :section_id, options_from_collection_for_select(@sections, "id", "name"),
       																	:include_blank => true, 
+      																	:class => 'span3',
       																	:id => 'section-selector') %> 	  	
 	</div>   	    
   </div>  	      	

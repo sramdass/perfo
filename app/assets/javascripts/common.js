@@ -18,13 +18,6 @@ function populateDropdown(select, data) {
   });       
 }
 
-  function displayalert(data) {
-  	 data1 = $(data);
-	alert(data);
-	alert($(data).filter("input[type=text]").attr('class'));
-   $(data).filter("input[type=text]").val("abc");
-}
-
 $(function() {
 /* This code is for the search form in Tenants index */
 $("#tenant_expired").click(function() {
@@ -37,23 +30,14 @@ $("#tenant_expired").click(function() {
 	});
 	
   $('.datatable_full').dataTable();
-/*  
+
 $('.selector-form').submit(function() {
 	alert('Submitting form!');
     $.get($(this).data("target_url"), $(this).serialize(), null, "script");
     return false;
   });  
-*/
 
-$('.selector-form').submit(function() {
-	alert('Submitting form!');
-    $.get($(this).data("target_url"), 
-    $(this).serialize(), 
-     null, 
-    "script");
-    return false;
-  });  
-  
+
 $(".selector-form select").change(function() {     
   var target = $(this).data('target');
   //Form the element id of the select object that needs to be populated.
@@ -85,25 +69,19 @@ $(".resource_permissions input:checkbox").click(function() {
     //$(this).parent("div").find("input[type=text]").val(amount);
     $(this).parents('.resource_permissions:first').find('.total_permission').val(amount);
 });
-/*
-$(document).on("click", "input[type=text]", null, function(){
+
+$(document).on("click", ".token-input", null, function(){
 	alert("hi");
-$(this).tokenInput($(this).data("target_url"), {
-    crossDomain: false,
-    prePopulate: $(this).data("pre"),
-    propertyToSearch: 'rabl_name'
-    //theme: "facebook"
-  });
+    $(this).tokenInput(function() {  
+		return '/selectors/students.json';
+	}, 	{
+      crossDomain: false,
+      prePopulate: $(this).data("pre"),
+      propertyToSearch: 'rabl_name',
+      preventDuplicates: true,
+      minChars: 3
+      //theme: "facebook"
+    });
 });
 
-$('.selector-form').ajaxComplete(function() {
-  $("input[type=text]").tokenInput($(this).data("target_url"), {
-    crossDomain: false,
-    prePopulate: $(this).data("pre"),
-    propertyToSearch: 'rabl_name'
-    //theme: "facebook"
-  });
-});
-*/
-  
 });

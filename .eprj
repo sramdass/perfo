@@ -4,6 +4,8 @@
     <dict>
         <key>fileTriggers</key>
         <dict>
+            <key>ArrearStu</key>
+            <string>app\models\arrear_student.rb</string>
             <key>FACULTCON</key>
             <string>app\controllers\faculties_controller.rb</string>
             <key>ROUTE</key>
@@ -147,7 +149,7 @@
             <key>applichel</key>
             <string>app\helpers\application_helper.rb</string>
             <key>arrear</key>
-            <string>app\models\arrear_student.rb</string>
+            <string>app\views\sections\_arrear_students_form.html.erb</string>
             <key>arrears</key>
             <string>app\views\sections\_arrear_students_form.html.erb</string>
             <key>arrearstu</key>
@@ -379,7 +381,7 @@
             <key>inde</key>
             <string>app\views\semesters\index.html.erb</string>
             <key>index</key>
-            <string>app\views\resources\index.html.erb</string>
+            <string>app\views\tenants\index.html.erb</string>
             <key>index.</key>
             <string>app\views\exams\index.html.erb</string>
             <key>index.h</key>
@@ -784,6 +786,8 @@
             <string>..\multitenants\app\controllers\subjects_controller.rb</string>
             <key>subjects_co</key>
             <string>app\controllers\subjects_controller.rb</string>
+            <key>subjects_f</key>
+            <string>app\views\sections\_subjects_form.html.erb</string>
             <key>tenaman</key>
             <string>app\models\tenant_manager.rb</string>
             <key>tenancont</key>
