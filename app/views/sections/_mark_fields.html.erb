@@ -1,0 +1,14 @@
+<tr>
+  <td> <%= f.object.student.name %> </td>
+  <% @section.sec_sub_maps.order('subject_id ASC').each do |ssmap| %>
+      <td> <%= f.input ssmap.mark_column, :label => false, :input_html => {:class => 'span1'}  %> </td>
+  <% end %>	
+	<td> <%= f.input :total, :label => false, :input_html => {:class => 'span1'}  %> </td>
+	<td><%= f.input :grade, :label => false, :input_html => {:class => 'span1'}  %> </td>
+	<td><%= f.input :arrears_count, :label => false, :input_html => {:class => 'span1'}  %> </td>
+    <td> <%= f.input :comments, :label => false, :input_html => {:class => 'span1', :rows => 2, :cols => 30}  %> </td>
+</tr>
+ 
+
+ 
+	

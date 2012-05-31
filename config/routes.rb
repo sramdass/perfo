@@ -38,6 +38,7 @@ Perfo::Application.routes.draw do
       post 'update_faculties'
       post 'update_exams'      
       post 'update_arrear_students'
+      post 'update_marks'
   	end
     collection do
       #For these items the section ids are received via the select boxes. So we are considering them as collection.
@@ -46,6 +47,7 @@ Perfo::Application.routes.draw do
       get 'faculties'
       get 'exams'
       get 'arrear_students'
+      get 'marks'
     end
   end
   resources :school_types

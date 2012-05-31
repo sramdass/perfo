@@ -14,6 +14,11 @@
 class Exam < TenantManager
   belongs_to :institution  	
   validates_presence_of :institution
+  
+  has_many :marks, :dependent => :destroy
+  
+  has_many :sec_exam_maps, :dependent => true, :dependent => :destroy
+  has_many :sections, :through => :sec_exam_maps      
 	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	
@@ -23,4 +28,10 @@ class Exam < TenantManager
   
   validates_presence_of			:code
   validates_length_of					:code,	 								:maximum => 5	
+  
+  attr_accessor :rabl_name
+  
+  def rabl_name
+    "#{self.name} "
+  end  
 end

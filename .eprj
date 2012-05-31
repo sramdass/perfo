@@ -200,6 +200,8 @@
             <string>app\assets\javascripts\common.js</string>
             <key>config.r</key>
             <string>config.ru</string>
+            <key>const</key>
+            <string>config\initializers\constants.rb</string>
             <key>contact</key>
             <string>app\models\contact.rb</string>
             <key>contact.</key>
@@ -222,6 +224,8 @@
             <string>db\migrate\20120529130610_create_arrear_students.rb</string>
             <key>create_c</key>
             <string>db\migrate\20120415021209_create_contacts.rb</string>
+            <key>create_makr</key>
+            <string>db\migrate\20120531154211_create_marks.rb</string>
             <key>create_prec</key>
             <string>db\migrate\20120417134458_create_pre_college_marks.rb</string>
             <key>create_role</key>
@@ -250,6 +254,8 @@
             <string>app\views\shared\_de_batches_nav_pills.html.erb</string>
             <key>de_nav</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
+            <key>de_seme</key>
+            <string>app\views\shared\_de_semesters_nav_pills.html.erb</string>
             <key>delin</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>denav</key>
@@ -300,12 +306,14 @@
             <string>config\locales\en.yml</string>
             <key>exam</key>
             <string>app\models\exam.rb</string>
+            <key>exam.rb</key>
+            <string>app\models\exam.rb</string>
             <key>exam_con</key>
             <string>app\controllers\exams_controller.rb</string>
             <key>examco</key>
             <string>app\controllers\exams_controller.rb</string>
             <key>exams</key>
-            <string>app\controllers\exams_controller.rb</string>
+            <string>app\views\sections\exams.html.erb</string>
             <key>exams_Co</key>
             <string>app\controllers\exams_controller.rb</string>
             <key>exmscon</key>
@@ -434,6 +442,12 @@
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>label</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
+            <key>mark.rb</key>
+            <string>app\models\mark.rb</string>
+            <key>marks.js</key>
+            <string>app\views\sections\marks.js.erb</string>
+            <key>marks_form</key>
+            <string>app\views\selectors\_marks_form.html.erb</string>
             <key>migr</key>
             <string>lib\tasks\migrate_with_schemas.rake</string>
             <key>migrate</key>
@@ -606,6 +620,8 @@
             <string>app\models\sec_sub_map.rb</string>
             <key>sec_subma</key>
             <string>app\models\sec_sub_map.rb</string>
+            <key>secexam</key>
+            <string>app\models\sec_exam_map.rb</string>
             <key>secexamma</key>
             <string>app\models\sec_exam_map.rb</string>
             <key>secsub</key>
@@ -631,6 +647,8 @@
             <key>sectins_c</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sectio.</key>
+            <string>app\models\section.rb</string>
+            <key>section.</key>
             <string>app\models\section.rb</string>
             <key>section.r</key>
             <string>app\models\section.rb</string>
@@ -766,6 +784,8 @@
             <string>app\controllers\students_controller.rb</string>
             <key>studentscont</key>
             <string>app\controllers\students_controller.rb</string>
+            <key>studn.r</key>
+            <string>app\models\arrear_student.rb</string>
             <key>studncon</key>
             <string>app\controllers\students_controller.rb</string>
             <key>subjec</key>

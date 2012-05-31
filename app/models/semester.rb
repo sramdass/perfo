@@ -22,6 +22,7 @@ class Semester < TenantManager
   has_many :hods,  :dependent => true, :dependent => :destroy
   
   has_many :arrear_students, :dependent => :destroy  
+  has_many :marks, :dependent => :destroy  
 	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	

@@ -65,5 +65,19 @@
       <% end %>   
     </li>
   <% end %>    
+  
+  <% if active == "marks"%>
+    <li class= "active">
+      <%= link_to marks_sections_path do %>
+        <i class="icon-file"> </i> <strong> Marks </strong>
+      <% end %>   
+    </li>
+  <% else %>
+    <li>
+      <%= link_to marks_sections_path do %>
+        <i class="icon-file"> </i> <strong> Marks </strong>
+      <% end %>   
+    </li>
+  <% end %>      
     
 </ul>

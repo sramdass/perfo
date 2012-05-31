@@ -24,11 +24,15 @@ class Section < TenantManager
   has_many :students, :dependent => :destroy
   has_many :arrear_students, :dependent => :destroy
   
+  has_many :marks, :dependent => :destroy
+  accepts_nested_attributes_for :marks, :reject_if => :has_only_destroy?, :allow_destroy => true
+  
   has_many :sec_sub_maps, :dependent => true, :dependent => :destroy
   has_many :subjects, :through => :sec_sub_maps
   
   has_many :sec_exam_maps, :dependent => true, :dependent => :destroy
   has_many :exams, :through => :sec_exam_maps  
+  
   
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	
@@ -56,4 +60,14 @@ class Section < TenantManager
   def rabl_name
     "#{self.department.name} - #{self.name}"
   end
+  
+  def has_only_destroy?(attrs)
+    attrs.each do |k,v|
+      if k !="_destroy" && !v.blank?
+        return false
+      end
+    end
+    return true	
+  end	  
+    
 end

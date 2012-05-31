@@ -14,6 +14,9 @@ class SelectorsController < ApplicationController
   	  if params[:required] == 'section'
   	    @entities = base_entity.find(params[:base_id]).sections
   	  end  	
+  	  if params[:required] == 'exam'
+  	    @entities = base_entity.find(params[:base_id]).exams
+  	  end  	  	  
   	end
   end
   

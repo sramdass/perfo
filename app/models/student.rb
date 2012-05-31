@@ -34,6 +34,7 @@ class Student < TenantManager
   accepts_nested_attributes_for :pre_college_marks, :reject_if => :has_only_destroy?, :allow_destroy => true
   
   has_many :arrear_students, :dependent => :destroy
+  has_many :marks, :dependent => :destroy  
   
   belongs_to :blood_group
   validates_associated :blood_group

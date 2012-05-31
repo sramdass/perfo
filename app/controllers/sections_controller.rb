@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties, :update_faculties,  :exams, :update_exams, :arrear_students, :update_arrear_students]
+  before_filter :check_semester, :only => [:subjects, :update_subjects, :faculties, :update_faculties,  :exams, :update_exams, :arrear_students, :update_arrear_students, :marks, :update_marks]
   load_and_authorize_resource
   
   def index
@@ -224,12 +224,24 @@ class SectionsController < ApplicationController
     end  	
   end  
   
+  def marks
+    respond_to do |format|
+      format.html 
+      format.js
+    end      	
+  end
+  
+  def update_marks
+  	
+  end
+  
   private
   #this is a before_filter and is used to load the required resources.  
   def check_semester
     @semester = Semester.find(params[:semester_id]) if params[:semester_id]
     @batch = Batch.find(params[:batch_id]) if params[:batch_id] 
   	@section = Section.find(params[:section_id]) if params[:section_id] 
+  	@exam = Exam.find(params[:exam_id]) if params[:exam_id]
   end
 
   #Module to return the mark_column value if there is already a sec_sub_map existing for the given subject_id +

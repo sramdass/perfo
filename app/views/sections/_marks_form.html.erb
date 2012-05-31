@@ -1,0 +1,30 @@
+<%# form_tag url_for(:controller => 'sections', :action => 'update_marks', :id => @section.id), :method => 'post', :class => "form-horizontal" do %>
+	<%= form_for @section, :url => update_marks_section_path(@section), :method => :post, :html => { :class => "form-horizontal" } do |f| %>
+  <legend> Mark Sheet </legend>
+    <fieldset>
+    	<%=f.object.name%>
+      Section: <%= @section.name %><br>
+      Semester: <%= @semester.name%><br><br>
+      Exam: <%= @exam.name%><br><br>
+      <%= hidden_field_tag 'semester_id', nil, :value => @semester.id %>    	
+      <%= hidden_field_tag 'exam_id', nil, :value => @exam.id %>    	
+<table class="input_form_table">
+	<thead>
+    	<tr>
+        	<th>Student Name</th>
+        	<% @section.sec_sub_maps.order('subject_id ASC').each do |ssmap| %>
+        	  <th><%= ssmap.subject.name %></th>
+        	<% end %>
+        	<th>Total</th>
+        	<th>Grade</th>
+        	<th>Arrears</th>
+        	<th>Comments</th>
+        </tr>
+    </thead>
+    <tbody>		
+	<%= f.simple_fields_for :marks do |builder| %>	
+	  <%= render "mark_fields", :f => builder %>	 	  
+	<% end %>
+    </tbody>		
+</table>		
+<% end %>
