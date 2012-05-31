@@ -32,7 +32,6 @@ $("#tenant_expired").click(function() {
   $('.datatable_full').dataTable();
 
 $('.selector-form').submit(function() {
-	alert('Submitting form!');
     $.get($(this).data("target_url"), $(this).serialize(), null, "script");
     return false;
   });  
@@ -71,7 +70,6 @@ $(".resource_permissions input:checkbox").click(function() {
 });
 
 $(document).on("click", ".token-input", null, function(){
-	alert("hi");
     $(this).tokenInput(function() {  
 		return '/selectors/students.json';
 	}, 	{

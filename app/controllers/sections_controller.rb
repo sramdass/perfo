@@ -79,10 +79,44 @@ class SectionsController < ApplicationController
   
   def update_subjects
     #@section = Section.find(params[:id])
-    SecSubMap.for_section(@section.id).for_semester(@semester.id).destroy_all
-    params[:section][:subject_ids].each do |sub_id|
-      @section.sec_sub_maps.build({:subject_id => sub_id, :semester_id => @semester.id})
+    #We cannot use @section.attributes = params[:section] with the nested_attributes feature, because the subject_ids can
+    #be duplicate as the primiary key is not section_id + subject_id, but section_id + subject_id + semester_id combo. Important!
+    #We are removing all the rows and add the new ones even if a subject that is already present is coming in. This is the easiest way.
+    #For the subjects, that are already there,we MUST maintain the same mark_column values. So, we iterate the subject_ids that 
+    #are coming in, and if a subject_id is already present in the db, we use the same mark_column in the new row we are creating.
+    #For the new subject_ids (that are not already in the database), we can use any mark_column values.
+    
+    #There is a lot of detour in the logic, becuase we cannot save only a part of the sec_sub_maps, and until we do not store them 
+    #we do not know what are the mark_colums we have use. That is where taken_mark_cols[] comes into picture.
+    
+    subject_ids = params[:section][:subject_ids] || []
+    new_subject_ids = [] #to track the subject_ids that are not already present.
+    taken_mark_cols = [] #Intermediate bucket to store all the used mark_cols.
+    subject_ids.each do |sub_id|
+      mark_col = existing_mark_column(sub_id, @semester.id)
+      #if mark_col is not nil, it means that this subject_id is already present in the database.
+      if mark_col
+      	#mark this mark_col as a used one.
+        taken_mark_cols << mark_col
+       @section.sec_sub_maps.build({:subject_id => sub_id, :semester_id => @semester.id, :mark_column => mark_col})
+      else
+      	#store the subject_ids for which the entries are not created yet.
+      	new_subject_ids << sub_id
+      end
     end
+    
+    SecSubMap.for_section(@section.id).for_semester(@semester.id).destroy_all
+    #get all the mark_column values that can be used for the new sec_sub_map entires we are going to create now.
+    new_mark_cols = new_mark_columns(taken_mark_cols)
+    
+    new_subject_ids.each do |sub_id|
+      #take the first mark_column value and use it for the sec_sub_map created here.
+      t = new_mark_cols.shift
+      #The marks of column 't' should be set to default
+      @section.sec_sub_maps.build({:subject_id => sub_id, :semester_id => @semester.id, :mark_column => t})
+    end
+
+
     if @section.valid? && @section.sec_sub_maps.all?(&:valid?)
       @section.save!
       @section.sec_sub_maps.each(&:save!)
@@ -191,11 +225,32 @@ class SectionsController < ApplicationController
   end  
   
   private
-  
+  #this is a before_filter and is used to load the required resources.  
   def check_semester
     @semester = Semester.find(params[:semester_id]) if params[:semester_id]
     @batch = Batch.find(params[:batch_id]) if params[:batch_id] 
   	@section = Section.find(params[:section_id]) if params[:section_id] 
+  end
+
+  #Module to return the mark_column value if there is already a sec_sub_map existing for the given subject_id +
+  #semester_id + @section.id combination. 
+  #To the caller:- If the returned value is nil, we do not have that entry, and we have to create a new one.
+  def existing_mark_column(subject_id, semester_id)
+    temp_row = SecSubMap.for_subject(subject_id).for_semester(semester_id).for_section(@section.id).first
+    if temp_row && temp_row.mark_column	
+      return temp_row.mark_column
+    end  	
+  end
+  
+  #Module takes a list of used mark_columns for any section_id + subject_id + semester_id combination and returns
+  #the list of mark_column values that can be used for the new sec_sub_maps that are created.  	
+  def new_mark_columns(taken_mark_cols)
+    cols = (1..MARKS_SUBJECTS_COUNT).to_a
+    cols.each do |col|
+      cols.delete_if {|x| taken_mark_cols.include?("sub#{x}") }
+    end	
+    cols.map! {|x| "sub#{x}" }		
+    return cols
   end
 
 end

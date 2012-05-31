@@ -402,6 +402,8 @@
             <string>app\controllers\institutions_controller.rb</string>
             <key>inscont</key>
             <string>app\controllers\institutions_controller.rb</string>
+            <key>inst</key>
+            <string>app\controllers\institutions_controller.rb</string>
             <key>instfil</key>
             <string>app\views\institutions\_institution_fields.html.erb</string>
             <key>insti</key>
@@ -598,6 +600,8 @@
             <string>app\views\school_types\_school_type_fields.html.erb</string>
             <key>sec_exam</key>
             <string>app\models\sec_exam_map.rb</string>
+            <key>sec_su</key>
+            <string>app\models\sec_sub_map.rb</string>
             <key>sec_sub</key>
             <string>app\models\sec_sub_map.rb</string>
             <key>sec_subma</key>
@@ -605,6 +609,8 @@
             <key>secexamma</key>
             <string>app\models\sec_exam_map.rb</string>
             <key>secsub</key>
+            <string>app\models\sec_sub_map.rb</string>
+            <key>secsubm</key>
             <string>app\models\sec_sub_map.rb</string>
             <key>secsubma</key>
             <string>app\models\sec_sub_map.rb</string>
@@ -691,6 +697,8 @@
             <key>semi_index</key>
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>sessions</key>
+            <string>app\controllers\sessions_controller.rb</string>
+            <key>sessions_C</key>
             <string>app\controllers\sessions_controller.rb</string>
             <key>sessions_Co</key>
             <string>app\controllers\sessions_controller.rb</string>
@@ -832,6 +840,8 @@
             <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
             <key>toinst</key>
             <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
+            <key>token</key>
+            <string>app\assets\stylesheets\token-input.css</string>
             <key>useprofilecont</key>
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>user_pr</key>
