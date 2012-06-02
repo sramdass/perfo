@@ -22,9 +22,15 @@
         </tr>
     </thead>
     <tbody>		
-	<%= f.simple_fields_for :marks do |builder| %>	
+    <% #display only the rows that correspond only to the curreent semester + exam  %>
+	<%= f.simple_fields_for :marks, @section.marks.for_semester(@semester.id).for_exam(@exam.id).all do |builder| %>	
 	  <%= render "mark_fields", :f => builder %>	 	  
 	<% end %>
     </tbody>		
 </table>		
+<div class="form-actions">
+  <%= button_tag(:type => 'submit', :name => 'create', :class => "btn btn-success btn-large" ) do %>
+    <i class="icon-ok icon-white"> </i> <strong> Update Marks </strong>
+  <% end %>  
+</div>  
 <% end %>

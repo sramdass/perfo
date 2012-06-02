@@ -32,12 +32,12 @@ $("#tenant_expired").click(function() {
   $('.datatable_full').dataTable();
 
 $('.selector-form').submit(function() {
-    $.get($(this).data("target_url"), $(this).serialize(), null, "script");
-    return false;
+      $.get($(this).data("target_url"), $(this).serialize(), null, "script");
+      return false;
   });  
 
 
-$(".selector-form select").change(function() {     
+$(".selector-form select, .selector-form-html select").change(function() {     
   var target = $(this).data('target');
   //Form the element id of the select object that needs to be populated.
   target_select = $('#' + target);

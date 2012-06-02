@@ -1,1 +1,5 @@
-$("#ajax_marks_form").html("<%= escape_javascript(render ("marks_form")) %>");
+<% if @js_error%>
+  $("#ajax_marks_form").html("<%= escape_javascript(@js_error) %>");
+<% else %>	
+  $("#ajax_marks_form").html("<%= escape_javascript(render ("marks_form")) %>");
+<% end %>

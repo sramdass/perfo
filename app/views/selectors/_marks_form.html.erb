@@ -5,7 +5,22 @@
 #																	{:id => 'batch-selector', :data => {:base => 'batch', :required => 'section', :target => 'section-selector'}}) 
 %>
 
-<%= form_tag '#', :method => 'get', :class => "selector-form  form-horizontal", :data => {:target_url => target_url} do %>
+<% #Important:-  This form submit request is NOT AJAXIFIED. The class of the form is changed form selector-form (ajax) to 
+      #selector-form-html (non-ajax). Also, for the non-ajax from we need to specify the url for the form_tag. Compare this form
+      #with the _form.html's from in this same directory. If the form has to be ajaxified, the class has to be changed accordingly. 
+      
+      #This is not ajaxified because, there is a problem with render in the update_marks if there is a error. Ajaxified form requires
+      #a redirect in the update_marks. But we need a render in the mark scenario, because we are using nested_attributes for the
+      # section - mark relationship.
+      
+      #The target_url is not need here. But, we are just keeping it, incase we need to switch to ajax
+%>
+
+<% # Note that the elements of the select control is loaded on the fly, except for the semesters. So, an emty array is used for 
+      #for the selection-data during rendering. If any non-empty list is provided there, the values keep coming up in the select
+      #box for a short time when you select.
+%>
+<%= form_tag '/sections/marks', :method => 'get', :class => "selector-form-html form-horizontal", :data => {:target_url => target_url} do %>
 <fieldset>
   <div class="control-group">
     <%= label_tag "Semester",nil, :class=> "control-label" %>
@@ -21,7 +36,7 @@
   <div class="control-group">
     <%= label_tag "Batch",nil, :class=> "control-label" %>
     <div class="controls">
-      <%= select_tag( :batch_id, options_from_collection_for_select(@batches, "id", "name"),
+      <%= select_tag( :batch_id, options_from_collection_for_select([], "id", "name"),
       																	:include_blank => true, 
       																	:id => 'batch-selector', 
       																	:class => 'span3',
@@ -31,7 +46,7 @@
   <div class="control-group">
     <%= label_tag "Section",nil, :class=> "control-label" %>
     <div class="controls">
-      <%= select_tag( :section_id, options_from_collection_for_select(@sections, "id", "name"),
+      <%= select_tag( :section_id, options_from_collection_for_select([], "id", "name"),
       																	:include_blank => true, 
       																	:class => 'span3',
       																	:id => 'section-selector',
@@ -41,7 +56,7 @@
   <div class="control-group">
     <%= label_tag "Exam",nil, :class=> "control-label" %>
     <div class="controls">
-      <%= select_tag( :exam_id, options_from_collection_for_select(@exams, "id", "name"),
+      <%= select_tag( :exam_id, options_from_collection_for_select([], "id", "name"),
       																	:include_blank => true, 
       																	:class => 'span3',
       																	:id => 'exam-selector') %>

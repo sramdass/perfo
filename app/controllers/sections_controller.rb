@@ -209,6 +209,13 @@ class SectionsController < ApplicationController
   	  #split the array, but an element  of the array
   	  student_ids = params[:arrear_students]["#{sub_id}"].first.split(',') if !params[:arrear_students]["#{sub_id}"].first.blank?
   	  student_ids.each do |stu_id|
+  	  	#If the student is already present in the current section, thrown an error and get out!
+  	  	temp_stu = @section.students.where('id = ?', stu_id).first #find does not work here
+  	  	if temp_stu
+          flash[:error] = "Error! Student #{temp_stu.name}  (#{temp_stu.id_no}) is already in this section".
+          redirect_to(arrear_students_sections_path(:section_id => params[:id], :semester_id => @semester.id))  	
+          return  		
+  	  	end
   	    arr_stus << ArrearStudent.new(:student_id => stu_id, :subject_id => sub_id, :semester_id => @semester.id, :section_id => @section.id)
   	  end
     end			  	
@@ -224,15 +231,38 @@ class SectionsController < ApplicationController
     end  	
   end  
   
+  #Then marks action is not called as a ajax request from the selectors form. Refers /selectors/_marks_form.html.erb.
+  #We need a render :marks in the update_marks action to display the error fields in case of an error.
   def marks
+  	#When there is a valid section, semester and exam - create the mark sheet.
+  	status = true  #This is required when we request the selector form without the marksheet.
+  	if @section && @exam && @semester
+  	  status = create_mark_sheet
+  	end
     respond_to do |format|
-      format.html 
-      format.js
+      format.html do
+      	#Make these elements nil so that we do not render the mark sheet in the view. 
+      	if !status
+      	  @section = @exam = @semester = nil
+          flash[:error] = "Error while fetching the marksheet."
+        end
+      end
+      format.js do
+      	if !status
+          @js_error = "Error while fetching the marksheet"
+        end
+      end
     end      	
   end
   
   def update_marks
-  	
+    #@section = Section.find(params[:id])
+    if @section.update_attributes(params[:section])
+      redirect_to(marks_sections_path(:section_id => params[:id], :semester_id => @semester.id, :exam_id => @exam.id),  :notice => 'Marks successfully updated')
+    else
+      flash.now[:error] = "Cannot update marks"
+      render :marks
+    end
   end
   
   private
@@ -264,5 +294,47 @@ class SectionsController < ApplicationController
     cols.map! {|x| "sub#{x}" }		
     return cols
   end
-
+  
+  def create_mark_sheet
+    marks_entry = [] # List of new rows that have to be create in the Mark record.  
+    del_marks_entry = []  #List of existing rows in the Mark record that have to be deleted.
+    #marks_table -> List of Mark model rows that correspond to the current section + exam + semester
+    marks_table = Mark.for_section(@section.id).for_exam(@exam.id).for_semester(@semester.id)
+    
+    if (marks_table.count == 0) #We have not created any rows for the current sem+ ex+ sec combination.
+      #for all the students in the current section, create a row (for the current sem + exam combo) in the Mark record.
+      for student in @section.students 
+        marks_entry << Mark.new( {:section_id => @section.id, :exam_id => @exam.id, :semester_id => @semester.id, :student_id => student.id })
+      end
+      #arr_student_ids -> array of student_ids of the students who are attending atleast one arrear subject in the current section.
+      arr_student_ids = ArrearStudent.for_section(@section.id).for_semester(@semester.id).select("student_id").map {|x| x.student_id}
+      #There will be duplicate of student_ids if a student is attending more than one subject arrear in the current section. Use the uniq method
+      #to remove the duplicates. If the student is attending more than one arrear subjects, he will have two column values in a single row.
+      for arr_student_id in arr_student_ids.uniq
+      	marks_entry << Mark.new( {:section_id => @section.id, :exam_id => @exam.id, :semester_id => @semester.id, :student_id => arr_student_id })
+      end
+    else #Some rows already exist in the Mark record for the current section + exam + semester combination
+      #List of student_ids of the students that are currently present in the Mark record for the section + exam + semester combination
+      existing_stu_ids = marks_table.select('student_id').map{|x| x.student_id}
+      #List of students that are in the current section + arrear students that are attending one subject in the current section. Note that we have used
+      #uniq method to remove the duplicates(duplicates will be there when a student attends more than one arrear subject in the current section)
+      required_stu_ids = @section.students.select('id').map{|x| x.id } + @section.arrear_students.for_semester(@semester.id).select('student_id').map{|y| y.student_id}.uniq
+      #Find the students that have to be removed from the Mark record for the current combination.
+      (existing_stu_ids - required_stu_ids).each do |del_stu_id|
+        d = Mark.for_section(@section.id).for_exam(@exam.id).for_semester(@semester.id).for_student(del_stu_id).first
+        del_marks_entry << d if d
+      end
+      #Find the students that have to be added into the Mark record for the current combination.
+      (required_stu_ids - existing_stu_ids).each do |new_stu_id|
+        marks_entry << Mark.new( {:section_id => @section.id, :exam_id => @exam.id, :semester_id => @semester.id, :student_id => new_stu_id })
+      end      
+    end
+    if marks_entry.all?(&:valid?)   #[].all?(&:valid?) --> is always true. So, no worries if marks_entry[] is empty and del_marks_entry[] has something that shd be removed.
+      del_marks_entry.each(&:destroy) 
+      marks_entry.each(&:save!)
+      return true #return a success
+    else
+      return false #if the new entries are not valid return a failure.
+    end	  	
+  end
 end

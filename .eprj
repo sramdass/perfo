@@ -149,7 +149,7 @@
             <key>applichel</key>
             <string>app\helpers\application_helper.rb</string>
             <key>arrear</key>
-            <string>app\views\sections\_arrear_students_form.html.erb</string>
+            <string>app\models\arrear_student.rb</string>
             <key>arrears</key>
             <string>app\views\sections\_arrear_students_form.html.erb</string>
             <key>arrearstu</key>
@@ -193,6 +193,8 @@
             <key>comm</key>
             <string>app\assets\javascripts\common.js</string>
             <key>common</key>
+            <string>app\assets\javascripts\common.js</string>
+            <key>common.</key>
             <string>app\assets\javascripts\common.js</string>
             <key>common.j</key>
             <string>app\assets\javascripts\common.js</string>
@@ -444,8 +446,18 @@
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>mark.rb</key>
             <string>app\models\mark.rb</string>
+            <key>mark_fi</key>
+            <string>app\views\sections\_mark_fields.html.erb</string>
+            <key>marks</key>
+            <string>app\views\sections\marks.html.erb</string>
             <key>marks.js</key>
             <string>app\views\sections\marks.js.erb</string>
+            <key>marks.js.</key>
+            <string>app\views\sections\marks.js.erb</string>
+            <key>marks_fo</key>
+            <string>app\views\selectors\_marks_form.html.erb</string>
+            <key>marks_for</key>
+            <string>app\views\sections\_marks_form.html.erb</string>
             <key>marks_form</key>
             <string>app\views\selectors\_marks_form.html.erb</string>
             <key>migr</key>
@@ -518,6 +530,8 @@
             <string>app\views\students\_pre_college_mark_fields.html.erb</string>
             <key>pre_colleg</key>
             <string>app\models\pre_college_mark.rb</string>
+            <key>precol</key>
+            <string>app\views\students\_pre_college_mark_fields.html.erb</string>
             <key>precolle</key>
             <string>app\views\students\_pre_college_mark_fields.html.erb</string>
             <key>precollege</key>
