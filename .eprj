@@ -8,6 +8,8 @@
             <string>app\models\arrear_student.rb</string>
             <key>FACULTCON</key>
             <string>app\controllers\faculties_controller.rb</string>
+            <key>GEMFIL</key>
+            <string>Gemfile</string>
             <key>ROUTE</key>
             <string>config\routes.rb</string>
             <key>TENANT.R</key>
@@ -109,7 +111,7 @@
             <key>applicatiocon</key>
             <string>..\multitenants\app\controllers\application_controller.rb</string>
             <key>application</key>
-            <string>app\helpers\application_helper.rb</string>
+            <string>app\controllers\application_controller.rb</string>
             <key>application.html</key>
             <string>app\views\layouts\application.html.erb</string>
             <key>application.j</key>
@@ -298,6 +300,10 @@
             <string>app\models\designation.rb</string>
             <key>devel</key>
             <string>config\environments\development.rb</string>
+            <key>develop</key>
+            <string>log\development.log</string>
+            <key>develop.r</key>
+            <string>config\environments\development.rb</string>
             <key>edit</key>
             <string>app\views\password_resets\edit.html.erb</string>
             <key>edit.ht</key>
@@ -318,6 +324,8 @@
             <string>app\views\sections\exams.html.erb</string>
             <key>exams_Co</key>
             <string>app\controllers\exams_controller.rb</string>
+            <key>exce</key>
+            <string>lib\exceptions.rb</string>
             <key>exmscon</key>
             <string>app\controllers\exams_controller.rb</string>
             <key>faccont</key>
@@ -521,6 +529,8 @@
             <key>pgto</key>
             <string>app\pgtools\pgtools.rb</string>
             <key>pgtoo</key>
+            <string>app\pgtools\pgtools.rb</string>
+            <key>pgtools</key>
             <string>app\pgtools\pgtools.rb</string>
             <key>pickse</key>
             <string>app\views\sections\pick_semsec.html.erb</string>
@@ -728,6 +738,8 @@
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>semi_index</key>
             <string>app\views\shared\_semi_index.html.erb</string>
+            <key>sessio</key>
+            <string>app\controllers\sessions_controller.rb</string>
             <key>sessions</key>
             <string>app\controllers\sessions_controller.rb</string>
             <key>sessions_C</key>
@@ -832,6 +844,8 @@
             <string>app\views\sections\_subjects_form.html.erb</string>
             <key>tenaman</key>
             <string>app\models\tenant_manager.rb</string>
+            <key>tenan</key>
+            <string>app\controllers\tenants_controller.rb</string>
             <key>tenancont</key>
             <string>app\controllers\tenants_controller.rb</string>
             <key>tenant</key>

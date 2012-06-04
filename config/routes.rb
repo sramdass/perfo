@@ -8,7 +8,6 @@ Perfo::Application.routes.draw do
   get 'logout'			 						=> 'sessions#destroy', 						:as => 'logout'
   
   match '/dashboard', 				to: 'sessions#dashboard' , 				:as => 'dashboard'    
-  get 'invalid_tenant'					=> 'tenants#invalid',							:as => 'invalid_tenant'
   
   resources :tenants do
     member do

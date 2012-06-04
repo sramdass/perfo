@@ -50,9 +50,7 @@ class TenantsController < ApplicationController
     @tenant.destroy
     redirect_to tenants_path
   end
-  
-  def invalid
-  end
+
   
   def activate_options
     @tenant = Tenant.find_by_activation_token!(params[:id])  	

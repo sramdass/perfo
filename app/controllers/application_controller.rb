@@ -1,13 +1,16 @@
 class ApplicationController < ActionController::Base
   require 'pgtools'
+  require 'exceptions'
+
   helper_method :current_tenant, :current_profile, :current_ability, :admin?
   protect_from_forgery
-  #This filter is skipped for the following controllers (corresponds to the admin access)
-  #Skipped controllers :- Tenants, Resources
-  #If this is not skipped, there will be an infinite redirect when we redirect
-  #to invalid_tenant_url
+
   before_filter :load_tenant_and_validate_profile
   before_filter :mailer_set_url_options  
+  
+  #Provide the exceptions handler here.
+  #rescue_from ActiveRecord::RecordNotFound, :with => :rescue_not_found  
+  rescue_from Exceptions::InvalidTenant, :with => :rescue_invalid_tenant
   
   rescue_from CanCan::AccessDenied do |exception|
    if current_profile
@@ -24,10 +27,7 @@ class ApplicationController < ActionController::Base
   	elsif
   	  @current_tenant = Tenant.find_by_subdomain(request.subdomain) #Uses ActiveRecord::Base's connection.
   	  #@current_tenant = Tenant.find_by_subdomain("abc")   	
-      if !@current_tenant
-        redirect_to invalid_tenant_url
-        return
-      end
+      raise Exceptions::InvalidTenant  if !@current_tenant
       #For every request, we just check the schema path and update if it is not correct.
       if TenantManager.connection.schema_search_path != @current_tenant.subdomain
         TenantManager.connection.schema_search_path = @current_tenant.subdomain
@@ -70,6 +70,33 @@ class ApplicationController < ActionController::Base
   #This will return the ability of the current_profile
   def current_ability
     @current_ability ||= Ability.new(current_profile)
-  end	  
+  end
+  
+  protected
+  def rescue_not_found
+    respond_to do |type|
+      type.html { render :file => "#{Rails.root}/public/500.html", :status => "500 Error" }
+      type.all  { render :nothing => true, :status => "500 Error" }
+    end
+  end  	  
+  
+  def rescue_invalid_tenant
+    render :file => "#{Rails.root}/public/invalid_tenant.html", :status => "500 Error" 
+  end
+  
+  #def local_request?
+  #  false
+  #end
+  #
+  #def rescue_action_in_public(exception)
+  #  case exception
+  #  when ActiveRecord::RecordNotFound
+  #    render :file => "#{Rails.root}/public/404.html", :status => 404
+  #  else
+  #    super
+  #  end
+  #end
+  
+  
   
 end

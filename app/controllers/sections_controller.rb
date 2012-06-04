@@ -235,23 +235,23 @@ class SectionsController < ApplicationController
   #We need a render :marks in the update_marks action to display the error fields in case of an error.
   def marks
   	#When there is a valid section, semester and exam - create the mark sheet.
-  	status = true  #This is required when we request the selector form without the marksheet.
   	if @section && @exam && @semester
-  	  status = create_mark_sheet
-  	end
-    respond_to do |format|
-      format.html do
-      	#Make these elements nil so that we do not render the mark sheet in the view. 
-      	if !status
-      	  @section = @exam = @semester = nil
-          flash[:error] = "Error while fetching the marksheet."
+  		
+      respond_to do |format|
+        format.html do
+      	  #Make these elements nil so that we do not render the mark sheet in the view. 
+      	  if !create_mark_sheet
+      	    @section = @exam = @semester = nil
+            flash[:error] = "Error while fetching the marksheet."
+          end
+        end
+        format.js do
+      	  if !create_mark_sheet
+            @js_error = "Error while fetching the marksheet"
+          end
         end
       end
-      format.js do
-      	if !status
-          @js_error = "Error while fetching the marksheet"
-        end
-      end
+      
     end      	
   end
   
@@ -268,10 +268,14 @@ class SectionsController < ApplicationController
   private
   #this is a before_filter and is used to load the required resources.  
   def check_semester
-    @semester = Semester.find(params[:semester_id]) if params[:semester_id]
-    @batch = Batch.find(params[:batch_id]) if params[:batch_id] 
-  	@section = Section.find(params[:section_id]) if params[:section_id] 
-  	@exam = Exam.find(params[:exam_id]) if params[:exam_id]
+  	begin
+      @semester = Semester.find(params[:semester_id]) if params[:semester_id]
+      @batch = Batch.find(params[:batch_id]) if params[:batch_id]
+      @section = Section.find(params[:section_id]) if params[:section_id]
+  	  @exam = Exam.find(params[:exam_id]) if params[:exam_id]
+  	rescue Exception => exc
+  	  #Do not do anything here, as we are going to take care in each of the controller action.
+  	end
   end
 
   #Module to return the mark_column value if there is already a sec_sub_map existing for the given subject_id +

@@ -2,7 +2,6 @@
 	<%= form_for @section, :url => update_marks_section_path(@section), :method => :post, :html => { :class => "form-horizontal" } do |f| %>
   <legend> Mark Sheet </legend>
     <fieldset>
-    	<%=f.object.name%>
       Section: <%= @section.name %><br>
       Semester: <%= @semester.name%><br><br>
       Exam: <%= @exam.name%><br><br>
