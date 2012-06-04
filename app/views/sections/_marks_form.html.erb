@@ -5,14 +5,22 @@
       Section: <%= @section.name %><br>
       Semester: <%= @semester.name%><br><br>
       Exam: <%= @exam.name%><br><br>
+      <% #section_id is provided as params[:id] %>
       <%= hidden_field_tag 'semester_id', nil, :value => @semester.id %>    	
       <%= hidden_field_tag 'exam_id', nil, :value => @exam.id %>    	
 <table class="input_form_table">
 	<thead>
     	<tr>
-        	<th>Student Name</th>
+        	<th>Name</th>
         	<% @section.sec_sub_maps.order('subject_id ASC').each do |ssmap| %>
-        	  <th><%= ssmap.subject.name %></th>
+        	  <th>
+        	  	<%= ssmap.subject.name %>
+        	  	<% mc =  MarkCriteria.for_section(@section.id).for_semester(@semester.id).for_exam(@exam.id).for_subject(ssmap.subject_id).first %>
+        	  	<% max_marks = mc.max_marks if mc%>
+        	  	<% pass_marks = mc.pass_marks if mc%>
+        	  	<p><%=  text_field_tag "pass_marks[#{ssmap.subject_id}]", pass_marks, :placeholder => 'pass marks', :class => 'span1' %></p>
+        	  	<p><%=  text_field_tag "max_marks[#{ssmap.subject_id}]", max_marks, :placeholder => 'max marks', :class => 'span1' %></p>
+        	  </th>
         	<% end %>
         	<th>Total</th>
         	<th>Grade</th>

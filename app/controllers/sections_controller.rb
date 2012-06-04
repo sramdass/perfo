@@ -257,7 +257,16 @@ class SectionsController < ApplicationController
   
   def update_marks
     #@section = Section.find(params[:id])
-    if @section.update_attributes(params[:section])
+    mark_crits = []
+    @section.sec_sub_maps.each do |ssmap|
+      mc = MarkCriteria.find_or_create_by_section_id_and_subject_id_and_exam_id_and_semester_id(@section.id, ssmap.subject_id, @exam.id, @semester.id)
+      #assign in this order - param value or already existing value(if this is not a new record) or default value (if this is a new record and the params is blank)
+      mc.max_marks = params[:max_marks]["#{ssmap.subject_id}"] if params[:max_marks]["#{ssmap.subject_id}"]
+      mc.pass_marks = params[:pass_marks]["#{ssmap.subject_id}"] if params[:pass_marks]["#{ssmap.subject_id}"]
+      mark_crits << mc
+	end
+    if mark_crits.all?(&:valid?) && @section.update_attributes(params[:section])
+      mark_crits.each(&:save!)
       redirect_to(marks_sections_path(:section_id => params[:id], :semester_id => @semester.id, :exam_id => @exam.id),  :notice => 'Marks successfully updated')
     else
       flash.now[:error] = "Cannot update marks"
