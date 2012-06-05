@@ -694,6 +694,8 @@
             <string>db\migrate\20120417143225_add_section_id_to_students.rb</string>
             <key>sectioncont</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>sections_C</key>
+            <string>app\controllers\sections_controller.rb</string>
             <key>sections_c</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sections_co</key>

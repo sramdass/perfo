@@ -19,35 +19,61 @@ function populateDropdown(select, data) {
 }
 
 $(function() {
-/* This code is for the search form in Tenants index */
+// This code is for the search form in Tenants index 
 $("#tenant_expired").click(function() {
     if ($(this).is(":checked")) {
-        var current_date = $(this).attr('value');
+    	var current_date = $(this).attr('value');
         $("#tenant_subscription_to_gt").attr('value', current_date);
     } else {
         $("#tenant_subscription_to_gt").removeAttr('value');
     }
-	});
+});
 	
-  $('.datatable_full').dataTable();
+$('.datatable_full').dataTable();
+  
+//For the selector forms. Refer _marks_form.html.erb and _form.html.erb in views\selectors\
+$('#batch-selector, #section-selector, #exam-selector, #selector-submit ').attr('disabled', 'disabled');
 
 $('.selector-form').submit(function() {
-      $.get($(this).data("target_url"), $(this).serialize(), null, "script");
-      return false;
-  });  
+	$.get($(this).data("target_url"), $(this).serialize(), null, "script");
+    return false;
+});  
 
-
-$(".selector-form select, .selector-form-html select").change(function() {     
-  var target = $(this).data('target');
-  //Form the element id of the select object that needs to be populated.
-  target_select = $('#' + target);
-  $.get("/selectors", 
-  			{ base: $(this).data('base'), required: $(this).data('required'), base_id: $(this).val() }, 
-  			function(dyndata) {
-      		  populateDropdown(target_select, dyndata);
+//To enable, disable, populate the selector forms.
+//Refer _marks_form.html.erb and _form.html.erb in views\selectors\
+$(".selector-form select, .selector-form-html select").live("change",function() {     
+	//The child select box of the current select box
+  	var target = $(this).data('target');
+  	//Form the element id of the select object that needs to be populated.
+  	target_select = $('#' + target);
+  	//If some value is selected in the current select box, populate the child select box.
+  	//Otherwise, disable all the child select boxes and the submit button.
+  	if ($(this).val() != "") {
+  		target_select.removeAttr('disabled');
+  	} else {
+  		//Traverse to find all the children. When the selector is of zero length, we know
+  		//it is not a valid selector.
+  		while(target_select.length) {
+  			//Do not change the value of the submit button. Otherwise the button will
+  			//not have anything written in it. For the select boxes, make the value as blank
+  	  		if (target_select.attr("type") != "submit"){
+  	    		target_select.val("");
+  	  		}
+  	  		//Disable the select box or the submit button
+  	  		target_select.attr('disabled', 'disabled');
+  	  		//Find the next child item that has to be disabled. If it is the last child, the submit button,
+  	  		//it will not have any further children, and the selector will not be valid (length = zero)
+  	  		target_select = $('#' + target_select.data('target'))
+  	  	}
+  	}
+  	//After disabling/enabling, do the data population. Note that this part of the code is still in the change event.
+	$.get("/selectors", 
+  			{ base: $(this).data('base'), required: $(this).data('required'), base_id: $(this).val() }, //parameters
+  			function(dyndata) { //this function will have the data that is returned
+      		  populateDropdown(target_select, dyndata); //call to populate the data
   			}, 
-  			"json");
-  });  
+  			"json"); //Type of the request should be specified
+});   //End of the change event handler.
   
 //Roles.
 //hide the textbox with through which the permission values are sent.
@@ -73,12 +99,12 @@ $(document).on("click", ".token-input", null, function(){
     $(this).tokenInput(function() {  
 		return '/selectors/students.json';
 	}, 	{
-      crossDomain: false,
-      prePopulate: $(this).data("pre"),
-      propertyToSearch: 'rabl_name',
-      preventDuplicates: true,
-      minChars: 3
-      //theme: "facebook"
+    	crossDomain: false,
+    	prePopulate: $(this).data("pre"),
+    	propertyToSearch: 'rabl_name',
+    	preventDuplicates: true,
+    	minChars: 3
+    	//theme: "facebook"
     });
 });
 

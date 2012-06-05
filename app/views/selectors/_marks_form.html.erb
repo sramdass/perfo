@@ -20,50 +20,47 @@
       #for the selection-data during rendering. If any non-empty list is provided there, the values keep coming up in the select
       #box for a short time when you select.
 %>
-<%= form_tag '/sections/marks', :method => 'get', :class => "selector-form-html form-horizontal", :data => {:target_url => target_url} do %>
-<fieldset>
-  <div class="control-group">
-    <%= label_tag "Semester",nil, :class=> "control-label" %>
-    <div class="controls">
-      <%= select_tag( :semester_id, options_from_collection_for_select(@semesters, "id", "name"),
-      																	:include_blank => true, 
-      																	:id => 'semester-selector',
-      																	:class => 'span3', 
-      																	:data => {:base => 'semester', :required => 'batch', :target => 'batch-selector'}) %> 	 
-      
-	</div>
-  </div>
-  <div class="control-group">
-    <%= label_tag "Batch",nil, :class=> "control-label" %>
-    <div class="controls">
-      <%= select_tag( :batch_id, options_from_collection_for_select([], "id", "name"),
-      																	:include_blank => true, 
-      																	:id => 'batch-selector', 
-      																	:class => 'span3',
-      																	:data => {:base => 'batch', :required => 'section', :target => 'section-selector'}) %>      																	 	
-	</div>   	    
-  </div> 
-  <div class="control-group">
-    <%= label_tag "Section",nil, :class=> "control-label" %>
-    <div class="controls">
-      <%= select_tag( :section_id, options_from_collection_for_select([], "id", "name"),
-      																	:include_blank => true, 
-      																	:class => 'span3',
-      																	:id => 'section-selector',
-      																	:data => {:base => 'section', :required => 'exam', :target => 'exam-selector'}) %>      																	 	
-	</div>   	    
-  </div>  	      	
-  <div class="control-group">
-    <%= label_tag "Exam",nil, :class=> "control-label" %>
-    <div class="controls">
-      <%= select_tag( :exam_id, options_from_collection_for_select([], "id", "name"),
-      																	:include_blank => true, 
-      																	:class => 'span3',
-      																	:id => 'exam-selector') %>
-	</div>   	    
-  </div>  	      	  
-  <div class="form-actions">
-    <%= submit_tag nil, :class => "btn btn-inverse"%>
-  </div>
-</fieldset>
+<%= form_tag '/sections/marks', :method => 'get', :class => "selector-form-html form-inline", :data => {:target_url => target_url} do %>
+  <table>
+    <tr>
+    	<td>Semester</td>
+    	<td>Batch</td>
+    	<td>Section</td>
+    	<td>Exam</td>
+    	<td></td>
+    </tr>
+    <tr>
+      <td>
+        <%= select_tag( :semester_id, options_from_collection_for_select(@semesters, "id", "name"),
+        																	:include_blank => true, 
+        																	:id => 'semester-selector',
+        																	:class => 'span2', 
+        																	:data => {:base => 'semester', :required => 'batch', :target => 'batch-selector'}) %> 	 
+      </td>																	        
+      <td>
+        <%= select_tag( :batch_id, options_from_collection_for_select([], "id", "name"),
+        																	:include_blank => true, 
+        																	:id => 'batch-selector', 
+        																	:class => 'span2',
+        																	:data => {:base => 'batch', :required => 'section', :target => 'section-selector'}) %>      																	 	
+      </td>
+      <td>
+        <%= select_tag( :section_id, options_from_collection_for_select([], "id", "name"),
+        																	:include_blank => true, 
+        																	:class => 'span3',
+        																	:id => 'section-selector',
+        																	:data => {:base => 'section', :required => 'exam', :target => 'exam-selector'}) %>      																	 	
+      </td>        																	
+      <td>
+        <%= select_tag( :exam_id, options_from_collection_for_select([], "id", "name"),
+        																	:include_blank => true, 
+        																	:class => 'span2',
+        																	:id => 'exam-selector',
+        																	:data => {:target =>'selector-submit'} ) %>
+      </td>
+      <td>													
+        <%= submit_tag nil, :class => "btn btn-inverse", :id => 'selector-submit' %>
+      </td>
+    </tr>
+  </table>
 <% end %>  
