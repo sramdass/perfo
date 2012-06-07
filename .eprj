@@ -462,9 +462,15 @@
             <string>app\models\mark.rb</string>
             <key>mark_c</key>
             <string>app\models\mark_criteria.rb</string>
+            <key>mark_crit</key>
+            <string>app\models\mark_criteria.rb</string>
             <key>mark_fi</key>
             <string>app\views\sections\_mark_fields.html.erb</string>
+            <key>mark_fie</key>
+            <string>app\views\sections\_mark_fields.html.erb</string>
             <key>markcr</key>
+            <string>app\models\mark_criteria.rb</string>
+            <key>markcri</key>
             <string>app\models\mark_criteria.rb</string>
             <key>marks</key>
             <string>app\views\sections\marks.html.erb</string>
@@ -682,6 +688,8 @@
             <string>app\controllers\sections_controller.rb</string>
             <key>sectins_c</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>sectinsco</key>
+            <string>app\controllers\sections_controller.rb</string>
             <key>sectio.</key>
             <string>app\models\section.rb</string>
             <key>section.</key>
@@ -705,6 +713,8 @@
             <key>sections_co</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sections_con</key>
+            <string>app\controllers\sections_controller.rb</string>
+            <key>sectionscon</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sectionscont</key>
             <string>app\controllers\sections_controller.rb</string>

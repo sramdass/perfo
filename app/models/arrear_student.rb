@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: arrear_students
+#
+#  id          :integer         not null, primary key
+#  section_id  :integer
+#  semester_id :integer
+#  subject_id  :integer
+#  student_id  :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class ArrearStudent < TenantManager
   belongs_to :section
   validates_associated :section

@@ -1,5 +1,5 @@
 <%# form_tag url_for(:controller => 'sections', :action => 'update_marks', :id => @section.id), :method => 'post', :class => "form-horizontal" do %>
-	<%= form_for @section, :url => update_marks_section_path(@section), :method => :post, :html => { :class => "form-horizontal" } do |f| %>
+	<%= simple_form_for @section, :url => update_marks_section_path(@section), :method => :post, :html => { :class => "form-horizontal" } do |f| %>
   <legend> Mark Sheet </legend>
     <fieldset>
       Section: <%= @section.name %><br>
@@ -15,9 +15,16 @@
         	<% @section.sec_sub_maps.order('subject_id ASC').each do |ssmap| %>
         	  <th>
         	  	<%= ssmap.subject.name %>
+        	  	<% #In case of invalid marks, we need to populate the invalid pass marks or max marks. Note that we are using text_field_tag - the
+        	  	       #marks will not be automatically populated
+        	  	   %>
+        	  	<% max_marks = params[:max_marks]["#{ssmap.subject_id}"] if  params[:max_marks] && params[:max_marks]["#{ssmap.subject_id}"] %>
+                <% pass_marks = params[:pass_marks]["#{ssmap.subject_id}"] if  params[:max_marks] && params[:pass_marks]["#{ssmap.subject_id}"] %>
+                
         	  	<% mc =  MarkCriteria.for_section(@section.id).for_semester(@semester.id).for_exam(@exam.id).for_subject(ssmap.subject_id).first %>
-        	  	<% max_marks = mc.max_marks if mc%>
-        	  	<% pass_marks = mc.pass_marks if mc%>
+        	  	<% max_marks = mc.max_marks if !max_marks && mc%>
+        	  	<% pass_marks = mc.pass_marks if !pass_marks && mc%>
+        	  	
         	  	<p><%=  text_field_tag "pass_marks[#{ssmap.subject_id}]", pass_marks, :placeholder => 'pass marks', :class => 'span1' %></p>
         	  	<p><%=  text_field_tag "max_marks[#{ssmap.subject_id}]", max_marks, :placeholder => 'max marks', :class => 'span1' %></p>
         	  </th>
@@ -30,8 +37,10 @@
     </thead>
     <tbody>		
     <% #display only the rows that correspond only to the curreent semester + exam  %>
-	<%= f.simple_fields_for :marks, @section.marks.for_semester(@semester.id).for_exam(@exam.id).all do |builder| %>	
-	  <%= render "mark_fields", :f => builder %>	 	  
+	<%= f.simple_fields_for :marks do |builder| %>
+	  <% if builder.object.semester_id == @semester.id && builder.object.exam_id == @exam.id %>	
+	    <%= render "mark_fields", :f => builder %>	 	  
+	  <% end %>
 	<% end %>
     </tbody>		
 </table>		

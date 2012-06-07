@@ -265,8 +265,14 @@ class SectionsController < ApplicationController
       mc.pass_marks = params[:pass_marks]["#{ssmap.subject_id}"] if params[:pass_marks]["#{ssmap.subject_id}"]
       mark_crits << mc
 	end
-    if mark_crits.all?(&:valid?) && @section.update_attributes(params[:section])
+    if mark_crits.all?(&:valid?)
       mark_crits.each(&:save!)
+    else
+      flash.now[:error] = "Invalid Max marks or Invalid Pass marks"
+      render :marks
+      return
+    end    	
+    if @section.update_attributes(params[:section])
       redirect_to(marks_sections_path(:section_id => params[:id], :semester_id => @semester.id, :exam_id => @exam.id),  :notice => 'Marks successfully updated')
     else
       flash.now[:error] = "Cannot update marks"
