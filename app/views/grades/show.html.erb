@@ -1,0 +1,21 @@
+<%= render 'shared/de_nav_links',:active => "grades" %>
+<div class="span9">
+	<legend><%= @grade.name %> </legend>
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <td>Cut off Percentage</td>
+        <td><%= @grade.cut_off_percentage %></td>
+      </tr>
+      <tr>
+        <td>Color Code</td>
+        <td><%= @grade.color_code %></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td><%= @grade.description %></td>
+      </tr>
+    </tbody>  
+  </table>
+  <%= render 'shared/controller_action_buttons', :obj => @grade, :action => "show" %>    
+</div>

@@ -258,6 +258,8 @@
             <string>app\views\shared\_de_batches_nav_pills.html.erb</string>
             <key>de_nav</key>
             <string>app\views\shared\_de_nav_links.html.erb</string>
+            <key>de_nav_li</key>
+            <string>app\views\shared\_de_nav_links.html.erb</string>
             <key>de_seme</key>
             <string>app\views\shared\_de_semesters_nav_pills.html.erb</string>
             <key>delin</key>
@@ -386,6 +388,8 @@
             <string>Gemfile</string>
             <key>gemfl</key>
             <string>..\subdomain\Gemfile</string>
+            <key>grade_criterco</key>
+            <string>app\controllers\grade_criterias_controller.rb</string>
             <key>hod.rb</key>
             <string>app\models\hod.rb</string>
             <key>hodshtm</key>

@@ -114,6 +114,20 @@
           </li>
       <% end %>        
       
+      <% if active == "grades"%>
+        <li class= "active">
+          <%= link_to grades_path do %>
+            <i class="icon-file"> </i> Grades
+          <% end %>   
+        </li>
+      <% else %>
+          <li>
+            <%= link_to grades_path do %>
+              <i class="icon-file"> </i> Grades
+            <% end %>   
+          </li>
+      <% end %>           
+      
       <li class="divider"></li>            
       
    	  <li class="nav-header">DATA ENTRY </li>

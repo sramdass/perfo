@@ -34,7 +34,9 @@ module ApplicationHelper
   	  when  "Role"
   	    edit_role_path(obj)  	      	  	
   	  when  "UserProfile"
-  	    edit_user_profile_path(obj)  	     	             	     	       	     
+  	    edit_user_profile_path(obj) 
+  	  when  "Grade"
+  	    edit_grade_path(obj)  	     	  	           	     	       	     
   	 when nil
   	    nil
     end
@@ -70,6 +72,8 @@ module ApplicationHelper
   	    roles_path 	    	        	      
   	  when  "UserProfile"
   	    user_profiles_path   	    
+  	  when  "Grade"
+  	    grades_path   	     	    
   	 when nil
   	    nil
     end
@@ -104,7 +108,9 @@ module ApplicationHelper
   	  when  "Role"
   	    new_role_path 
   	  when  "UserProfile"
-  	    new_user_profile_path  	      	            
+  	    new_user_profile_path  	      
+  	  when  "Grade"
+  	    new_grade_path  	      	    	            
   	 when nil
   	    nil
     end
