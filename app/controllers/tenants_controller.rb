@@ -53,16 +53,18 @@ class TenantsController < ApplicationController
 
   
   def activate_options
-    @tenant = Tenant.find_by_activation_token!(params[:id])  	
+    @tenant = Tenant.find_by_activation_token!(params[:key])  	
   end
   
   def activate
     @tenant = Tenant.find_by_activation_token!(params[:id])  	
+    #@tenant = Tenant.find(params[:id])
     @tenant.subdomain = params[:tenant][:subdomain]
     if @tenant.subdomain && @tenant.save
       @tenant.create_profile(params[:tenant][:admin_login], params[:tenant][:password])
       @tenant.save!
-      redirect_to login_url(:subdomain => @tenant.subdomain), :notice => "Account Activated. Please Login."
+      flash[:notice] = "Account activated. Please login!"
+      redirect_to login_url(:subdomain => @tenant.subdomain)
     else
       render :activate_options
     end

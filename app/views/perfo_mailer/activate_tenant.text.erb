@@ -1,4 +1,3 @@
 Click the following link to finish your account creation process. 
-
-<%= activate_options_tenant_url(CGI.escape(@tenant.activation_token)) %>
+<%= activate_options_tenant_url(@tenant, :key => @tenant.activation_token) %>
 

@@ -44,7 +44,11 @@
             <string>app\views\resources\_resource_action_fields.html.erb</string>
             <key>actionhel</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>activ</key>
+            <string>app\views\perfo_mailer\activate_tenant.text.erb</string>
             <key>activate</key>
+            <string>app\views\tenants\activate_options.html.erb</string>
+            <key>activateo</key>
             <string>app\views\tenants\activate_options.html.erb</string>
             <key>add_</key>
             <string>db\migrate\20120415025550_add_parent_mobile_to_contacts.rb</string>
@@ -68,6 +72,8 @@
             <string>app\helpers\application_helper.rb</string>
             <key>apphelper</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>apphtm</key>
+            <string>app\views\layouts\application.html.erb</string>
             <key>applcco</key>
             <string>app\controllers\application_controller.rb</string>
             <key>appli</key>
@@ -86,6 +92,8 @@
             <string>config\application.rb</string>
             <key>applicacon</key>
             <string>app\controllers\application_controller.rb</string>
+            <key>applicacont</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicahel</key>
             <string>app\helpers\application_helper.rb</string>
             <key>applicaicon</key>
@@ -98,6 +106,8 @@
             <string>app\controllers\application_controller.rb</string>
             <key>applicathel</key>
             <string>app\helpers\application_helper.rb</string>
+            <key>applicati</key>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicati_c</key>
             <string>app\controllers\application_controller.rb</string>
             <key>applicatin.rb</key>
@@ -718,6 +728,8 @@
             <string>app\controllers\sections_controller.rb</string>
             <key>sectionscont</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>seeds</key>
+            <string>db\seeds.rb</string>
             <key>seeds.</key>
             <string>db\seeds.rb</string>
             <key>seeds.r</key>
@@ -880,6 +892,8 @@
             <string>app\models\tenant.rb</string>
             <key>tenant_fi</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
+            <key>tenanta</key>
+            <string>app\models\tenant_manager.rb</string>
             <key>tenantfi</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>tenantfil</key>

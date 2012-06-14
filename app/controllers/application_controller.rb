@@ -36,7 +36,12 @@ class ApplicationController < ActionController::Base
   end
   
   def mailer_set_url_options
-    ActionMailer::Base.default_url_options[:host] = "#{request.subdomain}.lvh.me:3000"
+    #ActionMailer::Base.default_url_options[:host] = "#{request.subdomain}.lvh.me:3000"
+    if request.subdomain == ""
+      ActionMailer::Base.default_url_options[:host] = "#{request.host_with_port}"
+    else
+      ActionMailer::Base.default_url_options[:host] = "#{request.subdomain}.#{request.host_with_port}"
+    end
   end    
   
   def first_run?
