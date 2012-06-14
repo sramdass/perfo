@@ -60,4 +60,6 @@ Perfo::Application.configure do
   
   #config.assets.digest  = true  
   #config.assets.precompile = %w{application.js}  
+  
+  config.action_mailer.delivery_method = :smtp  
 end

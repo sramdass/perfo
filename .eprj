@@ -10,6 +10,8 @@
             <string>app\controllers\faculties_controller.rb</string>
             <key>GEMFIL</key>
             <string>Gemfile</string>
+            <key>PROCF</key>
+            <string>Procfile</string>
             <key>ROUTE</key>
             <string>config\routes.rb</string>
             <key>TENANT.R</key>
@@ -310,6 +312,8 @@
             <string>app\models\designation.rb</string>
             <key>desin</key>
             <string>app\models\designation.rb</string>
+            <key>deve</key>
+            <string>config\environments\development.rb</string>
             <key>devel</key>
             <string>config\environments\development.rb</string>
             <key>develop</key>
@@ -466,6 +470,10 @@
             <string>app\from_builders\labeled_form_builder.rb</string>
             <key>label</key>
             <string>app\from_builders\labeled_form_builder.rb</string>
+            <key>mail</key>
+            <string>config\initializers\setup_mail.rb</string>
+            <key>maile</key>
+            <string>app\mailers\perfo_mailer.rb</string>
             <key>mark.r</key>
             <string>app\models\mark.rb</string>
             <key>mark.rb</key>
@@ -806,6 +814,8 @@
             <string>app\views\school_types\show.html.erb</string>
             <key>show.rb</key>
             <string>app\views\user_profiles\show.html.erb</string>
+            <key>stagi</key>
+            <string>config\environments\staging.rb</string>
             <key>stu_sub</key>
             <string>..\tester\app\models\stu_sub_map.rb</string>
             <key>studen</key>
