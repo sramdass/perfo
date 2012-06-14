@@ -474,6 +474,8 @@
             <string>config\initializers\setup_mail.rb</string>
             <key>maile</key>
             <string>app\mailers\perfo_mailer.rb</string>
+            <key>mailer</key>
+            <string>app\mailers\perfo_mailer.rb</string>
             <key>mark.r</key>
             <string>app\models\mark.rb</string>
             <key>mark.rb</key>
