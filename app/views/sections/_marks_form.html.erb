@@ -36,7 +36,7 @@
         </tr>
     </thead>
     <tbody>		
-    <% #display only the rows that correspond only to the curreent semester + exam  %>
+    <% #display only the rows that correspond only to the current semester + exam  %>
 	<%= f.simple_fields_for :marks do |builder| %>
 	  <% if builder.object.semester_id == @semester.id && builder.object.exam_id == @exam.id %>	
 	    <%= render "mark_fields", :f => builder %>	 	  
