@@ -27,7 +27,8 @@ group :development do
   #gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'annotate', '~> 2.4.1.beta'
   #gem 'letter_opener', :git => 'https://github.com/bensmith283/letter_opener.git', :ref => '2024663'
-  gem 'letter_opener', :git => 'https://github.com/bensmith283/letter_opener.git', :branch => 'bugfix_windows_URI'
+  #gem 'letter_opener', :git => 'https://github.com/bensmith283/letter_opener.git', :branch => 'bugfix_windows_URI'
+  #gem 'letter_opener'
 end
 
 group :production, :staging do
