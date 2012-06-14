@@ -57,7 +57,7 @@ class TenantsController < ApplicationController
   end
   
   def activate
-    @tenant = Tenant.find_by_activation_token!(params[:id])  	
+    @tenant = Tenant.find_by_activation_token!(params[:key])  	
     #@tenant = Tenant.find(params[:id])
     @tenant.subdomain = params[:tenant][:subdomain]
     if @tenant.subdomain && @tenant.save
