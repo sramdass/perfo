@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/bensmith283/letter_opener.git
   revision: 2024663d219125ea76e445656819abc55cbdd1f2
-  ref: 2024663
+  branch: bugfix_windows_URI
   specs:
     letter_opener (0.0.2)
       launchy
