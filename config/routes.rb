@@ -10,7 +10,7 @@ Perfo::Application.routes.draw do
   match '/dashboard', 				to: 'sessions#dashboard' , 				:as => 'dashboard'    
   
   resources :tenants do
-    member do
+    collection do
       get 'activate_options'
       post 'activate'
     end

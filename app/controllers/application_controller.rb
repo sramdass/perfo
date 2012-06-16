@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   require 'pgtools'
   require 'exceptions'
 
-  helper_method :current_tenant, :current_profile, :current_ability, :admin?
+  helper_method :current_tenant, :current_profile, :current_ability, :admin?, :random_string
   protect_from_forgery
 
   before_filter :load_tenant_and_validate_profile
@@ -80,6 +80,11 @@ class ApplicationController < ActionController::Base
   def current_ability
     @current_ability ||= Ability.new(current_profile)
   end
+  
+  def random_string
+    #Base64.encode64(Digest::SHA1.digest("#{rand(1<<64)}/#{Time.now.to_f}/#{Process.pid}/#{Time.now.to_f}"))[0..7]
+    SecureRandom.base64
+  end    
   
   protected
   def rescue_not_found

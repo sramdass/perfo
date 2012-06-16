@@ -1,8 +1,13 @@
 <div class="span12">
-  <%= simple_form_for @tenant, :url => activate_tenant_path(@tenant, :key => params[:key]), :method => :post, :html => {:class => 'form-horizontal' } do |f| %>
+  <%= simple_form_for @tenant, :url => activate_tenants_path(:key => params[:key]), :method => :post, :html => {:class => 'form-horizontal' } do |f| %>
     <legend> Account Activation </legend>
     <fieldset>
-      <%= f.input :subdomain, :required => true %>    	    	
+      <% if f.object.subdomain %>
+        <%= f.input :subdomain, :required => true, :disabled => true, :hint => "Cannot change subdomain now" %>    	 
+        <%= f.hidden_field :subdomain, :value => f.object.subdomain %>   	
+      <% else %>
+        <%= f.input :subdomain, :required => true %>    	    	
+      <% end %>
       <%= f.input :admin_login, :hint => "No spaces allowed", :required => true %>
       <%= f.input :password, :required => true %>
       <%= f.input :password_confirmation, :required => true %>

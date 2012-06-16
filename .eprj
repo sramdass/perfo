@@ -50,6 +50,8 @@
             <string>app\views\perfo_mailer\activate_tenant.text.erb</string>
             <key>activate</key>
             <string>app\views\tenants\activate_options.html.erb</string>
+            <key>activate_</key>
+            <string>app\views\tenants\activate_options.html.erb</string>
             <key>activateo</key>
             <string>app\views\tenants\activate_options.html.erb</string>
             <key>add_</key>
@@ -115,7 +117,7 @@
             <key>applicatin.rb</key>
             <string>config\application.rb</string>
             <key>applicatio</key>
-            <string>app\assets\stylesheets\application.css</string>
+            <string>app\controllers\application_controller.rb</string>
             <key>applicatio_he</key>
             <string>app\helpers\application_helper.rb</string>
             <key>applicatio_hel</key>

@@ -1,3 +1,9 @@
-Click the following link to finish your account creation process. 
-<%= activate_options_tenant_url(@tenant, :key => @tenant.activation_token) %>
+<% if @todo == "activate" %>
+  Click the following link to finish your account creation process for the tenant name "<%= @tenant.name%>"
+  <%= activate_options_tenants_url(:key => @tenant.activation_token) %>
+<% elsif @todo == "reactivate" %>
+  The Perfo account for the tenant name "<%= @tenant.name%>" has been activated AGAIN. If you cannot login to your url, please contact the administrator.
+<% elsif @todo == "deactivate" %>
+  The Perfo account for the tenant name "<%= @tenant.name%>" has been DEACTIVATED. Please contact the administrator for further information.
+<% end %>
 

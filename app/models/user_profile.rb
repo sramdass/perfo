@@ -29,7 +29,7 @@ class UserProfile < TenantManager
   accepts_nested_attributes_for :roles, :reject_if => :has_only_destroy?, :allow_destroy => true  
   
   attr_accessor :password, :profile_type
-  attr_accessible :login, :password, :password_confirmation, :profile_type, :user, :role_ids, :locked, :activated
+  attr_accessible :login, :password, :password_confirmation, :profile_type, :user, :role_ids, :locked, :activated, :roles
   before_save :encrypt_password
   before_create { generate_token(:auth_token) }
   before_validation :set_default_values, :on => :create

@@ -23,11 +23,7 @@ class TenantsController < ApplicationController
   
   def create
     #@tenant = Tenant.new(params[:tenant])
-    @tenant.activate_tenant
     if @tenant.save
-      if params[:create_and_email]
-        @tenant.send_activation_email
-      end
       flash[:notice] = "Tenant successfully created"
       redirect_to tenants_path
     else
@@ -57,15 +53,20 @@ class TenantsController < ApplicationController
   end
   
   def activate
+  	#Even though this is the same tenant we have sent in the activate_options, we cannot find the
+  	#tenant by params[:id]. Anyone can send a valid id with a post request.
     @tenant = Tenant.find_by_activation_token!(params[:key])  	
+    #Make the current activation token invalid by creating a new one
     #@tenant = Tenant.find(params[:id])
     @tenant.subdomain = params[:tenant][:subdomain]
-    if @tenant.subdomain && @tenant.save
-      @tenant.create_profile(params[:tenant][:admin_login], params[:tenant][:password])
-      @tenant.save!
+    if @tenant.subdomain && @tenant.save && @tenant.create_profile(params[:tenant][:admin_login], params[:tenant][:password], params[:tenant][:password_confirmation])
+      @tenant.activation_token = random_string #Make sure the current token becomes invalid
+      @tenant.save! #Save the activation token here
       flash[:notice] = "Account activated. Please login!"
       redirect_to login_url(:subdomain => @tenant.subdomain)
     else
+      @tenant.clear_profile
+      flash[:notice] = "Account activation failed"
       render :activate_options
     end
   end
