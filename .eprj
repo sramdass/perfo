@@ -496,6 +496,8 @@
             <string>app\models\mark_criteria.rb</string>
             <key>marks</key>
             <string>app\views\sections\marks.html.erb</string>
+            <key>marks.htm</key>
+            <string>app\views\sections\marks.html.erb</string>
             <key>marks.js</key>
             <string>app\views\sections\marks.js.erb</string>
             <key>marks.js.</key>
@@ -592,6 +594,8 @@
             <string>config\environments\production.rb</string>
             <key>produc</key>
             <string>config\environments\production.rb</string>
+            <key>reports</key>
+            <string>app\controllers\reports_controller.rb</string>
             <key>resact</key>
             <string>app\models\resource_action.rb</string>
             <key>reso_fi</key>
@@ -702,6 +706,8 @@
             <string>app\models\sec_sub_map.rb</string>
             <key>sectcon</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>sectin</key>
+            <string>app\models\section.rb</string>
             <key>sectin.r</key>
             <string>app\models\section.rb</string>
             <key>sectin.rb</key>
@@ -753,6 +759,8 @@
             <key>seleco</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>select</key>
+            <string>app\controllers\selectors_controller.rb</string>
+            <key>selectco</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>selectorco</key>
             <string>app\controllers\selectors_controller.rb</string>

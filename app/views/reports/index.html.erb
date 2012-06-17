@@ -1,0 +1,7 @@
+<% @sections = Array.new if !@sections %>
+<% @exams = Array.new if !@exams %>
+<div class="span9">
+  <%= render 'shared/de_semesters_nav_pills', :active => "marks"%>
+  <%= render 'selectors/reports_form', :target_url => '/sections/marks' %>
+  <strong> Reports page </strong>
+</div>

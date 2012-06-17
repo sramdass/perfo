@@ -53,6 +53,9 @@ class Section < TenantManager
   #For more information refer common.js and views/selectors/entity.json.rabl  
   attr_accessor :rabl_name
   
+  scope :for_department, lambda { |dept_id| where('department_id = ? ', dept_id)}           
+  scope :for_batch, lambda { |batch_id| where('batch_id = ? ', batch_id)}       
+  
   def semester_subjects
     SecSubMap.for_semester(@semester_id).for_section(@section.id).all
   end  	

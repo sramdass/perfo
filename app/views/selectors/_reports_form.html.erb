@@ -1,0 +1,73 @@
+<%
+# In case we need to use the select instead of select_tag. Note that the html_options are separate from the include_blank in the select method
+# select( 'selector', 'batch_id', @batches.collect {|bat| [ bat.name, bat.id ] }, 
+#																	{:include_blank => true }, 
+#																	{:id => 'batch-selector', :data => {:base => 'batch', :required => 'section', :target => 'section-selector'}}) 
+%>
+
+<% #Important:-  This form submit request is NOT AJAXIFIED. The class of the form is changed form selector-form (ajax) to 
+      #selector-form-html (non-ajax). Also, for the non-ajax from we need to specify the url for the form_tag. Compare this form
+      #with the _form.html's from in this same directory. If the form has to be ajaxified, the class has to be changed accordingly. 
+      
+      #This is not ajaxified because, there is a problem with render in the update_marks if there is a error. Ajaxified form requires
+      #a redirect in the update_marks. But we need a render in the mark scenario, because we are using nested_attributes for the
+      # section - mark relationship.
+      
+      #The target_url is not need here. But, we are just keeping it, incase we need to switch to ajax
+%>
+
+<% # Note that the elements of the select control is loaded on the fly, except for the semesters. So, an emty array is used for 
+      #for the selection-data during rendering. If any non-empty list is provided there, the values keep coming up in the select
+      #box for a short time when you select.
+%>
+<%= form_tag '#', :method => 'get', :class => "report-selector-form form-inline", :data => {:target_url => target_url} do %>
+  <table>
+    <tr>
+    	<td>Department</td>
+    	<td>Batch</td>
+    	<td>Section</td>
+    	<td>Semester</td>    	
+    	<td>Exam</td>
+    	<td></td>
+    </tr>
+    <tr>
+      <td>
+        <%= select_tag( :department_id, options_from_collection_for_select(@departments, "id", "name"),
+        																	:include_blank => true, 
+        																	:id => 'rep-department-selector',
+        																	:class => 'span2', 
+        																	:data => {:required => 'section', :target => 'rep-section-selector'}) %> 	 
+      </td>																	        
+      <td>
+        <%= select_tag( :batch_id, options_from_collection_for_select(@batches, "id", "name"),
+        																	:include_blank => true, 
+        																	:id => 'rep-batch-selector', 
+        																	:class => 'span2',
+        																	:data => {:required => 'section', :target => 'rep-section-selector'}) %>      																	 	
+      </td>
+      <td>
+        <%= select_tag( :section_id, options_from_collection_for_select([], "id", "name"),
+        																	:include_blank => true, 
+        																	:class => 'span3',
+        																	:id => 'rep-section-selector',
+        																	:data => {:required => 'exam', :target => 'rep-exam-selector'}) %>      																	 	
+      </td>
+      <td>
+        <%= select_tag( :semester_id, options_from_collection_for_select(@semesters, "id", "name"),
+        																	:include_blank => true, 
+        																	:class => 'span3',
+        																	:id => 'rep-semester-selector',
+        																	:data => {:required => 'exam', :target => 'rep-exam-selector'}) %>      																	 	
+      </td>           														
+      <td>
+        <%= select_tag( :exam_id, options_from_collection_for_select([], "id", "name"),
+        																	:include_blank => true, 
+        																	:class => 'span2',
+        																	:id => 'rep-exam-selector') %>
+      </td>
+      <td>													
+        <%= submit_tag nil, :class => "btn btn-inverse", :id => 'selector-submit' %>
+      </td>
+    </tr>
+  </table>
+<% end %>  

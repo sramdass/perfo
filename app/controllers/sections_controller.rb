@@ -234,6 +234,8 @@ class SectionsController < ApplicationController
   #Then marks action is not called as a ajax request from the selectors form. Refers /selectors/_marks_form.html.erb.
   #We need a render :marks in the update_marks action to display the error fields in case of an error.
   def marks
+    @semesters = Semester.all
+    @batches = Batch.all
   	#When there is a valid section, semester and exam - create the mark sheet.
   	if @section && @exam && @semester
   		

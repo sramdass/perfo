@@ -1,3 +1,3 @@
 object @entity
-attributes :id, :rabl_name
+attributes :id, :rabl_name, :name
 
