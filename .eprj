@@ -10,6 +10,8 @@
             <string>app\controllers\faculties_controller.rb</string>
             <key>GEMFIL</key>
             <string>Gemfile</string>
+            <key>PROC</key>
+            <string>Procfile</string>
             <key>PROCF</key>
             <string>Procfile</string>
             <key>ROUTE</key>
