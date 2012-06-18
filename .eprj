@@ -682,6 +682,8 @@
             <string>db\schema.rb</string>
             <key>schema.rb</key>
             <string>db\schema.rb</string>
+            <key>schemas</key>
+            <string>lib\tasks\migrate_with_schemas.rake</string>
             <key>school.rb</key>
             <string>..\tester\app\models\school.rb</string>
             <key>school_ty</key>
