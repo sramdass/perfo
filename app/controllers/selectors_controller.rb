@@ -19,21 +19,15 @@ class SelectorsController < ApplicationController
   
   def report_selector
   	#Basically we are allowing all batches, departments and semesters to be selected by default.
-  	#But a user can select a section only if he has selected a department or a batch or both.
-  	#And, a user can select an exam only if he has selected a semester or section or both.
+  	#But a user can select a section only if he has selected a department and a batch.
+  	#And, a user can select an exam only if he has selected a semester and section.
   	#According the filters, selected a suitable report will be displayed.
     if params[:required] == 'section'
       return if params[:department_id] == "" || params[:batch_id] == ""
-      sections_rel = Section
-  	  sections_rel = sections_rel.for_department(params[:department_id]) if params[:department_id] != ""
-  	  sections_rel = sections_rel.for_batch(params[:batch_id]) if params[:batch_id] != ""
-  	  @entities = sections_rel.all
+      @entities = Section.for_department(params[:department_id]).for_batch(params[:batch_id]).all
   	elsif params[:required] == 'exam'
-  	  return if params[:semester_id] == "" && params[:section_id] == ""
-      semaps_rel = SecExamMap
-  	  semaps_rel = semaps_rel.for_semester(params[:semester_id]) if params[:semester_id] != ""
-  	  semaps_rel = semaps_rel.for_section(params[:section_id]) if params[:section_id] != ""
-  	  @entities = semaps_rel.all.map{|map| map.exam}
+  	  return if params[:semester_id] == "" || params[:section_id] == ""
+      @entities = SecExamMap.for_semester(params[:semester_id]).for_section(params[:section_id]).all.map{|map| map.exam}
     end  		
   end
   

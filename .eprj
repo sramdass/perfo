@@ -56,6 +56,10 @@
             <string>app\views\tenants\activate_options.html.erb</string>
             <key>add_</key>
             <string>db\migrate\20120415025550_add_parent_mobile_to_contacts.rb</string>
+            <key>addexam</key>
+            <string>db\migrate\20120618125129_add_exam_type_to_sec_sub_maps.rb</string>
+            <key>addexamty</key>
+            <string>db\migrate\20120618125503_add_exam_type_to_sec_exam_maps.rb</string>
             <key>addima</key>
             <string>db\migrate\20120504092600_add_image_to_faculites.rb</string>
             <key>admin</key>
@@ -220,6 +224,8 @@
             <string>config.ru</string>
             <key>const</key>
             <string>config\initializers\constants.rb</string>
+            <key>constan</key>
+            <string>config\initializers\constants.rb</string>
             <key>contact</key>
             <string>app\models\contact.rb</string>
             <key>contact.</key>
@@ -338,10 +344,16 @@
             <string>app\controllers\exams_controller.rb</string>
             <key>examco</key>
             <string>app\controllers\exams_controller.rb</string>
+            <key>examfi</key>
+            <string>app\views\exams\_exam_fields.html.erb</string>
             <key>exams</key>
             <string>app\views\sections\exams.html.erb</string>
             <key>exams_Co</key>
             <string>app\controllers\exams_controller.rb</string>
+            <key>exams_con</key>
+            <string>app\controllers\exams_controller.rb</string>
+            <key>examtype</key>
+            <string>db\migrate\20120618130530_add_exam_type_to_exams.rb</string>
             <key>exce</key>
             <string>lib\exceptions.rb</string>
             <key>exmscon</key>
@@ -594,6 +606,8 @@
             <string>config\environments\production.rb</string>
             <key>produc</key>
             <string>config\environments\production.rb</string>
+            <key>remove</key>
+            <string>db\migrate\20120618130416_remove_exam_type_from_sec_exam_maps.rb</string>
             <key>reports</key>
             <string>app\controllers\reports_controller.rb</string>
             <key>resact</key>
