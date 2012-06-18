@@ -18,6 +18,9 @@ class SecSubMap < TenantManager
   belongs_to :subject
   validates_presence_of :subject
   
+  validates_numericality_of :credits, 	:only_integer => true, 
+  																	:greater_than_or_equal_to  => 1, 
+  																	:less_than_or_equal_to => MAX_SUBJECT_CREDITS
   validate :mark_column_range
   
   # no dependent destroy. When the faculty is removed we still want to know which subject goes to which section	

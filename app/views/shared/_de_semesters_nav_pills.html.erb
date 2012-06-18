@@ -25,16 +25,16 @@
       <% end %>   
     </li>
   <% end %>
-  <% if active == "faculties"%>
+  <% if active == "faculties_and_credits"%>
     <li class= "active">
       <%= link_to faculties_sections_path do %>
-        <i class="icon-file"> </i> <strong> Assign Faculties </strong>
+        <i class="icon-file"> </i> <strong> Faculties and Credits </strong>
       <% end %>   
     </li>
   <% else %>
     <li>
       <%= link_to faculties_sections_path do %>
-        <i class="icon-file"> </i> <strong> Assign Faculties  </strong>
+        <i class="icon-file"> </i> <strong> Faculties and Credits </strong>
       <% end %>   
     </li>
   <% end %>

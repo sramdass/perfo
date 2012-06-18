@@ -147,7 +147,7 @@ class SectionsController < ApplicationController
   	@section = Section.find(params[:id])
   	@section.sec_sub_maps.for_semester(@semester.id).each do |map|
   	  sub_id = map.subject_id
-  	  map.attributes = 	{ :subject_id => sub_id, :faculty_id => params[:faculty]["#{sub_id}"] }
+  	  map.attributes = 	{ :subject_id => sub_id, :faculty_id => params[:faculty]["#{sub_id}"], :credits =>  params[:credits]["#{sub_id}"]}
   	  ssmaps << map
     end			  	
     if @section.valid? && ssmaps.all?(&:valid?)
@@ -155,7 +155,7 @@ class SectionsController < ApplicationController
       ssmaps.each(&:save!)
       redirect_to(faculties_sections_path(:section_id => params[:id], :semester_id => @semester.id),  :notice => 'Faculties successfully updated.')
     else
-      flash[:error] = 'Error! Cannot Assign Faculties'
+      flash[:error] = 'Error! Cannot Update faculties and/or Credits'
       #It is intentional that we are using a redirect here (rather than a render). We are getting some errors with the render.
       #redirect seems to be a cleaner solution in this ajax scenario.
       redirect_to(faculties_sections_path(:section_id => params[:id], :semester_id => @semester.id))

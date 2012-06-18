@@ -3,7 +3,7 @@
 <% @sections = Array.new if !@sections %>
 <%= render 'shared/de_nav_links', :active => "associate_semesters" %>
 <div class="span9">
-  <%= render 'shared/de_semesters_nav_pills', :active => "faculties"%>
+  <%= render 'shared/de_semesters_nav_pills', :active => "faculties_and_credits"%>
   <%= render 'selectors/form', :target_url => '/sections/faculties' %>
   <span id = "ajax_faculties_form">  
     <% if @section && @semester %>

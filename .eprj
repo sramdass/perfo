@@ -228,6 +228,8 @@
             <string>config\initializers\constants.rb</string>
             <key>constan</key>
             <string>config\initializers\constants.rb</string>
+            <key>constant</key>
+            <string>config\initializers\constants.rb</string>
             <key>contact</key>
             <string>app\models\contact.rb</string>
             <key>contact.</key>
@@ -262,6 +264,8 @@
             <string>db\migrate\20120517150505_create_resources.rb</string>
             <key>crete_Fa</key>
             <string>db\migrate\20120415022222_create_faculties.rb</string>
+            <key>d_credits_to_se</key>
+            <string>db\migrate\20120618134218_add_credits_to_sec_sub_maps.rb</string>
             <key>dashboad</key>
             <string>app\views\sessions\dashboard.html.erb</string>
             <key>data</key>
@@ -275,6 +279,8 @@
             <key>database</key>
             <string>..\multitenants\config\database.yml</string>
             <key>de_Seme</key>
+            <string>app\views\shared\_de_semesters_nav_pills.html.erb</string>
+            <key>de_Semes</key>
             <string>app\views\shared\_de_semesters_nav_pills.html.erb</string>
             <key>de_batches_nav_pills</key>
             <string>app\views\shared\_de_batches_nav_pills.html.erb</string>
@@ -383,7 +389,7 @@
             <key>facultiecont</key>
             <string>app\controllers\faculties_controller.rb</string>
             <key>faculties</key>
-            <string>app\controllers\faculties_controller.rb</string>
+            <string>app\views\sections\_faculties_form.html.erb</string>
             <key>faculties.ht</key>
             <string>app\views\sections\faculties.html.erb</string>
             <key>faculties_co</key>
@@ -901,7 +907,7 @@
             <key>subjectco</key>
             <string>app\controllers\subjects_controller.rb</string>
             <key>subjects</key>
-            <string>app\views\sections\subjects.html.erb</string>
+            <string>app\views\sections\_subjects_form.html.erb</string>
             <key>subjects.hr</key>
             <string>app\views\sections\subjects.html.erb</string>
             <key>subjects.ht</key>

@@ -15,3 +15,7 @@ DEFAULT_PASS_MARKS_PERCENTAGE = 50
 EXAM_TYPE_TEST = 0
 EXAM_TYPE_ASSIGNMENT = 1
 
+#Max allowed credits for the subjects. Refer view\sections\_faculties_form.html.erb and sections_controller.rb
+MAX_SUBJECT_CREDITS = 4
+
+

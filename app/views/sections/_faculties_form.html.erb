@@ -6,11 +6,22 @@
       <%= hidden_field_tag 'semester_id', nil, :value => @semester.id %>    	
       <% SecSubMap.for_semester(@semester.id).for_section(@section.id).order('subject_id').all.each do |map| %>
         <% sub = map.subject %>
+        <% #Get the faculty id and the credits for this entry from the parameters (incase of error) or from the database. %>
+	    <% if params[:faculty] && params[:faculty]["#{sub.id}"] %>
+	      <% f_id =  params[:faculty]["#{sub.id}"]  %>
+	    <% else %>
+		  <% f_id = SecSubMap.for_section(@section.id).for_subject(sub.id).first.faculty_id %>
+		<% end %>
+	    <% if params[:credits] && params[:credits]["#{sub.id}"] %>
+	      <% credits =  params[:credits]["#{sub.id}"]  %>
+	    <% else %>
+		  <% credits = SecSubMap.for_section(@section.id).for_subject(sub.id).first.credits %>
+		<% end %>		            
         <div class="control-group">
 	      <%= label_tag "#{sub.name}",nil, :class=> "control-label" %>
 	      <div class="controls">
-		    <% f_id = SecSubMap.for_section(@section.id).for_subject(sub.id).first.faculty_id %>
             <%= select( "faculty", "#{sub.id}", @faculties.collect {|f| [ f.name, f.id ] }, {:include_blank => 'None', :selected => f_id}) %> 
+            <%= select("credits", "#{sub.id}", (1..MAX_SUBJECT_CREDITS).collect {|p| [ "#{p}", p ] }, { :include_blank => 'Credits', :selected => credits }, {:class => 'span1' }) %>
    	      </div>
   	    </div>        
       <% end %>

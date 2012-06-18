@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120618130530) do
+ActiveRecord::Schema.define(:version => 20120618134218) do
 
   create_table "arrear_students", :force => true do |t|
     t.integer  "section_id"
@@ -251,6 +251,7 @@ ActiveRecord::Schema.define(:version => 20120618130530) do
     t.string   "mark_column"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "credits",     :default => 1
   end
 
   create_table "sections", :force => true do |t|
