@@ -20,12 +20,13 @@
       #for the selection-data during rendering. If any non-empty list is provided there, the values keep coming up in the select
       #box for a short time when you select.
 %>
-<%= form_tag '#', :method => 'get', :class => "report-selector-form form-inline", :data => {:target_url => target_url} do %>
+<%= form_tag '/reports', :method => 'get', :class => "report-selector-form form-inline", :data => {:target_url => target_url} do %>
   <table>
     <tr>
     	<td>Department</td>
     	<td>Batch</td>
     	<td>Section</td>
+    	<td>Student</td>
     	<td>Semester</td>    	
     	<td>Exam</td>
     	<td></td>
@@ -50,8 +51,14 @@
         																	:include_blank => true, 
         																	:class => 'span3',
         																	:id => 'rep-section-selector',
-        																	:data => {:required => 'exam', :target => 'rep-exam-selector'}) %>      																	 	
+        																	:data => {:required => 'student,exam', :target => 'rep-student-selector,rep-exam-selector'}) %>      																	 	
       </td>
+      <td>
+        <%= select_tag( :student_id, options_from_collection_for_select([], "id", "name"),
+        																	:include_blank => true, 
+        																	:class => 'span3',
+        																	:id => 'rep-student-selector') %>      																	 	
+      </td>      
       <td>
         <%= select_tag( :semester_id, options_from_collection_for_select(@semesters, "id", "name"),
         																	:include_blank => true, 

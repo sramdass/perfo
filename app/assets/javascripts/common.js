@@ -97,45 +97,66 @@ $(".selector-form select, .selector-form-html select").live("change",function() 
 //To enable, disable, populate the report selector forms.
 //Refer _marks_form.html.erb and _form.html.erb in views\selectors\
 $(".report-selector-form select").live("change",function() {     
-	//The child select box of the current select box
-  	var target = $(this).data('target');
-  	//Form the element id of the select object that needs to be populated.
-  	target_select = $('#' + target);
-  	//If some value is selected in the current select box, populate the child select box.
-  	//Otherwise, disable all the child select boxes and the submit button.
-  	if ($(this).val() != "") {
-  		target_select.removeAttr('disabled');
-  	} else {
-  		//Traverse to find all the children. When the selector is of zero length, we know
-  		//it is not a valid selector.
-  		while(target_select.length) {
-    		//target_select.val("");
-    		target_select.html('');
-            target_select.append($('<option></option>').val('').html(''));
-  	  		//Disable the select box or the submit button
-  	  		//target_select.attr('disabled', 'disabled');
-  	  		//Find the next child item that has to be disabled. If it is the last child, the submit button,
-  	  		//it will not have any further children, and the selector will not be valid (length = zero)
-  	  		target_select = $('#' + target_select.data('target'))
-  	  	}
+	//We need to declare the following 2 variables as we are using split(), and length() on
+	//these two variables.
+	//1. to hold the array of required resources ('required' data attribute in the current select box)
+	var required_resources = [];
+	//2. to hold the array of targets ('target' data attribute in the current select box)
+	var targets = [];
+	
+	//Check if the following data attributes are valid as we are using split() on these variables.
+	//refer the :section_id select box in the _reports_form.html.erb
+	if (undefined !== $(this).data('target')) {
+		targets = $(this).data('target').split(",");
+	}
+	if (undefined !== $(this).data('required')) {
+		required_resources = $(this).data('required').split(",");
+	}			
+	
+	//Note that there should be a one on one mapping between the required resources and the targets.
+	//Loop through each of the required_resources, do the get request and populate the corresponding
+	//target. We need the loop, incase there are more than one resource to be fetched by the get request.
+	//refer the :section_id select box in the _reports_form.html.erb
+	for(var index=0; index< required_resources.length; index++) {
+		//Trim the leading and trailing white spaces. otherwise, those will be encoded and the parameters
+		//of the get request will be corrupted
+		var target = $.trim(targets[index]);
+  	    //The select box to be populated in this iteration
+  	    target_select = $('#' + target);
+  	    //If some value is selected in the current select box, populate the child select box.
+  	    //Otherwise, empty all the child select
+  	    if ($(this).val() == "") {
+  	    	//Traverse to find all the children. When the selector is of zero length, we know
+  	    	//it is not a valid selector.
+  	    	while(target_select.length) {
+        		target_select.html('');
+                target_select.append($('<option></option>').val('').html(''));
+  	      		//Find the next child item that has to be emptied. If it is the last child
+  	      		//it will not have any further children, and the selector will not be valid (length = zero)
+  	      		target_select = $('#' + target_select.data('target'))
+  	      	}
+  	    }
+  	    //After disabling/enabling, do the data population. Note that this part of the code is still in the change event.
+	    $.get("/selectors/report_selector", 
+  	    		{ 
+  	    			required: required_resources[index], 
+  	    			department_id: $('#rep-department-selector').val(),
+  	    			batch_id: $('#rep-batch-selector').val(),
+  	    			section_id: $('#rep-section-selector').val(),
+  	    			student_id: $('#rep-student-selector').val(),
+  	    			semester_id: $('#rep-semester-selector').val(),
+  	    			exam_id: $('#rep-exam-selector').val()
+  	    		}, //parameters
+  	    		function(dyndata) { //this function will have the data that is returned
+  	    		  //call to populate the data. The signature is - 
+  	    		  //(the-select-id-to-populate, data-source, attr-name-to-pick-from-the-data-array-4-display)
+  	    		  //note that 'name' (not rabl_name) is used for reports form and the other selector forms  	
+  	    		  alert("hi");
+          		  populateDropdown(target, dyndata, "name");
+          		  alert("hello");
+  	    		}, 
+  	    		"json"); //Type of the request should be specified
   	}
-  	//After disabling/enabling, do the data population. Note that this part of the code is still in the change event.
-	$.get("/selectors/report_selector", 
-  			{ 
-  				required: $(this).data('required'), 
-  				department_id: $('#rep-department-selector').val(),
-  				batch_id: $('#rep-batch-selector').val(),
-  				section_id: $('#rep-section-selector').val(),
-  				semester_id: $('#rep-semester-selector').val(),
-  				exam_id: $('#rep-exam-selector').val()
-  			}, //parameters
-  			function(dyndata) { //this function will have the data that is returned
-  			  //call to populate the data. The signature is - 
-  			  //(the-select-id-to-populate, data-source, attr-name-to-pick-from-the-data-array-4-display)
-  			  //note that 'name' (not rabl_name) is used for reports form and the other selector forms  				
-      		  populateDropdown(target, dyndata, "name");
-  			}, 
-  			"json"); //Type of the request should be specified
 });   //End of the change event handler.
 
 

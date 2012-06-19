@@ -28,7 +28,10 @@ class SelectorsController < ApplicationController
   	elsif params[:required] == 'exam'
   	  return if params[:semester_id] == "" || params[:section_id] == ""
       @entities = SecExamMap.for_semester(params[:semester_id]).for_section(params[:section_id]).all.map{|map| map.exam}
-    end  		
+  	elsif params[:required] == 'student'
+  	  return if params[:section_id] == ""
+      @entities = Section.find(params[:section_id]).students
+    end  		    
   end
   
   def students

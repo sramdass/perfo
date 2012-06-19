@@ -617,6 +617,8 @@
             <key>remove</key>
             <string>db\migrate\20120618130416_remove_exam_type_from_sec_exam_maps.rb</string>
             <key>reports</key>
+            <string>app\views\selectors\_reports_form.html.erb</string>
+            <key>reports_c</key>
             <string>app\controllers\reports_controller.rb</string>
             <key>resact</key>
             <string>app\models\resource_action.rb</string>
@@ -789,6 +791,8 @@
             <key>selectorco</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>selectorsc</key>
+            <string>app\controllers\selectors_controller.rb</string>
+            <key>selectorscon</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>semcont</key>
             <string>app\controllers\semesters_controller.rb</string>
