@@ -354,9 +354,13 @@
             <string>app\controllers\exams_controller.rb</string>
             <key>examfi</key>
             <string>app\views\exams\_exam_fields.html.erb</string>
+            <key>exami</key>
+            <string>db\migrate\20120705141812_add_examination_id_to_exams.rb</string>
             <key>exams</key>
             <string>app\views\sections\exams.html.erb</string>
             <key>exams_Co</key>
+            <string>app\controllers\exams_controller.rb</string>
+            <key>exams_co</key>
             <string>app\controllers\exams_controller.rb</string>
             <key>exams_con</key>
             <string>app\controllers\exams_controller.rb</string>
@@ -518,6 +522,8 @@
             <string>app\views\sections\marks.html.erb</string>
             <key>marks.htm</key>
             <string>app\views\sections\marks.html.erb</string>
+            <key>marks.html.erb</key>
+            <string>app\views\sections\marks.html.erb</string>
             <key>marks.js</key>
             <string>app\views\sections\marks.js.erb</string>
             <key>marks.js.</key>
@@ -545,7 +551,7 @@
             <key>nav_link</key>
             <string>app\views\shared\_admin_nav_links.html.erb</string>
             <key>new</key>
-            <string>app\views\tenants\new.html.erb</string>
+            <string>app\views\exams\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\students\new.html.erb</string>
             <key>new.htm</key>
@@ -620,6 +626,10 @@
             <string>app\views\selectors\_reports_form.html.erb</string>
             <key>reports_c</key>
             <string>app\controllers\reports_controller.rb</string>
+            <key>reports_fo</key>
+            <string>app\views\selectors\_reports_form.html.erb</string>
+            <key>reportsec</key>
+            <string>app\views\selectors\report_selector.json.rabl</string>
             <key>resact</key>
             <string>app\models\resource_action.rb</string>
             <key>reso_fi</key>

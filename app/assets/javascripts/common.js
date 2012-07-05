@@ -34,6 +34,16 @@ $("#tenant_expired").click(function() {
         $("#tenant_subscription_to_gt").removeAttr('value');
     }
 });
+
+$("#exam_type_check_box").click(function() {     
+	if ($(this).is(":checked")) {
+		$("#examination_select").removeAttr('disabled');
+    } else {
+		$("#examination_select").val("");
+		$("#examination_select").attr('disabled', 'disabled');
+    }		
+
+});
 	
 $('.datatable_full').dataTable();
   
@@ -137,32 +147,29 @@ $(".report-selector-form select").live("change",function() {
   	      	}
   	    }
   	    //After disabling/enabling, do the data population. Note that this part of the code is still in the change event.
-	    $.get("/selectors/report_selector", 
-  	    		{ 
-  	    			required: required_resources[index], 
-  	    			department_id: $('#rep-department-selector').val(),
-  	    			batch_id: $('#rep-batch-selector').val(),
-  	    			section_id: $('#rep-section-selector').val(),
-  	    			student_id: $('#rep-student-selector').val(),
-  	    			semester_id: $('#rep-semester-selector').val(),
-  	    			exam_id: $('#rep-exam-selector').val()
-  	    		}, //parameters
-  	    		function(dyndata) { //this function will have the data that is returned
-  	    		  //call to populate the data. The signature is - 
-  	    		  //(the-select-id-to-populate, data-source, attr-name-to-pick-from-the-data-array-4-display)
-  	    		  //note that 'name' (not rabl_name) is used for reports form and the other selector forms  	
-  	    		  alert("hi");
-          		  populateDropdown(target, dyndata, "name");
-          		  alert("hello");
-  	    		}, 
-  	    		"json"); //Type of the request should be specified
-  	}
+	    $.ajax({
+	    	url: "/selectors/report_selector", 
+  			dataType: 'json',  
+  			data: 	{ 
+  	    					required: required_resources[index], 
+  	    					department_id: $('#rep-department-selector').val(),
+  	    					batch_id: $('#rep-batch-selector').val(),
+  	    					section_id: $('#rep-section-selector').val(),
+  	    					student_id: $('#rep-student-selector').val(),
+  	    					semester_id: $('#rep-semester-selector').val(),
+  	    					exam_id: $('#rep-exam-selector').val()
+  	    				}, 
+  	  		async: false,
+  	      	success:	function(dyndata) { 
+  	    		  				//call to populate the data. The signature is - 
+  	    		  				//(the-select-id-to-populate, data-source, attr-name-to-pick-from-the-data-array-4-display)
+  	    		  				//note that 'name' (not rabl_name) is used for reports form and the other selector forms  	
+          		  				populateDropdown(target, dyndata, "name");
+  	    				}, 
+  	  });
+	}
 });   //End of the change event handler.
 
-
-
-
-  
 //Roles.
 //hide the textbox with through which the permission values are sent.
 $('.resource_permissions input.total_permission').hide();

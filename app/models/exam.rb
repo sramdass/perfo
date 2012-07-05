@@ -19,6 +19,9 @@ class Exam < TenantManager
   
   has_many :sec_exam_maps, :dependent => true, :dependent => :destroy
   has_many :sections, :through => :sec_exam_maps      
+  
+  has_many :assignments, :class_name => "Exam", :foreign_key => "examination_id"
+  belongs_to :examination, :class_name => "Exam"  
 	
   validates_presence_of			:name
   validates_length_of					:name, 								:maximum => 30	
@@ -29,7 +32,28 @@ class Exam < TenantManager
   validates_presence_of			:code
   validates_length_of					:code,	 								:maximum => 5	
   
+  validate										:needs_examination_only_for_assignments
+  
+  before_save :nullify_examination_for_non_assignments
+  
   attr_accessor :rabl_name
+  
+  def nullify_examination_for_non_assignments
+    if exam_type != EXAM_TYPE_ASSIGNMENT
+      self.examination_id = nil
+    end
+  end
+  
+  def needs_examination_only_for_assignments
+    if exam_type == EXAM_TYPE_ASSIGNMENT
+      if !examination
+        errors.add(:examination_id, "cannot be blank")
+      end
+      if examination && examination.exam_type == EXAM_TYPE_ASSIGNMENT
+      	errors.add(:examination_id, "cannot be another assignment")
+      end
+    end
+  end
   
   def rabl_name
     "#{self.name} "

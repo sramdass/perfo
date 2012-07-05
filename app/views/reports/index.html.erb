@@ -2,11 +2,11 @@
 <% @exams = Array.new if !@exams %>
 <div class="span9">
   <%= render 'selectors/reports_form', :target_url => '/reports' %>
-  <span id = "ajax_faculties_form">  
-    <% if @section && @semester %>
-      <%= render 'form'%>
+  <span id = "ajax_reports">  
+    <% if @marks %>
+      <%= render 'reports'%>
     <% else %>
-      <strong> Select the required semester and the section </strong>
+      <strong> Select the filter values </strong>
     <% end %>
   </span>  
 </div>
