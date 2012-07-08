@@ -35,6 +35,7 @@ $("#tenant_expired").click(function() {
     }
 });
 
+//Code to enable and disable in the view/exams/_exam_fields.erb
 $("#exam_type_check_box").click(function() {     
 	if ($(this).is(":checked")) {
 		$("#examination_select").removeAttr('disabled');
@@ -42,9 +43,16 @@ $("#exam_type_check_box").click(function() {
 		$("#examination_select").val("");
 		$("#examination_select").attr('disabled', 'disabled');
     }		
-
 });
-	
+
+//Do the same check during the page load also
+if ($("#exam_type_check_box").is(":checked")) {
+	} else {
+		$("#examination_select").val("");
+		$("#examination_select").attr('disabled', 'disabled');
+    }
+    
+    
 $('.datatable_full').dataTable();
   
 //For the selector forms. Refer _marks_form.html.erb and _form.html.erb in views\selectors\

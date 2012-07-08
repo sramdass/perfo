@@ -34,6 +34,8 @@
             <string>..\tester\app\views\students\_form.html.erb</string>
             <key>_ininst</key>
             <string>db\migrate\20120414033418_rename_type_to_tipe_in_institutions.rb</string>
+            <key>_marks</key>
+            <string>app\views\sections\_mark_fields.html.erb</string>
             <key>_sem</key>
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>_sufi</key>
@@ -58,6 +60,8 @@
             <string>app\views\tenants\activate_options.html.erb</string>
             <key>add_</key>
             <string>db\migrate\20120415025550_add_parent_mobile_to_contacts.rb</string>
+            <key>add_to</key>
+            <string>db\migrate\20120618134218_add_credits_to_sec_sub_maps.rb</string>
             <key>addexam</key>
             <string>db\migrate\20120618125129_add_exam_type_to_sec_sub_maps.rb</string>
             <key>addexamty</key>
@@ -230,6 +234,8 @@
             <string>config\initializers\constants.rb</string>
             <key>constant</key>
             <string>config\initializers\constants.rb</string>
+            <key>constants</key>
+            <string>config\initializers\constants.rb</string>
             <key>contact</key>
             <string>app\models\contact.rb</string>
             <key>contact.</key>
@@ -370,6 +376,8 @@
             <string>lib\exceptions.rb</string>
             <key>exmscon</key>
             <string>app\controllers\exams_controller.rb</string>
+            <key>fa</key>
+            <string>app\views\faculties\_faculty_fields.html.erb</string>
             <key>faccont</key>
             <string>app\controllers\faculties_controller.rb</string>
             <key>facucon</key>
@@ -428,6 +436,8 @@
             <string>Gemfile</string>
             <key>gemfl</key>
             <string>..\subdomain\Gemfile</string>
+            <key>grade</key>
+            <string>app\models\grade.rb</string>
             <key>grade_criterco</key>
             <string>app\controllers\grade_criterias_controller.rb</string>
             <key>hod.rb</key>
@@ -443,7 +453,7 @@
             <key>inde</key>
             <string>app\views\semesters\index.html.erb</string>
             <key>index</key>
-            <string>app\views\tenants\index.html.erb</string>
+            <string>app\views\exams\index.html.erb</string>
             <key>index.</key>
             <string>app\views\exams\index.html.erb</string>
             <key>index.h</key>
@@ -514,6 +524,8 @@
             <string>app\views\sections\_mark_fields.html.erb</string>
             <key>mark_fie</key>
             <string>app\views\sections\_mark_fields.html.erb</string>
+            <key>mark_fiel</key>
+            <string>app\views\sections\_mark_fields.html.erb</string>
             <key>markcr</key>
             <string>app\models\mark_criteria.rb</string>
             <key>markcri</key>
@@ -521,6 +533,8 @@
             <key>marks</key>
             <string>app\views\sections\marks.html.erb</string>
             <key>marks.htm</key>
+            <string>app\views\sections\marks.html.erb</string>
+            <key>marks.html</key>
             <string>app\views\sections\marks.html.erb</string>
             <key>marks.html.erb</key>
             <string>app\views\sections\marks.html.erb</string>
@@ -628,6 +642,10 @@
             <string>app\controllers\reports_controller.rb</string>
             <key>reports_fo</key>
             <string>app\views\selectors\_reports_form.html.erb</string>
+            <key>reports_for</key>
+            <string>app\views\selectors\_reports_form.html.erb</string>
+            <key>reportscon</key>
+            <string>app\controllers\reports_controller.rb</string>
             <key>reportsec</key>
             <string>app\views\selectors\report_selector.json.rabl</string>
             <key>resact</key>
@@ -990,6 +1008,8 @@
             <string>db\migrate\20120412154906_add_tenant_id_and_subdomain_to_insititutions.rb</string>
             <key>token</key>
             <string>app\assets\stylesheets\token-input.css</string>
+            <key>ttl_pc</key>
+            <string>db\migrate\20120708141322_add_credits_and_weighed_ttl_pcnt_to_marks.rb</string>
             <key>useprofilecont</key>
             <string>app\controllers\user_profiles_controller.rb</string>
             <key>user_pr</key>

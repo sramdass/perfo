@@ -4,7 +4,14 @@
   <%= f.hidden_field :exam_id, :value => @exam.id%>
   <td> <%= f.object.student.name %> </td>
   <% @section.sec_sub_maps.order('subject_id ASC').each do |ssmap| %>
-      <td> <%= f.input ssmap.mark_column, :as => :string, :label => false, :input_html => {:class => 'span1'}  %> </td>
+      <% mark_val =  f.object.send(ssmap.mark_column) %>
+      <% val =  NA_MARK_CHAR if mark_val && mark_val == NA_MARK_NUM %>
+      <% val =  ABSENT_MARK_CHAR if mark_val && mark_val == ABSENT_MARK_NUM %>
+      <% if val %>
+        <td> <%= f.input ssmap.mark_column, :as => :string, :label => false, :input_html => {:class => 'span1', :value => val }  %> </td>
+      <% else %>
+        <td> <%= f.input ssmap.mark_column, :as => :string, :label => false, :input_html => {:class => 'span1'}  %> </td>
+      <% end %>
   <% end %>	
 	<td> <%= f.input :total, :label => false, :as => :string, :input_html => {:class => 'span1'}  %> </td>
 	<td><%= f.input :grade, :label => false, :input_html => {:class => 'span1'}  %> </td>

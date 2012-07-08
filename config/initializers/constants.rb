@@ -18,4 +18,12 @@ EXAM_TYPE_ASSIGNMENT = 1
 #Max allowed credits for the subjects. Refer view\sections\_faculties_form.html.erb and sections_controller.rb
 MAX_SUBJECT_CREDITS = 4
 
+#Mark values that will be provided by the user in the marksheet (browser)
+#Refer mark.rb
+NA_MARK_CHAR = '-'
+ABSENT_MARK_CHAR = 'A'
+#The above two values should be changed to these two values when stored in the database.
+NA_MARK_NUM = -1267
+ABSENT_MARK_NUM = -2398
+
 

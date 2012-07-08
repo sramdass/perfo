@@ -259,7 +259,23 @@ class SectionsController < ApplicationController
   
   def update_marks
     #@section = Section.find(params[:id])
+    #Here we are replacing the NOT APPLICABLE("-") and ABSENT("a") Marks with the values -1 and -2. This cannot be done with 
+    #before_validate method, as there is a restriction in the before_validate with nested_attributes. This seems to be the best way
+    #to replace the values.
+    params[:section][:marks_attributes].each do |key, val|
+      [:sub1, :sub2, :sub3, :sub4, :sub5, :sub6, :sub7, :sub8, :sub9, :sub10, :sub11, :sub12, :sub13, :sub14, :sub15, :sub16, :sub17, :sub18, :sub19, :sub20].each do |sub|
+        if val[sub]
+          if  val[sub].to_s == NA_MARK_CHAR
+            params[:section][:marks_attributes][key][sub] = NA_MARK_NUM.to_s 
+          elsif val[sub].to_s.upcase == ABSENT_MARK_CHAR
+            params[:section][:marks_attributes][key][sub] = ABSENT_MARK_NUM.to_s 
+          end
+        end
+      end
+    end  	
     mark_crits = []
+    @semesters = Semester.all
+    @batches = Batch.all
     @section.sec_sub_maps.each do |ssmap|
       mc = MarkCriteria.find_or_create_by_section_id_and_subject_id_and_exam_id_and_semester_id(@section.id, ssmap.subject_id, @exam.id, @semester.id)
       #assign in this order - param value or already existing value(if this is not a new record) or default value (if this is a new record and the params is blank)
@@ -358,4 +374,5 @@ class SectionsController < ApplicationController
       return false #if the new entries are not valid return a failure.
     end	  	
   end
+  
 end

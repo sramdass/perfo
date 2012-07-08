@@ -32,7 +32,10 @@ class Exam < TenantManager
   validates_presence_of			:code
   validates_length_of					:code,	 								:maximum => 5	
   
-  validate										:needs_examination_only_for_assignments
+  #We do not need an examination for all the assignments. If an examination is associated,
+  #the assignments will be displayed along with the exam marks when the mark sheet is displayed.
+  #If not examination is provided, those assignments will be considered independent ones.
+  #validate										:needs_examination_only_for_assignments
   
   before_save :nullify_examination_for_non_assignments
   

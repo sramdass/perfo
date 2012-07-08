@@ -34,8 +34,8 @@
 <thead>
   <tr>
   	<th> Name </th>
+  	<th> Type </th>
   	<th> Short Name </th>
-  	<th> Code </th>
   	<th> Actions </th>
   </tr>
 </thead>
@@ -43,7 +43,13 @@
   <% @exams.each do |exam| %>
     <tr>
       <td> <%= link_to exam.name, exam %> </td>
-	  <td> <%= exam.short_name %> </td>
+	  <td> 
+	  	<% if exam.exam_type == EXAM_TYPE_ASSIGNMENT %>
+	  	  Assignment
+	  	<% else %>
+	  	  Exam
+	  	<% end %> 
+   	  </td>
 	  <td> <%= exam.code %> </td>
 	  <td>
   	    <%= link_to exam, :class => 'btn btn-mini btn-info' do %>
