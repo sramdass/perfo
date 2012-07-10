@@ -6,6 +6,8 @@
         <dict>
             <key>ArrearStu</key>
             <string>app\models\arrear_student.rb</string>
+            <key>CONSTA</key>
+            <string>config\initializers\constants.rb</string>
             <key>FACULTCON</key>
             <string>app\controllers\faculties_controller.rb</string>
             <key>GEMFIL</key>
@@ -34,6 +36,10 @@
             <string>..\tester\app\views\students\_form.html.erb</string>
             <key>_ininst</key>
             <string>db\migrate\20120414033418_rename_type_to_tipe_in_institutions.rb</string>
+            <key>_mark_fields</key>
+            <string>app\views\sections\_mark_fields.html.erb</string>
+            <key>_mark_fil</key>
+            <string>app\views\sections\_mark_fields.html.erb</string>
             <key>_marks</key>
             <string>app\views\sections\_mark_fields.html.erb</string>
             <key>_sem</key>
@@ -176,6 +182,8 @@
             <string>app\helpers\application_helper.rb</string>
             <key>arrear</key>
             <string>app\models\arrear_student.rb</string>
+            <key>arrearcoun</key>
+            <string>db\migrate\20120710135501_change_arrears_count_type_in_marks.rb</string>
             <key>arrears</key>
             <string>app\views\sections\_arrear_students_form.html.erb</string>
             <key>arrearstu</key>
@@ -438,6 +446,8 @@
             <string>..\subdomain\Gemfile</string>
             <key>grade</key>
             <string>app\models\grade.rb</string>
+            <key>grade.rb</key>
+            <string>app\models\grade.rb</string>
             <key>grade_criterco</key>
             <string>app\controllers\grade_criterias_controller.rb</string>
             <key>hod.rb</key>
@@ -450,10 +460,12 @@
             <string>db\migrate\20120508130346_add_image_to_students.rb</string>
             <key>in_Fac</key>
             <string>db\migrate\20120415045226_alter_start_date_end_date_in_faculties.rb</string>
+            <key>ind</key>
+            <string>app\views\reports\index.html.erb</string>
             <key>inde</key>
             <string>app\views\semesters\index.html.erb</string>
             <key>index</key>
-            <string>app\views\exams\index.html.erb</string>
+            <string>app\views\tenants\index.html.erb</string>
             <key>index.</key>
             <string>app\views\exams\index.html.erb</string>
             <key>index.h</key>
@@ -580,6 +592,8 @@
             <string>app\assets\stylesheets\bootstrap_and_overrides.css.scss</string>
             <key>page_bu</key>
             <string>app\views\shared\_page_buttons.html.erb</string>
+            <key>passed_co</key>
+            <string>db\migrate\20120710124106_add_passed_count_to_marks.rb</string>
             <key>password_Reset</key>
             <string>app\views\perfo_mailer\password_reset.text.erb</string>
             <key>password_res</key>
@@ -972,6 +986,8 @@
             <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>tenanta</key>
             <string>app\models\tenant_manager.rb</string>
+            <key>tenantcon</key>
+            <string>app\controllers\tenants_controller.rb</string>
             <key>tenantfi</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
             <key>tenantfil</key>

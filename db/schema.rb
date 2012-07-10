@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120708141322) do
+ActiveRecord::Schema.define(:version => 20120710135501) do
 
   create_table "arrear_students", :force => true do |t|
     t.integer  "section_id"
@@ -172,12 +172,13 @@ ActiveRecord::Schema.define(:version => 20120708141322) do
     t.float    "sub20"
     t.float    "total"
     t.string   "grade"
-    t.string   "arrears_count"
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "total_credits"
     t.float    "weighed_total_percentage"
+    t.integer  "passed_count"
+    t.integer  "arrears_count"
   end
 
   create_table "permissions", :force => true do |t|
