@@ -1,4 +1,8 @@
 <% # Do not allow the batch or department to be changed for the existing record (during edit). Design choice!%>
+<% if !f.object.new_record? %>
+	<% f.hidden_field :department_id %>
+	<% f.hidden_field :batch_id %>
+<% end %>
 <%= f.association :department, :disabled => f.object.new_record? ? false : true  %>
 <%= f.association :batch, :disabled => f.object.new_record? ? false : true %>
 <%= f.input :name, :label => "Section Name"  %>

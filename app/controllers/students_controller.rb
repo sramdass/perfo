@@ -24,7 +24,7 @@ class StudentsController < ApplicationController
     #@student = Student.new(params[:student])
     if @student.save
       flash[:notice] = 'Student successfully created'
-      if params[:create_and_add_students]
+      if params[:create_and_add]
       	redirect_to new_student_path(:section_id => params[:student][:section_id])
       else
         redirect_to student_path @student

@@ -31,7 +31,8 @@
 <%= f.input :id_no, :label => "ID Number"  %>
 <%= f.input :female, :label => "Gender", :required => true do %>
   <% if f.object.new_record? %>
-    <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ]) , {:include_blank => true}  %>
+    <% gender = params[:student] ? params[:student][:female] : nil  %>
+    <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ], gender) , {:include_blank => true}  %>
   <% else %>
     <%= f.select :female, options_for_select([  ["Female", true], ["Male", false] ], f.object.female?  ) , {:include_blank => true}  %>
   <% end %>

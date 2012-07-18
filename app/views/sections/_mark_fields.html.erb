@@ -4,17 +4,23 @@
   <%= f.hidden_field :exam_id, :value => @exam.id%>
   <td> <%= f.object.student.name %> </td>
   <% @section.sec_sub_maps.order('subject_id ASC').each do |ssmap| %>
+  	  <% disabled_flag = false %>
+      <% if f.object.section_id != f.object.student.section_id %>
+       <% if !ArrearStudent.for_section(f.object.section_id).for_student(f.object.student_id).for_semester(f.object.semester_id).for_subject(ssmap.subject_id).first %>
+        <% disabled_flag = true %>
+       <% end %>
+      <% end %>
       <% mark_val =  f.object.send(ssmap.mark_column) %>
       <% val =  NA_MARK_CHAR if mark_val && mark_val == NA_MARK_NUM %>
       <% val =  ABSENT_MARK_CHAR if mark_val && mark_val == ABSENT_MARK_NUM %>
       <% if val %>
-        <td> <%= f.input ssmap.mark_column, :as => :string, :label => false, :input_html => {:class => 'span1', :value => val }  %> </td>
+        <td> <%= f.input ssmap.mark_column, :as => :string, :label => false, :disabled => disabled_flag, :input_html => {:class => 'span1', :value => val }  %> </td>
       <% else %>
-        <td> <%= f.input ssmap.mark_column, :as => :string, :label => false, :input_html => {:class => 'span1'}  %> </td>
+        <td> <%= f.input ssmap.mark_column, :as => :string, :label => false, :disabled => disabled_flag, :input_html => {:class => 'span1'}  %> </td>
       <% end %>
   <% end %>	
 	<td> <%= f.input :total, :label => false, :as => :string, :input_html => {:class => 'span1'}  %> </td>
-	<td><%= f.input :weighed_total_percentage, :label => false, :input_html => {:class => 'span1'}  %> </td>
+	<td><%= f.object.weighed_total_percentage %> </td>
 	<td><%= f.input :arrears_count, :label => false, :input_html => {:class => 'span1'}  %> </td>
     <td> <%= f.input :comments, :label => false, :input_html => {:class => 'span1', :rows => 2, :cols => 30}  %> </td>
 </tr>

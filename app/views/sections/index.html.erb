@@ -53,11 +53,12 @@
 <tbody>
   <% @sections.each do |section| %>
     <tr>
-      <td> <%= link_to section.name, section %> </td>
+      <td> <%= section.name %>
 	  <td> <%= section.short_name %> </td>
 	  <td> <%= section.code %> </td>
 	  <td> <%= section.department.name %> </td>
-	  <td> <%= section.batch.name %> </td>	  	  
+	  <td> <%= section.batch.name %> </td>
+	  <td>
 	  <td>
   	    <%= link_to section, :class => 'btn btn-mini btn-info' do %>
           <i class="icon-file icon-white"> </i> View

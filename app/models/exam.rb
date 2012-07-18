@@ -37,6 +37,9 @@ class Exam < TenantManager
   #If not examination is provided, those assignments will be considered independent ones.
   #validate										:needs_examination_only_for_assignments
   
+  scope :assignments, where('exam_type = ? ', EXAM_TYPE_ASSIGNMENT)
+  scope :tests, where('exam_type = ? ', EXAM_TYPE_TEST)  
+  
   before_save :nullify_examination_for_non_assignments
   
   attr_accessor :rabl_name

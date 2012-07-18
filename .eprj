@@ -18,6 +18,8 @@
             <string>Procfile</string>
             <key>ROUTE</key>
             <string>config\routes.rb</string>
+            <key>Subject.r</key>
+            <string>app\models\subject.rb</string>
             <key>TENANT.R</key>
             <string>..\multitenants\app\models\tenant.rb</string>
             <key>USERPROFIL</key>
@@ -36,6 +38,8 @@
             <string>..\tester\app\views\students\_form.html.erb</string>
             <key>_ininst</key>
             <string>db\migrate\20120414033418_rename_type_to_tipe_in_institutions.rb</string>
+            <key>_mark_fi</key>
+            <string>app\views\sections\_mark_fields.html.erb</string>
             <key>_mark_fields</key>
             <string>app\views\sections\_mark_fields.html.erb</string>
             <key>_mark_fil</key>
@@ -49,6 +53,8 @@
             <key>abilit</key>
             <string>app\models\ability.rb</string>
             <key>ability</key>
+            <string>app\models\ability.rb</string>
+            <key>ability.</key>
             <string>app\models\ability.rb</string>
             <key>ability.rb</key>
             <string>app\models\ability.rb</string>
@@ -95,6 +101,8 @@
             <key>apphtm</key>
             <string>app\views\layouts\application.html.erb</string>
             <key>applcco</key>
+            <string>app\controllers\application_controller.rb</string>
+            <key>applcontr</key>
             <string>app\controllers\application_controller.rb</string>
             <key>appli</key>
             <string>app\assets\stylesheets\application.css</string>
@@ -182,11 +190,15 @@
             <string>app\helpers\application_helper.rb</string>
             <key>arrear</key>
             <string>app\models\arrear_student.rb</string>
+            <key>arrear_stude</key>
+            <string>app\views\sections\arrear_students.html.erb</string>
             <key>arrearcoun</key>
             <string>db\migrate\20120710135501_change_arrears_count_type_in_marks.rb</string>
             <key>arrears</key>
             <string>app\views\sections\_arrear_students_form.html.erb</string>
             <key>arrearstu</key>
+            <string>app\models\arrear_student.rb</string>
+            <key>arrearstud</key>
             <string>app\models\arrear_student.rb</string>
             <key>arti</key>
             <string>..\subdomain\app\models\article.rb</string>
@@ -328,6 +340,8 @@
             <string>app\controllers\departments_controller.rb</string>
             <key>departmcon</key>
             <string>app\controllers\departments_controller.rb</string>
+            <key>departme</key>
+            <string>app\models\department.rb</string>
             <key>department.r</key>
             <string>app\models\department.rb</string>
             <key>departmentco</key>
@@ -378,6 +392,8 @@
             <string>app\controllers\exams_controller.rb</string>
             <key>exams_con</key>
             <string>app\controllers\exams_controller.rb</string>
+            <key>examsfo</key>
+            <string>app\views\sections\_exams_form.html.erb</string>
             <key>examtype</key>
             <string>db\migrate\20120618130530_add_exam_type_to_exams.rb</string>
             <key>exce</key>
@@ -393,7 +409,7 @@
             <key>facuhtmler</key>
             <string>app\views\faculties\_faculty_fields.html.erb</string>
             <key>facul</key>
-            <string>app\models\faculty.rb</string>
+            <string>app\views\faculties\_faculty_fields.html.erb</string>
             <key>facul.r</key>
             <string>app\models\faculty.rb</string>
             <key>facult</key>
@@ -450,8 +466,12 @@
             <string>app\models\grade.rb</string>
             <key>grade_criterco</key>
             <string>app\controllers\grade_criterias_controller.rb</string>
+            <key>gradef</key>
+            <string>app\views\grades\_grade_fields.html.erb</string>
             <key>hod.rb</key>
             <string>app\models\hod.rb</string>
+            <key>hods_fo</key>
+            <string>app\views\departments\_hods_form.html.erb</string>
             <key>hodshtm</key>
             <string>app\views\departments\hods.html.erb</string>
             <key>image</key>
@@ -577,7 +597,7 @@
             <key>nav_link</key>
             <string>app\views\shared\_admin_nav_links.html.erb</string>
             <key>new</key>
-            <string>app\views\exams\new.html.erb</string>
+            <string>app\views\semesters\new.html.erb</string>
             <key>new.ht</key>
             <string>app\views\students\new.html.erb</string>
             <key>new.htm</key>
@@ -586,6 +606,8 @@
             <string>app\views\institutions\new.html.erb</string>
             <key>new.html.e</key>
             <string>app\views\students\new.html.erb</string>
+            <key>new.htmlerb</key>
+            <string>app\views\user_profiles\new.html.erb</string>
             <key>new.t</key>
             <string>app\views\tenants\new.html.erb</string>
             <key>overrid</key>
@@ -722,6 +744,8 @@
             <string>db\schema.rb</string>
             <key>schema</key>
             <string>db\schema.rb</string>
+            <key>schema.</key>
+            <string>db\schema.rb</string>
             <key>schema.r</key>
             <string>db\schema.rb</string>
             <key>schema.rb</key>
@@ -786,6 +810,8 @@
             <string>app\controllers\sections_controller.rb</string>
             <key>sectinsco</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>sectio</key>
+            <string>app\models\section.rb</string>
             <key>sectio.</key>
             <string>app\models\section.rb</string>
             <key>section.</key>
@@ -802,6 +828,8 @@
             <string>db\migrate\20120417143225_add_section_id_to_students.rb</string>
             <key>sectioncont</key>
             <string>app\controllers\sections_controller.rb</string>
+            <key>sectionf</key>
+            <string>app\views\sections\_section_fields.html.erb</string>
             <key>sections_C</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sections_c</key>
@@ -857,6 +885,8 @@
             <key>semesters_c</key>
             <string>app\controllers\semesters_controller.rb</string>
             <key>semesters_co</key>
+            <string>app\controllers\semesters_controller.rb</string>
+            <key>semestersco</key>
             <string>app\controllers\semesters_controller.rb</string>
             <key>semi</key>
             <string>app\views\shared\_semi_index.html.erb</string>
@@ -1074,6 +1104,8 @@
             <string>app\models\user_profile.rb</string>
             <key>userprofile.rb</key>
             <string>app\models\user_profile.rb</string>
+            <key>userprofilecon</key>
+            <string>app\controllers\user_profiles_controller.rb</string>
         </dict>
     </dict>
 </plist>

@@ -30,16 +30,12 @@ class SectionsController < ApplicationController
     #Do not allow the batch or department for this section to be changed.
     #If they need to change the section or department, they have to create 
     #a new section resource.
-    if params[:section][:department_id] != @section.department_id.to_s
-      flash[:error] = "Cannot change the department. You may need to delete this section and create a new one."
+    if (params[:section][:department_id] && (params[:section][:department_id] != @section.department_id.to_s)) ||
+    	(params[:section][:batch_id] && (params[:section][:batch_id] != @section.batch_id.to_s))
+      flash[:error] = "Cannot change the department/batch. You may need to delete this section and create a new one."
       render :edit
       return
     end
-    if params[:section][:batch_id] != @section.batch_id.to_s
-      flash[:error] = "Cannot change the batch. You may need to delete this section and create a new one."
-      render :edit
-      return
-    end    
     if @section.update_attributes(params[:section])
       flash[:notice] = 'Section successfully updated'
       redirect_to section_path @section
@@ -69,7 +65,8 @@ class SectionsController < ApplicationController
 #faculty field, and clicking the update action will result in undesirable consequences.
 #In case there is a need for restriction, look at the commented lines.
   def subjects
-    @subjects = Subject.all
+    @theory_subjects = Subject.theory_subjects.all
+    @practical_subjects = Subject.practical_subjects.all
     #@subjects = Subject.accessible_by(current_ability)
     respond_to do |format|
       format.html 
@@ -163,7 +160,8 @@ class SectionsController < ApplicationController
   end
   
   def exams
-    @exams = Exam.all  	  	
+    @tests = Exam.tests.all  	  	
+    @assignments = Exam.assignments.all  	  	
     #@exams = Exam.accessible_by(current_ability)
     respond_to do |format|
       format.html 

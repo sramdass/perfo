@@ -12,7 +12,8 @@
 	      	<% ArrearStudent.for_semester(@semester.id).for_section(@section.id).for_subject(sub.id).all.each do |arr_stu| %>
 	      	  <% arrear_students_list << {:id => arr_stu.student_id, :rabl_name => arr_stu.student.rabl_name}%>
 	      	<% end %>
-	      	<strong> <%= sub.name %> </strong> <br>
+	      	<% sub_type = sub.lab ? "(Practicals)" : "" %>
+	      	<strong> <%= sub.name + " " +  sub_type %> </strong> <br>
 		    <%= text_area_tag "arrear_students[#{sub.id}][]", nil, :class => 'token-input span4',  :data => {:target_url => '/selectors/students.json', :pre => arrear_students_list.to_json } %> 
    	      </div>
   	    </div>        

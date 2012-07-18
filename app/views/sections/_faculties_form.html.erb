@@ -18,7 +18,8 @@
 		  <% credits = SecSubMap.for_section(@section.id).for_subject(sub.id).first.credits %>
 		<% end %>		            
         <div class="control-group">
-	      <%= label_tag "#{sub.name}",nil, :class=> "control-label" %>
+          <% sub_type = sub.lab ? "(Practicals)" : "" %>
+	      <%= label_tag "#{sub.name} #{sub_type}",nil , :class=> "control-label" %>
 	      <div class="controls">
             <%= select( "faculty", "#{sub.id}", @faculties.collect {|f| [ f.name, f.id ] }, {:include_blank => 'None', :selected => f_id}) %> 
             <%= select("credits", "#{sub.id}", (1..MAX_SUBJECT_CREDITS).collect {|p| [ "#{p}", p ] }, { :include_blank => 'Credits', :selected => credits }, {:class => 'span1' }) %>
@@ -27,7 +28,7 @@
       <% end %>
       <div class="form-actions">
         <%= button_tag(:type => 'submit', :name => 'create', :class => "btn btn-success btn-large" ) do %>
-          <i class="icon-ok icon-white"> </i> <strong> Update Faculties </strong>
+          <i class="icon-ok icon-white"> </i> <strong> Update</strong>
         <% end %>  
       </div>  
     <fieldset>

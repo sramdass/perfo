@@ -165,7 +165,8 @@ class Mark < TenantManager
     self.arrears_count = arrears
     self.passed_count = passed
     self.total = total
-    self.weighed_total_percentage =  weighed_total.to_f / total_credits
+    #If the total credits is 0, make the weighed percentage as 0. Otherwise, we get a divide-by-zero exception.
+    self.weighed_total_percentage =  total_credits==0 ? 0 : weighed_total.to_f / total_credits
     self.total_credits = total_credits
   end
   
@@ -211,6 +212,21 @@ class Mark < TenantManager
       else
         h[col_name] = "NA"
       end
+    end
+    return h
+  end  
+  
+  def percentiles_with_mark_colulmns
+  	h = Hash.new
+    marks_rel = Mark.for_section(self.section_id).for_semester(self.semester_id).for_exam(self.exam_id).select("id, #{col_name}").order("#{col_name} ASC")
+    SecSubMap.for_section(section_id).for_semester(semester_id).all.each do |map|
+      col_name = map.mark_column
+      marks = marks_rel.select("id, #{col_name}").order("#{col_name} ASC")
+      marks.delete_if { |x| x.send(col_name) == NA_MARK_NUM ||  x.send(col_name) == ABSENT_MARK_NUM}
+      index = Hash[marks.map.with_index{ |*ki|  ki } ]
+      count = marks.count
+      mark = mark_rel.for_student(self.student_id).first
+      h[col_name] = ((index[mark] + 1) *100).to_f / marks.count
     end
     return h
   end  

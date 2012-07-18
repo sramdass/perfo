@@ -70,7 +70,7 @@ class UserProfile < TenantManager
   end
   
   def login
-    self.user.id_no
+    self.user.id_no if self.user #Condition needed. Note that the user is nil for the new ser profile
   end
   
   def authenticate(password)	

@@ -58,20 +58,6 @@
         </li>
       <% end %>             
       
-      <% if active == "students"%>
-        <li class= "active">
-          <%= link_to students_path do %>
-            <i class="icon-file"> </i> Students
-          <% end %>   
-        </li>
-      <% else %>
-        <li>
-          <%= link_to students_path do %>
-            <i class="icon-file"> </i> Students
-          <% end %>   
-        </li>
-      <% end %>      
-      
       <% if active == "faculties"%>
         <li class= "active">
           <%= link_to faculties_path do %>

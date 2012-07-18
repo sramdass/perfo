@@ -9,16 +9,28 @@
     # for this semester. i.e. the check box will be selected for all the subjects across all the semesters. So we need to limit it to the current semester 
     %>
     <div class="control-group">
-      <label class="control-label">Subjects</label>
+      <label class="control-label">Theory Subjects</label>
       <div class="controls">
-      	<% @subjects.each do |sub| %>
+      	<% @theory_subjects.each do |sub| %>
         <label class="checkbox">
-          <%= check_box_tag "section[subject_ids][]", sub.id, SecSubMap.for_semester(@semester.id).for_section(@section.id).for_subject(sub.id).present? %> <%= sub.name  %> 
+          <%= check_box_tag "section[subject_ids][]", sub.id, SecSubMap.for_semester(@semester.id).for_section(@section.id).for_subject(sub.id).present? %> &nbsp;<%= sub.name  %> 
         </label>
         <% end %>
-        <p class="help-block"><strong>Select the subjects for the semester - <%= Semester.find(@semester.id).name %></strong></p>
+        <p class="help-block"><strong>Select the theories for the semester : <%= Semester.find(@semester.id).name %></strong></p>
       </div>
     </div>
+    
+    <div class="control-group">
+      <label class="control-label">Practicals </label>
+      <div class="controls">
+      	<% @practical_subjects.each do |sub| %>
+        <label class="checkbox">
+          <%= check_box_tag "section[subject_ids][]", sub.id, SecSubMap.for_semester(@semester.id).for_section(@section.id).for_subject(sub.id).present? %> &nbsp;<%= sub.name  %> 
+        </label>
+        <% end %>
+        <p class="help-block"><strong>Select the practicals for the semester : <%= Semester.find(@semester.id).name %></strong></p>
+      </div>
+    </div>    
 
     <div class="form-actions">
       <%= button_tag(:type => 'submit', :name => 'create', :class => "btn btn-success btn-large" ) do %>

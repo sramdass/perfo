@@ -11,15 +11,31 @@
       <div class="control-group">
         <label class="control-label">Exams</label>
         <div class="controls">
-        	<% @exams.each do |ex| %>
+        	<% @tests.each do |ex| %>
           <label class="checkbox">
-            <%= check_box_tag "section[exam_ids][]", ex.id, SecExamMap.for_semester(@semester.id).for_section(@section.id).for_exam(ex.id).present? %> <%= ex.name  %> 
+            <%= check_box_tag "section[exam_ids][]", ex.id, SecExamMap.for_semester(@semester.id).for_section(@section.id).for_exam(ex.id).present? %> &nbsp;  <%= ex.name  %> 
           </label>
           <% end %>
-          <p class="help-block"><strong>Select the exams for the semester - <%= Semester.find(@semester.id).name %></strong></p>
+          <p class="help-block"><strong>Select the exams for the semester : <%= Semester.find(@semester.id).name %></strong></p>
         </div>
       </div>
-
+      
+      <div class="control-group">
+        <label class="control-label">Assignments</label>
+        <div class="controls">
+        	<% @assignments.each do |ex| %>
+          <label class="checkbox">
+          	<% if ex.examination %>
+          	  <% ex_name = " (" + ex.examination.name + ")" %>
+          	<% else %>
+          	  <% ex_name = "" %>
+          	<% end %>
+            <%= check_box_tag "section[exam_ids][]", ex.id, SecExamMap.for_semester(@semester.id).for_section(@section.id).for_exam(ex.id).present? %> &nbsp; <%= ex.name + ex_name %>           </label>
+          <% end %>
+          <p class="help-block"><strong>Select the assignments for the semester : <%= Semester.find(@semester.id).name %></strong></p>
+        </div>
+      </div>
+      
       <div class="form-actions">
         <%= button_tag(:type => 'submit', :name => 'create', :class => "btn btn-success btn-large" ) do %>
           <i class="icon-ok icon-white"> </i> <strong> Update Exams </strong>

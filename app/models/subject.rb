@@ -31,4 +31,7 @@ class Subject < TenantManager
   validates_length_of					:code,	 								:maximum => 5	
   
   validates 										:lab, 					:inclusion => { :in => [true, false] }
+  
+  scope :theory_subjects, where('lab = ? ', false)
+  scope :practical_subjects, where('lab = ? ', true)
 end

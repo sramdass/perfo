@@ -12,7 +12,11 @@ class ReportsController < ApplicationController
     @semester= Semester.find(params[:semester_id]) if params[:semester_id] && params[:semester_id].length != 0
     @exam= Exam.find(params[:exam_id]) if params[:exam_id] && params[:exam_id].length != 0
     
-    if @student
+    if @student && @semester && @exam
+    	
+    elsif @student && @semester
+      @marks = get_student_marks_for_semester
+    elsif @student
     
     #we do not need the exam here. the exam should default to semester final exam
     elsif @department && @semester && @exam
@@ -23,7 +27,7 @@ class ReportsController < ApplicationController
       @marks = get_batch_marks_with_section
     elsif @batch
 
-    elsif @section
+	elsif @section && @semester && @exam
       @marks = get_section_marks(params)
     end
     	
@@ -111,10 +115,10 @@ class ReportsController < ApplicationController
     batches = Batch.all
     batches.each do |batch|
       th = {}
-      mark_rel = Mark.search(:section_batch_id_eql => batch.id, :exam_id_eql => @exam.id, :semester_id_eql => @semester.id).result
+      mark_rel = Mark.search(:section_batch_id_eq => batch.id, :exam_id_eq => @exam.id, :semester_id_eq => @semester.id).result
 
-      reg_students = Student.search(:section_batch_id_eql => batch.id).result.count
-      arr_students = ArrearStudent.search(:section_batch_id_eql => batch.id).result.count
+      reg_students = Student.search(:section_batch_id_eq => batch.id).result.count
+      arr_students = ArrearStudent.search(:section_batch_id_eq => batch.id).result.count
       total_students = reg_students + arr_students
       
       scripts_passed = Mark.total_on_column(mark_rel, "passed_count")
@@ -142,10 +146,10 @@ class ReportsController < ApplicationController
     departments = Department.all
     departments.each do |department|
       th = {}
-      mark_rel = Mark.search(:section_department_id_eql => department.id, :exam_id_eql => @exam.id, :semester_id_eql => @semester.id).result
+      mark_rel = Mark.search(:section_department_id_eq => department.id, :exam_id_eq => @exam.id, :semester_id_eq => @semester.id).result
 
-      reg_students = Student.search(:section_department_id_eql => department.id).result.count
-      arr_students = ArrearStudent.search(:section_batch_id_eql => department.id).result.count
+      reg_students = Student.search(:section_department_id_eq => department.id).result.count
+      arr_students = ArrearStudent.search(:section_batch_id_eq => department.id).result.count
       total_students = reg_students + arr_students
       
       scripts_passed = Mark.total_on_column(mark_rel, "passed_count")
@@ -166,6 +170,76 @@ class ReportsController < ApplicationController
       ret_val << th
     end
     return ret_val    	
-  end    
+  end
+  
+  def get_student_marks_for_semester
+    ret_val = []
+    section = @student.section
+    SecExamMap.for_section(section.id).for_semester(@semester.id).all.each do |semap|
+      assignment_present = nil
+      mark_rel = Mark.search(:student_id_eq => @student.id, :semester_id_eq => @semester.id, :exam_id_eq => semap.exam_id).result
+      mark_rel.each do |mark| #this will execute a max of 2 times. One for the subject, and other for the assignment
+      	percentages = mark.percentages_with_mark_columns
+      	percentiles = mark.percentiles_with_mark_columns
+        exam_type = mark.exam.exam_type == EXAM_TYPE_ASSIGNMENT ? "assignment" : "exam"
+        th = {}
+        th['exam_name'] => semap.exam.name
+        th['subjects'] => {}
+        SecSubMap.for_section(section.id).for_semester(@semester.id).all.each do |ssmap|
+      	  th['subjects'][ssmap.mark_column] = {}
+      	  th['subjects'][ssmap.mark_column][exam_type] = {}
+      	  mark_value = mark.send(ssmap.mark_column)
+      	  if mark_value == NA_MARK_NUM || m_exam == ABSENT_MARK_NUM
+            th['subjects'][ssmap.mark_column][exam_type]['marks'] = mark_value == ABSENT_MARK_NUM ? "A" : "NA"
+    	    th['subjects'][ssmap.mark_column][exam_type]['percentage'] = "NA"
+    	    th['subjects'][ssmap.mark_column][exam_type]['percentile'] = "NA"
+    	    th['subjects'][ssmap.mark_column][exam_type]['bg'] = "none"
+          else
+            th['subjects'][ssmap.mark_column][exam_type]['marks'] = mark_value
+    	    th['subjects'][ssmap.mark_column][exam_type]['percentage'] = percentages[ssmap.mark_column]
+    	    th['subjects'][ssmap.mark_column][exam_type]['percentile'] = percentiles[ssmap.mark_column]
+    	    th['subjects'][ssmap.mark_column][exam_type]['bg'] = Grade.get_color_code(percentages[ssmap.mark_column])          
+          end #end of if
+          th['subjects'][exam_type][ssmap.mark_column]['credits'] = ssmap.credits      
+        end   #end of SecSubMap.for_section(section.id).for_semester(@semester.id).all.each do |ssmap|
+      end #end of mark_rel.each do |mark|
+      ret_val << th
+	end #end of SecExamMap.for_section(section.id).for_semester(@semester.id).all.each do |semap|
+  end
+      
+      
+      
+      
+      #      mark_asgn_rel = Mark.search(:student_id_eq => @student.id, :semester_id_eq => @semester.id, :exam_id_eq => semap.exam_id, :exam_exam_type => EXAM_TYPE_ASSIGNMENT).result
+      mark_exam = mark_exam_rel.first
+      mark_assignment = mark_asgn_rel.first
+      th = {}
+      th['exam_name'] => semap.exam.name
+      th['subjects'] => {}
+      SecSubMap.for_section(section.id).for_semester(@semester.id).all.each do |ssmap|
+      	th['subjects'][ssmap.mark_column] = {}
+      	th['subjects'][ssmap.mark_column]['exam'] = {}
+      	th['subjects'][ssmap.mark_column]['assignments'] = {}
+      	m_exam = mark_exam_rel.send(ssmap.mark_column)
+      	m_asgn = mark_asgn_rel.send(ssmap.mark_column)
+      	if m_exam == NA_MARK_NUM || m_exam == ABSENT_MARK_NUM
+          temp_hash['subjects'][ssmap.mark_column]['marks'] = m_exam == ABSENT_MARK_NUM ? "A" : "NA"
+    	  temp_hash['subjects'][ssmap.mark_column]['percentage'] = "NA"
+    	  temp_hash['subjects'][ssmap.mark_column]['percentile'] = "NA"
+    	  temp_hash['subjects'][ssmap.mark_column]['bg'] = "none"
+        else
+          temp_hash['subjects'][ssmap.mark_column]['marks'] = m_exam
+    	  temp_hash['subjects'][ssmap.mark_column]['percentage'] = percentages[ssmap.mark_column]
+    	  temp_hash['subjects'][ssmap.mark_column]['percentile'] = percentiles[ssmap.mark_column][mark_row.id]
+    	  temp_hash['subjects'][ssmap.mark_column]['bg'] = Grade.get_color_code(percentages[ssmap.mark_column])          
+        end
+
+    	temp_hash['subjects'][ssmap.mark_column]['credits'] = ssmap.credits      
+      end
+        
+      
+    end
+
+  end  
 
 end
