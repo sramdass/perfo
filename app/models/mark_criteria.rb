@@ -30,11 +30,11 @@ class MarkCriteria < TenantManager
   validates_presence_of :semester
   validates_associated :semester  
 	
-  validates_numericality_of :max_marks, :less_than_or_equal_to => 500, :allow_nil => true, :message => "too large"
-  validates_numericality_of :pass_marks, :less_than_or_equal_to => 500, :allow_nil => true, :message => "too large"
+  validates_numericality_of :max_marks, :less_than_or_equal_to => 500, :greater_than_or_equal_to => 0
+  validates_numericality_of :pass_marks, :less_than_or_equal_to => 500, :greater_than_or_equal_to => 0
   
-  validates_numericality_of :max_marks, :greater_than_or_equal_to => 0, :allow_nil => true, :message => "too small"
-  validates_numericality_of :pass_marks, :greater_than_or_equal_to => 0, :allow_nil => true, :message => "too small"  
+  #validates_numericality_of :max_marks, :greater_than_or_equal_to => 0, :allow_nil => true, :message => "too small"
+  #validates_numericality_of :pass_marks, :greater_than_or_equal_to => 0, :allow_nil => true, :message => "too small"  
   
   	
   scope :for_section, lambda { |section_id| where('section_id = ? ', section_id)}           

@@ -147,14 +147,17 @@ class Mark < TenantManager
     #The following will return hash[:subject_id] = credit of the subject_id
     credits = credits_with_subject_ids
     hsh.each do |sub_id, col_name|
+      #mark criteria should be there. Need to see if we have to throw an exception
+      #if the mark criteria is not there.
       mc = get_marks_criteria.for_subject(sub_id).first
       val = self.send(col_name)
       if val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
       	total = total + val
-        weighed_total = weighed_total + (val * credits[sub_id])
+      	#convert the mark value in to percentage and then multiply that value with credits.
+        weighed_total = weighed_total + (( val * credits[sub_id] * 100).to_f / mc.max_marks)
         total_credits = total_credits + credits[sub_id]
       end
-      if  val && mc && mc.pass_marks && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
+      if  val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
       	if (val < mc.pass_marks)
           arrears = arrears + 1
         else 
