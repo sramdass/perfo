@@ -11,6 +11,10 @@ DEFAULT_MAX_MARKS = 100
 #default pass marks criteria (used in MarkCriteria table)
 DEFAULT_PASS_MARKS_PERCENTAGE = 50
 
+#Refer mark_criteria.rb
+MAX_ALLOWED_MARKS = 500
+MIN_ALLOWED_MARKS = 0
+
 #Exam Types in Exam. Refer exams.rb
 EXAM_TYPE_TEST = 0
 EXAM_TYPE_ASSIGNMENT = 1

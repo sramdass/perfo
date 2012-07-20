@@ -6,7 +6,7 @@
   <% @section.sec_sub_maps.order('subject_id ASC').each do |ssmap| %>
   	  <% disabled_flag = false %>
   	  <% # if this mark row belongs to an arrear student, disable the the subjects he did not enroll for %>
-      <% if f.object.section_id != f.object.student.section_id %>
+      <% if f.object.arrear_student %>
         <% #if we are here, this means that the current student is an arrear student.If there is not a row for this student (for this particular subject) in the ArrearStudent Model, disable this subject.%>
         <% if !ArrearStudent.for_section(f.object.section_id).for_student(f.object.student_id).for_semester(f.object.semester_id).for_subject(ssmap.subject_id).first %>
           <% disabled_flag = true %>
@@ -23,6 +23,7 @@
   <% end %>	
 	<td> <%= f.object.total %> </td>
 	<td><%= "%.2f" % f.object.weighed_total_percentage %> </td>
+	<td><%= "%.2f" % f.object.weighed_pass_marks_percentage %> </td>
 	<td><%= f.object.arrears_count %> </td>
     <td> <%= f.input :comments, :label => false, :input_html => {:class => 'span1', :rows => 2, :cols => 30}  %> </td>
 </tr>

@@ -236,7 +236,6 @@ class SectionsController < ApplicationController
     @batches = Batch.all
   	#When there is a valid section, semester and exam - create the mark sheet.
   	if @section && @exam && @semester
-  		
       respond_to do |format|
         format.html do
       	  #Make these elements nil so that we do not render the mark sheet in the view. 
@@ -346,7 +345,9 @@ class SectionsController < ApplicationController
       #There will be duplicate of student_ids if a student is attending more than one subject arrear in the current section. Use the uniq method
       #to remove the duplicates. If the student is attending more than one arrear subjects, he will have two column values in a single row.
       for arr_student_id in arr_student_ids.uniq
-      	marks_entry << Mark.new( {:section_id => @section.id, :exam_id => @exam.id, :semester_id => @semester.id, :student_id => arr_student_id })
+      	#Insert the arrear_student_id in the mark_row for the rows corresponding to arrear students
+      	arr_id = ArrearStudent.for_section(@section.id).for_semester(@semester.id).for_student(arr_student_id).first.id
+      	marks_entry << Mark.new( {:section_id => @section.id, :exam_id => @exam.id, :semester_id => @semester.id, :student_id => arr_student_id, :arrear_student_id => arr_id })
       end
     else #Some rows already exist in the Mark record for the current section + exam + semester combination
       #List of student_ids of the students that are currently present in the Mark record for the section + exam + semester combination

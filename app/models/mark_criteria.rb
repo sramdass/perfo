@@ -29,9 +29,12 @@ class MarkCriteria < TenantManager
   belongs_to :exam
   validates_presence_of :semester
   validates_associated :semester  
+  
+  #Even when an arrear student is deleted, the corresponding mark rows should be deleted
+  has_many :marks, :dependent => :destroy    
 	
-  validates_numericality_of :max_marks, :less_than_or_equal_to => 500, :greater_than_or_equal_to => 0
-  validates_numericality_of :pass_marks, :less_than_or_equal_to => 500, :greater_than_or_equal_to => 0
+  validates_numericality_of :max_marks, :less_than_or_equal_to => MAX_ALLOWED_MARKS, :greater_than_or_equal_to => MIN_ALLOWED_MARKS
+  validates_numericality_of :pass_marks, :less_than_or_equal_to => MAX_ALLOWED_MARKS, :greater_than_or_equal_to => MIN_ALLOWED_MARKS
   
   #validates_numericality_of :max_marks, :greater_than_or_equal_to => 0, :allow_nil => true, :message => "too small"
   #validates_numericality_of :pass_marks, :greater_than_or_equal_to => 0, :allow_nil => true, :message => "too small"  

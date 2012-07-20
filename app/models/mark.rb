@@ -52,6 +52,10 @@ class Mark < TenantManager
   validates_presence_of :semester
   validates_associated :semester
   
+  #Prensence is not needed. Validate only if an arrear student is present.  
+  belongs_to :arrear_student
+  validates_associated :semester  
+  
   validates_numericality_of :sub1, :allow_nil => true, :message => "invalid"
   validates_numericality_of :sub2, :allow_nil => true, :message => "invalid"
   validates_numericality_of :sub3, :allow_nil => true, :message => "invalid"
@@ -142,7 +146,7 @@ class Mark < TenantManager
   #for each of these, we may end up doing a lot of queries. So, club them together.
   #From the weighed_total_percentage and total_credits, we can get the weighed_total.
   def update_totals_credits_passed_and_arrears
-    weighed_total = total = arrears = total_credits = passed = 0
+    weighed_total = weighed_pass_total = total = arrears = total_credits = pass_credits = passed = 0
     hsh = mark_columns_with_subject_ids
     #The following will return hash[:subject_id] = credit of the subject_id
     credits = credits_with_subject_ids
@@ -162,6 +166,9 @@ class Mark < TenantManager
           arrears = arrears + 1
         else 
           passed = passed + 1
+          #convert the mark value in to percentage and then multiply that value with credits.
+          pass_credits = pass_credits + credits[sub_id]
+          weighed_pass_total = weighed_pass_total + (( val * credits[sub_id] * 100).to_f / mc.max_marks)
         end
       end      
     end
@@ -170,6 +177,7 @@ class Mark < TenantManager
     self.total = total
     #If the total credits is 0, make the weighed percentage as 0. Otherwise, we get a divide-by-zero exception.
     self.weighed_total_percentage =  total_credits==0 ? 0 : weighed_total.to_f / total_credits
+    self.weighed_pass_marks_percentage =  pass_credits==0 ? 0 : weighed_pass_total.to_f / pass_credits
     self.total_credits = total_credits
   end
   
@@ -210,7 +218,9 @@ class Mark < TenantManager
       mc = MarkCriteria.for_section(self.section_id).for_semester(self.semester_id).for_exam(exam_id).for_subject(map.subject_id).first
       max_marks = mc.max_marks if mc
       val = self.send(col_name)
-      if max_marks && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
+      #the val (mark value) can be null for the arrear students. Also if the teacher does not enter the marks, it will be nil.
+      #So, check for null.
+      if max_marks && val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
         h[col_name] = (val.to_f / max_marks) * 100
       else
         h[col_name] = "NA"
@@ -225,7 +235,9 @@ class Mark < TenantManager
     SecSubMap.for_section(section_id).for_semester(semester_id).all.each do |map|
       col_name = map.mark_column
       marks = marks_rel.select("id, #{col_name}").order("#{col_name} ASC")
-      marks.delete_if { |x| x.send(col_name) == NA_MARK_NUM ||  x.send(col_name) == ABSENT_MARK_NUM}
+      #the x.send(col_name ) (mark value) can be null for the arrear students. Also if the teacher does not 
+      #enter the marks, it will be nil. Delete the nil marks to the list.
+      marks.delete_if { |x| x.send(col_name) == NA_MARK_NUM ||  x.send(col_name) == ABSENT_MARK_NUM || !x.send(col_name) }
       index = Hash[marks.map.with_index{ |*ki|  ki } ]
       count = marks.count
       mark = mark_rel.for_student(self.student_id).first
@@ -276,7 +288,9 @@ class Mark < TenantManager
   def self.subject_percentiles_with_mark_ids(col_name, section_id, semester_id, exam_id)
   	h = Hash.new
     marks = Mark.for_section(section_id).for_semester(semester_id).for_exam(exam_id).select("id, #{col_name}").order("#{col_name} ASC")
-    marks.delete_if { |x| x.send(col_name) == NA_MARK_NUM ||  x.send(col_name) == ABSENT_MARK_NUM}
+    #x.send(col_name) (mark value) can be null for the arrear students. Also if the teacher does not 
+    #enter the marks, it will be nil. Delete the nil marks to the list.    
+    marks.delete_if { |x| x.send(col_name) == NA_MARK_NUM ||  x.send(col_name) == ABSENT_MARK_NUM  || !x.send(col_name) }
     index = Hash[marks.map.with_index{ |*ki|  ki } ]
     count = marks.count
     marks.each do |mark|
@@ -287,6 +301,10 @@ class Mark < TenantManager
   
   def self.weighed_total_percentiles_with_mark_ids(section_id, semester_id, exam_id)
   	Mark.subject_percentiles_with_mark_ids("weighed_total_percentage", section_id, semester_id, exam_id)
+  end
+  
+  def self.weighed_pass_marks_percentiles_with_mark_ids(section_id, semester_id, exam_id)
+  	Mark.subject_percentiles_with_mark_ids("weighed_pass_marks_percentage", section_id, semester_id, exam_id)
   end
   
 end

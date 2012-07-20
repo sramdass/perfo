@@ -4,6 +4,8 @@
     <dict>
         <key>fileTriggers</key>
         <dict>
+            <key>42906_add_arrstuid_weig</key>
+            <string>db\migrate\20120719142906_add_arrstuid_weighed_pass_pcnt_to_marks.rb</string>
             <key>ArrearStu</key>
             <string>app\models\arrear_student.rb</string>
             <key>CONSTA</key>
@@ -249,6 +251,8 @@
             <key>config.r</key>
             <string>config.ru</string>
             <key>const</key>
+            <string>config\initializers\constants.rb</string>
+            <key>consta</key>
             <string>config\initializers\constants.rb</string>
             <key>constan</key>
             <string>config\initializers\constants.rb</string>
@@ -675,6 +679,8 @@
             <key>reports</key>
             <string>app\views\selectors\_reports_form.html.erb</string>
             <key>reports_c</key>
+            <string>app\controllers\reports_controller.rb</string>
+            <key>reports_con</key>
             <string>app\controllers\reports_controller.rb</string>
             <key>reports_fo</key>
             <string>app\views\selectors\_reports_form.html.erb</string>

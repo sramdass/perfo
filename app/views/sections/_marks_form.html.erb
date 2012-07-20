@@ -31,15 +31,18 @@
         	  </th>
         	<% end %>
         	<th>Total</th>
-        	<th>Weighed <br> Average</th>
+        	<th>WTotAvg</th>
+        	<th>WPassAvg</th>
         	<th>Arrears</th>
         	<th>Comments</th>
         </tr>
     </thead>
     <tbody>		
-    <% #display only the rows that correspond only to the current semester + exam  %>
-	<%= f.simple_fields_for :marks do |builder| %>
-	  <% if builder.object.semester_id == @semester.id && builder.object.exam_id == @exam.id %>	
+    <% #Note that we are displaying the rows sorted by student name. Be careful not to use any where clause or order clause here, 
+           #as using that will fetch the rows from the database and we may end uo losing the validation errors%>
+	<%= f.simple_fields_for :marks, f.object.marks.sort_by {  |mark| mark.student.name.downcase } do |builder| %>
+	<% #display only the rows that correspond only to the current semester + exam  %>
+	  <% if builder.object.semester_id == @semester.id && builder.object.exam_id == @exam.id %>
 	    <%= render "mark_fields", :f => builder %>	 	  
 	  <% end %>
 	<% end %>
