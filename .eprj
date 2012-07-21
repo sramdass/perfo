@@ -192,6 +192,8 @@
             <string>app\helpers\application_helper.rb</string>
             <key>arrear</key>
             <string>app\models\arrear_student.rb</string>
+            <key>arrear_st</key>
+            <string>app\models\arrear_student.rb</string>
             <key>arrear_stude</key>
             <string>app\views\sections\arrear_students.html.erb</string>
             <key>arrearcoun</key>

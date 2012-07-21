@@ -210,7 +210,7 @@ class SectionsController < ApplicationController
   	  	#If the student is already present in the current section, thrown an error and get out!
   	  	temp_stu = @section.students.where('id = ?', stu_id).first #find does not work here
   	  	if temp_stu
-          flash[:error] = "Error! Student #{temp_stu.name}  (#{temp_stu.id_no}) is already in this section".
+          flash[:error] = "Error! Student #{temp_stu.name}  (#{temp_stu.id_no}) is already in this section"
           redirect_to(arrear_students_sections_path(:section_id => params[:id], :semester_id => @semester.id))  	
           return  		
   	  	end
@@ -346,8 +346,7 @@ class SectionsController < ApplicationController
       #to remove the duplicates. If the student is attending more than one arrear subjects, he will have two column values in a single row.
       for arr_student_id in arr_student_ids.uniq
       	#Insert the arrear_student_id in the mark_row for the rows corresponding to arrear students
-      	arr_id = ArrearStudent.for_section(@section.id).for_semester(@semester.id).for_student(arr_student_id).first.id
-      	marks_entry << Mark.new( {:section_id => @section.id, :exam_id => @exam.id, :semester_id => @semester.id, :student_id => arr_student_id, :arrear_student_id => arr_id })
+      	marks_entry << Mark.new( {:section_id => @section.id, :exam_id => @exam.id, :semester_id => @semester.id, :student_id => arr_student_id })
       end
     else #Some rows already exist in the Mark record for the current section + exam + semester combination
       #List of student_ids of the students that are currently present in the Mark record for the section + exam + semester combination
@@ -362,7 +361,7 @@ class SectionsController < ApplicationController
       end
       #Find the students that have to be added into the Mark record for the current combination.
       (required_stu_ids - existing_stu_ids).each do |new_stu_id|
-        marks_entry << Mark.new( {:section_id => @section.id, :exam_id => @exam.id, :semester_id => @semester.id, :student_id => new_stu_id })
+        marks_entry << Mark.new( {:section_id => @section.id, :exam_id => @exam.id, :semester_id => @semester.id, :student_id => new_stu_id})
       end      
     end
     if marks_entry.all?(&:valid?)   #[].all?(&:valid?) --> is always true. So, no worries if marks_entry[] is empty and del_marks_entry[] has something that shd be removed.

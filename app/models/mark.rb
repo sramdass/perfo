@@ -52,10 +52,6 @@ class Mark < TenantManager
   validates_presence_of :semester
   validates_associated :semester
   
-  #Prensence is not needed. Validate only if an arrear student is present.  
-  belongs_to :arrear_student
-  validates_associated :semester  
-  
   validates_numericality_of :sub1, :allow_nil => true, :message => "invalid"
   validates_numericality_of :sub2, :allow_nil => true, :message => "invalid"
   validates_numericality_of :sub3, :allow_nil => true, :message => "invalid"
@@ -179,6 +175,17 @@ class Mark < TenantManager
     self.weighed_total_percentage =  total_credits==0 ? 0 : weighed_total.to_f / total_credits
     self.weighed_pass_marks_percentage =  pass_credits==0 ? 0 : weighed_pass_total.to_f / pass_credits
     self.total_credits = total_credits
+  end
+  
+  def is_arrear_student?
+  	#if the current section_id is not equal to the current student's section_id, then he is an arrear student.
+    return true if self.section_id != self.student.section_id 
+    return false
+  end
+  	
+  def arrear_student(sub_id)
+  	#If this row corresponds to an arrear student, check if he has enrolled for the sub_id that is passed. Return true or false.
+  	ArrearStudent.for_semester(self.semester_id).for_section(self.section_id).for_student(self.student_id).for_subject(sub_id).first
   end
   
   def get_absent_subjects_count

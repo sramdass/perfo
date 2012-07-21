@@ -6,11 +6,9 @@
   <% @section.sec_sub_maps.order('subject_id ASC').each do |ssmap| %>
   	  <% disabled_flag = false %>
   	  <% # if this mark row belongs to an arrear student, disable the the subjects he did not enroll for %>
-      <% if f.object.arrear_student %>
+      <% if f.object.is_arrear_student? && !f.object.arrear_student(ssmap.subject_id) %>
         <% #if we are here, this means that the current student is an arrear student.If there is not a row for this student (for this particular subject) in the ArrearStudent Model, disable this subject.%>
-        <% if !ArrearStudent.for_section(f.object.section_id).for_student(f.object.student_id).for_semester(f.object.semester_id).for_subject(ssmap.subject_id).first %>
-          <% disabled_flag = true %>
-        <% end %>
+        <% disabled_flag = true %>
       <% end %>
       <% mark_val =  f.object.send(ssmap.mark_column) %>
       <% val =  NA_MARK_CHAR if mark_val && mark_val == NA_MARK_NUM %>
