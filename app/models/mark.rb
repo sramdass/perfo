@@ -77,6 +77,7 @@ class Mark < TenantManager
   validate :mark_should_not_be_greater_than_max_marks
   validate :mark_should_not_be_negative_except_na_and_absent
   before_save :update_totals_credits_passed_and_arrears
+  after_save :update_exams_with_assignment_marks
   
   scope :for_section, lambda { |section_id| where('section_id = ? ', section_id)}           
   scope :for_semester, lambda { |semester_id| where('semester_id = ? ', semester_id)}     
@@ -138,43 +139,115 @@ class Mark < TenantManager
     self.arrears_count=arrears
   end  
   
+  def update_exams_with_assignment_marks
+    ex = self.exam.examination if self.exam.exam_type == EXAM_TYPE_ASSIGNMENT
+    m = Mark.for_section(self.section_id).for_semester(self.semester_id).for_student(self.student_id).for_exam(ex.id).first if ex
+    if m
+      m.total_credits = total_credits + 1
+      m.save!
+    end
+  end
+  
   #Update the total, arrears, passed subjects, weighed_total_percentage and total credits. If we have individual modules
   #for each of these, we may end up doing a lot of queries. So, club them together.
   #From the weighed_total_percentage and total_credits, we can get the weighed_total.
   def update_totals_credits_passed_and_arrears
-    weighed_total = weighed_pass_total = total = arrears = total_credits = pass_credits = passed = 0
+    
+    weighed_total = weighed_pass_total =  total = arrears = passed = total_credits = pass_credits = 0
     hsh = mark_columns_with_subject_ids
     #The following will return hash[:subject_id] = credit of the subject_id
-    credits = credits_with_subject_ids
+    
+    #get the credits for each of the subjects. It is same for both the assignments and exams.
+    credits = credits_with_subject_ids 
+    
+    #These will have the sum of max marks and pass marks of the exam and all the assignments.
+    #Example: max_marks = {:sub1 => 200, :sub2 => 100 etc..}
+    #WARNING! Do not assign like a = b = {}. This  will behave like pointers / references
+    max_marks_ia = {}
+    pass_marks_ia = {} 
+    #mark_val_ia -> will have all total of the exam and all the assignments for a particular subject.
+    #Example, sum of all the sub1 column for the exam and the associated assignments.
+    
+    #Note that these values are used in loops, so they will have intermeidate values inside the loop
+    #according to the number of rows processed.
+    mark_val_ia = {}
+    
+    #At the end of this loop, we will have all the values corresponding to the exam.
     hsh.each do |sub_id, col_name|
-      #mark criteria should be there. Need to see if we have to throw an exception
-      #if the mark criteria is not there.
-      mc = get_marks_criteria.for_subject(sub_id).first
+      mc = self.get_marks_criteria.for_subject(sub_id).first
+      pass_marks_ia[col_name] = mc ? mc.pass_marks : 0
+      max_marks_ia[col_name] = mc ? mc.max_marks : 0
+      mark_val_ia[col_name] = 0
+    
       val = self.send(col_name)
-      if val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
-      	total = total + val
-      	#convert the mark value in to percentage and then multiply that value with credits.
-        weighed_total = weighed_total + (( val * credits[sub_id] * 100).to_f / mc.max_marks)
-        total_credits = total_credits + credits[sub_id]
-      end
       if  val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
-      	if (val < mc.pass_marks)
+        mark_val_ia[col_name] = val
+        if (val < pass_marks_ia[col_name])
           arrears = arrears + 1
         else 
           passed = passed + 1
-          #convert the mark value in to percentage and then multiply that value with credits.
           pass_credits = pass_credits + credits[sub_id]
-          weighed_pass_total = weighed_pass_total + (( val * credits[sub_id] * 100).to_f / mc.max_marks)
+          weighed_pass_total = weighed_pass_total + (( val * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
+        end           
+        total = total + val
+        weighed_total = weighed_total + (( val * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
+        total_credits = total_credits + credits[sub_id]              
+      end
+    end
+    self.total_credits = total_credits      
+    self.total = total #Total is without including the assignments              
+    self.arrears_count = self.arrears_count_ia = arrears
+    self.passed_count =  self.passed_count_ia = passed
+    self.weighed_total_percentage =  self.weighed_total_percentage_ia = total_credits==0 ? 0 : weighed_total.to_f / total_credits
+    self.weighed_pass_marks_percentage =  weighed_pass_marks_percentage_ia  = pass_credits==0 ? 0 : weighed_pass_total.to_f / pass_credits
+
+	if self.exam.assignments
+      self.assignments.each do |asgnmt|
+        hsh.each do |sub_id, col_name|
+          mc_ia = asgnmt.get_marks_criteria.for_subject(sub_id).first
+          #mark criteria should be there. Need to see if we have to throw an exception
+          #if the mark criteria is not there.
+          max_marks_ia[col_name] = max_marks_ia[col_name]  + mc_ia.max_marks  if mc_ia
+          pass_marks_ia[col_name] = pass_marks_ia[col_name] + mc_ia.pass_marks if mc_ia
+          val = asgnmt.send(col_name)
+          if val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
+            mark_val_ia[col_name] = mark_val_ia[col_name] + val
+          end
+        end
+      end
+
+      arrears_ia = passed_ia = 0
+      pass_credits_ia = weighed_pass_total_ia = weighed_total_ia = 0
+    
+      hsh.each do |sub_id, col_name|
+      	if max_marks_ia[col_name] != 0
+          weighed_total_ia = weighed_total_ia + (( mark_val_ia[col_name] * credits[sub_id] * 100).to_f / max_marks_ia[col_name])          
+    	end
+        if (mark_val_ia[col_name] < pass_marks_ia[col_name])
+          arrears_ia = arrears_ia + 1
+        else 
+          passed_ia = passed_ia + 1
+          #convert the mark value in to percentage and then multiply that value with credits.
+          pass_credits_ia = pass_credits_ia + credits[sub_id]
+          if max_marks_ia[col_name] != 0
+            weighed_pass_total_ia = weighed_pass_total_ia + (( mark_val_ia[col_name] * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
+    	  end
         end
       end      
+      self.arrears_count_ia = arrears_ia
+      self.passed_count_ia = passed_ia
+      self.weighed_total_percentage_ia =  total_credits==0 ? 0 : weighed_total_ia.to_f / total_credits
+      self.weighed_pass_marks_percentage_ia =  pass_credits_ia==0 ? 0 : weighed_pass_total_ia.to_f / pass_credits_ia  
     end
-    self.arrears_count = arrears
-    self.passed_count = passed
-    self.total = total
-    #If the total credits is 0, make the weighed percentage as 0. Otherwise, we get a divide-by-zero exception.
-    self.weighed_total_percentage =  total_credits==0 ? 0 : weighed_total.to_f / total_credits
-    self.weighed_pass_marks_percentage =  pass_credits==0 ? 0 : weighed_pass_total.to_f / pass_credits
-    self.total_credits = total_credits
+  end
+  
+  def assignments
+  	ret_val = []
+    self.exam.assignments.each do |asgn|
+      t = Mark.for_semester(self.semester_id).for_section(self.section_id).for_student(self.student_id).for_exam(asgn.id).first
+      ret_val << t if t
+    end
+    return ret_val
   end
   
   def is_arrear_student?
