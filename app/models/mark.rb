@@ -172,26 +172,33 @@ class Mark < TenantManager
     #according to the number of rows processed.
     mark_val_ia = {}
     
-    #At the end of this loop, we will have all the values corresponding to the exam.
+    #At the end of this loop, we will have all the values corresponding to the exam (without the assignments).
     hsh.each do |sub_id, col_name|
-      mc = self.get_marks_criteria.for_subject(sub_id).first
-      pass_marks_ia[col_name] = mc ? mc.pass_marks : 0
-      max_marks_ia[col_name] = mc ? mc.max_marks : 0
-      mark_val_ia[col_name] = 0
-    
-      val = self.send(col_name)
-      if  val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
-        mark_val_ia[col_name] = val
-        if (val < pass_marks_ia[col_name])
-          arrears = arrears + 1
-        else 
-          passed = passed + 1
-          pass_credits = pass_credits + credits[sub_id]
-          weighed_pass_total = weighed_pass_total + (( val * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
-        end           
-        total = total + val
-        weighed_total = weighed_total + (( val * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
-        total_credits = total_credits + credits[sub_id]              
+  	  #If this is a arrear_student's mark record and if he has not enrolled for this particular subject,
+  	  #do not execute it. 
+  	  #This 'if' condition seems to be a little confusing. 
+  	  #For non-arrear student, the first part will succeed and it will go in. 
+  	  #For the arrear students, who have enrolled for this subject, the first will fail and the second will succeed. 
+  	  #For the arrear students, who have NOT enrolled for this subject, both checks will fail.    	
+      if !self.is_arrear_student? || self.arrear_student(sub_id)
+        mc = self.get_marks_criteria.for_subject(sub_id).first
+        pass_marks_ia[col_name] = mc ? mc.pass_marks : 0
+        max_marks_ia[col_name] = mc ? mc.max_marks : 0
+        mark_val_ia[col_name] = 0
+        val = self.send(col_name)
+        if  val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
+          mark_val_ia[col_name] = val
+          if (val < pass_marks_ia[col_name])
+            arrears = arrears + 1
+          else 
+            passed = passed + 1
+            pass_credits = pass_credits + credits[sub_id]
+            weighed_pass_total = weighed_pass_total + (( val * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
+          end           
+          total = total + val
+          weighed_total = weighed_total + (( val * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
+          total_credits = total_credits + credits[sub_id]              
+        end
       end
     end
     self.total_credits = total_credits      
@@ -201,17 +208,17 @@ class Mark < TenantManager
     self.weighed_total_percentage =  self.weighed_total_percentage_ia = total_credits==0 ? 0 : weighed_total.to_f / total_credits
     self.weighed_pass_marks_percentage =  weighed_pass_marks_percentage_ia  = pass_credits==0 ? 0 : weighed_pass_total.to_f / pass_credits
 
-	if self.exam.assignments
+    if self.exam.assignments
       self.assignments.each do |asgnmt|
-        hsh.each do |sub_id, col_name|
-          mc_ia = asgnmt.get_marks_criteria.for_subject(sub_id).first
-          #mark criteria should be there. Need to see if we have to throw an exception
-          #if the mark criteria is not there.
-          max_marks_ia[col_name] = max_marks_ia[col_name]  + mc_ia.max_marks  if mc_ia
-          pass_marks_ia[col_name] = pass_marks_ia[col_name] + mc_ia.pass_marks if mc_ia
-          val = asgnmt.send(col_name)
-          if val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
-            mark_val_ia[col_name] = mark_val_ia[col_name] + val
+      	hsh.each do |sub_id, col_name|
+      	  if !self.is_arrear_student? || self.arrear_student(sub_id)
+      	    mc_ia = asgnmt.get_marks_criteria.for_subject(sub_id).first
+            max_marks_ia[col_name] = max_marks_ia[col_name]  + mc_ia.max_marks  if mc_ia
+            pass_marks_ia[col_name] = pass_marks_ia[col_name] + mc_ia.pass_marks if mc_ia
+            val = asgnmt.send(col_name)
+            if val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
+              mark_val_ia[col_name] = mark_val_ia[col_name] + val
+            end
           end
         end
       end
@@ -220,20 +227,29 @@ class Mark < TenantManager
       pass_credits_ia = weighed_pass_total_ia = weighed_total_ia = 0
     
       hsh.each do |sub_id, col_name|
-      	if max_marks_ia[col_name] != 0
-          weighed_total_ia = weighed_total_ia + (( mark_val_ia[col_name] * credits[sub_id] * 100).to_f / max_marks_ia[col_name])          
-    	end
-        if (mark_val_ia[col_name] < pass_marks_ia[col_name])
-          arrears_ia = arrears_ia + 1
-        else 
-          passed_ia = passed_ia + 1
-          #convert the mark value in to percentage and then multiply that value with credits.
-          pass_credits_ia = pass_credits_ia + credits[sub_id]
-          if max_marks_ia[col_name] != 0
-            weighed_pass_total_ia = weighed_pass_total_ia + (( mark_val_ia[col_name] * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
+      	#If this is a arrear_student's mark record and if he has not enrolled for this particular subject,
+      	#do not execute it. 
+      	#This 'if' condition seems to be a little confusing. 
+      	#For non-arrear student, the first part will succeed and it will go in. 
+      	#For the arrear students, who have enrolled for this subject, the first will fail and the second will succeed. 
+      	#For the arrear students, who have NOT enrolled for this subject, both checks will fail.
+      	if !self.is_arrear_student? || self.arrear_student(sub_id)
+      	  if max_marks_ia[col_name] != 0
+            weighed_total_ia = weighed_total_ia + (( mark_val_ia[col_name] * credits[sub_id] * 100).to_f / max_marks_ia[col_name])          
     	  end
+          if (mark_val_ia[col_name] < pass_marks_ia[col_name])
+            arrears_ia = arrears_ia + 1
+          else 
+            passed_ia = passed_ia + 1
+            #convert the mark value in to percentage and then multiply that value with credits.
+            pass_credits_ia = pass_credits_ia + credits[sub_id]
+            if max_marks_ia[col_name] != 0
+              weighed_pass_total_ia = weighed_pass_total_ia + (( mark_val_ia[col_name] * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
+    	    end
+          end
         end
       end      
+      
       self.arrears_count_ia = arrears_ia
       self.passed_count_ia = passed_ia
       self.weighed_total_percentage_ia =  total_credits==0 ? 0 : weighed_total_ia.to_f / total_credits

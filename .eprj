@@ -113,7 +113,7 @@
             <key>applic.cs</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applica</key>
-            <string>app\views\layouts\application.html.erb</string>
+            <string>app\controllers\application_controller.rb</string>
             <key>applica.cs</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applica.js</key>
