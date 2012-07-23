@@ -76,7 +76,15 @@ class Mark < TenantManager
   
   validate :mark_should_not_be_greater_than_max_marks
   validate :mark_should_not_be_negative_except_na_and_absent
+  #This will calculate the total arrears for the current row. If there are not any 
+  #assignments corresponding to the current row, the values will be a result
+  #of the current row. If there are any assignments associated with the current
+  #row, then the current row values are summed up with the assignment row
+  #values and then the total, arrears etc.. are calculated.
   before_save :update_totals_credits_passed_and_arrears
+  
+  #If the current row updated is an assignment, the parent of this assignment,
+  #apparently an exam, should be updated with the new values.
   after_save :update_exams_with_assignment_marks
   
   scope :for_section, lambda { |section_id| where('section_id = ? ', section_id)}           
@@ -140,10 +148,13 @@ class Mark < TenantManager
   end  
   
   def update_exams_with_assignment_marks
+  	#If the current row is an assignment, and if it is associated with an exam - update the exams.
+  	#It can be done by just changing any value of the exam record (we are changing total_credits)
+  	#and invoking a save again on the parent record.
     ex = self.exam.examination if self.exam.exam_type == EXAM_TYPE_ASSIGNMENT
     m = Mark.for_section(self.section_id).for_semester(self.semester_id).for_student(self.student_id).for_exam(ex.id).first if ex
     if m
-      m.total_credits = total_credits + 1
+      m.total_credits = total_credits + 1 #Make sure an calculated field is updated, not an input field
       m.save!
     end
   end
@@ -182,6 +193,9 @@ class Mark < TenantManager
   	  #For the arrear students, who have NOT enrolled for this subject, both checks will fail.    	
       if !self.is_arrear_student? || self.arrear_student(sub_id)
         mc = self.get_marks_criteria.for_subject(sub_id).first
+        #if it is a valid subject (if this record corresponds to a arrear student, and he did not 
+        #enroll for this particular subject, it will be an invalid subject), and there are not any
+        #mark criteria, make the max_marks and pass_marks as zero.
         pass_marks_ia[col_name] = mc ? mc.pass_marks : 0
         max_marks_ia[col_name] = mc ? mc.max_marks : 0
         mark_val_ia[col_name] = 0
@@ -195,22 +209,36 @@ class Mark < TenantManager
             pass_credits = pass_credits + credits[sub_id]
             weighed_pass_total = weighed_pass_total + (( val * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
           end           
-          total = total + val
+          total = total + val #Total of all the marks only for the exams (assignments excluded)
+          #sum of (subject marks * credits ), and then divided by total credits. And then convert it to 
+          #percentage with respect to the max marks
           weighed_total = weighed_total + (( val * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
+          #Total credits of that particular exam
           total_credits = total_credits + credits[sub_id]              
         end
-      end
-    end
+      end #End of - if !self.is_arrear_student? || self.arrear_student(sub_id)
+	end  #End of - hsh.each do |sub_id, col_name|
     self.total_credits = total_credits      
-    self.total = total #Total is without including the assignments              
+    self.total = total #Total is without including the assignments        
+    #At this point, calculated_fields for just exams and calculated fields including assignments (*_ia) will be the same.
+    #If there are not any assignments, these values will end up the same in the database. If there are any assignments,
+    #the *_ia values will be updated accordingly.
     self.arrears_count = self.arrears_count_ia = arrears
     self.passed_count =  self.passed_count_ia = passed
     self.weighed_total_percentage =  self.weighed_total_percentage_ia = total_credits==0 ? 0 : weighed_total.to_f / total_credits
     self.weighed_pass_marks_percentage =  weighed_pass_marks_percentage_ia  = pass_credits==0 ? 0 : weighed_pass_total.to_f / pass_credits
 
-    if self.exam.assignments
-      self.assignments.each do |asgnmt|
+    #If there are any assignments corresponding to the current record's exam, sum up all the assignment marks, 
+    #max_marks and the pass_marks.
+	if self.exam.assignments
+      self.assignments.each do |asgnmt| #loop through each of the assignments.
       	hsh.each do |sub_id, col_name|
+  	      #If this is a arrear_student's mark record and if he has not enrolled for this particular subject,
+  	      #do not execute it. 
+  	      #This 'if' condition seems to be a little confusing. 
+  	      #For non-arrear student, the first part will succeed and it will go in. 
+  	      #For the arrear students, who have enrolled for this subject, the first will fail and the second will succeed. 
+  	      #For the arrear students, who have NOT enrolled for this subject, both checks will fail.    	      		
       	  if !self.is_arrear_student? || self.arrear_student(sub_id)
       	    mc_ia = asgnmt.get_marks_criteria.for_subject(sub_id).first
             max_marks_ia[col_name] = max_marks_ia[col_name]  + mc_ia.max_marks  if mc_ia
@@ -219,9 +247,9 @@ class Mark < TenantManager
             if val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
               mark_val_ia[col_name] = mark_val_ia[col_name] + val
             end
-          end
-        end
-      end
+          end # End of - if !self.is_arrear_student? || self.arrear_student(sub_id)
+		end #End of - hsh.each do |sub_id, col_name|
+      end #End of - self.assignments.each do |asgnmt| 
 
       arrears_ia = passed_ia = 0
       pass_credits_ia = weighed_pass_total_ia = weighed_total_ia = 0
@@ -247,17 +275,18 @@ class Mark < TenantManager
               weighed_pass_total_ia = weighed_pass_total_ia + (( mark_val_ia[col_name] * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
     	    end
           end
-        end
-      end      
+    	end #End of -  if !self.is_arrear_student? || self.arrear_student(sub_id)  
+      end #End of - hsh.each do |sub_id, col_name|
       
       self.arrears_count_ia = arrears_ia
       self.passed_count_ia = passed_ia
       self.weighed_total_percentage_ia =  total_credits==0 ? 0 : weighed_total_ia.to_f / total_credits
       self.weighed_pass_marks_percentage_ia =  pass_credits_ia==0 ? 0 : weighed_pass_total_ia.to_f / pass_credits_ia  
-    end
+	end  #End of - if self.exam.assignments
   end
   
   def assignments
+  	#Retun the mark records for the assignments that are associated with the exam of the current record.
   	ret_val = []
     self.exam.assignments.each do |asgn|
       t = Mark.for_semester(self.semester_id).for_section(self.section_id).for_student(self.student_id).for_exam(asgn.id).first
@@ -266,12 +295,15 @@ class Mark < TenantManager
     return ret_val
   end
   
+  #Retuns true if the current mark record corresponds to an arrear student
   def is_arrear_student?
   	#if the current section_id is not equal to the current student's section_id, then he is an arrear student.
     return true if self.section_id != self.student.section_id 
     return false
   end
   	
+  #Returns the ArrearStudent record of the student in the current mark record. You can use this to check  
+  #if the current student has enrolled for the sub_id in this current section + current semester.
   def arrear_student(sub_id)
   	#If this row corresponds to an arrear student, check if he has enrolled for the sub_id that is passed. Return true or false.
   	ArrearStudent.for_semester(self.semester_id).for_section(self.section_id).for_student(self.student_id).for_subject(sub_id).first
