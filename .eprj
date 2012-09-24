@@ -48,6 +48,8 @@
             <string>app\views\sections\_mark_fields.html.erb</string>
             <key>_marks</key>
             <string>app\views\sections\_mark_fields.html.erb</string>
+            <key>_reportsfo</key>
+            <string>app\views\selectors\_reports_form.html.erb</string>
             <key>_sem</key>
             <string>app\views\shared\_semi_index.html.erb</string>
             <key>_sufi</key>
@@ -107,7 +109,7 @@
             <key>applcontr</key>
             <string>app\controllers\application_controller.rb</string>
             <key>appli</key>
-            <string>app\assets\stylesheets\application.css</string>
+            <string>app\controllers\application_controller.rb</string>
             <key>applic</key>
             <string>app\views\layouts\application.html.erb</string>
             <key>applic.cs</key>
@@ -679,7 +681,7 @@
             <key>remove</key>
             <string>db\migrate\20120618130416_remove_exam_type_from_sec_exam_maps.rb</string>
             <key>reports</key>
-            <string>app\views\selectors\_reports_form.html.erb</string>
+            <string>app\views\reports\_reports.html.erb</string>
             <key>reports_c</key>
             <string>app\controllers\reports_controller.rb</string>
             <key>reports_con</key>
@@ -834,6 +836,8 @@
             <string>app\controllers\sections_controller.rb</string>
             <key>section_id_to_students.rb</key>
             <string>db\migrate\20120417143225_add_section_id_to_students.rb</string>
+            <key>sectioncon</key>
+            <string>app\controllers\sections_controller.rb</string>
             <key>sectioncont</key>
             <string>app\controllers\sections_controller.rb</string>
             <key>sectionf</key>
@@ -871,6 +875,8 @@
             <key>selectorsc</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>selectorscon</key>
+            <string>app\controllers\selectors_controller.rb</string>
+            <key>selectr</key>
             <string>app\controllers\selectors_controller.rb</string>
             <key>semcont</key>
             <string>app\controllers\semesters_controller.rb</string>
@@ -987,7 +993,7 @@
             <key>subjecr</key>
             <string>app\models\subject.rb</string>
             <key>subject</key>
-            <string>app\models\subject.rb</string>
+            <string>app\views\sections\_subjects_form.html.erb</string>
             <key>subject.r</key>
             <string>app\models\subject.rb</string>
             <key>subject.rb</key>

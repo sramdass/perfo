@@ -13,9 +13,9 @@ class ReportsController < ApplicationController
     @exam= Exam.find(params[:exam_id]) if params[:exam_id] && params[:exam_id].length != 0
     
     if @student && @semester && @exam
-    	
+      @marks = one_student_one_semester_one_exam
     elsif @student && @semester
-      @marks = get_student_marks_for_semester
+      @marks = one_student_one_semester_all_exams
     elsif @student
     
     #we do not need the exam here. the exam should default to semester final exam
@@ -172,74 +172,118 @@ class ReportsController < ApplicationController
     return ret_val    	
   end
   
-  def get_student_marks_for_semester
-    ret_val = []
-    section = @student.section
-    SecExamMap.for_section(section.id).for_semester(@semester.id).all.each do |semap|
-      assignment_present = nil
-      mark_rel = Mark.search(:student_id_eq => @student.id, :semester_id_eq => @semester.id, :exam_id_eq => semap.exam_id).result
-      mark_rel.each do |mark| #this will execute a max of 2 times. One for the subject, and other for the assignment
-      	percentages = mark.percentages_with_mark_columns
-      	percentiles = mark.percentiles_with_mark_columns
-        exam_type = mark.exam.exam_type == EXAM_TYPE_ASSIGNMENT ? "assignment" : "exam"
-        th = {}
-        th['exam_name'] => semap.exam.name
-        th['subjects'] => {}
-        SecSubMap.for_section(section.id).for_semester(@semester.id).all.each do |ssmap|
-      	  th['subjects'][ssmap.mark_column] = {}
-      	  th['subjects'][ssmap.mark_column][exam_type] = {}
-      	  mark_value = mark.send(ssmap.mark_column)
-      	  if mark_value == NA_MARK_NUM || m_exam == ABSENT_MARK_NUM
-            th['subjects'][ssmap.mark_column][exam_type]['marks'] = mark_value == ABSENT_MARK_NUM ? "A" : "NA"
-    	    th['subjects'][ssmap.mark_column][exam_type]['percentage'] = "NA"
-    	    th['subjects'][ssmap.mark_column][exam_type]['percentile'] = "NA"
-    	    th['subjects'][ssmap.mark_column][exam_type]['bg'] = "none"
-          else
-            th['subjects'][ssmap.mark_column][exam_type]['marks'] = mark_value
-    	    th['subjects'][ssmap.mark_column][exam_type]['percentage'] = percentages[ssmap.mark_column]
-    	    th['subjects'][ssmap.mark_column][exam_type]['percentile'] = percentiles[ssmap.mark_column]
-    	    th['subjects'][ssmap.mark_column][exam_type]['bg'] = Grade.get_color_code(percentages[ssmap.mark_column])          
-          end #end of if
-          th['subjects'][exam_type][ssmap.mark_column]['credits'] = ssmap.credits      
-        end   #end of SecSubMap.for_section(section.id).for_semester(@semester.id).all.each do |ssmap|
-      end #end of mark_rel.each do |mark|
-      ret_val << th
-	end #end of SecExamMap.for_section(section.id).for_semester(@semester.id).all.each do |semap|
-  end
-      
-      
-      
-      
-      #      mark_asgn_rel = Mark.search(:student_id_eq => @student.id, :semester_id_eq => @semester.id, :exam_id_eq => semap.exam_id, :exam_exam_type => EXAM_TYPE_ASSIGNMENT).result
-      mark_exam = mark_exam_rel.first
-      mark_assignment = mark_asgn_rel.first
-      th = {}
-      th['exam_name'] => semap.exam.name
-      th['subjects'] => {}
-      SecSubMap.for_section(section.id).for_semester(@semester.id).all.each do |ssmap|
-      	th['subjects'][ssmap.mark_column] = {}
-      	th['subjects'][ssmap.mark_column]['exam'] = {}
-      	th['subjects'][ssmap.mark_column]['assignments'] = {}
-      	m_exam = mark_exam_rel.send(ssmap.mark_column)
-      	m_asgn = mark_asgn_rel.send(ssmap.mark_column)
-      	if m_exam == NA_MARK_NUM || m_exam == ABSENT_MARK_NUM
-          temp_hash['subjects'][ssmap.mark_column]['marks'] = m_exam == ABSENT_MARK_NUM ? "A" : "NA"
-    	  temp_hash['subjects'][ssmap.mark_column]['percentage'] = "NA"
-    	  temp_hash['subjects'][ssmap.mark_column]['percentile'] = "NA"
-    	  temp_hash['subjects'][ssmap.mark_column]['bg'] = "none"
-        else
-          temp_hash['subjects'][ssmap.mark_column]['marks'] = m_exam
-    	  temp_hash['subjects'][ssmap.mark_column]['percentage'] = percentages[ssmap.mark_column]
-    	  temp_hash['subjects'][ssmap.mark_column]['percentile'] = percentiles[ssmap.mark_column][mark_row.id]
-    	  temp_hash['subjects'][ssmap.mark_column]['bg'] = Grade.get_color_code(percentages[ssmap.mark_column])          
-        end
+  #Marksheet of a student in a particular semester. Columns:- Exams. Rows:- Subjects.
+  #Note that we displaying the marks corresponding to only the exam, not the assignments.
+  def one_student_one_semester_all_exams
+    #this will have all the rows except the heading row. Each of the rows will be hash keyed by the values in column_keys.
+  	table_values = [] 
+    exam_ids = SecExamMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id, :exam_exam_type_eq => EXAM_TYPE_TEST).result.select('exam_id').map { |x| x.exam_id }
+    subject_maps = SecSubMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id).result.all
 
-    	temp_hash['subjects'][ssmap.mark_column]['credits'] = ssmap.credits      
-      end
-        
-      
+    #This will have the index for the column headings hash and the table_values array
+    column_keys = ['subject_name'] + exam_ids.map{ |x| x.to_s}
+    column_headings = {}
+
+    #Populate the column_headings hash. These will be the headings of the table.
+    column_headings['subject_name'] = {:display_name => "Subject", :colspan => 1 } 
+    exam_ids.each do |exam_id|
+      column_headings[exam_id.to_s] = {:display_name => Exam.find(exam_id).name, :colspan => 1}
     end
-
+    
+    #Get the data row wise. One row corresponds to one subject for all the exams. Take a subject
+    #get the marks for all the exams. This method is not effective, but as long as it works, it is ok
+    #now. Need to see if we can improve this.
+    subject_maps.each do |ssmap|
+      #to hold all the data of one row without the subject name.
+      marks_hash = {}
+      mark_col = ssmap.mark_column
+      #loop through each of the exams and get the mark for this particular subject - mark_col
+      exam_ids.each do |exam_id|
+        mark_row = Mark.search(:student_id_eq => @student.id, :semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => exam_id).result.first
+        mc = MarkCriteria.search(:semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => exam_id, :subject_id_eq => ssmap.subject_id).result.first
+        pass_marks = mc ? mc.pass_marks : 0
+        max_marks = mc ? mc.max_marks : 0
+        percentages = mark_row.percentages_with_mark_columns
+        #Definition in mark.rb => self.subject_percentiles_with_mark_ids(col_name, section_id, semester_id, exam_id)
+        percentiles = Mark.subject_percentiles_with_mark_ids(mark_col, @section.id, @semester.id, exam_id)  
+        marks_hash[exam_id.to_s] =  { 	
+        															:value => mark_row.send(mark_col), :bg => Grade.get_color_code(mark_row.send(mark_col)) , 
+        															:max_marks => max_marks,  :pass_marks => pass_marks, 
+        															:percentage => percentages[mark_col], :percentile => percentiles[mark_row.id]
+    															}
+      end
+      sub_type = ssmap.subject.lab ? " (Pr) " : " (Th) "
+      table_values << {:subject_name =>  ssmap.subject.name + sub_type}.merge(marks_hash)
+    end
+    return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
   end  
+  
+  
+  #Marksheet of a student in a particular semester for one exam. 
+  #Columns:- Exam and assignments for that exam. Rows:- Subjects.
+  def one_student_one_semester_one_exam
+  	#this will have all the rows except the heading row. Each of the rows will be hash keyed by the values in column_keys.
+    table_values = []
+    subject_maps = SecSubMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id).result.all
+    #Get the exam id and assignments of that particular exam. Note that all the assignments are considered as exams.
+    #The assignments are going to be yet another row as an exam would be.
+    exam_ids = [@exam.id] + @exam.assignments.map {|x| x.id}
+    column_keys = ['subject_name'] + exam_ids.map {|x| x.to_s} + ['total_marks', 'percentage']
+    column_headings = {}
+
+    #Populate the column_headings and column_sub_headings hash
+    column_headings['subject_name'] = {:display_name => "Subject", :colspan => 1 } 
+    exam_ids.each do |exam_id|
+      column_headings[exam_id.to_s] = {:display_name => Exam.find(exam_id).name, :colspan => 1}
+    end
+    column_headings['total_marks'] = {:display_name => "Total", :colspan => 1}
+    column_headings['percentage'] = {:display_name => "Percentage", :colspan => 1}
+    
+    subject_maps.each do |ssmap|
+      subject_attended_in_section_ids = []
+      subject_attended_in_section_ids << @student.section_id
+      subject_attended_in_section_ids +=  ArrearStudent.search(:student_id_eq => @student.id, :semester_id_eq => @semester.id, :subject_id_eq => ssmap.subject_id).result.select("section_id").map{  |x| x.section_id }
+      subject_attended_in_section_ids.each do |cur_sec_id|
+        marks_hash = {}
+        mark_col = ssmap.mark_column
+        tot_val = tot_pass_marks = tot_max_marks = 0
+        exam_ids.each do |exam_id|
+          mark_row = Mark.search(:student_id_eq => @student.id, :semester_id_eq => @semester.id, :section_id_eq => @student.section_id, :exam_id_eq => exam_id).result.first
+          mc = MarkCriteria.search(:semester_id_eq => mark_row.semester_id, :section_id_eq => mark_row.section_id, :exam_id_eq => mark_row.exam_id, :subject_id_eq => ssmap.subject_id).result.first
+          pass_marks = mc ? mc.pass_marks : 0
+          max_marks = mc ? mc.max_marks : 0
+          percentages = mark_row.percentages_with_mark_columns
+          percentiles = Mark.subject_percentiles_with_mark_ids(mark_col, mark_row.section_id, mark_row.semester_id, mark_row.exam_id)  
+          marks_hash[exam_id.to_s] =  { 	
+        															:value => mark_row.send(mark_col), :bg => Grade.get_color_code(mark_row.send(mark_col)) , 
+        															:max_marks => max_marks,  :pass_marks => pass_marks, 
+        															:percentage => percentages[mark_col], :percentile => percentiles[mark_row.id]
+    															}
+    	  #Add the value in each iteration to get the sum of the marks of exam and assignments.
+          tot_val = tot_val + mark_row.send(mark_col)    															
+          tot_pass_marks = tot_pass_marks + pass_marks
+          tot_max_marks = tot_max_marks + max_marks
+        end
+        tot_percentage = tot_val.to_f * 100 / tot_max_marks
+        marks_hash['total_marks'] = tot_val
+        marks_hash['percentage'] = tot_percentage
+        sub_type = ssmap.subject.lab ? " (Pr) " : " (Th) "
+        table_values << {:subject_name =>  ssmap.subject.name + sub_type}.merge(marks_hash)
+      end
+    end
+    return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
+  end    
+
+  def  table_values_hash
+    {:value => 0, :bg => '', :percentage => 0, :percentile => 0 }
+  end
+  
+  def column_sub_headings_hash
+    {:display_name => '', :max_marks => 100, :pass_marks => 40 }
+  end
+  
+  def column_headings_hash
+    {:display_name => '', :colspan => 1}
+  end
 
 end

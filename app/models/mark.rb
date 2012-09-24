@@ -2,37 +2,46 @@
 #
 # Table name: marks
 #
-#  id            :integer         not null, primary key
-#  student_id    :integer
-#  semester_id   :integer
-#  section_id    :integer
-#  exam_id       :integer
-#  sub1          :float
-#  sub2          :float
-#  sub3          :float
-#  sub4          :float
-#  sub5          :float
-#  sub6          :float
-#  sub7          :float
-#  sub8          :float
-#  sub9          :float
-#  sub10         :float
-#  sub11         :float
-#  sub12         :float
-#  sub13         :float
-#  sub14         :float
-#  sub15         :float
-#  sub16         :float
-#  sub17         :float
-#  sub18         :float
-#  sub19         :float
-#  sub20         :float
-#  total         :float
-#  grade         :string(255)
-#  arrears_count :string(255)
-#  comments      :text
-#  created_at    :datetime
-#  updated_at    :datetime
+#  id                               :integer         not null, primary key
+#  student_id                       :integer
+#  semester_id                      :integer
+#  section_id                       :integer
+#  exam_id                          :integer
+#  sub1                             :float
+#  sub2                             :float
+#  sub3                             :float
+#  sub4                             :float
+#  sub5                             :float
+#  sub6                             :float
+#  sub7                             :float
+#  sub8                             :float
+#  sub9                             :float
+#  sub10                            :float
+#  sub11                            :float
+#  sub12                            :float
+#  sub13                            :float
+#  sub14                            :float
+#  sub15                            :float
+#  sub16                            :float
+#  sub17                            :float
+#  sub18                            :float
+#  sub19                            :float
+#  sub20                            :float
+#  total                            :float
+#  grade                            :string(255)
+#  comments                         :text
+#  created_at                       :datetime
+#  updated_at                       :datetime
+#  total_credits                    :integer
+#  weighed_total_percentage         :float
+#  passed_count                     :integer
+#  arrears_count                    :integer
+#  arrear_student_id                :integer
+#  weighed_pass_marks_percentage    :float
+#  weighed_total_percentage_ia      :float
+#  passed_count_ia                  :integer
+#  arrears_count_ia                 :integer
+#  weighed_pass_marks_percentage_ia :float
 #
 
 class Mark < TenantManager

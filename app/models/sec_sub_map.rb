@@ -10,6 +10,7 @@
 #  mark_column :string(255)
 #  created_at  :datetime
 #  updated_at  :datetime
+#  credits     :integer         default(1)
 #
 
 class SecSubMap < TenantManager

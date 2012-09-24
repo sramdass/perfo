@@ -14,6 +14,9 @@
 class Grade < ActiveRecord::Base
 	
   def self.get_color_code(percentage)
+  	if !percentage
+  	  return 'none'
+  	end
     Grade.order('cut_off_percentage ASC').all.each do |grade|
       if percentage >= grade.cut_off_percentage
         return grade.color_code	
