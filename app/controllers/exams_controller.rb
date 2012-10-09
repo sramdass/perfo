@@ -31,6 +31,12 @@ class ExamsController < ApplicationController
 
   def update
     #@exam = Exam.find(params[:id])
+    if params[:exam][:exam_type] == EXAM_TYPE_ASSIGNMENT && 
+    	params[:exam][:examination_id] == @exam.id
+      flash[:error] = 'The assignment cannot belong to the same assignment'
+      render :edit
+      return
+    end
     if @exam.update_attributes(params[:exam])
     	flash[:notice] = 'Exam successfully updated'
       redirect_to exam_path @exam

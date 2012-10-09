@@ -18,7 +18,7 @@ class ReportsController < ApplicationController
       #@marks = one_student_one_semester_all_exams
       @marks = one_student_one_semester_all_exams_with_assignments
     elsif @student
-    
+      @marks = one_student_all_semesters
     #we do not need the exam here. the exam should default to semester final exam
     elsif @department && @semester && @exam
       @marks = get_department_marks_with_batch    
@@ -391,19 +391,66 @@ class ReportsController < ApplicationController
     end
     return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
   end    
-#***********************************************************************************#
+  #***********************************************************************************#
+  # one_student_all_semesters
+  # Marksheet of a student in all the semesters applicable. Note that this marksheet will contain
+  # only the final exam marks
+  # 
+  # 1. Columns:- Subjects. Each of the semester will have different set of subjects. So, there wont be
+  #                          any column heading, but the subject name will be displayed in each of the cell.
+  # 2. Rows:- Semesters.
+  # 3. Arrear Marks not included. Since we are selecting a section here in the filter we are not displaying
+  #      the arrear marks, as the arrear subjects are taken in some other section. This has some implementation
+  #      difficulty. :)
+  # 4. Percentage and percentiles included for each of the mark cells.
+  #TODO:
+  # 1. Do we need to include the arrear marks for a particular student? (Refer #3 above). Or, we can include
+  #     the arrear students in the regular students list when selecting from the filters. This will need code changes
+  #     in the filter code, selectors_controller.rb. If we do that, an arrear student will be listed in all the classes 
+  #      he is enrolledNeed to decided on that.
+  #------------------------------------------------------------------------------------------------------------------------------------------#
 
+  def one_student_all_semesters
+  #this will have all the rows except the heading row. Each of the rows will be hash keyed by the subject ids except the semester name.
+  	table_values = [] 
+  	#Take out all the semester ids for the current student's section.
+    semester_ids = @student.section.sec_sub_maps.order('semester_id ASC').select('semester_id').map { |x| x.semester_id}.uniq
+    #One loop for each row.
+    semester_ids.each do |sem_id|
+      final_exam = @student.section.sec_exam_maps.joins(:exam).where("exams.finals = ?", true).first
+      #Check if final exam is available for the section + semester. If not, skip this loop.
+      if final_exam
+        final_exam_id = final_exam.exam_id	
+        mark_row = Mark.search(:student_id_eq => @student.id, :semester_id_eq => sem_id, :section_id_eq => @student.section.id, :exam_id_eq => final_exam_id).result.first
+        #Check if a mark row is availble for the final exam for this semester + section. If yes, proceed, otherwise, bail out.
+        if mark_row
+          percentages = mark_row.percentages_with_mark_columns
+          subject_maps = SecSubMap.search(:section_id_eq => @student.section.id, :semester_id_eq => sem_id).result.all
+          marks_hash = {}
+          #One loop for one column (subject)
+          subject_maps.each do |sub_map|
+            if mark_row.send(sub_map.mark_column)
+              percentiles = Mark.subject_percentiles_with_mark_ids(sub_map.mark_column, mark_row.section_id, mark_row.semester_id, mark_row.exam_id)  
+              sub_type = sub_map.subject.lab ? " (Pr) " : " (Th) "
+              marks_hash[sub_map.subject_id] =  { 	
+              																		:value => mark_row.send(sub_map.mark_column), :bg => Grade.get_color_code(mark_row.send(sub_map.mark_column)) , 
+              																		:percentage => percentages[sub_map.mark_column], :percentile => percentiles[mark_row.id],
+            																		:subject_name =>  sub_map.subject.name + sub_type
+    	      																	}
+    	    end
+          end #End-loop subject_maps.each do |sub_map|
+          #include other columns apart from the subjects. TODO: make sure these columns are sufficient.
+          marks_hash['total'] = mark_row.send('total')
+          marks_hash['arrears_count'] = mark_row.send("arrears_count")
+          marks_hash['passed_count'] = mark_row.send("passed_count")
+          marks_hash['total_credits'] = mark_row.send("total_credits")
+          marks_hash['weighed_total_percentage'] = mark_row.send("weighed_total_percentage")
+          table_values << {:semester_name =>  Semester.find(sem_id).name}.merge(marks_hash)      
+        end # End-if if mark_row
+      end #End-if if final_exam
+    end # End-loop semester_ids.each do |sem_id|
+    return {:table_values => table_values}
+  end
 
-  def  table_values_hash
-    {:value => 0, :bg => '', :percentage => 0, :percentile => 0 }
-  end
-  
-  def column_sub_headings_hash
-    {:display_name => '', :max_marks => 100, :pass_marks => 40 }
-  end
-  
-  def column_headings_hash
-    {:display_name => '', :colspan => 1}
-  end
 
 end

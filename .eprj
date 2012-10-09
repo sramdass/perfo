@@ -132,6 +132,8 @@
             <string>app\controllers\application_controller.rb</string>
             <key>applicaio.htm</key>
             <string>app\views\layouts\application.html.erb</string>
+            <key>applicajs</key>
+            <string>app\assets\javascripts\application.js</string>
             <key>applicat</key>
             <string>app\controllers\application_controller.rb</string>
             <key>applicatcont</key>
@@ -452,6 +454,8 @@
             <string>app\views\faculties\_faculty_fields.html.erb</string>
             <key>field</key>
             <string>app\views\tenants\_tenant_fields.html.erb</string>
+            <key>finals</key>
+            <string>db\migrate\20120925093946_add_finals_to_exams.rb</string>
             <key>form</key>
             <string>app\views\selectors\_form.html.erb</string>
             <key>form.</key>

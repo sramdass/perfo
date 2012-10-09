@@ -3,7 +3,7 @@
   <%= f.hidden_field :semester_id, :value => @semester.id %>
   <%= f.hidden_field :exam_id, :value => @exam.id%>
   <td> <%= f.object.student.name %> </td>
-  <% @section.sec_sub_maps.order('subject_id ASC').each do |ssmap| %>
+  <% @section.sec_sub_maps.for_semester(@semester.id).order('subject_id ASC').each do |ssmap| %>
   	  <% disabled_flag = false %>
   	  <% # if this mark row belongs to an arrear student, disable the the subjects he did not enroll for %>
       <% if f.object.is_arrear_student? && !f.object.arrear_student(ssmap.subject_id) %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120721125705) do
+ActiveRecord::Schema.define(:version => 20120925093946) do
 
   create_table "arrear_students", :force => true do |t|
     t.integer  "section_id"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20120721125705) do
     t.datetime "updated_at"
     t.integer  "exam_type",      :default => 0
     t.integer  "examination_id"
+    t.boolean  "finals"
   end
 
   create_table "faculties", :force => true do |t|

@@ -273,7 +273,7 @@ class SectionsController < ApplicationController
     mark_crits = []
     @semesters = Semester.all
     @batches = Batch.all
-    @section.sec_sub_maps.each do |ssmap|
+    @section.sec_sub_maps.for_semester(@semester.id).each do |ssmap|
       mc = MarkCriteria.find_or_create_by_section_id_and_subject_id_and_exam_id_and_semester_id(@section.id, ssmap.subject_id, @exam.id, @semester.id)
       #assign in this order - param value or already existing value(if this is not a new record) or default value (if this is a new record and the params is blank)
       mc.max_marks = params[:max_marks]["#{ssmap.subject_id}"] if params[:max_marks]["#{ssmap.subject_id}"]

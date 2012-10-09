@@ -1,10 +1,13 @@
+<%= f.input :finals, :as => :check_box, :label => 'Final Exam' do %>
+	<%= f.check_box :finals, :id => 'finals_check_box'  %>
+<% end %>
 <%= f.input :name  %>
 <%= f.input :short_name, :hint => "Maximum 8 characters"  %>
 <%= f.input :code, :hint => "Maximum 5 characters" %>
 <%= f.input :exam_type, :as => :check_box, :label => 'Assignment' do %>
 	<%= f.check_box :exam_type, :id => 'exam_type_check_box' %>
 <% end %>
-<%= f.association :examination, :collection => Exam.where{exam_type == EXAM_TYPE_TEST}.order('name ASC').all, :include_blank => true, :label => 'For Exam', :input_html => {:id => 'examination_select'} %>
+<%= f.association :examination, :collection => Exam.where{exam_type == EXAM_TYPE_TEST}.where{ id != f.object.id }.order('name ASC').all, :include_blank => true, :label => 'For Exam', :input_html => {:id => 'examination_select'} %>
 
 
 

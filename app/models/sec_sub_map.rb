@@ -18,6 +18,8 @@ class SecSubMap < TenantManager
   validates_presence_of :section
   belongs_to :subject
   validates_presence_of :subject
+  belongs_to :semester
+  validates_presence_of :semester
   
   validates_numericality_of :credits, 	:only_integer => true, 
   																	:greater_than_or_equal_to  => 1, 

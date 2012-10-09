@@ -15,7 +15,6 @@
 
 class Exam < TenantManager
   belongs_to :institution  	
-  validates_presence_of :institution
   
   has_many :marks, :dependent => :destroy
   

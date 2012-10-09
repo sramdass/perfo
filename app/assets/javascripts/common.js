@@ -35,23 +35,85 @@ $("#tenant_expired").click(function() {
     }
 });
 
-//Code to enable and disable in the view/exams/_exam_fields.erb
+/************************************************************
+Code to enable and disable in the view/exams/_exam_fields.erb
+If the exam_type is checked off (meaning, this is an assignment) - 
+	1. then we need to disable to Final Exam check box as the final exam check box 
+	is only applicable for the type exams(not assignments)
+	2. The 'examination_select' (the exam to which an assignment belongs should)
+	be enabled.
+	
+If the exam_type is unchecked (meaning, this is an exam) - 	
+	1. The 'finals' check box has to be enabled.
+	2. exam_select drop down should be disabled, as selecting exams is
+	only applicable for the assignments.
+	
+Note that this logic should execute while checking/un checking and the page load.	
+*/
+//During checking / unchecking.
 $("#exam_type_check_box").click(function() {     
 	if ($(this).is(":checked")) {
 		$("#examination_select").removeAttr('disabled');
+		//$("#finals_check_box").val("");
+		$("#finals_check_box").attr('disabled', 'disabled');				
     } else {
-		$("#examination_select").val("");
+		//$("#examination_select").val("");
 		$("#examination_select").attr('disabled', 'disabled');
+		$("#finals_check_box").removeAttr('disabled');
     }		
 });
 
-//Do the same check during the page load also
+//During the page load
 if ($("#exam_type_check_box").is(":checked")) {
+		$("#examination_select").removeAttr('disabled');	
+		//$("#finals_check_box").val("");
+		$("#finals_check_box").attr('disabled', 'disabled');						
 	} else {
-		$("#examination_select").val("");
+		//$("#examination_select").val("");
 		$("#examination_select").attr('disabled', 'disabled');
+		$("#finals_check_box").removeAttr('disabled');		
     }
     
+/*
+Code to enable and disable in the view/exams/_exam_fields.erb
+If the 'finals' is checked off (meaning, this is a semester exam) - 
+	1. then we need to disable to assignment check box and the exam_select
+	dropdown box
+	
+If the 'finals' is unchecked (meaning, this is an not a semester exam) - 	
+	1. The 'assignment' check box has to be enabled.
+	2. exam_select drop down should be disabled/enabled after checking
+	whether the assignment check box is checked off or not/
+	
+Note that this logic should execute while checking/un checking and the page load.	
+*/
+//During checking / unchecking.
+$("#finals_check_box").click(function() {     
+	if ($(this).is(":checked")) {
+		//$("#exam_type_check_box").val("");
+		$("#exam_type_check_box").attr('disabled', 'disabled');						
+		//$("#examination_select").val("");
+		$("#examination_select").attr('disabled', 'disabled');		
+    } else {
+		$("#exam_type_check_box").removeAttr('disabled');
+		if ($("#exam_type_check_box").is(":checked")) {
+			$("#examination_select").removeAttr('disabled');	    	
+		}
+    }		
+});
+
+//During the page load
+if ($("#finals_check_box").is(":checked")) {
+		$("#exam_type_check_box").val("");
+		$("#exam_type_check_box").attr('disabled', 'disabled');						
+		$("#examination_select").val("");
+		$("#examination_select").attr('disabled', 'disabled');					
+	} else {
+		$("#examination_select").removeAttr('disabled');	    	
+		$("#exam_type_check_box").removeAttr('disabled');
+    }
+    
+/************************************************************/        
     
 $('.datatable_full').dataTable();
   

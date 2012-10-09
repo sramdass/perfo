@@ -12,7 +12,7 @@
 	<thead>
     	<tr>
         	<th>Name</th>
-        	<% @section.sec_sub_maps.order('subject_id ASC').each do |ssmap| %>
+        	<% @section.sec_sub_maps.for_semester(@semester.id).order('subject_id ASC').each do |ssmap| %>
         	  <th>
         	  	<% sub_type = ssmap.subject.lab ? "(Prac)" : ""%>
         	  	<%= ssmap.subject.name %> <br> <%= sub_type %> &nbsp; (<%= ssmap.credits %>)
