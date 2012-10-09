@@ -14,6 +14,8 @@ class ReportsController < ApplicationController
     
     if @student && @semester && @exam
       @marks = one_student_one_semester_one_exam
+    elsif @section && @semester && @exam
+      @marks = one_section_one_exam_one_semester_by_students
     elsif @student && @semester
       #@marks = one_student_one_semester_all_exams
       @marks = one_student_one_semester_all_exams_with_assignments
@@ -451,6 +453,79 @@ class ReportsController < ApplicationController
     end # End-loop semester_ids.each do |sem_id|
     return {:table_values => table_values}
   end
+  
+  #***********************************************************************************#
+  # one_section_one_exam_one_semester_by_students
+  # Marksheet of an entire section in a particular exam + semester (marks of all students in a section)
+  # 
+  # 1. Columns:- Subjects, total, percentage, total_credits etc.. 
+  # 2. Rows:- Students
+  # 3. Arrear Marks not included. Since we are selecting a section here in the filter we are not displaying
+  #      the arrear marks, as the arrear subjects are taken in some other section. This has some implementation
+  #      difficulty. :)
+  # 4. Percentage and percentiles included for each of the mark cells.
+  #TODO:
+  # 1. Do we need to include the arrear marks for a particular student? (Refer #3 above). Or, we can include
+  #     the arrear students in the regular students list when selecting from the filters. This will need code changes
+  #     in the filter code, selectors_controller.rb. If we do that, an arrear student will be listed in all the classes 
+  #      he is enrolledNeed to decided on that.
+  #------------------------------------------------------------------------------------------------------------------------------------------#  
+  def one_section_one_exam_one_semester_by_students
+  	#this will have all the rows except the heading row. Each of the rows will be hash keyed by the values in column_keys.
+    table_values = []
+    subject_maps = SecSubMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id).result
+    #Take out all the subjects for this section.
+    subject_ids = subject_maps.order('subject_id ASC').select("subject_id").map{ |x| x.subject_id}.uniq
+    #There are the additional columns that are displayed apart from the subject names. 
+    #TODO: Check if more columns are necessary.
+    other_columns = ['total_credits','total', 'weighed_total_percentage', 'weighed_pass_marks_percentage', 'passed_count', 'arrears_count']
+    column_keys = ['student_name'] + subject_ids.map {|x| x.to_s} + other_columns
+    column_headings = {}
 
-
+    #Populate the column_headings
+    column_headings['student_name'] = {:display_name => "Student", :colspan => 1 } 
+    subject_ids.each do |subject_id|
+      sub_type = Subject.find(subject_id).lab ? " (Pr) " : " (Th) "
+      column_headings[subject_id.to_s] = {:display_name => Subject.find(subject_id).name + sub_type, :colspan => 1}
+    end
+    column_headings['total_credits'] = {:display_name => "Total Credits", :colspan => 1}
+    column_headings['total'] = {:display_name => "Total", :colspan => 1}
+    column_headings['weighed_total_percentage'] = {:display_name => "Weighed Total Percentage", :colspan => 1}
+    column_headings['weighed_pass_marks_percentage'] = {:display_name => "Weighed Pass Marks Percentage", :colspan => 1}
+    column_headings['passed_count'] = {:display_name => "Passed Count", :colspan => 1}
+    column_headings['arrears_count'] = {:display_name => "Arrears Count", :colspan => 1}        
+    #One iteration for each student (one iteration for one row in the table)
+    @section.students.each do |student|
+      marks_hash = {}
+      #Mark for this particular student in the given conditions
+      mark_row = Mark.search(:student_id_eq => student.id, :semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => @exam.id).result.first
+      #One iteration for each of the columns (columns are subjects)
+      subject_ids.each do |subject_id|
+      	#Use the subject_maps association already built to get the mark_column
+      	mark_col = subject_maps.search(:subject_id_eq => subject_id).result.first.mark_column
+        if mark_row && mark_row.send(mark_col) 
+          mc = MarkCriteria.search(:semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => @exam.id, :subject_id_eq => subject_id).result.first
+          pass_marks = mc ? mc.pass_marks : 0
+          max_marks = mc ? mc.max_marks : 0
+          percentages = mark_row.percentages_with_mark_columns
+          percentiles = Mark.subject_percentiles_with_mark_ids(mark_col, mark_row.section_id, mark_row.semester_id, mark_row.exam_id)  
+          marks_hash[subject_id.to_s] =  { 	
+          															:value => mark_row.send(mark_col), :bg => Grade.get_color_code(mark_row.send(mark_col)) , 
+          															:max_marks => max_marks,  :pass_marks => pass_marks, 
+          															:percentage => percentages[mark_col], :percentile => percentiles[mark_row.id]
+    	  														}
+        end
+      end
+      #Include the other columns in the hash only if a valid mark row is present.
+      if mark_row
+      	other_columns.each do |column|
+      	  marks_hash[column] = mark_row.send(column) if mark_row.send(column)
+  	 	end
+      end
+      #Even if there are no mark rows, the students name alone will be displayed in the mark list. 
+      table_values << {'student_name' =>  student.name}.merge(marks_hash)
+    end
+    return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
+  end        
+    
 end
