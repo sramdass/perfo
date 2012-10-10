@@ -463,7 +463,8 @@ class ReportsController < ApplicationController
   # 3. Arrear Marks not included. Since we are selecting a section here in the filter we are not displaying
   #      the arrear marks, as the arrear subjects are taken in some other section. This has some implementation
   #      difficulty. :)
-  # 4. Percentage and percentiles included for each of the mark cells.
+  # 4. Percentage and percentiles included for each of the mark cells, total, weighed_total_percentage, and
+  #      weighed_total_marks_percentage.
   #TODO:
   # 1. Do we need to include the arrear marks for a particular student? (Refer #3 above). Or, we can include
   #     the arrear students in the regular students list when selecting from the filters. This will need code changes
@@ -481,13 +482,25 @@ class ReportsController < ApplicationController
     other_columns = ['total_credits','total', 'weighed_total_percentage', 'weighed_pass_marks_percentage', 'passed_count', 'arrears_count']
     column_keys = ['student_name'] + subject_ids.map {|x| x.to_s} + other_columns
     column_headings = {}
-
+    #This will contain the percentiles of all the subjects and other columns. each of the element in the hash is keyed by mark_column(subject name alias), 
+    # and will have a hash. This has will have the percentiles keyed by the mark_ids. Refer subject_percentiles_with_mark_ids in mark.rb
+    #that hash 
+    percentiles = {}
     #Populate the column_headings
     column_headings['student_name'] = {:display_name => "Student", :colspan => 1 } 
     subject_ids.each do |subject_id|
       sub_type = Subject.find(subject_id).lab ? " (Pr) " : " (Th) "
       column_headings[subject_id.to_s] = {:display_name => Subject.find(subject_id).name + sub_type, :colspan => 1}
+      #Calculate the percentiles for the subjects here itself. If you bring this calculation into the student's loop, it will be
+      #too inefficient.
+      mark_col = subject_maps.search(:subject_id_eq => subject_id).result.first.mark_column
+      percentiles[mark_col] = Mark.subject_percentiles_with_mark_ids(mark_col, @section.id, @semester.id, @exam.id)  
     end
+    #Calcuate the percentiles for only the total and the percentages. No need to calculate for passed/arrears_count etc..
+    ['total', 'weighed_total_percentage', 'weighed_pass_marks_percentage'].each do |column|
+      percentiles[column] = Mark.subject_percentiles_with_mark_ids(column, @section.id, @semester.id, @exam.id)  
+	end
+	#Populate the column headings for the other columns here.
     column_headings['total_credits'] = {:display_name => "Total Credits", :colspan => 1}
     column_headings['total'] = {:display_name => "Total", :colspan => 1}
     column_headings['weighed_total_percentage'] = {:display_name => "Weighed Total Percentage", :colspan => 1}
@@ -508,24 +521,78 @@ class ReportsController < ApplicationController
           pass_marks = mc ? mc.pass_marks : 0
           max_marks = mc ? mc.max_marks : 0
           percentages = mark_row.percentages_with_mark_columns
-          percentiles = Mark.subject_percentiles_with_mark_ids(mark_col, mark_row.section_id, mark_row.semester_id, mark_row.exam_id)  
           marks_hash[subject_id.to_s] =  { 	
           															:value => mark_row.send(mark_col), :bg => Grade.get_color_code(mark_row.send(mark_col)) , 
           															:max_marks => max_marks,  :pass_marks => pass_marks, 
-          															:percentage => percentages[mark_col], :percentile => percentiles[mark_row.id]
-    	  														}
+          															:percentage => percentages[mark_col], :percentile => percentiles[mark_col][mark_row.id]
+    	  														    }
         end
       end
       #Include the other columns in the hash only if a valid mark row is present.
       if mark_row
-      	other_columns.each do |column|
-      	  marks_hash[column] = mark_row.send(column) if mark_row.send(column)
+      	#Colums for which the percentiles have been already calculated.
+      	['total', 'weighed_total_percentage', 'weighed_pass_marks_percentage'].each do |column|
+      	  marks_hash[column] = { :value => mark_row.send(column), :percentile => percentiles[column][mark_row.id] }
   	 	end
+  	 	#Columns for which the percentiles are NA
+  	    ['total_credits', 'passed_count', 'arrears_count'].each do |column|
+      	  marks_hash[column] = { :value => mark_row.send(column) }
+  	   	end
       end
       #Even if there are no mark rows, the students name alone will be displayed in the mark list. 
       table_values << {'student_name' =>  student.name}.merge(marks_hash)
     end
     return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
   end        
+  
+  
+  
+  def one_section_one_semester_all_exams_with_assignments
+    #this will have all the rows except the heading row. Each of the rows will be hash keyed by the values in column_keys.
+  	table_values = [] 
+    exam_ids = SecExamMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id, :exam_exam_type_eq => EXAM_TYPE_TEST).result.select('exam_id').map { |x| x.exam_id }
+    subject_maps = SecSubMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id).result.all
+
+    #This will have the index for the column headings hash and the table_values array
+    column_keys = ['subject_name'] + exam_ids.map{ |x| x.to_s}
+    column_headings = {}
+
+    #Populate the column_headings hash. These will be the headings of the table.
+    column_headings['subject_name'] = {:display_name => "Subject", :colspan => 1 } 
+    exam_ids.each do |exam_id|
+      column_headings[exam_id.to_s] = {:display_name => Exam.find(exam_id).name, :colspan => 1}
+    end
+    
+    total_and_average = {}
+    #Get the data row wise. One row corresponds to one subject for all the exams. Take a subject
+    #get the marks for all the exams. This method is not effective, but as long as it works, it is ok
+    #now. Need to see if we can improve this.
+    subject_maps.each do |ssmap|
+      #to hold all the data of one row without the subject name.
+      marks_hash = {}
+      mark_col = ssmap.mark_column
+      #loop through each of the exams and get the mark for this particular subject - mark_col
+      exam_ids.each do |exam_id|
+      	mark_rows = []
+      	total_and_average[exam_id.to_s] ||= columns_total_and_average_for_section_in_semex(@section.id, @semester.id, exam_id)
+        marks_hash[exam_id.to_s] =  { 	
+        															:total => total_and_average[exam_id.to_s][ssmap.mark_column]['total'], 
+        															:average => total_and_average[exam_id.to_s][ssmap.mark_column]['average'], 
+        															:count => total_and_average[exam_id.to_s][ssmap.mark_column]['count']
+    			  												  }        
+        Exam.find(exam_id).assignments.each do |asgn_id|
+          total_and_average[asgn_id.to_s] ||= columns_total_and_average_for_section_in_semex(@section.id, @semester.id, exam_id)
+          marks_hash[asgn_id.to_s] =  	{ 	
+	    															:total => total_and_average[asgn_id.to_s][ssmap.mark_column]['total'], 
+	    															:average => total_and_average[asgn_id.to_s][ssmap.mark_column]['average'], 
+	    															:count => total_and_average[asgn_id.to_s][ssmap.mark_column]['count']
+	      												  			} 
+        end    			  												  
+      end
+      sub_type = ssmap.subject.lab ? " (Pr) " : " (Th) "
+      table_values << {:subject_name =>  ssmap.subject.name + sub_type}.merge(marks_hash)
+    end
+    return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
+  end
     
 end

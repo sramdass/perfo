@@ -366,25 +366,7 @@ class Mark < TenantManager
     return h
   end  
   
-  def percentiles_with_mark_colulmns
-  	h = Hash.new
-    marks_rel = Mark.for_section(self.section_id).for_semester(self.semester_id).for_exam(self.exam_id).select("id, #{col_name}").order("#{col_name} ASC")
-    SecSubMap.for_section(section_id).for_semester(semester_id).all.each do |map|
-      col_name = map.mark_column
-      marks = marks_rel.select("id, #{col_name}").order("#{col_name} ASC")
-      #the x.send(col_name ) (mark value) can be null for the arrear students. Also if the teacher does not 
-      #enter the marks, it will be nil. Delete the nil marks to the list.
-      marks.delete_if { |x| x.send(col_name) == NA_MARK_NUM ||  x.send(col_name) == ABSENT_MARK_NUM || !x.send(col_name) }
-      index = Hash[marks.map.with_index{ |*ki|  ki } ]
-      count = marks.count
-      mark = mark_rel.for_student(self.student_id).first
-      h[col_name] = ((index[mark] + 1) *100).to_f / marks.count
-    end
-    return h
-  end  
-
-  
-  #Helper Module
+  #Helper Modules
   #---------------------------------------------------------------------------#
   #This will return a hash with each of the subject id of the section as the key and the corresponding mark column as the value
   def mark_columns_with_subject_ids
@@ -412,13 +394,8 @@ class Mark < TenantManager
   
   #CLASS Modules
   #---------------------------------------------------------------------------#
-  # To find the total of all the student marks for  a section + exam + subject combo.
-  def self.total_on(section_id, subject_id, exam_id)
-   column_name = SecSubMap.by_section_id(section_id).by_subject_id(subject_id).first.mark_column
-   where('section_id = ? and exam_id = ?', section_id, exam_id).sum(column_name.to_sym)
-  end
-  
-  def self.total_on_column(ar_relation, col_name)
+ 
+  def self.find_column_total(ar_relation, col_name)
   	ar_relation.sum(col_name)
   end
   
@@ -442,6 +419,40 @@ class Mark < TenantManager
   
   def self.weighed_pass_marks_percentiles_with_mark_ids(section_id, semester_id, exam_id)
   	Mark.subject_percentiles_with_mark_ids("weighed_pass_marks_percentage", section_id, semester_id, exam_id)
+  end
+  
+  # To find the total of all the students marks (column_name) for  a section + exam + semester combo
+  def self.column_total_and_average_for_section_in_semex(sec_id, sem_id, ex_id, column_name)
+    #refer squeel for this query syntax. http://erniemiller.org/projects/squeel/
+    rel = where{ (section_id == sec_id) & (exam_id == ex_id) & (semester_id == sem_id) }
+    #not sure how to use squeel at this point. so, going for the active record syntax.
+    rel = rel.where("#{column_name} != ? AND #{column_name} != ?", ABSENT_MARK_NUM, NA_MARK_NUM)
+    if rel
+      tot = rel.sum(column_name.to_sym)
+      count = rel.count
+      avg = tot.to_f / rel.count
+      return {"total" => tot, "average" => avg, "count" => rel.count}
+    else
+  	  return nil
+    end
+  end
+  
+    
+  def self.columns_total_and_average_for_section_in_semex(sec_id, sem_id, ex_id)
+    ssmaps = SecSubMap.where{ (section_id == sec_id) && (semester_id == sem_id) }.all
+    total_and_average = {}
+    ssmaps.each do |ssmap|
+      total_and_average[ssmap.mark_column] = Mark.column_total_and_average_for_section_in_semex(sec_id, sem_id, ex_id, ssmap.mark_column)
+    end
+    #In some of the other columns, such as total and total_percentage, the average will be little less accurate. This is because we are not able
+    #to differentiate between a student who has scored 0 in all the subjects from the one who has NA in all the subjects.
+    #TODO: Make these values accurate.
+    other_columns = ['total_credits','total', 'weighed_total_percentage', 'weighed_pass_marks_percentage', 'passed_count', 'arrears_count',
+    									'weighed_total_percentage_ia', 'weighed_pass_marks_percentage_ia', 'passed_count_ia', 'arrears_count_ia']
+    other_columns.each do |column|
+    	total_and_average[column] = Mark.column_total_and_average_for_section_in_semex(sec_id, sem_id, ex_id, ssmap.mark_column)
+    end
+    return total_and_average
   end
   
 end
