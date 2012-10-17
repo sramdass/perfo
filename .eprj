@@ -111,7 +111,7 @@
             <key>appli</key>
             <string>app\controllers\application_controller.rb</string>
             <key>applic</key>
-            <string>app\views\layouts\application.html.erb</string>
+            <string>app\controllers\application_controller.rb</string>
             <key>applic.cs</key>
             <string>app\assets\stylesheets\application.css</string>
             <key>applica</key>
@@ -302,6 +302,8 @@
             <string>db\migrate\20120415022222_create_faculties.rb</string>
             <key>d_credits_to_se</key>
             <string>db\migrate\20120618134218_add_credits_to_sec_sub_maps.rb</string>
+            <key>dash</key>
+            <string>app\views\sessions\dashboard.html.erb</string>
             <key>dashboad</key>
             <string>app\views\sessions\dashboard.html.erb</string>
             <key>data</key>
@@ -383,6 +385,8 @@
             <key>en.</key>
             <string>config\locales\en.yml</string>
             <key>exam</key>
+            <string>app\models\exam.rb</string>
+            <key>exam.r</key>
             <string>app\models\exam.rb</string>
             <key>exam.rb</key>
             <string>app\models\exam.rb</string>

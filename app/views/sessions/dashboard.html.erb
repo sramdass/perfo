@@ -1,5 +1,5 @@
 <%= render 'shared/de_nav_links',:active => "exams" %>
 <div class="span9">
-  <legend><%= current_profile.user.name %> </legend>
+  <legend><%= current_profile.user.name if current_profile %> </legend>
   <h3> This is the dashboard </h3>
 </div>

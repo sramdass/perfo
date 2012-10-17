@@ -96,10 +96,10 @@ class Mark < TenantManager
   #apparently an exam, should be updated with the new values.
   after_save :update_exams_with_assignment_marks
   
-  scope :for_section, lambda { |section_id| where('section_id = ? ', section_id)}           
-  scope :for_semester, lambda { |semester_id| where('semester_id = ? ', semester_id)}     
-  scope :for_student, lambda { |student_id| where('student_id = ? ', student_id)}     
-  scope :for_exam, lambda { |exam_id| where('exam_id = ? ', exam_id)}         
+  scope :for_section, lambda { |section_id| where('marks.section_id = ? ', section_id)}           
+  scope :for_semester, lambda { |semester_id| where('marks.semester_id = ? ', semester_id)}     
+  scope :for_student, lambda { |student_id| where('marks.student_id = ? ', student_id)}     
+  scope :for_exam, lambda { |exam_id| where('marks.exam_id = ? ', exam_id)}         
   
    #Validations
   #---------------------------------------------------------------------------#
@@ -357,7 +357,7 @@ class Mark < TenantManager
       val = self.send(col_name)
       #the val (mark value) can be null for the arrear students. Also if the teacher does not enter the marks, it will be nil.
       #So, check for null.
-      if max_marks && val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
+      if max_marks && max_marks > 0 && val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
         h[col_name] = (val.to_f / max_marks) * 100
       else
         h[col_name] = "NA"
@@ -394,6 +394,18 @@ class Mark < TenantManager
   
   #CLASS Modules
   #---------------------------------------------------------------------------#
+  
+  def self.default_max_marks
+  	return DEFAULT_MAX_MARKS
+  end
+  
+  def self.default_pass_marks(max_marks)
+  	max_marks * Mark.default_pass_marks_percentage.to_f / 100
+  end
+  
+  def self.default_pass_marks_percentage
+  	return DEFAULT_PASS_MARKS_PERCENTAGE
+  end
  
   def self.find_column_total(ar_relation, col_name)
   	ar_relation.sum(col_name)
@@ -408,6 +420,7 @@ class Mark < TenantManager
     index = Hash[marks.map.with_index{ |*ki|  ki } ]
     count = marks.count
     marks.each do |mark|
+      #marks.count will never be zero. No worries about divide-by-zero error
       h[mark.id] = ((index[mark] + 1) *100).to_f / marks.count
     end
     return h
@@ -422,15 +435,15 @@ class Mark < TenantManager
   end
   
   # To find the total of all the students marks (column_name) for  a section + exam + semester combo
-  def self.column_total_and_average_for_section_in_semex(sec_id, sem_id, ex_id, column_name)
+  def self.column_total_and_average_for_section_with_arrear_entries_in_semex(sec_id, sem_id, ex_id, column_name)
     #refer squeel for this query syntax. http://erniemiller.org/projects/squeel/
     rel = where{ (section_id == sec_id) & (exam_id == ex_id) & (semester_id == sem_id) }
     #not sure how to use squeel at this point. so, going for the active record syntax.
-    rel = rel.where("#{column_name} != ? AND #{column_name} != ?", ABSENT_MARK_NUM, NA_MARK_NUM)
+    rel = rel.where("marks.#{column_name} != ? AND marks.#{column_name} != ?", ABSENT_MARK_NUM, NA_MARK_NUM)
     if rel
       tot = rel.sum(column_name.to_sym)
       count = rel.count
-      avg = tot.to_f / rel.count
+      avg = tot != 0 ? (tot.to_f / rel.count) : 0
       return {"total" => tot, "average" => avg, "count" => rel.count}
     else
   	  return nil
@@ -438,21 +451,52 @@ class Mark < TenantManager
   end
   
     
-  def self.columns_total_and_average_for_section_in_semex(sec_id, sem_id, ex_id)
+  def self.columns_total_and_average_for_section_with_arrear_entries_in_semex(sec_id, sem_id, ex_id)
     ssmaps = SecSubMap.where{ (section_id == sec_id) && (semester_id == sem_id) }.all
     total_and_average = {}
     ssmaps.each do |ssmap|
-      total_and_average[ssmap.mark_column] = Mark.column_total_and_average_for_section_in_semex(sec_id, sem_id, ex_id, ssmap.mark_column)
+      total_and_average[ssmap.mark_column] = Mark.column_total_and_average_for_section_with_arrear_entries_in_semex(sec_id, sem_id, ex_id, ssmap.mark_column)
     end
     #In some of the other columns, such as total and total_percentage, the average will be little less accurate. This is because we are not able
     #to differentiate between a student who has scored 0 in all the subjects from the one who has NA in all the subjects.
     #TODO: Make these values accurate.
-    other_columns = ['total_credits','total', 'weighed_total_percentage', 'weighed_pass_marks_percentage', 'passed_count', 'arrears_count',
-    									'weighed_total_percentage_ia', 'weighed_pass_marks_percentage_ia', 'passed_count_ia', 'arrears_count_ia']
-    other_columns.each do |column|
-    	total_and_average[column] = Mark.column_total_and_average_for_section_in_semex(sec_id, sem_id, ex_id, ssmap.mark_column)
+    NON_SUB_COLUMNS.each do |column|
+    	total_and_average[column] = Mark.column_total_and_average_for_section_with_arrear_entries_in_semex(sec_id, sem_id, ex_id, column)
     end
     return total_and_average
   end
+  
+# To find the total of all the students marks (column_name) for  a section + exam + semester combo
+  def self.column_total_and_average_for_section_without_arrear_entries_in_semex(sec_id, sem_id, ex_id, column_name)
+    #refer squeel for this query syntax. http://erniemiller.org/projects/squeel/
+    rel = where{ (section_id == sec_id) & (exam_id == ex_id) & (semester_id == sem_id) }
+    rel = rel.joins{student.section}.where{students.section_id != marks.section_id}
+    #not sure how to use squeel at this point. so, going for the active record syntax.
+    rel = rel.where("marks.#{column_name} != ? AND marks.#{column_name} != ?", ABSENT_MARK_NUM, NA_MARK_NUM)
+    if rel
+      tot = rel.sum(column_name.to_sym)
+      count = rel.count
+      avg = tot != 0 ? (tot.to_f / rel.count) : 0
+      return {"total" => tot, "average" => avg, "count" => rel.count}
+    else
+  	  return nil
+    end
+  end
+  
+    
+  def self.columns_total_and_average_for_section_without_arrear_entries_in_semex(sec_id, sem_id, ex_id)
+    ssmaps = SecSubMap.where{ (section_id == sec_id) && (semester_id == sem_id) }.all
+    total_and_average = {}
+    ssmaps.each do |ssmap|
+      total_and_average[ssmap.mark_column] = Mark.column_total_and_average_for_section_without_arrear_entries_in_semex(sec_id, sem_id, ex_id, ssmap.mark_column)
+    end
+    #In some of the other columns, such as total and total_percentage, the average will be little less accurate. This is because we are not able
+    #to differentiate between a student who has scored 0 in all the subjects from the one who has NA in all the subjects.
+    #TODO: Make these values accurate.
+    NON_SUB_COLUMNS.each do |column|
+    	total_and_average[column] = Mark.column_total_and_average_for_section_without_arrear_entries_in_semex(sec_id, sem_id, ex_id, column)
+    end
+    return total_and_average
+  end  
   
 end
