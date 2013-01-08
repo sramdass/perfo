@@ -14,7 +14,7 @@ gem 'fog'
 gem 'cancan'
 gem "bcrypt-ruby", :require => "bcrypt"
 #gem 'debugger', group: [:development, :test]
-gem 'ruby-debug19', :require => 'ruby-debug', group: [:development, :test]
+gem 'ruby-debug19', :require => 'ruby-debug', group: [:development, :test] 
 
 group :assets do
   #gem 'sass-rails',   '~> 3.1.4'
