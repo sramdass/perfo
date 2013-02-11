@@ -239,6 +239,13 @@ class SectionsController < ApplicationController
       respond_to do |format|
         format.html do
       	  #Make these elements nil so that we do not render the mark sheet in the view. 
+      	  #create mark sheet does the following.
+      	  #1. Create mark criterias for the subjects in this particular section + subject + semester + exam.
+      	  #    the mark criterias have to be created before we create any new mark entries because - while
+      	  #    creating the mark entries we need the max_marks and pass_marks. It is assumed that the
+      	  #    corresponding mark crietrias will be available before the mark entries get created.
+      	  #2. Remove unwanted mark rows (students got deleted etc..) 
+      	  #3. Create new mark rows if needed (students got added etc..)
       	  if !create_mark_sheet
       	    @section = @exam = @semester = nil
             flash[:error] = "Error while fetching the marksheet."
@@ -274,10 +281,10 @@ class SectionsController < ApplicationController
     @semesters = Semester.all
     @batches = Batch.all
     @section.sec_sub_maps.for_semester(@semester.id).each do |ssmap|
-      mc = MarkCriteria.find_or_create_by_section_id_and_subject_id_and_exam_id_and_semester_id(@section.id, ssmap.subject_id, @exam.id, @semester.id)
+      mc = MarkCriteria.find_by_section_id_and_subject_id_and_exam_id_and_semester_id(@section.id, ssmap.subject_id, @exam.id, @semester.id)
       #assign in this order - param value or already existing value(if this is not a new record) or default value (if this is a new record and the params is blank)
-      mc.max_marks = params[:max_marks]["#{ssmap.subject_id}"] if params[:max_marks]["#{ssmap.subject_id}"]
-      mc.pass_marks = params[:pass_marks]["#{ssmap.subject_id}"] if params[:pass_marks]["#{ssmap.subject_id}"]
+      mc.max_marks =  params[:max_marks]["#{ssmap.subject_id}"] ? params[:max_marks]["#{ssmap.subject_id}"] : MarkCriteria.default_max_marks
+      mc.pass_marks = params[:pass_marks]["#{ssmap.subject_id}"] ? params[:pass_marks]["#{ssmap.subject_id}"]  : MarkCriteria.default_pass_marks(mc.max_marks)
       mark_crits << mc
 	end
     if mark_crits.all?(&:valid?)
@@ -364,7 +371,16 @@ class SectionsController < ApplicationController
         marks_entry << Mark.new( {:section_id => @section.id, :exam_id => @exam.id, :semester_id => @semester.id, :student_id => new_stu_id})
       end      
     end
-    if marks_entry.all?(&:valid?)   #[].all?(&:valid?) --> is always true. So, no worries if marks_entry[] is empty and del_marks_entry[] has something that shd be removed.
+    mark_crits = []
+    @section.sec_sub_maps.for_semester(@semester.id).each do |ssmap|
+      mc = MarkCriteria.find_or_create_by_section_id_and_subject_id_and_exam_id_and_semester_id(@section.id, ssmap.subject_id, @exam.id, @semester.id)
+      #assign in this order - param value or already existing value(if this is not a new record) or default value (if this is a new record and the params is blank)
+      mc.max_marks =  MarkCriteria.default_max_marks
+      mc.pass_marks =  MarkCriteria.default_pass_marks(mc.max_marks)
+      mark_crits << mc
+	end    
+    if marks_entry.all?(&:valid?) && mark_crits.all?(&:valid?)   #[].all?(&:valid?) --> is always true. So, no worries if marks_entry[] is empty and del_marks_entry[] has something that shd be removed.
+      mark_crits.each(&:save!)
       del_marks_entry.each(&:destroy) 
       marks_entry.each(&:save!)
       return true #return a success
@@ -372,5 +388,4 @@ class SectionsController < ApplicationController
       return false #if the new entries are not valid return a failure.
     end	  	
   end
-  
 end

@@ -5,6 +5,7 @@
       Section: <%= @section.name %><br>
       Semester: <%= @semester.name%><br><br>
       Exam: <%= @exam.name%><br><br>
+      <i>Note: Default pass marks: 50. Default max marks: 100. Edit if necessary </i>
       <% #section_id is provided as params[:id] %>
       <%= hidden_field_tag 'semester_id', nil, :value => @semester.id %>    	
       <%= hidden_field_tag 'exam_id', nil, :value => @exam.id %>    	

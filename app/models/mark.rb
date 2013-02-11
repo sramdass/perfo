@@ -201,12 +201,8 @@ class Mark < TenantManager
   	  #For the arrear students, who have enrolled for this subject, the first will fail and the second will succeed. 
   	  #For the arrear students, who have NOT enrolled for this subject, both checks will fail.    	
       if !self.is_arrear_student? || self.arrear_student(sub_id)
-        mc = self.get_marks_criteria.for_subject(sub_id).first
-        #if it is a valid subject (if this record corresponds to a arrear student, and he did not 
-        #enroll for this particular subject, it will be an invalid subject), and there are not any
-        #mark criteria, make the max_marks and pass_marks as zero.
-        pass_marks_ia[col_name] = mc ? mc.pass_marks : 0
-        max_marks_ia[col_name] = mc ? mc.max_marks : 0
+        pass_marks_ia[col_name] = self.get_max_marks(sub_id)
+        max_marks_ia[col_name] = self.get_pass_marks(sub_id)
         mark_val_ia[col_name] = 0
         val = self.send(col_name)
         if  val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
@@ -249,9 +245,8 @@ class Mark < TenantManager
   	      #For the arrear students, who have enrolled for this subject, the first will fail and the second will succeed. 
   	      #For the arrear students, who have NOT enrolled for this subject, both checks will fail.    	      		
       	  if !self.is_arrear_student? || self.arrear_student(sub_id)
-      	    mc_ia = asgnmt.get_marks_criteria.for_subject(sub_id).first
-            max_marks_ia[col_name] = max_marks_ia[col_name]  + mc_ia.max_marks  if mc_ia
-            pass_marks_ia[col_name] = pass_marks_ia[col_name] + mc_ia.pass_marks if mc_ia
+            max_marks_ia[col_name] = max_marks_ia[col_name]  + asgnmt.get_max_marks(sub_id)
+            pass_marks_ia[col_name] = pass_marks_ia[col_name] + asgnmt.get_pass_marks(sub_id)
             val = asgnmt.send(col_name)
             if val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
               mark_val_ia[col_name] = mark_val_ia[col_name] + val
@@ -274,6 +269,7 @@ class Mark < TenantManager
       	  if max_marks_ia[col_name] != 0
             weighed_total_ia = weighed_total_ia + (( mark_val_ia[col_name] * credits[sub_id] * 100).to_f / max_marks_ia[col_name])          
     	  end
+    	  debugger
           if (mark_val_ia[col_name] < pass_marks_ia[col_name])
             arrears_ia = arrears_ia + 1
           else 
@@ -392,21 +388,36 @@ class Mark < TenantManager
     MarkCriteria.for_section(section_id).for_exam(exam_id).for_semester(semester_id)
   end    
   
+  def get_max_marks(sub_id)
+    mc = self.get_marks_criteria.for_subject(sub_id).first
+    col_name = SecSubMap.for_section(section_id).for_semester(semester_id).for_subject(sub_id).first.mark_column
+    if self.na?(col_name)
+      return 0
+    else
+      return mc.max_marks
+    end
+  end
+  
+  def get_pass_marks(sub_id)
+    mc = self.get_marks_criteria.for_subject(sub_id).first
+    col_name = SecSubMap.for_section(section_id).for_semester(semester_id).for_subject(sub_id).first.mark_column
+    if self.na?(col_name)
+      return 0
+    else
+      return mc.pass_marks
+    end
+  end  
+  
+  def absent?(col_name)
+  	self.send(col_name) == ABSENT_MARK_NUM
+  end
+  
+  def na?(col_name)
+    self.send(col_name) == NA_MARK_NUM
+  end
+  
   #CLASS Modules
   #---------------------------------------------------------------------------#
-  
-  def self.default_max_marks
-  	return DEFAULT_MAX_MARKS
-  end
-  
-  def self.default_pass_marks(max_marks)
-  	max_marks * Mark.default_pass_marks_percentage.to_f / 100
-  end
-  
-  def self.default_pass_marks_percentage
-  	return DEFAULT_PASS_MARKS_PERCENTAGE
-  end
- 
   def self.find_column_total(ar_relation, col_name)
   	ar_relation.sum(col_name)
   end

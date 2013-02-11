@@ -232,9 +232,10 @@ class ReportsController < ApplicationController
         val = nil
         val = mark_row.send(mark_col) if mark_row
         if val
+          #For every valid mark value, there should be a mark criteria. If it not there, let it throw an exception
           mc = MarkCriteria.search(:semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => exam_id, :subject_id_eq => ssmap.subject_id).result.first
-          max_marks = mc ? mc.max_marks : Mark.default_max_marks
-          pass_marks = mc ? mc.pass_marks : Mark.default_pass_marks(max_marks)
+          #max_marks = mc ? mc.max_marks : Mark.default_max_marks
+          #pass_marks = mc ? mc.pass_marks : Mark.default_pass_marks(max_marks)
           percentages = mark_row.percentages_with_mark_columns
           percentiles[exam_id] ||= Mark.subject_percentiles_with_mark_ids(mark_col, mark_row.section_id, mark_row.semester_id, mark_row.exam_id)  
           #Make the percentile as NA if the percentile for a particular mark row is missing. Reasons may be - the student is an arrear student
@@ -315,9 +316,10 @@ class ReportsController < ApplicationController
         #At times, we would have associated the exams, but NOT have entered the marks. So, process the row only if 
         #a corresponding row is available.        
         if mark_row && mark_row.send(mark_col)
+          #For every valid mark value there should be a mark criteria. If it is not present, let it throw an exception.
           mc = MarkCriteria.search(:semester_id_eq => mark_row.semester_id, :section_id_eq => mark_row.section_id, :exam_id_eq => exam_id, :subject_id_eq => ssmap.subject_id).result.first
-          pass_marks = mc ? mc.pass_marks : 0
-          max_marks = mc ? mc.max_marks : 0
+          #pass_marks = mc ? mc.pass_marks : 0
+          #max_marks = mc ? mc.max_marks : 0
           percentages = mark_row.percentages_with_mark_columns
           #Definition in mark.rb => self.subject_percentiles_with_mark_ids(col_name, section_id, semester_id, exam_id)
           percentiles = Mark.subject_percentiles_with_mark_ids(mark_col, mark_row.section_id, mark_row.semester_id, exam_id)  

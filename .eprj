@@ -14,6 +14,8 @@
             <string>app\controllers\faculties_controller.rb</string>
             <key>GEMFIL</key>
             <string>Gemfile</string>
+            <key>MARKCR</key>
+            <string>app\models\mark_criteria.rb</string>
             <key>PROC</key>
             <string>Procfile</string>
             <key>PROCF</key>
@@ -183,6 +185,8 @@
             <key>application_hel</key>
             <string>app\helpers\application_helper.rb</string>
             <key>applicationc</key>
+            <string>app\controllers\application_controller.rb</string>
+            <key>applicationcon</key>
             <string>app\controllers\application_controller.rb</string>
             <key>applicationcont</key>
             <string>app\controllers\application_controller.rb</string>
@@ -360,6 +364,8 @@
             <string>app\controllers\departments_controller.rb</string>
             <key>departmentcont</key>
             <string>app\controllers\departments_controller.rb</string>
+            <key>departmentfo</key>
+            <string>app\views\selectors\_departments_form.html.erb</string>
             <key>departments</key>
             <string>app\controllers\departments_controller.rb</string>
             <key>departmentscon</key>
@@ -486,6 +492,10 @@
             <string>app\views\grades\_grade_fields.html.erb</string>
             <key>hod.rb</key>
             <string>app\models\hod.rb</string>
+            <key>hodr</key>
+            <string>app\models\hod.rb</string>
+            <key>hods.htm</key>
+            <string>app\views\departments\hods.html.erb</string>
             <key>hods_fo</key>
             <string>app\views\departments\_hods_form.html.erb</string>
             <key>hodshtm</key>
@@ -741,6 +751,8 @@
             <key>roles_c</key>
             <string>app\controllers\roles_controller.rb</string>
             <key>rolescont</key>
+            <string>app\controllers\roles_controller.rb</string>
+            <key>rolescontrole</key>
             <string>app\controllers\roles_controller.rb</string>
             <key>rout</key>
             <string>config\routes.rb</string>

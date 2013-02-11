@@ -12,7 +12,7 @@
       <div class="controls">
         <%= select_tag( :semester_id, options_from_collection_for_select(@semesters, "id", "name"),
       																	:include_blank => true, 
-      																	:id => 'semester-selector',:data => {:base => 'semester', :required => 'batch', :target => 'batch-selector'}) %> 	 
+      																	:id => 'semester-selector' ) %> 	 
       
 	  </div>
     </div>
