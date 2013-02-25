@@ -51,8 +51,7 @@
   	<th> Name </th>
   	<th> ID Number </th>
   	<th> Gender </th>
-  	<th> Date Joined</th>
-  	<th> Date Departed</th>  	
+  	<th> Section </th>  	
   	<th> Actions </th>
   </tr>
 </thead>
@@ -62,8 +61,7 @@
       <td> <%= link_to student.name, student %> </td>
 	  <td> <%= student.id_no %> </td>
 	  <td> <%= student.female ? "Female" :  "Male" %> </td>
-	  <td> <%= student.start_date %> </td>
-	  <td> <%= student.end_date %> </td>	  
+	  <td> <%= student.section.name %> </td>	  
 	  <td>
   	    <%= link_to student, :class => 'btn btn-mini btn-info' do %>
           <i class="icon-file icon-white"> </i> View

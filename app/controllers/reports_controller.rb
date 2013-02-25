@@ -209,12 +209,12 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings and column_sub_headings hash
-    column_headings['subject_name'] = {:display_name => "Subject", :colspan => 1 } 
+    column_headings['subject_name'] = {'value' => "Subject", 'colspan' => 1 } 
     exam_ids.each do |exam_id|
-      column_headings[exam_id.to_s] = {:display_name => Exam.find(exam_id).name, :colspan => 1}
+      column_headings[exam_id.to_s] = {'value' => Exam.find(exam_id).name, 'colspan' => 1}
     end
-    column_headings['total_marks'] = {:display_name => "Total", :colspan => 1}
-    column_headings['percentage'] = {:display_name => "Percentage", :colspan => 1}
+    column_headings['total_marks'] = {'value' => "Total", 'colspan' => 1}
+    column_headings['percentage'] = {'value' => "Percentage", 'colspan' => 1}
     #percentiles cannot be calculated for mark_colum without the exam_id. Since we are looping through the exams
     #in the inside loop, we need to re-calculate the percentiles everytime we loop through the subject_maps. This is
     #so very inefficient. So declare the percentile as an array keyed by exam_id. Only when the percentile[exam_id]
@@ -242,9 +242,9 @@ class ReportsController < ApplicationController
           # or he is absent etc..
           percentile = percentiles[exam_id][mark_row.id] ? percentiles[exam_id][mark_row.id] : "NA"
           marks_hash[exam_id.to_s] =  { 	
-          															:value => val, :bg => Grade.get_color_code(val) , 
-          															:max_marks => max_marks,  :pass_marks => pass_marks, 
-          															:percentage => percentages[mark_col], :percentile => percentile
+          															'value' => absent_na_values_to_s(val), 'bg' => Grade.get_color_code(val) , 
+          															'max_marks' => mc.max_marks,  'pass_marks' => mc.pass_marks, 
+          															'percentage' => percentages[mark_col], 'percentile' => percentile
     	  														}
     	  #Add the value in each iteration to get the sum of the marks of exam and assignments.
     	  #If the student is absent or he is not applicable for this particular mark, do not add.
@@ -253,19 +253,19 @@ class ReportsController < ApplicationController
           #Even if he is absent, we should add the marks. Becasue when the student is absent, this percentage
           #should be reduced accordingly.			
           if val != NA_MARK_NUM
-            tot_pass_marks = tot_pass_marks + pass_marks 
-            tot_max_marks = tot_max_marks + max_marks 
+            tot_pass_marks = tot_pass_marks + mc.pass_marks 
+            tot_max_marks = tot_max_marks + mc.max_marks 
           end
         end
       end
       #If the total marks is zero or less, make the percentage as NA
       tot_percentage = tot_max_marks > 0 ? tot_val.to_f * 100 / tot_max_marks : "NA"
-      marks_hash['total_marks'] = tot_val
-      marks_hash['percentage'] = tot_percentage
+      marks_hash['total_marks'] = { 'value' => tot_val }
+      marks_hash['percentage'] = { 'value' => tot_percentage }
       sub_type = ssmap.subject.lab ? " (Pr) " : " (Th) "
-      table_values << {:subject_name =>  ssmap.subject.name + sub_type}.merge(marks_hash)
+      table_values << {'subject_name' =>  {'value' => ssmap.subject.name + sub_type}}.merge(marks_hash)
     end
-    return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
+    return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
   end    
 
   #***********************************************************************************#
@@ -298,9 +298,9 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings hash. These will be the headings of the table.
-    column_headings['subject_name'] = {:display_name => "Subject", :colspan => 1 } 
+    column_headings['subject_name'] = {:value => "Subject", :colspan => 1 } 
     exam_ids.each do |exam_id|
-      column_headings[exam_id.to_s] = {:display_name => Exam.find(exam_id).name, :colspan => 1}
+      column_headings[exam_id.to_s] = {:value => Exam.find(exam_id).name, :colspan => 1}
     end
     
     #Get the data row wise. One row corresponds to one subject for all the exams. Take a subject
@@ -370,9 +370,9 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings hash. These will be the headings of the table.
-    column_headings['subject_name'] = {:display_name => "Subject", :colspan => 1 } 
+    column_headings['subject_name'] = {:value => "Subject", :colspan => 1 } 
     exam_ids.each do |exam_id|
-      column_headings[exam_id.to_s] = {:display_name => Exam.find(exam_id).name, :colspan => 1}
+      column_headings[exam_id.to_s] = {:value => Exam.find(exam_id).name, :colspan => 1}
     end
     
     #Get the data row wise. One row corresponds to one subject for all the exams. Take a subject
@@ -511,10 +511,10 @@ class ReportsController < ApplicationController
     #that hash 
     percentiles = {}
     #Populate the column_headings
-    column_headings['student_name'] = {:display_name => "Student", :colspan => 1 } 
+    column_headings['student_name'] = {:value => "Student", :colspan => 1 } 
     subject_ids.each do |subject_id|
       sub_type = Subject.find(subject_id).lab ? " (Pr) " : " (Th) "
-      column_headings[subject_id.to_s] = {:display_name => Subject.find(subject_id).name + sub_type, :colspan => 1}
+      column_headings[subject_id.to_s] = {:value => Subject.find(subject_id).name + sub_type, :colspan => 1}
       #Calculate the percentiles for the subjects here itself. If you bring this calculation into the student's loop, it will be
       #too inefficient.
       mark_col = subject_maps.search(:subject_id_eq => subject_id).result.first.mark_column
@@ -525,12 +525,12 @@ class ReportsController < ApplicationController
       percentiles[column] = Mark.subject_percentiles_with_mark_ids(column, @section.id, @semester.id, @exam.id)  
 	end
 	#Populate the column headings for the other columns here.
-    column_headings['total_credits'] = {:display_name => "Total Credits", :colspan => 1}
-    column_headings['total'] = {:display_name => "Total", :colspan => 1}
-    column_headings['weighed_total_percentage'] = {:display_name => "Weighed Total Percentage", :colspan => 1}
-    column_headings['weighed_pass_marks_percentage'] = {:display_name => "Weighed Pass Marks Percentage", :colspan => 1}
-    column_headings['passed_count'] = {:display_name => "Passed Count", :colspan => 1}
-    column_headings['arrears_count'] = {:display_name => "Arrears Count", :colspan => 1}        
+    column_headings['total_credits'] = {:value => "Total Credits", :colspan => 1}
+    column_headings['total'] = {:value => "Total", :colspan => 1}
+    column_headings['weighed_total_percentage'] = {:value => "Weighed Total Percentage", :colspan => 1}
+    column_headings['weighed_pass_marks_percentage'] = {:value => "Weighed Pass Marks Percentage", :colspan => 1}
+    column_headings['passed_count'] = {:value => "Passed Count", :colspan => 1}
+    column_headings['arrears_count'] = {:value => "Arrears Count", :colspan => 1}        
     #One iteration for each student (one iteration for one row in the table)
     @section.students.each do |student|
       marks_hash = {}
@@ -601,9 +601,9 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings hash. These will be the headings of the table.
-    column_headings['subject_name'] = {:display_name => "Subject", :colspan => 1 } 
+    column_headings['subject_name'] = {:value => "Subject", :colspan => 1 } 
     exam_ids.each do |exam_id|
-      column_headings[exam_id.to_s] = {:display_name => Exam.find(exam_id).name, :colspan => 1}
+      column_headings[exam_id.to_s] = {:value => Exam.find(exam_id).name, :colspan => 1}
     end
     
     total_and_average = {}
@@ -682,9 +682,9 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings hash. These will be the headings of the table.
-    column_headings['subject_name'] = {:display_name => "Subject", :colspan => 1 } 
+    column_headings['subject_name'] = {:value => "Subject", :colspan => 1 } 
     exam_ids.each do |exam_id|
-      column_headings[exam_id.to_s] = {:display_name => Exam.find(exam_id).name, :colspan => 1}
+      column_headings[exam_id.to_s] = {:value => Exam.find(exam_id).name, :colspan => 1}
     end
     
     total_and_average = {}

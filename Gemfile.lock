@@ -42,6 +42,7 @@ GEM
       multi_json (~> 1.0)
     annotate (2.4.1.beta1)
     arel (2.2.3)
+    bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
     bootstrap-sass (2.0.2)
     builder (3.0.0)
@@ -93,7 +94,9 @@ GEM
     mime-types (1.18)
     multi_json (1.2.0)
     net-ssh (2.3.0)
+    nokogiri (1.5.2)
     nokogiri (1.5.2-x86-mingw32)
+    pg (0.13.2)
     pg (0.13.2-x86-mingw32)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
@@ -161,6 +164,7 @@ GEM
       multi_json (>= 1.0.2)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES

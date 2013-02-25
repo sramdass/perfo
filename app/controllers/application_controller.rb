@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   require 'pgtools'
   require 'exceptions'
 
-  helper_method :current_tenant, :current_profile, :current_ability, :admin?, :random_string
+  helper_method :current_tenant, :current_profile, :current_ability, :admin?, :random_string, :absent_na_values_to_i, :absent_na_values_to_s
   protect_from_forgery
 
   before_filter :load_tenant_and_validate_profile
@@ -86,6 +86,26 @@ class ApplicationController < ActionController::Base
     SecureRandom.base64
   end    
   
+  def absent_na_values_to_s(val)
+    if val == NA_MARK_NUM
+      return "NA"
+    elsif val == ABSENT_MARK_NUM
+      return "A"
+    else
+      return val
+    end
+  end
+  
+  def absent_na_values_to_i(val)
+    if val == "NA"
+      return NA_MARK_NUM
+    elsif val == "A"
+      return ABSENT_MARK_NUM
+    else
+      return val
+    end
+  end
+    
   protected
   def rescue_not_found
     respond_to do |type|

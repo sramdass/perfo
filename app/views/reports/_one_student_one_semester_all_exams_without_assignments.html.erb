@@ -1,0 +1,23 @@
+<%= debug @marks %>
+
+<% column_keys = @marks['column_keys'] %>
+<% column_headings = @marks['column_headings'] %>
+<% table_values = @marks['table_values'] %>
+<table class = 'datatable_full'>
+  <thead>
+    <tr>
+      <% column_keys.each do |col_key| %>
+      <th> <%= column_headings[col_key]['value'] %> </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% table_values.each do |row| %>
+      <tr>
+        <% column_keys.each do |col_key|%>
+          <td> <%= row[col_key] ? row[col_key]['value'] : "#" %> </td>
+        <% end %>
+      </tr>  
+    <% end %>
+  </tbody>
+</table>

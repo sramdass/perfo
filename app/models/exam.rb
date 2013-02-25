@@ -11,6 +11,7 @@
 #  updated_at     :datetime
 #  exam_type      :integer         default(0)
 #  examination_id :integer
+#  finals         :boolean
 #
 
 class Exam < TenantManager

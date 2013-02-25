@@ -53,7 +53,7 @@ class Role < ActiveRecord::Base
   #This will check if this role can perform 'action_name' on the resource 'resource_name'
   #Ex: if this role can 'write' on the resource 'Faculty'
   def can_perform?(action_name, resource_name)
-  	res_id = Resouce.find_by_name(resource_nam.camelize)
+  	res_id = Resouce.find_by_name(resource_name.camelize)
     action_code = ResourceAction.find_by_name("#{action_name.upcase}_ALL_RECORDS").code
   	has_privilege(res_id, action_code)
   end  

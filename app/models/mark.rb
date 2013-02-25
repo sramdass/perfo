@@ -269,7 +269,6 @@ class Mark < TenantManager
       	  if max_marks_ia[col_name] != 0
             weighed_total_ia = weighed_total_ia + (( mark_val_ia[col_name] * credits[sub_id] * 100).to_f / max_marks_ia[col_name])          
     	  end
-    	  debugger
           if (mark_val_ia[col_name] < pass_marks_ia[col_name])
             arrears_ia = arrears_ia + 1
           else 

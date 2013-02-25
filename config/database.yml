@@ -3,8 +3,8 @@ development:
   encoding: unicode
   database: perfo_development
   pool: 5
-  username: postgres
-  password: !23Amores
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
   port: 5433
 
 test:
@@ -12,8 +12,8 @@ test:
   encoding: unicode
   database: perfo_development
   pool: 5
-  username: postgres
-  password: !23Amores
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
   port: 5433
 
 production:
@@ -21,8 +21,8 @@ production:
   encoding: unicode
   database: perfo_development
   pool: 5
-  username: postgres
-  password: !23Amores
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
   port: 5433
 
 staging:
@@ -30,8 +30,8 @@ staging:
   encoding: unicode
   database: perfo_development
   pool: 5
-  username: postgres
-  password: !23Amores
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
   port: 5433
 
 
