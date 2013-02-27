@@ -7,7 +7,7 @@
   <thead>
     <tr>
       <% column_keys.each do |col_key| %>
-      <th> <%= column_headings[col_key]['value'] %> </th>
+        <th> <%= column_headings[col_key]['value'] %> </th>
       <% end %>
     </tr>
   </thead>
@@ -16,7 +16,7 @@
       <tr>
         <% column_keys.each do |col_key| %>
           <% data_hash={} %>
-          <% ['bg', 'pass_marks', 'max_marks', 'percentage', 'percentile', 'value'].each do |key| %>
+          <% ['average', 'count', 'total', 'average_percentage', 'max_marks', 'pass_marks'].each do |key| %>
             <% temp_value = row[col_key][key] if row[col_key] && row[col_key][key] %>
             <% data_hash = data_hash.merge(key => temp_value) if temp_value %>
           <% end %> 

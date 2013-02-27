@@ -11,6 +11,8 @@ class ReportsController < ApplicationController
     @student= Student.find(params[:student_id]) if params[:student_id] && params[:student_id].length != 0
     @semester= Semester.find(params[:semester_id]) if params[:semester_id] && params[:semester_id].length != 0
     @exam= Exam.find(params[:exam_id]) if params[:exam_id] && params[:exam_id].length != 0
+    @marks = one_section_one_semester_all_exams_with_assignments_with_arrear_entries
+    return
     
     if @student && @semester && @exam
       @marks = one_student_one_semester_one_exam
@@ -298,9 +300,9 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings hash. These will be the headings of the table.
-    column_headings['subject_name'] = {:value => "Subject", :colspan => 1 } 
+    column_headings['subject_name'] = {'value' => "Subject", 'colspan' => 1 } 
     exam_ids.each do |exam_id|
-      column_headings[exam_id.to_s] = {:value => Exam.find(exam_id).name, :colspan => 1}
+      column_headings[exam_id.to_s] = {'value' => Exam.find(exam_id).name, 'colspan' => 1}
     end
     
     #Get the data row wise. One row corresponds to one subject for all the exams. Take a subject
@@ -324,16 +326,17 @@ class ReportsController < ApplicationController
           #Definition in mark.rb => self.subject_percentiles_with_mark_ids(col_name, section_id, semester_id, exam_id)
           percentiles = Mark.subject_percentiles_with_mark_ids(mark_col, mark_row.section_id, mark_row.semester_id, exam_id)  
           marks_hash[exam_id.to_s] =  { 	
-          															:value => mark_row.send(mark_col), :bg => Grade.get_color_code(mark_row.send(mark_col)) , 
-          															:max_marks => max_marks,  :pass_marks => pass_marks, 
-          															:percentage => percentages[mark_col], :percentile => percentiles[mark_row.id]
+          															'value' => absent_na_values_to_s(mark_row.send(mark_col)), 
+                                        'bg' => Grade.get_color_code(mark_row.send(mark_col)) , 
+          															'max_marks' => mc.max_marks,  'pass_marks' => mc.pass_marks, 
+          															'percentage' => percentages[mark_col], 'percentile' => percentiles[mark_row.id]
     	  		  												  }
 	    end
       end
       sub_type = ssmap.subject.lab ? " (Pr) " : " (Th) "
-      table_values << {:subject_name =>  ssmap.subject.name + sub_type}.merge(marks_hash)
+      table_values << {'subject_name' =>  {'value' => ssmap.subject.name + sub_type}}.merge(marks_hash)
     end
-    return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
+    return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
   end  
   
   
@@ -370,9 +373,9 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings hash. These will be the headings of the table.
-    column_headings['subject_name'] = {:value => "Subject", :colspan => 1 } 
+    column_headings['subject_name'] = {'value' => "Subject", :colspan => 1 } 
     exam_ids.each do |exam_id|
-      column_headings[exam_id.to_s] = {:value => Exam.find(exam_id).name, :colspan => 1}
+      column_headings[exam_id.to_s] = {'value' => Exam.find(exam_id).name, :colspan => 1}
     end
     
     #Get the data row wise. One row corresponds to one subject for all the exams. Take a subject
@@ -396,24 +399,25 @@ class ReportsController < ApplicationController
         mark_rows.each do |mark_row|
           if mark_row
           	#Careful! We should not use exam_id for the filter, but use mark_row.exam_id.  We are  also reading the marks of the assignments and exam_id will always have the base exam id.
+            val = mark_row.send(mark_col)
           	mc = MarkCriteria.search(:semester_id_eq => mark_row.semester_id, :section_id_eq => mark_row.section_id, :exam_id_eq => mark_row.exam_id, :subject_id_eq => ssmap.subject_id).result.first
             pass_marks = mc ? mc.pass_marks : 0
             max_marks = mc ? mc.max_marks : 0
-            tot_marks += mark_row.send(mark_col) if mark_row.send(mark_col)
+            tot_marks += val if val && val != ABSENT_MARK_NUM && val != NA_MARK_NUM
             tot_pass_marks += pass_marks
             tot_max_marks += max_marks
 	      end
         end
         marks_hash[exam_id.to_s] =  { 	
-        															:value => tot_marks, :bg => Grade.get_color_code(tot_marks) , 
-        															:max_marks => tot_max_marks,  :pass_marks => tot_pass_marks, 
-        															:percentage => "NA", :percentile => "NA"
+        															'value' => tot_marks, 'bg' => Grade.get_color_code(tot_marks) , 
+        															'max_marks' => tot_max_marks,  'pass_marks' => tot_pass_marks, 
+        															'percentage' => "NA", 'percentile' => "NA"
     			  												  }        
       end
       sub_type = ssmap.subject.lab ? " (Pr) " : " (Th) "
-      table_values << {:subject_name =>  ssmap.subject.name + sub_type}.merge(marks_hash)
+      table_values << {'subject_name' =>  {'value' => ssmap.subject.name + sub_type}}.merge(marks_hash)
     end
-    return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
+    return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
   end  
     
 
@@ -459,9 +463,9 @@ class ReportsController < ApplicationController
               percentiles = Mark.subject_percentiles_with_mark_ids(sub_map.mark_column, mark_row.section_id, mark_row.semester_id, mark_row.exam_id)  
               sub_type = sub_map.subject.lab ? " (Pr) " : " (Th) "
               marks_hash[sub_map.subject_id] =  { 	
-              																		:value => mark_row.send(sub_map.mark_column), :bg => Grade.get_color_code(mark_row.send(sub_map.mark_column)) , 
-              																		:percentage => percentages[sub_map.mark_column], :percentile => percentiles[mark_row.id],
-            																		:subject_name =>  sub_map.subject.name + sub_type
+              																		'value' => mark_row.send(sub_map.mark_column), 'bg' => Grade.get_color_code(mark_row.send(sub_map.mark_column)) , 
+              																		'percentage' => percentages[sub_map.mark_column], 'percentile' => percentiles[mark_row.id],
+            																		'subject_name' =>  sub_map.subject.name + sub_type
     	      																	}
     	    end
           end #End-loop subject_maps.each do |sub_map|
@@ -475,7 +479,7 @@ class ReportsController < ApplicationController
         end # End-if if mark_row
       end #End-if if final_exam
     end # End-loop semester_ids.each do |sem_id|
-    return {:table_values => table_values}
+    return {'table_values' => table_values}
   end
   
   #***********************************************************************************#
@@ -511,13 +515,17 @@ class ReportsController < ApplicationController
     #that hash 
     percentiles = {}
     #Populate the column_headings
-    column_headings['student_name'] = {:value => "Student", :colspan => 1 } 
+    column_headings['student_name'] = {'value' => "Student", :colspan => 1 } 
     subject_ids.each do |subject_id|
+      mc = MarkCriteria.search(:semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => @exam.id, :subject_id_eq => subject_id).result.first
+      credits = subject_maps.for_subject(subject_id).first.credits
       sub_type = Subject.find(subject_id).lab ? " (Pr) " : " (Th) "
-      column_headings[subject_id.to_s] = {:value => Subject.find(subject_id).name + sub_type, :colspan => 1}
+      column_headings[subject_id.to_s] = {'value' => Subject.find(subject_id).name + sub_type, 'credits' => credits,
+                                          'max_marks' => mc.max_marks, 'pass_marks' => mc.pass_marks, :colspan => 1}
       #Calculate the percentiles for the subjects here itself. If you bring this calculation into the student's loop, it will be
       #too inefficient.
       mark_col = subject_maps.search(:subject_id_eq => subject_id).result.first.mark_column
+      #debugger
       percentiles[mark_col] = Mark.subject_percentiles_with_mark_ids(mark_col, @section.id, @semester.id, @exam.id)  
     end
     #Calcuate the percentiles for only the total and the percentages. No need to calculate for passed/arrears_count etc..
@@ -525,12 +533,12 @@ class ReportsController < ApplicationController
       percentiles[column] = Mark.subject_percentiles_with_mark_ids(column, @section.id, @semester.id, @exam.id)  
 	end
 	#Populate the column headings for the other columns here.
-    column_headings['total_credits'] = {:value => "Total Credits", :colspan => 1}
-    column_headings['total'] = {:value => "Total", :colspan => 1}
-    column_headings['weighed_total_percentage'] = {:value => "Weighed Total Percentage", :colspan => 1}
-    column_headings['weighed_pass_marks_percentage'] = {:value => "Weighed Pass Marks Percentage", :colspan => 1}
-    column_headings['passed_count'] = {:value => "Passed Count", :colspan => 1}
-    column_headings['arrears_count'] = {:value => "Arrears Count", :colspan => 1}        
+    column_headings['total_credits'] = {'value' => "Total Credits", :colspan => 1}
+    column_headings['total'] = {'value' => "Total", :colspan => 1}
+    column_headings['weighed_total_percentage'] = {'value' => "Weighed Total Percentage", :colspan => 1}
+    column_headings['weighed_pass_marks_percentage'] = {'value' => "Weighed Pass Marks Percentage", :colspan => 1}
+    column_headings['passed_count'] = {'value' => "Passed Count", :colspan => 1}
+    column_headings['arrears_count'] = {'value' => "Arrears Count", :colspan => 1}        
     #One iteration for each student (one iteration for one row in the table)
     @section.students.each do |student|
       marks_hash = {}
@@ -542,13 +550,13 @@ class ReportsController < ApplicationController
       	mark_col = subject_maps.search(:subject_id_eq => subject_id).result.first.mark_column
         if mark_row && mark_row.send(mark_col) 
           mc = MarkCriteria.search(:semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => @exam.id, :subject_id_eq => subject_id).result.first
-          pass_marks = mc ? mc.pass_marks : 0
-          max_marks = mc ? mc.max_marks : 0
+          #pass_marks = mc ? mc.pass_marks : 0
+          #max_marks = mc ? mc.max_marks : 0
           percentages = mark_row.percentages_with_mark_columns
           marks_hash[subject_id.to_s] =  { 	
-          															:value => mark_row.send(mark_col), :bg => Grade.get_color_code(mark_row.send(mark_col)) , 
-          															:max_marks => max_marks,  :pass_marks => pass_marks, 
-          															:percentage => percentages[mark_col], :percentile => percentiles[mark_col][mark_row.id]
+          															'value' => absent_na_values_to_s(mark_row.send(mark_col)), 'bg' => Grade.get_color_code(mark_row.send(mark_col)) , 
+          															'max_marks' => mc.max_marks,  'pass_marks' => mc.pass_marks, 
+          															'percentage' => percentages[mark_col], 'percentile' => percentiles[mark_col][mark_row.id]
     	  														    }
         end
       end
@@ -556,17 +564,17 @@ class ReportsController < ApplicationController
       if mark_row
       	#Colums for which the percentiles have been already calculated.
       	['total', 'weighed_total_percentage', 'weighed_pass_marks_percentage'].each do |column|
-      	  marks_hash[column] = { :value => mark_row.send(column), :percentile => percentiles[column][mark_row.id] }
+      	  marks_hash[column] = { 'value' => mark_row.send(column), 'percentile' => percentiles[column][mark_row.id] }
   	 	end
   	 	#Columns for which the percentiles are NA
   	    ['total_credits', 'passed_count', 'arrears_count'].each do |column|
-      	  marks_hash[column] = { :value => mark_row.send(column) }
+      	  marks_hash[column] = { 'value' => mark_row.send(column) }
   	   	end
       end
       #Even if there are no mark rows, the students name alone will be displayed in the mark list. 
-      table_values << {'student_name' =>  student.name}.merge(marks_hash)
+      table_values << {'student_name' =>  {'value' => student.name}}.merge(marks_hash)
     end
-    return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
+    return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
   end        
   
   #***********************************************************************************#
@@ -601,9 +609,9 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings hash. These will be the headings of the table.
-    column_headings['subject_name'] = {:value => "Subject", :colspan => 1 } 
+    column_headings['subject_name'] = {'value' => "Subject", :colspan => 1 } 
     exam_ids.each do |exam_id|
-      column_headings[exam_id.to_s] = {:value => Exam.find(exam_id).name, :colspan => 1}
+      column_headings[exam_id.to_s] = {'value' => Exam.find(exam_id).name, :colspan => 1}
     end
     
     total_and_average = {}
@@ -616,16 +624,20 @@ class ReportsController < ApplicationController
       mark_col = ssmap.mark_column
       #loop through each of the exams and get the mark for this particular subject - mark_col
       exam_ids.each do |exam_id|
+        mc = MarkCriteria.search(:semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => exam_id, :subject_id_eq => ssmap.subject_id).result.first
       	mark_rows = []
       	total_and_average[exam_id.to_s] ||= Mark.columns_total_and_average_for_section_with_arrear_entries_in_semex(@section.id, @semester.id, exam_id)
         marks_hash[exam_id.to_s] =  { 	
-        															:total => total_and_average[exam_id.to_s][mark_col]['total'], 
-        															:average => total_and_average[exam_id.to_s][mark_col]['average'], 
-        															:count => total_and_average[exam_id.to_s][mark_col]['count']
-    			  												  }        
+                                      'value' => total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
+        															'total' => total_and_average[exam_id.to_s][mark_col]['total'], 
+        															'average' => total_and_average[exam_id.to_s][mark_col]['average'], 
+        															'count' => total_and_average[exam_id.to_s][mark_col]['count'],
+                                      'max_marks' => mc.max_marks, 'pass_marks' => mc.pass_marks,
+                                      'average_percentage' => total_and_average[exam_id.to_s][mark_col]['average'].to_f * 100 / mc.max_marks
+    			  												}        
       end
       sub_type = ssmap.subject.lab ? " (Pr) " : " (Th) "
-      table_values << {:subject_name =>  ssmap.subject.name + sub_type}.merge(marks_hash)
+      table_values << {'subject_name' =>  {'value' => ssmap.subject.name + sub_type} }.merge(marks_hash)
     end
     
     NON_SUB_COLUMNS.each do |non_sub_column|
@@ -637,15 +649,15 @@ class ReportsController < ApplicationController
       	mark_rows = []
       	total_and_average[exam_id.to_s] ||= Mark.columns_total_and_average_for_section_with_arrear_entries_in_semex(@section.id, @semester.id, exam_id)
         marks_hash[exam_id.to_s] =  { 	
-        															:total => total_and_average[exam_id.to_s][mark_col]['total'], 
-        															:average => total_and_average[exam_id.to_s][mark_col]['average'], 
-        															:count => total_and_average[exam_id.to_s][mark_col]['count']
+                                      'value' => total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
+        															'total' => total_and_average[exam_id.to_s][mark_col]['total'], 
+        															'average' => total_and_average[exam_id.to_s][mark_col]['average'], 
+        															'count' => total_and_average[exam_id.to_s][mark_col]['count']
     			  												  }        
       end
-      table_values << {:subject_name =>  NON_SUB_COLUMNS_DISPLAY_NAMES[mark_col] }.merge(marks_hash)
+      table_values << {'subject_name' =>  {'value' => NON_SUB_COLUMNS_DISPLAY_NAMES[mark_col]} }.merge(marks_hash)
     end
-    
-    return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
+    return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
   end
   
  
@@ -682,9 +694,9 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings hash. These will be the headings of the table.
-    column_headings['subject_name'] = {:value => "Subject", :colspan => 1 } 
+    column_headings['subject_name'] = {'value' => "Subject", :colspan => 1 } 
     exam_ids.each do |exam_id|
-      column_headings[exam_id.to_s] = {:value => Exam.find(exam_id).name, :colspan => 1}
+      column_headings[exam_id.to_s] = {'value' => Exam.find(exam_id).name, :colspan => 1}
     end
     
     total_and_average = {}
@@ -706,7 +718,7 @@ class ReportsController < ApplicationController
     			  												  }        
       end
       sub_type = ssmap.subject.lab ? " (Pr) " : " (Th) "
-      table_values << {:subject_name =>  ssmap.subject.name + sub_type}.merge(marks_hash)
+      table_values << {'subject_name' =>  ssmap.subject.name + sub_type}.merge(marks_hash)
     end
     
     NON_SUB_COLUMNS.each do |non_sub_column|
@@ -723,10 +735,10 @@ class ReportsController < ApplicationController
         															:count => total_and_average[exam_id.to_s][mark_col]['count']
     			  												  }        
       end
-      table_values << {:subject_name =>  NON_SUB_COLUMNS_DISPLAY_NAMES[mark_col] }.merge(marks_hash)
+      table_values << {'subject_name' =>  NON_SUB_COLUMNS_DISPLAY_NAMES[mark_col] }.merge(marks_hash)
     end
     
-    return {:column_keys => column_keys, :column_headings => column_headings, :table_values => table_values}
+    return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
   end  
     
 end

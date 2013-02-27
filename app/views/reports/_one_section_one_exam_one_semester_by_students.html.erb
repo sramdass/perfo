@@ -7,7 +7,8 @@
   <thead>
     <tr>
       <% column_keys.each do |col_key| %>
-      <th> <%= column_headings[col_key]['value'] %> </th>
+        <% element = column_headings[col_key] %>
+        <th> <%= element['value'] %> (<%= element['credits']%>c / <%= element['pass_marks']%> / <%= element['max_marks']%>)</th>
       <% end %>
     </tr>
   </thead>

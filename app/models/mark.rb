@@ -201,8 +201,8 @@ class Mark < TenantManager
   	  #For the arrear students, who have enrolled for this subject, the first will fail and the second will succeed. 
   	  #For the arrear students, who have NOT enrolled for this subject, both checks will fail.    	
       if !self.is_arrear_student? || self.arrear_student(sub_id)
-        pass_marks_ia[col_name] = self.get_max_marks(sub_id)
-        max_marks_ia[col_name] = self.get_pass_marks(sub_id)
+        pass_marks_ia[col_name] = self.get_pass_marks(sub_id)
+        max_marks_ia[col_name] = self.get_max_marks(sub_id)
         mark_val_ia[col_name] = 0
         val = self.send(col_name)
         if  val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
@@ -213,7 +213,7 @@ class Mark < TenantManager
             passed = passed + 1
             pass_credits = pass_credits + credits[sub_id]
             weighed_pass_total = weighed_pass_total + (( val * credits[sub_id] * 100).to_f / max_marks_ia[col_name])
-          end           
+          end   
           total = total + val #Total of all the marks only for the exams (assignments excluded)
           #sum of (subject marks * credits ), and then divided by total credits. And then convert it to 
           #percentage with respect to the max marks

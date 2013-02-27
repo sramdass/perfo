@@ -23,8 +23,8 @@ class ApplicationController < ActionController::Base
     
   def load_tenant_and_validate_profile
   	if request.subdomain == ""
-  	  #TenantManager.connection.schema_search_path = "public"
-  	  TenantManager.connection.schema_search_path = "abc"
+  	  TenantManager.connection.schema_search_path = "public"
+  	  #TenantManager.connection.schema_search_path = "abc"
   	elsif
   	  @current_tenant = Tenant.find_by_subdomain(request.subdomain) #Uses ActiveRecord::Base's connection.
       raise Exceptions::InvalidTenant  if !@current_tenant

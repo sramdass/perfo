@@ -36,6 +36,7 @@ NON_SUB_COLUMNS = ['total_credits','total', 'weighed_total_percentage', 'weighed
     									         'weighed_total_percentage_ia', 'weighed_pass_marks_percentage_ia', 'passed_count_ia', 'arrears_count_ia']
 NON_SUB_COLUMNS_DISPLAY_NAMES = {
 																					'total_credits' => 'Total Credits',
+                                          'total' => 'Total',
 																					'weighed_total_percentage' => 'Weighed Total Percentage',
 																					'weighed_pass_marks_percentage' => 'Weighed Pass Marks Percentage',
 																					'passed_count' => 'Passed Count',
