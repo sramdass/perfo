@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
     @student= Student.find(params[:student_id]) if params[:student_id] && params[:student_id].length != 0
     @semester= Semester.find(params[:semester_id]) if params[:semester_id] && params[:semester_id].length != 0
     @exam= Exam.find(params[:exam_id]) if params[:exam_id] && params[:exam_id].length != 0
-    @marks = one_section_one_semester_all_exams_with_assignments_with_arrear_entries
+    @marks = one_section_one_semester_all_exams_with_assignments_without_arrear_entries
     return
     
     if @student && @semester && @exam
@@ -709,16 +709,20 @@ class ReportsController < ApplicationController
       mark_col = ssmap.mark_column
       #loop through each of the exams and get the mark for this particular subject - mark_col
       exam_ids.each do |exam_id|
+        mc = MarkCriteria.search(:semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => exam_id, :subject_id_eq => ssmap.subject_id).result.first
       	mark_rows = []
       	total_and_average[exam_id.to_s] ||= Mark.columns_total_and_average_for_section_without_arrear_entries_in_semex(@section.id, @semester.id, exam_id)
         marks_hash[exam_id.to_s] =  { 	
-        															:total => total_and_average[exam_id.to_s][mark_col]['total'], 
-        															:average => total_and_average[exam_id.to_s][mark_col]['average'], 
-        															:count => total_and_average[exam_id.to_s][mark_col]['count']
-    			  												  }        
+                                      'value' => total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
+        															'total' => total_and_average[exam_id.to_s][mark_col]['total'], 
+        															'average' => total_and_average[exam_id.to_s][mark_col]['average'], 
+        															'count' => total_and_average[exam_id.to_s][mark_col]['count'],
+                                      'max_marks' => mc.max_marks, 'pass_marks' => mc.pass_marks,
+                                      'average_percentage' => total_and_average[exam_id.to_s][mark_col]['average'].to_f * 100 / mc.max_marks
+    			  												}         
       end
       sub_type = ssmap.subject.lab ? " (Pr) " : " (Th) "
-      table_values << {'subject_name' =>  ssmap.subject.name + sub_type}.merge(marks_hash)
+      table_values << {'subject_name' =>  {'value' => ssmap.subject.name + sub_type} }.merge(marks_hash)
     end
     
     NON_SUB_COLUMNS.each do |non_sub_column|
@@ -730,12 +734,13 @@ class ReportsController < ApplicationController
       	mark_rows = []
       	total_and_average[exam_id.to_s] ||= Mark.columns_total_and_average_for_section_without_arrear_entries_in_semex(@section.id, @semester.id, exam_id)
         marks_hash[exam_id.to_s] =  { 	
-        															:total => total_and_average[exam_id.to_s][mark_col]['total'], 
-        															:average => total_and_average[exam_id.to_s][mark_col]['average'], 
-        															:count => total_and_average[exam_id.to_s][mark_col]['count']
+                                      'value' => total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
+        															'total' => total_and_average[exam_id.to_s][mark_col]['total'], 
+        															'average' => total_and_average[exam_id.to_s][mark_col]['average'], 
+        															'count' => total_and_average[exam_id.to_s][mark_col]['count']
     			  												  }        
       end
-      table_values << {'subject_name' =>  NON_SUB_COLUMNS_DISPLAY_NAMES[mark_col] }.merge(marks_hash)
+      table_values << {'subject_name' =>  {'value' => NON_SUB_COLUMNS_DISPLAY_NAMES[mark_col]} }.merge(marks_hash)
     end
     
     return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}

@@ -480,7 +480,7 @@ class Mark < TenantManager
   def self.column_total_and_average_for_section_without_arrear_entries_in_semex(sec_id, sem_id, ex_id, column_name)
     #refer squeel for this query syntax. http://erniemiller.org/projects/squeel/
     rel = where{ (section_id == sec_id) & (exam_id == ex_id) & (semester_id == sem_id) }
-    rel = rel.joins{student.section}.where{students.section_id != marks.section_id}
+    rel = rel.joins{student}.where{students.section_id == marks.section_id}
     #not sure how to use squeel at this point. so, going for the active record syntax.
     rel = rel.where("marks.#{column_name} != ? AND marks.#{column_name} != ?", ABSENT_MARK_NUM, NA_MARK_NUM)
     if rel
