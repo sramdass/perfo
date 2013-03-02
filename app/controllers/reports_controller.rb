@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
     @student= Student.find(params[:student_id]) if params[:student_id] && params[:student_id].length != 0
     @semester= Semester.find(params[:semester_id]) if params[:semester_id] && params[:semester_id].length != 0
     @exam= Exam.find(params[:exam_id]) if params[:exam_id] && params[:exam_id].length != 0
-    @marks = one_section_one_semester_all_exams_with_assignments_without_arrear_entries
+    @marks = one_section_one_semester_all_exams_with_assignments_with_arrear_entries
     return
     
     if @student && @semester && @exam
@@ -457,9 +457,13 @@ class ReportsController < ApplicationController
     #this will have all the rows except the heading row. Each of the rows will be hash keyed by the values in column_keys.
   	table_values = [] 
   	exam_ids = []
+    master_column_headings = []
+    master_column_headings << {'value' => 'Subjects', 'colspan' => 1 , 'rowspan' => 2}
     #exam_ids = SecExamMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id, :exam_exam_type_eq => EXAM_TYPE_TEST).result.select('exam_id').map { |x| x.exam_id }
     SecExamMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id, :exam_exam_type_eq => EXAM_TYPE_TEST).result.select('exam_id').each do |semap|
       exam_ids << semap.exam_id
+      colspan = semap.exam.assignments ? semap.exam.assignments.count : 0
+      master_column_headings << {'value' => Exam.find(semap.exam_id).name, 'colspan' => colspan + 1}
       semap.exam.assignments.each do |asgn|
         exam_ids << asgn.id	
       end
@@ -471,7 +475,7 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings hash. These will be the headings of the table.
-    column_headings['subject_name'] = {'value' => "Subject", :colspan => 1 } 
+    #column_headings['subject_name'] = {'value' => "Subject", :colspan => 1 } 
     exam_ids.each do |exam_id|
       column_headings[exam_id.to_s] = {'value' => Exam.find(exam_id).name, :colspan => 1}
     end
@@ -490,12 +494,12 @@ class ReportsController < ApplicationController
       	mark_rows = []
       	total_and_average[exam_id.to_s] ||= Mark.columns_total_and_average_for_section_with_arrear_entries_in_semex(@section.id, @semester.id, exam_id)
         marks_hash[exam_id.to_s] =  { 	
-                                      'value' => total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
+                                      'value' => "%.2f" % total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
         															'total' => total_and_average[exam_id.to_s][mark_col]['total'], 
-        															'average' => total_and_average[exam_id.to_s][mark_col]['average'], 
+        															'average' => "%.2f" % total_and_average[exam_id.to_s][mark_col]['average'], 
         															'count' => total_and_average[exam_id.to_s][mark_col]['count'],
                                       'max_marks' => mc.max_marks, 'pass_marks' => mc.pass_marks,
-                                      'average_percentage' => total_and_average[exam_id.to_s][mark_col]['average'].to_f * 100 / mc.max_marks
+                                      'average_percentage' => "%.2f" % (total_and_average[exam_id.to_s][mark_col]['average'].to_f * 100 / mc.max_marks)
     			  												}        
       end
       sub_type = ssmap.subject.lab ? " (Pr) " : " (Th) "
@@ -511,15 +515,15 @@ class ReportsController < ApplicationController
       	mark_rows = []
       	total_and_average[exam_id.to_s] ||= Mark.columns_total_and_average_for_section_with_arrear_entries_in_semex(@section.id, @semester.id, exam_id)
         marks_hash[exam_id.to_s] =  { 	
-                                      'value' => total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
+                                      'value' => "%.2f" % total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
         															'total' => total_and_average[exam_id.to_s][mark_col]['total'], 
-        															'average' => total_and_average[exam_id.to_s][mark_col]['average'], 
+        															'average' => "%.2f" % total_and_average[exam_id.to_s][mark_col]['average'], 
         															'count' => total_and_average[exam_id.to_s][mark_col]['count']
     			  												  }        
       end
       table_values << {'subject_name' =>  {'value' => NON_SUB_COLUMNS_DISPLAY_NAMES[mark_col]} }.merge(marks_hash)
     end
-    return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
+    return {'master_column_headings' => master_column_headings, 'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
   end
   
  
@@ -542,9 +546,13 @@ class ReportsController < ApplicationController
     #this will have all the rows except the heading row. Each of the rows will be hash keyed by the values in column_keys.
   	table_values = [] 
   	exam_ids = []
+    master_column_headings = []
+    master_column_headings << {'value' => 'Subjects', 'colspan' => 1 , 'rowspan' => 2}
     #exam_ids = SecExamMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id, :exam_exam_type_eq => EXAM_TYPE_TEST).result.select('exam_id').map { |x| x.exam_id }
     SecExamMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id, :exam_exam_type_eq => EXAM_TYPE_TEST).result.select('exam_id').each do |semap|
       exam_ids << semap.exam_id
+      colspan = semap.exam.assignments ? semap.exam.assignments.count : 0
+      master_column_headings << {'value' => Exam.find(semap.exam_id).name, 'colspan' => colspan + 1}
       semap.exam.assignments.each do |asgn|
         exam_ids << asgn.id	
       end
@@ -556,7 +564,7 @@ class ReportsController < ApplicationController
     column_headings = {}
 
     #Populate the column_headings hash. These will be the headings of the table.
-    column_headings['subject_name'] = {'value' => "Subject", :colspan => 1 } 
+    #column_headings['subject_name'] = {'value' => "Subject", :colspan => 1 } 
     exam_ids.each do |exam_id|
       column_headings[exam_id.to_s] = {'value' => Exam.find(exam_id).name, :colspan => 1}
     end
@@ -575,9 +583,9 @@ class ReportsController < ApplicationController
       	mark_rows = []
       	total_and_average[exam_id.to_s] ||= Mark.columns_total_and_average_for_section_without_arrear_entries_in_semex(@section.id, @semester.id, exam_id)
         marks_hash[exam_id.to_s] =  { 	
-                                      'value' => total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
+                                      'value' => "%.2f" % total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
         															'total' => total_and_average[exam_id.to_s][mark_col]['total'], 
-        															'average' => total_and_average[exam_id.to_s][mark_col]['average'], 
+        															'average' => "%.2f" % total_and_average[exam_id.to_s][mark_col]['average'], 
         															'count' => total_and_average[exam_id.to_s][mark_col]['count'],
                                       'max_marks' => mc.max_marks, 'pass_marks' => mc.pass_marks,
                                       'average_percentage' => total_and_average[exam_id.to_s][mark_col]['average'].to_f * 100 / mc.max_marks
@@ -596,16 +604,16 @@ class ReportsController < ApplicationController
       	mark_rows = []
       	total_and_average[exam_id.to_s] ||= Mark.columns_total_and_average_for_section_without_arrear_entries_in_semex(@section.id, @semester.id, exam_id)
         marks_hash[exam_id.to_s] =  { 	
-                                      'value' => total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
+                                      'value' => "%.2f" % total_and_average[exam_id.to_s][mark_col]['average'], #Make the average as the default value
         															'total' => total_and_average[exam_id.to_s][mark_col]['total'], 
-        															'average' => total_and_average[exam_id.to_s][mark_col]['average'], 
+        															'average' => "%.2f" % total_and_average[exam_id.to_s][mark_col]['average'], 
         															'count' => total_and_average[exam_id.to_s][mark_col]['count']
     			  												  }        
       end
       table_values << {'subject_name' =>  {'value' => NON_SUB_COLUMNS_DISPLAY_NAMES[mark_col]} }.merge(marks_hash)
     end
     
-    return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
+    return {'master_column_headings' => master_column_headings, 'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
   end  
     
 end
