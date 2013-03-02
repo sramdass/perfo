@@ -1,0 +1,42 @@
+<% column_keys = @marks['column_keys'] %>
+<% column_headings = @marks['column_headings'] %>
+<% table_values = @marks['table_values'] %>
+<% master_column_headings = @marks['master_column_headings']%>
+<h3> One Student - One Semester - All Exams - With Assignments </h3>
+<table class = 'datatable_full'>
+  <thead>
+    <tr>
+      <% master_column_headings.each do |mch| %>
+        <% colspan = mch['colspan'] ? mch['colspan'] : 1 %>
+        <% rowspan = mch['rowspan'] ? mch['rowspan'] : 1 %>
+        <%= content_tag :th, :colspan => colspan, :rowspan => rowspan do %>
+          <%= mch['value'] %>
+        <% end %>
+      <% end %>
+    </tr>
+    <tr>
+      <% column_keys.each do |col_key| %>
+        <% if column_headings[col_key]  %>
+          <td align="center" > <%= column_headings[col_key]['value'] %> </td>
+        <% end %>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% table_values.each do |row| %>
+      <tr>
+        <% column_keys.each do |col_key| %>
+          <% data_hash={} %>
+          <% ['bg', 'pass_marks', 'max_marks', 'percentage', 'percentile', 'value'].each do |key| %>
+            <% temp_value = row[col_key][key] if row[col_key] && row[col_key][key] %>
+            <% data_hash = data_hash.merge(key => temp_value) if temp_value %>
+          <% end %> 
+          <%= content_tag :td, :class => "strong", :data => data_hash do %>
+              <%= row[col_key] ? row[col_key]['value'] : "#" %>
+          <% end %>
+        <% end %>
+      </tr>  
+    <% end %>
+  </tbody>
+</table>
+
