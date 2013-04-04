@@ -232,6 +232,9 @@ class Mark < TenantManager
     self.passed_count =  self.passed_count_ia = passed
     self.weighed_total_percentage =  self.weighed_total_percentage_ia = total_credits==0 ? 0 : weighed_total.to_f / total_credits
     self.weighed_pass_marks_percentage =  weighed_pass_marks_percentage_ia  = pass_credits==0 ? 0 : weighed_pass_total.to_f / pass_credits
+    #Round the float values to two decimal points
+    self.weighed_total_percentage = self.weighed_total_percentage.round(2)
+    self.weighed_pass_marks_percentage = self.weighed_pass_marks_percentage.round(2)
 
     #If there are any assignments corresponding to the current record's exam, sum up all the assignment marks, 
     #max_marks and the pass_marks.
@@ -286,6 +289,8 @@ class Mark < TenantManager
       self.passed_count_ia = passed_ia
       self.weighed_total_percentage_ia =  total_credits==0 ? 0 : weighed_total_ia.to_f / total_credits
       self.weighed_pass_marks_percentage_ia =  pass_credits_ia==0 ? 0 : weighed_pass_total_ia.to_f / pass_credits_ia  
+      self.weighed_total_percentage_ia = self.weighed_total_percentage_ia.round(2)
+      self.weighed_pass_marks_percentage_ia = self.weighed_pass_marks_percentage_ia.round(2)
 	end  #End of - if self.exam.assignments
   end
   
@@ -354,6 +359,7 @@ class Mark < TenantManager
       #So, check for null.
       if max_marks && max_marks > 0 && val && (val != NA_MARK_NUM) && (val != ABSENT_MARK_NUM)
         h[col_name] = (val.to_f / max_marks) * 100
+        h[col_name] = h[col_name].round(2)
       else
         h[col_name] = "NA"
       end
@@ -432,6 +438,7 @@ class Mark < TenantManager
     marks.each do |mark|
       #marks.count will never be zero. No worries about divide-by-zero error
       h[mark.id] = ((index[mark] + 1) *100).to_f / marks.count
+      h[mark.id] = h[mark.id].round(2)
     end
     return h
   end
@@ -454,6 +461,7 @@ class Mark < TenantManager
       tot = rel.sum(column_name.to_sym)
       count = rel.count
       avg = tot != 0 ? (tot.to_f / rel.count) : 0
+      avg = avg.round(2)
       return {"total" => tot, "average" => avg, "count" => rel.count}
     else
   	  return nil
@@ -487,6 +495,7 @@ class Mark < TenantManager
       tot = rel.sum(column_name.to_sym)
       count = rel.count
       avg = tot != 0 ? (tot.to_f / rel.count) : 0
+      avg = avg.round(2)
       return {"total" => tot, "average" => avg, "count" => rel.count}
     else
   	  return nil

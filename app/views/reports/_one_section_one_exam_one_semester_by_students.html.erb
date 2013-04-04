@@ -1,5 +1,3 @@
-<%= debug @marks %>
-
 <% column_keys = @marks['column_keys'] %>
 <% column_headings = @marks['column_headings'] %>
 <% table_values = @marks['table_values'] %>
@@ -8,7 +6,14 @@
     <tr>
       <% column_keys.each do |col_key| %>
         <% element = column_headings[col_key] %>
-        <th> <%= element['value'] %> (<%= element['credits']%>c / <%= element['pass_marks']%> / <%= element['max_marks']%>)</th>
+        <% data_hash={} %>
+        <% ['credits', 'pass_marks', 'max_marks', 'value'].each do |key| %>
+          <% temp_value = element[key] if element && element[key] %>
+          <% data_hash = data_hash.merge(key => temp_value) if temp_value %>
+        <% end %>   
+        <%= content_tag :th, :class => "strong", :data => data_hash do %>
+          <%= element ? element['value'] : "#" %>
+        <% end %>           
       <% end %>
     </tr>
   </thead>

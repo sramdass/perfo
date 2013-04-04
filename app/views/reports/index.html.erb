@@ -4,7 +4,21 @@
   <%= render 'selectors/reports_form', :target_url => '/reports' %>
   <span id = "ajax_reports">  
     <% if @marks %>
-      <%= render 'one_student_one_semester_all_exams_with_assignments'%>
+      <% if @student && @semester && @exam %>
+        <%= render 'one_student_one_semester_one_exam' %>
+      <% elsif @student && @semester && @with_assignments %>
+        <%= render 'one_student_one_semester_all_exams_with_assignments' %>
+      <% elsif @student && @semester && @including_assignments %>
+        <%= render 'one_student_one_semester_all_exams_including_assignments' %>
+      <% elsif @student && @semester %>
+        <%= render 'one_student_one_semester_all_exams_without_assignments' %>
+      <% elsif @section && @semester && @exam %>
+        <%= render 'one_section_one_exam_one_semester_by_students' %>
+      <% elsif @section && @semester && @with_assignments && @with_arrear_entries %>     
+        <%= render 'one_section_one_semester_all_exams_with_assignments_with_arrear_entries' %>
+      <% elsif @section && @semester && @with_assignments %>     
+        <%= render 'one_section_one_semester_all_exams_with_assignments_without_arrear_entries' %>
+      <% end %>
     <% else %>
       <strong> Select the filter values </strong>
     <% end %>

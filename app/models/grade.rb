@@ -14,7 +14,8 @@
 class Grade < ActiveRecord::Base
 	
   def self.get_color_code(percentage)
-  	if !percentage
+    #if the parameter is nil or if it is a string (such as NA) return none.
+  	if !percentage || percentage.class == String
   	  return 'none'
   	end
     Grade.order('cut_off_percentage ASC').all.each do |grade|
