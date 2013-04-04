@@ -1,0 +1,36 @@
+<% column_keys = @marks['column_keys'] %>
+<% column_headings = @marks['column_headings'] %>
+<% table_values = @marks['table_values'] %>
+<table class = 'datatable_full'>
+  <thead>
+    <tr>
+      <% column_keys.each do |col_key| %>
+        <% element = column_headings[col_key] %>
+        <% data_hash={} %>
+        <% ['credits', 'pass_marks', 'max_marks', 'value'].each do |key| %>
+          <% temp_value = element[key] if element && element[key] %>
+          <% data_hash = data_hash.merge(key => temp_value) if temp_value %>
+        <% end %>   
+        <%= content_tag :th, :class => "strong", :data => data_hash do %>
+          <%= element ? element['value'] : "#" %>
+        <% end %>           
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% table_values.each do |row| %>
+      <tr>
+        <% column_keys.each do |col_key| %>
+          <% data_hash={} %>
+          <% ['bg', 'pass_marks', 'max_marks', 'percentage', 'percentile', 'value'].each do |key| %>
+            <% temp_value = row[col_key][key] if row[col_key] && row[col_key][key] %>
+            <% data_hash = data_hash.merge(key => temp_value) if temp_value %>
+          <% end %> 
+          <%= content_tag :td, :class => "strong", :data => data_hash do %>
+              <%= row[col_key] ? row[col_key]['value'] : "#" %>
+          <% end %>
+        <% end %>
+      </tr>  
+    <% end %>
+  </tbody>
+</table>

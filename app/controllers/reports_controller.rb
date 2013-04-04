@@ -27,12 +27,16 @@ class ReportsController < ApplicationController
       @marks = one_student_one_semester_all_exams_including_assignments
     elsif @student && @semester
       @marks = one_student_one_semester_all_exams_without_assignments
+    elsif @student
+      @marks = one_student_all_semesters      
+    elsif @section && @semester && @exam && @with_arrear_entries
+      @marks = one_section_one_exam_one_semester_by_students_with_arrear_entries
     elsif @section && @semester && @exam
-      @marks = one_section_one_exam_one_semester_by_students
+      @marks = one_section_one_exam_one_semester_by_students_without_arrear_entries     
     elsif @section && @semester && @with_assignments && @with_arrear_entries
       @marks = one_section_one_semester_all_exams_with_assignments_with_arrear_entries
     elsif @section && @semester && @with_assignments
-      @marks = one_section_one_semester_all_exams_with_assignments_without_arrear_entries      
+      @marks = one_section_one_semester_all_exams_with_assignments_without_arrear_entries    
     end
     	
   end
@@ -191,7 +195,7 @@ class ReportsController < ApplicationController
           percentiles = Mark.subject_percentiles_with_mark_ids(mark_col, mark_row.section_id, mark_row.semester_id, exam_id)  
           marks_hash[exam_id.to_s] =  { 	
           															'value' => absent_na_values_to_s(mark_row.send(mark_col)), 
-                                        'bg' => Grade.get_color_code(mark_row.send(mark_col)) , 
+                                        'bg' => Grade.get_color_code(percentages[mark_col]) , 
           															'max_marks' => mc.max_marks,  'pass_marks' => mc.pass_marks, 
           															'percentage' => percentages[mark_col], 'percentile' => percentiles[mark_row.id]
     	  		  												  }
@@ -285,7 +289,7 @@ class ReportsController < ApplicationController
           percentiles = Mark.subject_percentiles_with_mark_ids(mark_col, mark_row.section_id, mark_row.semester_id, exam_id)  
           marks_hash[mark_row.exam_id.to_s] =  { 	
           															'value' => absent_na_values_to_s(mark_row.send(mark_col)), 
-                                        'bg' => Grade.get_color_code(mark_row.send(mark_col)), 
+                                        'bg' => Grade.get_color_code(percentages[mark_col]), 
           															'max_marks' => mc.max_marks,  'pass_marks' => mc.pass_marks, 
           															'percentage' => percentages[mark_col], 'percentile' => percentiles[mark_row.id]
     	  		  												  }      
@@ -435,19 +439,21 @@ class ReportsController < ApplicationController
               percentiles = Mark.subject_percentiles_with_mark_ids(sub_map.mark_column, mark_row.section_id, mark_row.semester_id, mark_row.exam_id)  
               sub_type = sub_map.subject.lab ? " (Pr) " : " (Th) "
               marks_hash[sub_map.subject_id] =  { 	
-              																		'value' => mark_row.send(sub_map.mark_column), 'bg' => Grade.get_color_code(mark_row.send(sub_map.mark_column)) , 
-              																		'percentage' => percentages[sub_map.mark_column], 'percentile' => percentiles[mark_row.id],
-            																		'subject_name' =>  sub_map.subject.name + sub_type
-    	      																	}
+              																		'value' => mark_row.send(sub_map.mark_column), 
+                                                  'bg' => Grade.get_color_code(percentages[sub_map.mark_column]) , 
+              																		'percentage' => percentages[sub_map.mark_column], 
+                                                  'percentile' => percentiles[mark_row.id],
+            																		  'subject_name' =>  sub_map.subject.name + sub_type
+    	      																      }
     	    end
           end #End-loop subject_maps.each do |sub_map|
           #include other columns apart from the subjects. TODO: make sure these columns are sufficient.
-          marks_hash['total'] = mark_row.send('total')
-          marks_hash['arrears_count'] = mark_row.send("arrears_count")
-          marks_hash['passed_count'] = mark_row.send("passed_count")
-          marks_hash['total_credits'] = mark_row.send("total_credits")
-          marks_hash['weighed_total_percentage'] = mark_row.send("weighed_total_percentage")
-          table_values << {:semester_name =>  Semester.find(sem_id).name}.merge(marks_hash)      
+          marks_hash['total'] = { 'value' => mark_row.send('total') }
+          marks_hash['arrears_count'] = { 'value' => mark_row.send("arrears_count") }
+          marks_hash['passed_count'] = { 'value' => mark_row.send("passed_count") }
+          marks_hash['total_credits'] = { 'value' => mark_row.send("total_credits") }
+          marks_hash['weighed_total_percentage'] = { 'value' => mark_row.send("weighed_total_percentage") }
+          table_values << {'semester_name' =>  { 'value' => Semester.find(sem_id).name}}.merge(marks_hash)     
         end # End-if if mark_row
       end #End-if if final_exam
     end # End-loop semester_ids.each do |sem_id|
@@ -455,23 +461,114 @@ class ReportsController < ApplicationController
   end
   
   #***********************************************************************************#
-  # one_section_one_exam_one_semester_by_students
+  # one_section_one_exam_one_semester_by_students_with_arrear_entries
   # Marksheet of an entire section in a particular exam + semester (marks of all students in a section)
   # 
   # 1. Columns:- Subjects, total, percentage, total_credits etc.. 
   # 2. Rows:- Students
-  # 3. Arrear Marks not included. Since we are selecting a section here in the filter we are not displaying
-  #      the arrear marks, as the arrear subjects are taken in some other section. This has some implementation
-  #      difficulty. :)
-  # 4. Percentage and percentiles included for each of the mark cells, total, weighed_total_percentage, and
-  #      weighed_total_marks_percentage.
-  #TODO:
-  # 1. Do we need to include the arrear marks for a particular student? (Refer #3 above). Or, we can include
-  #     the arrear students in the regular students list when selecting from the filters. This will need code changes
-  #     in the filter code, selectors_controller.rb. If we do that, an arrear student will be listed in all the classes 
-  #      he is enrolledNeed to decided on that.
+  # 3. Percentage and percentiles included for each of the mark cells, total, weighed_total_percentage, and
+  #    weighed_total_marks_percentage.
+  #4. Arrear students included.
+
+  # TESTING: FINISHED 
   #------------------------------------------------------------------------------------------------------------------------------------------#  
-  def one_section_one_exam_one_semester_by_students
+  def one_section_one_exam_one_semester_by_students_with_arrear_entries
+  	#this will have all the rows except the heading row. Each of the rows will be hash keyed by the values in column_keys.
+    table_values = []
+    subject_maps = SecSubMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id).result
+    #Take out all the subjects for this section.
+    subject_ids = subject_maps.order('subject_id ASC').select("subject_id").map{ |x| x.subject_id}.uniq
+    #There are the additional columns that are displayed apart from the subject names. 
+    #TODO: Check if more columns are necessary.
+    other_columns = ['total_credits','total', 'weighed_total_percentage', 'weighed_pass_marks_percentage', 'passed_count', 'arrears_count']
+    column_keys = ['student_name'] + subject_ids.map {|x| x.to_s} + other_columns
+    column_headings = {}
+    #This will contain the percentiles of all the subjects and other columns. each of the element in the hash is keyed by mark_column(subject name alias), 
+    # and will have a hash. This has will have the percentiles keyed by the mark_ids. Refer subject_percentiles_with_mark_ids in mark.rb
+    #that hash 
+    percentiles = {}
+    #Populate the column_headings
+    column_headings['student_name'] = {'value' => "Student", :colspan => 1 } 
+    subject_ids.each do |subject_id|
+      mc = MarkCriteria.search(:semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => @exam.id, :subject_id_eq => subject_id).result.first
+      credits = subject_maps.for_subject(subject_id).first.credits
+      sub_type = Subject.find(subject_id).lab ? " (Pr) " : " (Th) "
+      column_headings[subject_id.to_s] = {'value' => Subject.find(subject_id).name + sub_type, 'credits' => credits,
+                                          'max_marks' => mc.max_marks, 'pass_marks' => mc.pass_marks, :colspan => 1}
+      #Calculate the percentiles for the subjects here itself. If you bring this calculation into the student's loop, it will be
+      #too inefficient.
+      mark_col = subject_maps.search(:subject_id_eq => subject_id).result.first.mark_column
+      percentiles[mark_col] = Mark.subject_percentiles_with_mark_ids(mark_col, @section.id, @semester.id, @exam.id)  
+    end
+    #Calcuate the percentiles for only the total and the percentages. No need to calculate for passed/arrears_count etc..
+    ['total', 'weighed_total_percentage', 'weighed_pass_marks_percentage'].each do |column|
+      percentiles[column] = Mark.subject_percentiles_with_mark_ids(column, @section.id, @semester.id, @exam.id)  
+	end
+	#Populate the column headings for the other columns here.
+    column_headings['total_credits'] = {'value' => "Total Credits", :colspan => 1}
+    column_headings['total'] = {'value' => "Total", :colspan => 1}
+    column_headings['weighed_total_percentage'] = {'value' => "Weighed Total Percentage", :colspan => 1}
+    column_headings['weighed_pass_marks_percentage'] = {'value' => "Weighed Pass Marks Percentage", :colspan => 1}
+    column_headings['passed_count'] = {'value' => "Passed Count", :colspan => 1}
+    column_headings['arrears_count'] = {'value' => "Arrears Count", :colspan => 1}        
+    #One iteration for each student (one iteration for one row in the table)
+    #We are going to add all the students, including the ones enrolled for arrears. So, pick all the rows from the mark table,
+    #that match the criteria.
+    Mark.search(:semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => @exam.id).result.each do |mark_row|
+      student = mark_row.student
+      marks_hash = {}
+      #Mark for this particular student in the given conditions
+      #mark_row = Mark.search(:student_id_eq => student.id, :semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => @exam.id).result.first
+      #One iteration for each of the columns (columns are subjects)
+      subject_ids.each do |subject_id|
+      	#Use the subject_maps association already built to get the mark_column
+      	mark_col = subject_maps.search(:subject_id_eq => subject_id).result.first.mark_column
+        if mark_row && mark_row.send(mark_col) 
+          mc = MarkCriteria.search(:semester_id_eq => @semester.id, :section_id_eq => @section.id, :exam_id_eq => @exam.id, :subject_id_eq => subject_id).result.first
+          #pass_marks = mc ? mc.pass_marks : 0
+          #max_marks = mc ? mc.max_marks : 0
+          percentages = mark_row.percentages_with_mark_columns
+          marks_hash[subject_id.to_s] =  { 	
+          															'value' => absent_na_values_to_s(mark_row.send(mark_col)), 
+                                        'bg' => Grade.get_color_code(percentages[mark_col]), 
+          															'max_marks' => mc.max_marks,  'pass_marks' => mc.pass_marks, 
+          															'percentage' => percentages[mark_col], 
+                                        'percentile' => percentiles[mark_col][mark_row.id]
+    	  														    }
+        end
+      end
+      #Include the other columns in the hash only if a valid mark row is present.
+      if mark_row
+      	#Colums for which the percentiles have been already calculated.
+      	['total', 'weighed_total_percentage', 'weighed_pass_marks_percentage'].each do |column|
+      	  marks_hash[column] = { 'value' => mark_row.send(column), 
+                                 'percentile' => percentiles[column][mark_row.id] }
+  	 	end
+  	 	#Columns for which the percentiles are NA
+  	    ['total_credits', 'passed_count', 'arrears_count'].each do |column|
+      	  marks_hash[column] = { 'value' => mark_row.send(column) }
+  	   	end
+      end
+      #Even if there are no mark rows, the students name alone will be displayed in the mark list. 
+      table_values << {'student_name' =>  {'value' => student.name}}.merge(marks_hash)
+    end
+    return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
+  end        
+  
+  #***********************************************************************************#
+  # one_section_one_exam_one_semester_by_students_without_arrear_entries
+  # Marksheet of an entire section in a particular exam + semester (marks of all students in a section)
+  # 
+  # 1. Columns:- Subjects, total, percentage, total_credits etc.. 
+  # 2. Rows:- Students
+  # 3. Percentage and percentiles included for each of the mark cells, total, weighed_total_percentage, and
+  #    weighed_total_marks_percentage.
+  # 4. Arrear students not included.
+
+  # TESTING: FINISHED 
+  #------------------------------------------------------------------------------------------------------------------------------------------#  
+
+  def one_section_one_exam_one_semester_by_students_without_arrear_entries
   	#this will have all the rows except the heading row. Each of the rows will be hash keyed by the values in column_keys.
     table_values = []
     subject_maps = SecSubMap.search(:section_id_eq => @section.id, :semester_id_eq => @semester.id).result
@@ -526,7 +623,7 @@ class ReportsController < ApplicationController
           percentages = mark_row.percentages_with_mark_columns
           marks_hash[subject_id.to_s] =  { 	
           															'value' => absent_na_values_to_s(mark_row.send(mark_col)), 
-                                        'bg' => Grade.get_color_code(mark_row.send(mark_col)), 
+                                        'bg' => Grade.get_color_code(percentages[mark_col]), 
           															'max_marks' => mc.max_marks,  'pass_marks' => mc.pass_marks, 
           															'percentage' => percentages[mark_col], 
                                         'percentile' => percentiles[mark_col][mark_row.id]
@@ -550,7 +647,7 @@ class ReportsController < ApplicationController
     end
     return {'column_keys' => column_keys, 'column_headings' => column_headings, 'table_values' => table_values}
   end        
-  
+    
   #***********************************************************************************#
   # one_section_one_semester_all_exams_with_assignments_with_arrear_entries
   # Marksheet of an entire section in a semester. All the exams marks will be presented.
@@ -562,6 +659,9 @@ class ReportsController < ApplicationController
   # 2. Rows:- Subjects. (Each row will have a particular subject mark in each of the exams) +
   #      Non subject columns in marks table such as total, average etc..
   # 3. Arrear Marks included. The average for a exam + subject is calculated with the arrear students' marks.
+  
+  # TESTING: FINISHED 
+  
 
   #------------------------------------------------------------------------------------------------------------------------------------------#    
   
@@ -651,6 +751,8 @@ class ReportsController < ApplicationController
   #      Non subject columns in marks table such as total, average etc..
   # 3. Arrear Marks NOT included. The average for a exam + subject is calculated without the arrear student
   #     marks
+  
+  # TESTING: FINISHED 
 
   #------------------------------------------------------------------------------------------------------------------------------------------#    
   
